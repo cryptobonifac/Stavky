@@ -1,0 +1,4 @@
+- always read PLANNING.md at the start of every conversation
+- check TASKS.md before starting your work 
+- mark completed 
+- add newly discorevered tasks
