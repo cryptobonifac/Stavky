@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { AppThemeProvider } from '@/components/providers/app-theme-provider'
+import { AuthProvider } from '@/components/providers/auth-provider'
 
 export const metadata: Metadata = {
   title: 'Stavky - Sports Betting Tips',
@@ -13,7 +15,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppThemeProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </AppThemeProvider>
+      </body>
     </html>
   )
 }

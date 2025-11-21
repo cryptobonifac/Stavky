@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stavky Login Link</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background-color: #f8fafc;
+        color: #0f172a;
+        margin: 0;
+        padding: 24px;
+      }
+      .card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        max-width: 520px;
+        margin: 0 auto;
+        border: 1px solid #e2e8f0;
+      }
+      a.button {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #0f172a;
+        color: #f8fafc;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+      p {
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>One-tap login for Stavky</h1>
+      <p>Hello {{ .Email }},</p>
+      <p>
+        Use the secure link below to finish signing in. The link expires in 5
+        minutes for your safety.
+      </p>
+      <p style="text-align: center; margin: 32px 0">
+        <a class="button" href="{{ .ActionLink }}">Complete sign in</a>
+      </p>
+      <p>If the button does not work, copy and paste this URL:</p>
+      <p style="word-break: break-all">{{ .ActionLink }}</p>
+      <p>Thanks for trusting Stavky with your betting operations.</p>
+    </div>
+  </body>
+</html>
+

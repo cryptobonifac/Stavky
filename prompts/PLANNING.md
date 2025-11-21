@@ -13,22 +13,23 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
 - [x] Set up environment variables (.env.local, .env.development)
 
 ### 1.2 Supabase Setup
-- [ ] Create Supabase project
-- [ ] Install Supabase client libraries (@supabase/supabase-js, @supabase/auth-helpers-nextjs)
-- [ ] Configure Supabase client initialization
-- [ ] Set up environment variables for Supabase (URL, anon key, service role key)
+- [x] Install Supabase client libraries (@supabase/supabase-js, @supabase/ssr)
+- [x] Create Supabase project (manual step - go to https://app.supabase.com)
+- [x] Install Supabase client libraries (@supabase/supabase-js, @supabase/ssr)
+- [x] Configure Supabase client initialization
+- [x] Set up environment variables for Supabase (URL, anon key, service role key)
 
 
 ### 1.3 UI Framework Setup
-- [ ] Install and configure Material-UI (MUI) or Tailwind CSS
-- [ ] Set up MUI DatePicker (@mui/x-date-pickers)
-- [ ] Configure theme for minimalist design
-- [ ] Set up responsive layout components
+- [x] Install and configure Material-UI (MUI) or Tailwind CSS
+- [x] Set up MUI DatePicker (@mui/x-date-pickers)
+- [x] Configure theme for minimalist design
+- [x] Set up responsive layout components
 
 ## Phase 2: Database Schema Design
 
 ### 2.1 Core Tables
-- [ ] **users** (extends Supabase auth.users)
+- [x] **users** (extends Supabase auth.users)
   - id (uuid, primary key)
   - email (text)
   - role (enum: 'betting', 'customer')
@@ -36,23 +37,23 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
   - created_at (timestamp)
   - updated_at (timestamp)
 
-- [ ] **betting_companies**
+- [x] **betting_companies**
   - id (uuid, primary key)
   - name (text, unique)
   - created_at (timestamp)
 
-- [ ] **sports**
+- [x] **sports**
   - id (uuid, primary key)
   - name (text, unique)
   - created_at (timestamp)
 
-- [ ] **leagues**
+- [x] **leagues**
   - id (uuid, primary key)
   - name (text)
   - sport_id (uuid, foreign key to sports)
   - created_at (timestamp)
 
-- [ ] **betting_tips**
+- [x] **betting_tips**
   - id (uuid, primary key)
   - betting_company_id (uuid, foreign key)
   - sport_id (uuid, foreign key)
@@ -65,131 +66,133 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
   - created_at (timestamp)
   - updated_at (timestamp)
 
-- [ ] **user_subscriptions**
+- [x] **user_subscriptions**
   - id (uuid, primary key)
   - user_id (uuid, foreign key to users)
   - month (date)
-  - has_losing_tip (boolean)
+  - valid_to (timestamp)
   - next_month_free (boolean)
   - created_at (timestamp)
 
-- [ ] **marketing_settings**
+- [x] **marketing_settings**
   - id (uuid, primary key)
   - key (text, unique)
   - value (jsonb)
   - updated_at (timestamp)
 
 ### 2.2 Database Policies (RLS)
-- [ ] Set up Row Level Security (RLS) on all tables
-- [ ] Create policies for betting role (full access)
-- [ ] Create policies for customer role (read-only access to active tips)
-- [ ] Create policies for public access (homepage only)
+- [x] Set up Row Level Security (RLS) on all tables
+- [x] Create policies for betting role (full access)
+- [x] Create policies for customer role (read-only access to active tips)
+- [x] Create policies for public access (homepage only)
 
 ### 2.3 Database Functions & Triggers
-- [ ] Function to check if user has active account
-- [ ] Function to calculate tip success rate by month
-- [ ] Trigger to automatically set next_month_free based on losing tips
-- [ ] Function to validate odds range (1.001 to 2.00)
+- [x] Function to check if user has active account
+- [x] Function to calculate tip success rate by month
+- [x] Trigger to automatically set next_month_free based on losing tips
+- [x] Function to validate odds range (1.001 to 2.00)
 
 ## Phase 3: Authentication System
 
 ### 3.1 Supabase Auth Configuration
-- [ ] Configure email/password authentication
-- [ ] Set up Google OAuth provider
-- [ ] Set up Facebook OAuth provider
-- [ ] Configure OAuth redirect URLs
-- [ ] Set up email templates (optional)
+- [x] Configure email/password authentication
+- [x] Set up Google OAuth provider
+- [x] Set up Facebook OAuth provider
+- [x] Configure OAuth redirect URLs
+- [x] Set up email templates (optional)
 
 ### 3.2 Authentication Components
-- [ ] Create login page component
-- [ ] Create signup page component
-- [ ] Create social login buttons (Google, Facebook)
-- [ ] Create authentication context/provider
-- [ ] Create protected route wrapper (middleware)
+- [x] Create login page component
+- [x] Create signup page component
+- [x] Create social login buttons (Google, Facebook)
+- [x] Create authentication context/provider
+- [x] Create protected route wrapper (middleware)
 
 ### 3.3 User Management
-- [ ] Create user profile page
-- [ ] Implement profile update functionality
-- [ ] Add role-based access control helpers
+- [x] Create user profile page
+- [x] Implement profile update functionality
+- [x] Add role-based access control helpers
 
 ## Phase 4: Core Application Features
 
 ### 4.1 Homepage (/home)
-- [ ] Create homepage layout
-- [ ] Add project information section
-- [ ] Add call-to-action for registration
-- [ ] Implement responsive design
+- [x] Create homepage layout
+- [x] Add project information section
+- [x] Add call-to-action for registration
+- [x] Implement responsive design
 
 ### 4.2 Betting Tips Page (/bettings)
-- [ ] Create betting tips list component
-- [ ] Filter tips by date (current/active)
-- [ ] Display tips in card/list format
-- [ ] Show betting company, sport, league, match, odds, date
-- [ ] Add access control (only active customers)
-- [ ] Implement pagination or infinite scroll
+- [x] Create betting tips list component
+- [x] Filter tips by date (current/active)
+- [x] Display tips in card/list format
+- [x] Show betting company, sport, league, match, odds, date
+- [x] Add access control (only active customers)
+- [x] Implement pagination or infinite scroll
 
 ### 4.3 History Page (/history)
-- [ ] Create history page layout
-- [ ] Group tips by month
-- [ ] Calculate and display success rate per month
-- [ ] Show win/loss statistics
-- [ ] Add month selector/filter
-- [ ] Display percentage success rate
+- [x] Create history page layout
+- [x] Group tips by month
+- [x] Calculate and display success rate per month
+- [x] Show win/loss statistics
+- [x] Add month selector/filter
+- [x] Display percentage success rate
 
 ### 4.4 Profile Page (/profile)
-- [ ] Create profile settings page
-- [ ] Display user information
-- [ ] Show account status and expiration date
-- [ ] Add profile update form
-- [ ] Display subscription history
+- [x] Create profile settings page
+- [x] Display user information
+- [x] Show account status and expiration date
+- [x] Add profile update form
+- [x] Display subscription history
 
 ## Phase 5: Admin Features (Betting Role)
 
 ### 5.1 New Bet Form (/newbet)
-- [ ] Create form layout
-- [ ] Add betting company dropdown (from database)
-- [ ] Add sport dropdown (from database)
-- [ ] Add league dropdown (filtered by selected sport)
-- [ ] Add match text input
-- [ ] Add odds input with validation (1.001-2.00)
-- [ ] Add date picker (MUI DatePicker, format: dd.mm.YYYY HH:mm)
-- [ ] Implement form validation
-- [ ] Add submit handler with Supabase insert
-- [ ] Add success/error notifications
-- [ ] Protect route (betting role only)
+- [x] Create form layout
+- [x] Add betting company dropdown (from database)
+- [x] Add sport dropdown (from database)
+- [x] Add league dropdown (filtered by selected sport)
+- [x] Add match text input
+- [x] Add odds input with validation (1.001-2.00)
+- [x] Add date picker (MUI DatePicker, format: dd.mm.YYYY HH:mm)
+- [x] Implement form validation
+- [x] Add submit handler with Supabase insert
+- [x] Add success/error notifications
+- [x] Protect route (betting role only)
 
 ### 5.2 Betting Tips Management
-- [ ] Create list of unevaluated bets
-- [ ] Add filter for pending bets
-- [ ] Add manual evaluation buttons (Win/Loss)
-- [ ] Implement status update functionality
-- [ ] Add confirmation dialog for status changes
-- [ ] Update tip status in database
+- [x] Create list of unevaluated bets
+- [x] Add filter for pending bets
+- [x] Add manual evaluation buttons (Win/Loss)
+- [x] Implement status update functionality
+- [x] Add confirmation dialog for status changes
+- [x] Update tip status in database
 
 ### 5.3 Settings Page (/settings)
-- [ ] Create settings page layout
-- [ ] **User List Section**
+- [x] Create settings page layout
+- [x] **User List Section**
   - Display all registered users
   - Show user email, role, account status
   - Add search/filter functionality
   - Add pagination
-- [ ] **Account Activation Section**
+- [x] **Account Activation Section**
   - Add date picker for account expiration
   - Update user account_active_until field
   - Bulk update functionality (optional)
-- [ ] **Betting Companies Management**
+- [x] **Betting Companies Management**
   - List all betting companies
   - Add new betting company form
   - Edit existing betting company
   - Delete betting company (with confirmation)
-- [ ] **Marketing Settings**
+- [x] **Marketing Settings**
   - Create marketing settings form
   - Store settings in marketing_settings table
   - Add settings for free month logic
-- [ ] **Free Month Logic Settings**
+- [x] **Free Month Logic Settings**
   - Toggle for automatic free month on losing tip
   - Configure rules for free month eligibility
-- [ ] Protect all settings routes (betting role only)
+- [x] Protect all settings routes (betting role only)
+- [x] this route is accessible only for role betting
+- [x] setting link is in navigation bar next to logout from left
 
 ## Phase 6: Business Logic Implementation
 

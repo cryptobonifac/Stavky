@@ -34,8 +34,8 @@ test.describe('Localhost Connection Tests', () => {
     const mainContent = page.locator('main')
     await expect(mainContent).toBeVisible()
 
-    // Check for the welcome heading
-    const heading = page.getByRole('heading', { name: /Welcome to Stavky/i })
+    // Check for the hero heading
+    const heading = page.getByRole('heading', { name: /Ship confident layouts faster/i })
     await expect(heading).toBeVisible()
   })
 
@@ -90,7 +90,24 @@ test.describe('Localhost Connection Tests', () => {
     // Check if HTML structure is correct
     expect(html).toContain('<html')
     expect(html).toContain('<body')
-    expect(html).toContain('Welcome to Stavky')
+    expect(html).toContain('Ship confident layouts faster')
+  })
+
+  test('should confirm Supabase is configured via API', async ({ request }) => {
+    const response = await request.get('http://localhost:3000/api/test-supabase', {
+      timeout: 30000,
+    })
+
+    expect(response.ok()).toBeTruthy()
+    expect(response.status()).toBe(200)
+
+    const payload = await response.json()
+
+    expect(payload.success).toBe(true)
+    expect(payload.details?.url).toMatch(/^https?:\/\//)
+    expect(payload.details?.hasAnonKey).toBe(true)
+    expect(typeof payload.details?.anonKeyLength).toBe('number')
+    expect(payload.details?.anonKeyLength).toBeGreaterThan(0)
   })
 })
 
