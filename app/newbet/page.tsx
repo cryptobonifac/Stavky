@@ -29,13 +29,31 @@ export default async function NewBetPage() {
     redirect('/bettings')
   }
 
-  const [{ data: companies }, { data: sports }] = await Promise.all([
+  const [companiesRes, sportsRes] = await Promise.all([
     supabase.from('betting_companies').select('id,name').order('name'),
     supabase
       .from('sports')
       .select('id,name,leagues(id,name)')
       .order('name'),
   ])
+
+  // Log errors for debugging
+  if (companiesRes.error) {
+    console.error('[NewBetPage] Error fetching betting companies:', companiesRes.error)
+  }
+  if (sportsRes.error) {
+    console.error('[NewBetPage] Error fetching sports:', sportsRes.error)
+  }
+
+  const companies = companiesRes.data ?? []
+  const sports = sportsRes.data ?? []
+
+  // Debug logging
+  console.log('[NewBetPage] Companies count:', companies.length)
+  console.log('[NewBetPage] Sports count:', sports.length)
+  if (sports.length > 0) {
+    console.log('[NewBetPage] First sport leagues:', sports[0].leagues?.length ?? 0)
+  }
 
   return (
     <MainLayout>

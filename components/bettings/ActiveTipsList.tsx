@@ -10,7 +10,13 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
+  Box,
+  Divider,
 } from '@mui/material'
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
+import AccessTimeIcon from '@mui/icons-material/AccessTime'
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import { useTranslations } from 'next-intl'
 
 export type TipRecord = {
   id: string
@@ -23,21 +29,22 @@ export type TipRecord = {
   leagues?: { name: string | null } | null
 }
 
-const filters = [
-  { value: 'today', label: 'Today' },
-  { value: 'tomorrow', label: 'Tomorrow' },
-  { value: 'upcoming', label: 'Upcoming' },
-  { value: 'all', label: 'All' },
-] as const
-
-type FilterValue = (typeof filters)[number]['value']
+type FilterValue = 'today' | 'tomorrow' | 'upcoming' | 'all'
 
 type ActiveTipsListProps = {
   tips: TipRecord[]
 }
 
 const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
+  const t = useTranslations('bettings')
   const [filter, setFilter] = useState<FilterValue>('today')
+  
+  const filters = [
+    { value: 'today' as const, label: t('filterToday') },
+    { value: 'tomorrow' as const, label: t('filterTomorrow') },
+    { value: 'upcoming' as const, label: t('filterUpcoming') },
+    { value: 'all' as const, label: t('filterAll') },
+  ]
 
   const filteredTips = useMemo(() => {
     const now = dayjs()
@@ -55,62 +62,189 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   }, [tips, filter])
 
   return (
-    <Stack spacing={3}>
-      <Stack spacing={1}>
-        <Typography variant="h5">Current betting tips</Typography>
-        <Typography variant="body2" color="text.secondary">
-          Filter tips by upcoming dates. Only pending tips with future kickoff
-          times are shown.
+    <Stack spacing={4}>
+      <Box>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          {t('filterDescription')}
         </Typography>
-      </Stack>
-      <ToggleButtonGroup
-        value={filter}
-        exclusive
-        onChange={(_event, next) => next && setFilter(next)}
-        color="primary"
-      >
-        {filters.map(({ value, label }) => (
-          <ToggleButton key={value} value={value}>
-            {label}
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
-      <Stack spacing={2}>
+        <ToggleButtonGroup
+          value={filter}
+          exclusive
+          onChange={(_event, next) => next && setFilter(next)}
+          color="primary"
+          fullWidth
+          data-testid="bettings-filter-group"
+          sx={{
+            '& .MuiToggleButton-root': {
+              py: 1.5,
+              px: 3,
+              fontWeight: 500,
+              textTransform: 'none',
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'divider',
+              '&.Mui-selected': {
+                bgcolor: 'primary.main',
+                color: 'primary.contrastText',
+                borderColor: 'primary.main',
+                '&:hover': {
+                  bgcolor: 'primary.dark',
+                },
+              },
+            },
+          }}
+        >
+          {filters.map(({ value, label }) => (
+            <ToggleButton key={value} value={value} data-testid={`bettings-filter-${value}`}>
+              {label}
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
+
+      {filteredTips.length > 0 && (
+        <Box
+          sx={{
+            p: 2,
+            borderRadius: 2,
+            bgcolor: 'background.default',
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {t('showing')} <strong>{filteredTips.length}</strong>{' '}
+            {filteredTips.length === 1 ? t('tip') : t('tips')}
+          </Typography>
+        </Box>
+      )}
+
+      <Stack spacing={2.5}>
         {filteredTips.length === 0 && (
-          <Card variant="outlined">
+          <Card
+            variant="outlined"
+            sx={{
+              border: '1px dashed',
+              borderColor: 'divider',
+              borderRadius: 3,
+              textAlign: 'center',
+              py: 6,
+              bgcolor: 'background.default',
+            }}
+          >
             <CardContent>
-              <Typography variant="body1">
-                No tips matched the selected filter.
+              <SportsSoccerIcon
+                sx={{
+                  fontSize: 48,
+                  color: 'text.secondary',
+                  opacity: 0.5,
+                  mb: 2,
+                }}
+              />
+              <Typography variant="h6" color="text.secondary" gutterBottom>
+                {t('noTipsForFilter')}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {t('checkBackLater')}
               </Typography>
             </CardContent>
           </Card>
         )}
         {filteredTips.map((tip) => (
-          <Card key={tip.id} variant="outlined">
-            <CardContent>
-              <Stack
-                direction={{ xs: 'column', md: 'row' }}
-                spacing={2}
-                justifyContent="space-between"
-              >
-                <Stack spacing={1}>
-                  <Typography variant="h6">{tip.match}</Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {[
-                      tip.betting_companies?.name,
-                      tip.sports?.name,
-                      tip.leagues?.name,
-                    ]
-                      .filter(Boolean)
-                      .join(' • ')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Kickoff: {dayjs(tip.match_date).format('DD.MM.YYYY HH:mm')}
-                  </Typography>
-                </Stack>
-                <Stack spacing={1} alignItems={{ xs: 'flex-start', md: 'flex-end' }}>
-                  <Chip label={`Odds ${tip.odds.toFixed(3)}`} color="primary" />
-                  <Chip label={tip.status} variant="outlined" />
+          <Card
+            key={tip.id}
+            variant="outlined"
+            sx={{
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 3,
+              transition: 'all 0.2s ease-in-out',
+              '&:hover': {
+                borderColor: 'primary.main',
+                boxShadow: 2,
+                transform: 'translateY(-2px)',
+              },
+            }}
+          >
+            <CardContent sx={{ p: 3 }}>
+              <Stack spacing={2.5}>
+                <Stack
+                  direction={{ xs: 'column', md: 'row' }}
+                  spacing={2}
+                  justifyContent="space-between"
+                  alignItems={{ xs: 'flex-start', md: 'center' }}
+                >
+                  <Stack spacing={1.5} flex={1}>
+                    <Stack direction="row" spacing={1.5} alignItems="center">
+                      <Box
+                        sx={{
+                          p: 0.75,
+                          borderRadius: 1.5,
+                          bgcolor: 'primary.main',
+                          color: 'primary.contrastText',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <SportsSoccerIcon fontSize="small" />
+                      </Box>
+                      <Typography variant="h6" fontWeight={600}>
+                        {tip.match}
+                      </Typography>
+                    </Stack>
+                    <Stack spacing={1} sx={{ pl: 4.5 }}>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
+                        {[
+                          tip.betting_companies?.name,
+                          tip.sports?.name,
+                          tip.leagues?.name,
+                        ]
+                          .filter(Boolean)
+                          .join(' • ')}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                      >
+                        <AccessTimeIcon fontSize="small" sx={{ fontSize: 16 }} />
+                        {t('kickoff')}: {dayjs(tip.match_date).format('DD.MM.YYYY HH:mm')}
+                      </Typography>
+                    </Stack>
+                  </Stack>
+                  <Stack
+                    direction={{ xs: 'row', md: 'column' }}
+                    spacing={1.5}
+                    alignItems={{ xs: 'center', md: 'flex-end' }}
+                  >
+                    <Chip
+                      icon={<TrendingUpIcon />}
+                      label={`${t('odds')} ${tip.odds.toFixed(3)}`}
+                      color="primary"
+                      sx={{
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        height: 36,
+                        '& .MuiChip-icon': {
+                          color: 'inherit',
+                        },
+                      }}
+                    />
+                    <Chip
+                      label={t(tip.status)}
+                      variant="outlined"
+                      sx={{
+                        fontWeight: 500,
+                        borderWidth: 1.5,
+                        height: 36,
+                      }}
+                    />
+                  </Stack>
                 </Stack>
               </Stack>
             </CardContent>

@@ -197,27 +197,28 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
 ## Phase 6: Business Logic Implementation
 
 ### 6.1 Subscription Management
-- [ ] Create function to check account active status
-- [ ] Implement logic to check if user has active account
-- [ ] Add middleware to protect customer routes
+- [x] Create function to check account active status
+- [x] Implement logic to check if user has active account
+- [x] Add middleware to protect customer routessunp
 
 ### 6.2 Free Month Logic
-- [ ] Create function to check for losing tips in previous month
-- [ ] Implement automatic next_month_free flag setting
-- [ ] Create trigger/function to extend account when free month is granted
-- [ ] Add manual override in settings
+- [x] Create function to check for losing tips in previous month
+- [x] Implement automatic next_month_free flag setting
+- [x] Create trigger/function to extend account when free month is granted
+- [x] Add manual override in settings
 
 ### 6.3 Tip Evaluation
-- [ ] Create function to calculate monthly success rate
-- [ ] Implement tip status aggregation
-- [ ] Add statistics calculation (win rate, total tips, etc.)
+- [x] Create function to calculate monthly success rate
+- [x] Implement tip status aggregation
+- [x] Add statistics calculation (win rate, total tips, etc.)
 
 ## Phase 7: UI/UX Implementation
 
 ### 7.1 Design System
-- [ ] Define color palette (minimalist)
-- [ ] Set up typography scale
-- [ ] Create reusable component library
+- [x] Design inspiration https://antigravity.google/
+- [x] Define color palette (minimalist)
+- [x] Set up typography scale
+- [x] Create reusable component library
   - Buttons
   - Cards
   - Forms
@@ -226,18 +227,18 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
   - Navigation
 
 ### 7.2 Layout Components
-- [ ] Create main layout wrapper
-- [ ] Create navigation bar/header
-- [ ] Add role-based navigation items
-- [ ] Create footer (optional)
-- [ ] Implement responsive sidebar (if needed)
+- [x] Create main layout wrapper
+- [x] Create navigation bar/header
+- [x] Add role-based navigation items
+- [x] Create footer (optional)
+- [x] Implement responsive sidebar (if needed)
 
 ### 7.3 Styling & Responsiveness
-- [ ] Ensure mobile responsiveness
-- [ ] Add loading states
-- [ ] Add error states
-- [ ] Add empty states
-- [ ] Implement smooth transitions
+- [x] Ensure mobile responsiveness
+- [x] Add loading states
+- [x] Add error states
+- [x] Add empty states
+- [x] Implement smooth transitions
 
 ## Phase 8: Testing & Quality Assurance
 
@@ -286,10 +287,20 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
 - [ ] Monitor Supabase usage
 
 ### 10.2 Documentation
-- [ ] Create README with setup instructions
-- [ ] Document environment variables
-- [ ] Document database schema
+- [x] Create README with setup instructions
+- [x] Document environment variables
+- [x] Document database schema
 - [ ] Create user guide (optional)
+
+### 10.3 Internationalization (i18n)
+- [x] Install next-intl package
+- [x] Configure i18n routing and request handling
+- [x] Create translation files (English, Czech, Slovak)
+- [x] Set up middleware for locale detection
+- [x] Create language switcher component
+- [x] Document i18n setup and usage
+- [ ] Update existing components to use translations
+- [ ] Restructure app directory for [locale] routing
 
 ## Technical Stack Summary
 

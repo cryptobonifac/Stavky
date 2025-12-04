@@ -1,6 +1,6 @@
 'use client'
 
-import NextLink from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Button, Paper, Stack, Typography } from '@mui/material'
 
 const CallToActionCard = () => (
@@ -25,7 +25,7 @@ const CallToActionCard = () => (
     </Stack>
     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
       <Button
-        component={NextLink}
+        component={Link}
         href="/signup"
         variant="contained"
         color="primary"
@@ -34,7 +34,7 @@ const CallToActionCard = () => (
         Create account
       </Button>
       <Button
-        component={NextLink}
+        component={Link}
         href="/login"
         variant="outlined"
         size="large"

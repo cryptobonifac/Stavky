@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { Box, Paper, Stack, Typography } from '@mui/material'
 import type { ReactNode } from 'react'
 

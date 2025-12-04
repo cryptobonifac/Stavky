@@ -13,6 +13,7 @@ import {
   Stack,
   Typography,
 } from '@mui/material'
+import { useTranslations, useLocale } from 'next-intl'
 
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 
@@ -34,6 +35,9 @@ type HistoryMonthViewProps = {
 }
 
 const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
+  const t = useTranslations('history')
+  const tBettings = useTranslations('bettings')
+  const locale = useLocale()
   const [selectedKey, setSelectedKey] = useState(months[0]?.key ?? '')
   const selectedMonth = useMemo(
     () => months.find((month) => month.key === selectedKey) ?? months[0],
@@ -44,7 +48,7 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
     return (
       <Card variant="outlined">
         <CardContent>
-          <Typography>No history available yet.</Typography>
+          <Typography>{t('noHistoryYet')}</Typography>
         </CardContent>
       </Card>
     )
@@ -58,7 +62,7 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
         justifyContent="space-between"
         alignItems={{ xs: 'flex-start', md: 'center' }}
       >
-        <Typography variant="h5">Monthly performance</Typography>
+        <Typography variant="h5">{t('monthlyPerformance')}</Typography>
         <Select
           value={selectedMonth.key}
           onChange={(event) => setSelectedKey(event.target.value)}
@@ -80,16 +84,16 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
           >
             <Stack spacing={1}>
               <Typography variant="body2" color="text.secondary">
-                Success rate
+                {t('successRate')}
               </Typography>
               <Typography variant="h3">
                 {selectedMonth.successRate.toFixed(1)}%
               </Typography>
             </Stack>
             <Stack direction="row" spacing={2}>
-              <Chip label={`Wins ${selectedMonth.wins}`} color="success" />
-              <Chip label={`Losses ${selectedMonth.losses}`} color="error" />
-              <Chip label={`Pending ${selectedMonth.pending}`} />
+              <Chip label={`${t('wins')} ${selectedMonth.wins}`} color="success" />
+              <Chip label={`${t('losses')} ${selectedMonth.losses}`} color="error" />
+              <Chip label={`${t('pending')} ${selectedMonth.pending}`} />
             </Stack>
           </Stack>
           <Divider sx={{ my: 3 }} />
@@ -106,7 +110,10 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                   <Typography color="text.secondary">
                     {dayjs(tip.match_date).format('DD.MM.YYYY')}
                   </Typography>
-                  <Chip label={tip.status} size="small" />
+                  <Chip 
+                    label={tip.status === 'win' ? tBettings('win') : tip.status === 'loss' ? tBettings('loss') : tBettings('pending')} 
+                    size="small" 
+                  />
                 </Stack>
               </Stack>
             ))}

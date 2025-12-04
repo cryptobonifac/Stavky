@@ -4,14 +4,13 @@ import { useState, useTransition } from 'react'
 import {
   Alert,
   Button,
-  Card,
-  CardContent,
   FormControlLabel,
   Stack,
   Switch,
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 type MarketingSettings = {
   id: string
@@ -26,6 +25,7 @@ type MarketingSettingsSectionProps = {
 const MarketingSettingsSection = ({
   settings,
 }: MarketingSettingsSectionProps) => {
+  const t = useTranslations('settings.marketing')
   const [autoFreeMonth, setAutoFreeMonth] = useState(
     Boolean(settings?.value?.autoFreeMonth)
   )
@@ -48,57 +48,53 @@ const MarketingSettingsSection = ({
       })
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}))
-        setFeedback(payload.error ?? 'Failed to update marketing settings')
+        setFeedback(payload.error ?? t('saveFailed'))
         return
       }
-      setFeedback('Marketing settings saved.')
+      setFeedback(t('settingsSaved'))
     })
   }
 
   return (
-    <Card variant="outlined">
-      <CardContent>
-        <Stack spacing={3}>
-          <div>
-            <Typography variant="h5">Marketing & free month settings</Typography>
-            <Typography variant="body2" color="text.secondary">
-              Configure how free months are automatically granted after losing
-              streaks.
-            </Typography>
-          </div>
-          {feedback && (
-            <Alert severity="success" onClose={() => setFeedback(null)}>
-              {feedback}
-            </Alert>
-          )}
-          <FormControlLabel
-            control={
-              <Switch
-                checked={autoFreeMonth}
-                onChange={(event) => setAutoFreeMonth(event.target.checked)}
-              />
-            }
-            label="Grant free month automatically after loss threshold"
+    <Stack spacing={3}>
+      <Typography variant="body2" color="text.secondary">
+        {t('freeMonthDescription')}
+      </Typography>
+      {feedback && (
+        <Alert severity="success" onClose={() => setFeedback(null)}>
+          {feedback}
+        </Alert>
+      )}
+      <FormControlLabel
+        control={
+          <Switch
+            checked={autoFreeMonth}
+            onChange={(event) => setAutoFreeMonth(event.target.checked)}
+            data-testid="settings-marketing-auto-free-month-switch"
           />
-          <TextField
-            type="number"
-            label="Loss threshold"
-            value={threshold}
-            onChange={(event) =>
-              setThreshold(Number(event.target.value) || 0)
-            }
-            helperText="Number of losses in a month before granting a free month"
-          />
-          <Button
-            variant="contained"
-            onClick={handleSave}
-            disabled={isPending}
-          >
-            Save settings
-          </Button>
-        </Stack>
-      </CardContent>
-    </Card>
+        }
+        label={t('autoEnable')}
+      />
+      <TextField
+        type="number"
+        label={t('lossThreshold')}
+        value={threshold}
+        onChange={(event) =>
+          setThreshold(Number(event.target.value) || 0)
+        }
+        helperText={t('lossThresholdHelper')}
+        inputProps={{ 'data-testid': 'settings-marketing-loss-threshold-input' }}
+      />
+      <Button
+        variant="contained"
+        onClick={handleSave}
+        disabled={isPending}
+        sx={{ alignSelf: 'flex-start' }}
+        data-testid="settings-marketing-save-button"
+      >
+        {t('saveSettings')}
+      </Button>
+    </Stack>
   )
 }
 

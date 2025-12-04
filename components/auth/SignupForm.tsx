@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import {
   Alert,
   Button,
@@ -10,11 +9,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/routing'
 
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons'
 import { useAuth } from '@/components/providers/auth-provider'
 
 const SignupForm = () => {
+  const t = useTranslations('auth.signup')
   const { signUpWithPassword } = useAuth()
   const router = useRouter()
   const [email, setEmail] = useState('')
@@ -28,7 +30,7 @@ const SignupForm = () => {
     setError(null)
 
     if (password !== confirmPassword) {
-      setError('Passwords do not match.')
+      setError(t('passwordsDontMatch'))
       return
     }
 
@@ -43,33 +45,36 @@ const SignupForm = () => {
   }
 
   return (
-    <Stack spacing={3} component="form" onSubmit={handleSubmit}>
-      {error && <Alert severity="error">{error}</Alert>}
+    <Stack spacing={3} component="form" onSubmit={handleSubmit} data-testid="signup-form">
+      {error && <Alert severity="error" data-testid="signup-error">{error}</Alert>}
       <Stack spacing={2}>
         <TextField
-          label="Email"
+          label={t('email')}
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
           fullWidth
+          inputProps={{ 'data-testid': 'signup-email-input' }}
         />
         <TextField
-          label="Password"
+          label={t('password')}
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           required
           fullWidth
-          helperText="Use at least 8 characters"
+          helperText={t('passwordHelper')}
+          inputProps={{ 'data-testid': 'signup-password-input' }}
         />
         <TextField
-          label="Confirm password"
+          label={t('confirmPassword')}
           type="password"
           value={confirmPassword}
           onChange={(event) => setConfirmPassword(event.target.value)}
           required
           fullWidth
+          inputProps={{ 'data-testid': 'signup-confirm-password-input' }}
         />
       </Stack>
       <Button
@@ -77,15 +82,16 @@ const SignupForm = () => {
         variant="contained"
         size="large"
         disabled={submitting}
+        data-testid="signup-submit-button"
       >
-        {submitting ? 'Creating account...' : 'Create account'}
+        {submitting ? t('creatingAccount') : t('createAccount')}
       </Button>
       <Stack spacing={2}>
-        <Divider>or continue with</Divider>
+        <Divider>{t('orContinueWith')}</Divider>
         <SocialLoginButtons onError={setError} />
       </Stack>
       <Typography variant="caption" color="text.secondary" textAlign="center">
-        By creating an account you agree to the Stavky terms of service.
+        {t('termsAgreement')}
       </Typography>
     </Stack>
   )

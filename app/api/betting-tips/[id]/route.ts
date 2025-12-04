@@ -4,8 +4,19 @@ import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
+  
+  // Validate UUID format
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  if (!id || id === 'undefined' || !uuidRegex.test(id)) {
+    return NextResponse.json(
+      { error: `Invalid tip ID: ${id}` },
+      { status: 400 }
+    )
+  }
+
   const supabase = await createServerClient()
   const { status } = await request.json().catch(() => ({}))
 
@@ -37,7 +48,7 @@ export async function PATCH(
   const { error } = await supabase
     .from('betting_tips')
     .update({ status })
-    .eq('id', params.id)
+    .eq('id', id)
 
   if (error) {
     return NextResponse.json(

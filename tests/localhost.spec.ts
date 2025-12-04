@@ -35,7 +35,7 @@ test.describe('Localhost Connection Tests', () => {
     await expect(mainContent).toBeVisible()
 
     // Check for the hero heading
-    const heading = page.getByRole('heading', { name: /Ship confident layouts faster/i })
+    const heading = page.getByRole('heading', { name: /Expert Betting Tips that/i })
     await expect(heading).toBeVisible()
   })
 
@@ -90,7 +90,7 @@ test.describe('Localhost Connection Tests', () => {
     // Check if HTML structure is correct
     expect(html).toContain('<html')
     expect(html).toContain('<body')
-    expect(html).toContain('Ship confident layouts faster')
+    expect(html).toContain('Expert Betting Tips that')
   })
 
   test('should confirm Supabase is configured via API', async ({ request }) => {

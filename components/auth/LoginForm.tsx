@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import {
   Alert,
   Button,
@@ -10,11 +10,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
+import { useRouter } from '@/i18n/routing'
 
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons'
 import { useAuth } from '@/components/providers/auth-provider'
 
 const LoginForm = () => {
+  const t = useTranslations('auth.login')
   const { signInWithPassword } = useAuth()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -39,24 +42,26 @@ const LoginForm = () => {
   }
 
   return (
-    <Stack spacing={3} component="form" onSubmit={handleSubmit}>
-      {error && <Alert severity="error">{error}</Alert>}
+    <Stack spacing={3} component="form" onSubmit={handleSubmit} data-testid="login-form">
+      {error && <Alert severity="error" data-testid="login-error">{error}</Alert>}
       <Stack spacing={2}>
         <TextField
-          label="Email"
+          label={t('email')}
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           required
           fullWidth
+          inputProps={{ 'data-testid': 'login-email-input' }}
         />
         <TextField
-          label="Password"
+          label={t('password')}
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
           required
           fullWidth
+          inputProps={{ 'data-testid': 'login-password-input' }}
         />
       </Stack>
       <Button
@@ -64,15 +69,16 @@ const LoginForm = () => {
         variant="contained"
         size="large"
         disabled={submitting}
+        data-testid="login-submit-button"
       >
-        {submitting ? 'Signing in...' : 'Sign in'}
+        {submitting ? t('signingIn') : t('signIn')}
       </Button>
       <Stack spacing={2}>
-        <Divider>or continue with</Divider>
+        <Divider>{t('orContinueWith')}</Divider>
         <SocialLoginButtons onError={setError} />
       </Stack>
       <Typography variant="caption" color="text.secondary" textAlign="center">
-        By continuing you agree to the Stavky terms of service.
+        {t('termsAgreement')}
       </Typography>
     </Stack>
   )

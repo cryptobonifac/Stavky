@@ -13,6 +13,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 import DateTimePickerField from '@/components/ui/date-time-picker-field'
 
@@ -28,6 +29,8 @@ type UserListSectionProps = {
 }
 
 const UserListSection = ({ users }: UserListSectionProps) => {
+  const t = useTranslations('settings.users')
+  const tCommon = useTranslations('common')
   const [feedback, setFeedback] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const [drafts, setDrafts] = useState<Record<string, ManagedUser>>(() =>
@@ -73,20 +76,20 @@ const UserListSection = ({ users }: UserListSectionProps) => {
 
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}))
-        setFeedback(payload.error ?? 'Failed to update user')
+        setFeedback(payload.error ?? t('updateFailed'))
         return
       }
 
-      setFeedback('User updated successfully')
+      setFeedback(t('userUpdated'))
     })
   }
 
   if (users.length === 0) {
-    return <Typography color="text.secondary">No users found.</Typography>
+    return <Typography color="text.secondary">{t('noUsers')}</Typography>
   }
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       {feedback && <Alert onClose={() => setFeedback(null)}>{feedback}</Alert>}
       <Autocomplete
         options={userOptions}
@@ -95,26 +98,36 @@ const UserListSection = ({ users }: UserListSectionProps) => {
         }
         onChange={(_event, value) => setSelectedId(value?.id ?? null)}
         renderInput={(params) => (
-          <TextField {...params} label="Search user by email" />
+          <TextField {...params} label={t('searchUsers')} inputProps={{ ...params.inputProps, 'data-testid': 'settings-user-search' }} />
         )}
+        data-testid="settings-user-autocomplete"
       />
       {selectedDraft && (
-        <Card variant="outlined">
+        <Card
+          variant="outlined"
+          sx={{
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: 2,
+          }}
+        >
           <CardContent>
             <Stack
               direction={{ xs: 'column', md: 'row' }}
               spacing={2}
-              alignItems={{ xs: 'stretch', md: 'center' }}
+              alignItems={{ xs: 'stretch', md: 'flex-end' }}
             >
-              <Stack flex={1} spacing={1}>
+              <Stack flex={1} spacing={2}>
                 <TextField
                   value={selectedDraft.email}
-                  label="User email"
+                  label={t('userEmail')}
                   InputProps={{ readOnly: true }}
+                  size="small"
+                  inputProps={{ 'data-testid': 'settings-user-email' }}
                 />
                 <TextField
                   select
-                  label="Role"
+                  label={t('role')}
                   value={selectedDraft.role}
                   onChange={(event) =>
                     handleRoleChange(
@@ -123,26 +136,34 @@ const UserListSection = ({ users }: UserListSectionProps) => {
                     )
                   }
                   size="small"
+                  inputProps={{ 'data-testid': 'settings-user-role-select' }}
                 >
-                  <MenuItem value="customer">Customer</MenuItem>
-                  <MenuItem value="betting">Betting admin</MenuItem>
+                  <MenuItem value="customer" data-testid="settings-role-customer">{t('roleCustomer')}</MenuItem>
+                  <MenuItem value="betting" data-testid="settings-role-betting">{t('roleBetting')}</MenuItem>
                 </TextField>
               </Stack>
               <DateTimePickerField
-                label="Account active until"
+                label={t('accountActiveUntil')}
                 value={
                   selectedDraft.account_active_until
                     ? dayjs(selectedDraft.account_active_until)
                     : null
                 }
                 onChange={(value) => handleDateChange(selectedDraft.id, value)}
+                slotProps={{
+                  textField: {
+                    inputProps: { 'data-testid': 'settings-user-active-until' },
+                  },
+                }}
               />
               <Button
                 variant="contained"
                 onClick={() => handleSave(selectedDraft.id)}
                 disabled={isPending}
+                sx={{ minWidth: 100 }}
+                data-testid="settings-user-save-button"
               >
-                Save
+                {tCommon('save')}
               </Button>
             </Stack>
           </CardContent>

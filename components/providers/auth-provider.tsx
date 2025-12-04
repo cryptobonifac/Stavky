@@ -67,7 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [profileLoading, setProfileLoading] = useState(true)
 
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
+    supabase.auth.getSession().then(({ data, error }) => {
+      // Ignore refresh token errors - user just needs to log in again
+      if (error && error.message?.includes('refresh_token_not_found')) {
+        setSession(null)
+        setUser(null)
+        setLoading(false)
+        return
+      }
       setSession(data.session)
       setUser(data.session?.user ?? null)
       setLoading(false)

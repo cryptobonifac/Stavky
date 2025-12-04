@@ -8,9 +8,10 @@ import UserListSection, {
 } from '@/components/settings/UserListSection'
 import BettingCompaniesSection from '@/components/settings/BettingCompaniesSection'
 import MarketingSettingsSection from '@/components/settings/MarketingSettingsSection'
+import FreeMonthOverrideSection from '@/components/settings/FreeMonthOverrideSection'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import Grid from '@mui/material/Grid'
-import { Card, CardContent, Typography } from '@mui/material'
+import { Card, CardContent, Stack, Typography } from '@mui/material'
 
 export const metadata = {
   title: 'Settings | Stavky',
@@ -49,6 +50,8 @@ export default async function SettingsPage() {
       .maybeSingle(),
   ])
 
+  const managedUsers = (usersRes.data ?? []) as ManagedUser[]
+
   return (
     <MainLayout>
       <TopNav />
@@ -58,18 +61,21 @@ export default async function SettingsPage() {
       >
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, xl: 7 }}>
-            <Card variant="outlined">
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  Users & subscriptions
-                </Typography>
-                <UserListSection users={(usersRes.data ?? []) as ManagedUser[]} />
-              </CardContent>
-            </Card>
+            <Stack spacing={3}>
+              <Card variant="outlined">
+                <CardContent>
+                  <Typography variant="h5" gutterBottom>
+                    Users & subscriptions
+                  </Typography>
+                  <UserListSection users={managedUsers} />
+                </CardContent>
+              </Card>
+              <FreeMonthOverrideSection users={managedUsers} />
+            </Stack>
           </Grid>
           <Grid size={{ xs: 12, xl: 5 }}>
             <Grid container spacing={3}>
-              <Grid xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h5" gutterBottom>
@@ -79,7 +85,7 @@ export default async function SettingsPage() {
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid xs={12}>
+              <Grid size={{ xs: 12 }}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h5" gutterBottom>

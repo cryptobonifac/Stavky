@@ -10,6 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 import type { UserProfile } from '@/components/providers/auth-provider'
 import { useAuth } from '@/components/providers/auth-provider'
@@ -19,6 +20,7 @@ type ProfileDetailsFormProps = {
 }
 
 const ProfileDetailsForm = ({ profile }: ProfileDetailsFormProps) => {
+  const t = useTranslations('profile')
   const { refreshProfile } = useAuth()
   const [fullName, setFullName] = useState(profile.full_name ?? '')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(
@@ -43,12 +45,12 @@ const ProfileDetailsForm = ({ profile }: ProfileDetailsFormProps) => {
         const payload = await response.json().catch(() => ({}))
         setMessage({
           type: 'error',
-          text: payload.error ?? 'Unable to update profile.',
+          text: payload.error ?? t('updateFailed'),
         })
         return
       }
 
-      setMessage({ type: 'success', text: 'Profile updated successfully.' })
+      setMessage({ type: 'success', text: t('profileUpdated') })
       await refreshProfile()
     })
   }
@@ -56,32 +58,34 @@ const ProfileDetailsForm = ({ profile }: ProfileDetailsFormProps) => {
   return (
     <Card variant="outlined">
       <CardContent>
-        <Stack spacing={3} component="form" onSubmit={handleSubmit}>
+        <Stack spacing={3} component="form" onSubmit={handleSubmit} data-testid="profile-details-form">
           <div>
-            <Typography variant="h5">Profile details</Typography>
+            <Typography variant="h5">{t('profileDetails')}</Typography>
             <Typography variant="body2" color="text.secondary">
-              Update how your name appears across the app.
+              {t('profileDetailsDescription')}
             </Typography>
           </div>
           {message && (
-            <Alert severity={message.type} onClose={() => setMessage(null)}>
+            <Alert severity={message.type} onClose={() => setMessage(null)} data-testid={`profile-${message.type}-message`}>
               {message.text}
             </Alert>
           )}
           <TextField
-            label="Full name"
+            label={t('fullName')}
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
-            placeholder="e.g. Martin Novak"
+            placeholder={t('fullNamePlaceholder')}
             fullWidth
+            inputProps={{ 'data-testid': 'profile-fullname-input' }}
           />
           <Button
             type="submit"
             variant="contained"
             size="large"
             disabled={isPending}
+            data-testid="profile-save-button"
           >
-            {isPending ? 'Saving...' : 'Save changes'}
+            {isPending ? t('saving') : t('saveChanges')}
           </Button>
         </Stack>
       </CardContent>

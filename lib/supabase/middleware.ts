@@ -7,12 +7,17 @@ type MiddlewareClient = {
   response: NextResponse
 }
 
-export async function updateSession(request: NextRequest): Promise<MiddlewareClient> {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  })
+export async function updateSession(
+  request: NextRequest,
+  response?: NextResponse
+): Promise<MiddlewareClient> {
+  let supabaseResponse =
+    response ??
+    NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    })
 
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -24,7 +29,7 @@ export async function updateSession(request: NextRequest): Promise<MiddlewareCli
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options)
+            supabaseResponse.cookies.set(name, value, options)
           })
         },
       },
@@ -33,6 +38,6 @@ export async function updateSession(request: NextRequest): Promise<MiddlewareCli
 
   await supabase.auth.getUser()
 
-  return { supabase, response }
+  return { supabase, response: supabaseResponse }
 }
 

@@ -1,3 +1,5 @@
+'use client'
+
 import dayjs from 'dayjs'
 import {
   Card,
@@ -11,6 +13,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material'
+import { useTranslations, useLocale } from 'next-intl'
 
 export type SubscriptionHistoryEntry = {
   id: string
@@ -25,52 +28,59 @@ type ProfileSubscriptionHistoryProps = {
 
 const ProfileSubscriptionHistory = ({
   entries,
-}: ProfileSubscriptionHistoryProps) => (
-  <Card variant="outlined">
-    <CardContent>
-      <Stack spacing={2}>
-        <Typography variant="h5">Subscription history</Typography>
-        {entries.length === 0 ? (
-          <Typography color="text.secondary">
-            No subscription records yet. Once you activate your account, the
-            history will appear here.
-          </Typography>
-        ) : (
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Month</TableCell>
-                <TableCell>Valid to</TableCell>
-                <TableCell>Free month</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {entries.map((entry) => (
-                <TableRow key={entry.id}>
-                  <TableCell>
-                    {dayjs(entry.month).format('MMMM YYYY')}
-                  </TableCell>
-                  <TableCell>
-                    {entry.valid_to
-                      ? dayjs(entry.valid_to).format('DD.MM.YYYY')
-                      : 'Not set'}
-                  </TableCell>
-                  <TableCell>
-                    {entry.next_month_free ? (
-                      <Chip label="Granted" size="small" color="success" />
-                    ) : (
-                      <Chip label="No" size="small" variant="outlined" />
-                    )}
-                  </TableCell>
+}: ProfileSubscriptionHistoryProps) => {
+  const t = useTranslations('profile')
+  const locale = useLocale()
+
+  return (
+    <Card variant="outlined">
+      <CardContent>
+        <Stack spacing={2}>
+          <Typography variant="h5">{t('subscriptionHistory')}</Typography>
+          {entries.length === 0 ? (
+            <Typography color="text.secondary">
+              {t('noSubscriptionRecords')}
+            </Typography>
+          ) : (
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>{t('month')}</TableCell>
+                  <TableCell>{t('validTo')}</TableCell>
+                  <TableCell>{t('freeMonth')}</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        )}
-      </Stack>
-    </CardContent>
-  </Card>
-)
+              </TableHead>
+              <TableBody>
+                {entries.map((entry) => (
+                  <TableRow key={entry.id}>
+                    <TableCell>
+                      {new Date(entry.month).toLocaleString(locale, {
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </TableCell>
+                    <TableCell>
+                      {entry.valid_to
+                        ? dayjs(entry.valid_to).format('DD.MM.YYYY')
+                        : t('notSet')}
+                    </TableCell>
+                    <TableCell>
+                      {entry.next_month_free ? (
+                        <Chip label={t('granted')} size="small" color="success" />
+                      ) : (
+                        <Chip label={t('no')} size="small" variant="outlined" />
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </Stack>
+      </CardContent>
+    </Card>
+  )
+}
 
 export default ProfileSubscriptionHistory
 

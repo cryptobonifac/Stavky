@@ -4,6 +4,7 @@ import { useState } from 'react'
 import GoogleIcon from '@mui/icons-material/Google'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import { Button, Stack } from '@mui/material'
+import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/components/providers/auth-provider'
 
@@ -12,6 +13,7 @@ type SocialLoginButtonsProps = {
 }
 
 const SocialLoginButtons = ({ onError }: SocialLoginButtonsProps) => {
+  const t = useTranslations('auth.socialLogin')
   const { signInWithProvider } = useAuth()
   const [pendingProvider, setPendingProvider] = useState<
     'google' | 'facebook' | null
@@ -35,8 +37,9 @@ const SocialLoginButtons = ({ onError }: SocialLoginButtonsProps) => {
         startIcon={<GoogleIcon />}
         onClick={() => handleSignIn('google')}
         disabled={pendingProvider !== null}
+        data-testid="social-login-google-button"
       >
-        Continue with Google
+        {t('google')}
       </Button>
       <Button
         variant="outlined"
@@ -44,8 +47,9 @@ const SocialLoginButtons = ({ onError }: SocialLoginButtonsProps) => {
         startIcon={<FacebookIcon />}
         onClick={() => handleSignIn('facebook')}
         disabled={pendingProvider !== null}
+        data-testid="social-login-facebook-button"
       >
-        Continue with Facebook
+        {t('facebook')}
       </Button>
     </Stack>
   )

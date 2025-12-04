@@ -12,6 +12,7 @@ import {
   Typography,
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useTranslations } from 'next-intl'
 
 type Company = {
   id: string
@@ -25,6 +26,8 @@ type BettingCompaniesSectionProps = {
 const BettingCompaniesSection = ({
   companies,
 }: BettingCompaniesSectionProps) => {
+  const t = useTranslations('settings.bettingCompanies')
+  const tCommon = useTranslations('common')
   const [name, setName] = useState('')
   const [feedback, setFeedback] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
@@ -39,16 +42,16 @@ const BettingCompaniesSection = ({
       })
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}))
-        setFeedback(payload.error ?? 'Failed to add company')
+        setFeedback(payload.error ?? t('createFailed'))
         return
       }
-      setFeedback('Company created successfully')
+      setFeedback(t('companyCreated'))
       setName('')
     })
   }
 
   const handleDelete = (id: string) => {
-    const confirmed = window.confirm('Delete this company?')
+    const confirmed = window.confirm(t('confirmDelete'))
     if (!confirmed) return
     startTransition(async () => {
       setFeedback(null)
@@ -58,54 +61,84 @@ const BettingCompaniesSection = ({
       )
       if (!response.ok) {
         const payload = await response.json().catch(() => ({}))
-        setFeedback(payload.error ?? 'Failed to delete company')
+        setFeedback(payload.error ?? t('deleteFailed'))
         return
       }
-      setFeedback('Company deleted. Refresh to see changes.')
+      setFeedback(t('companyDeleted'))
     })
   }
 
   return (
-    <Stack spacing={2}>
+    <Stack spacing={3}>
       {feedback && <Alert onClose={() => setFeedback(null)}>{feedback}</Alert>}
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
         <TextField
-          label="New company name"
+          label={t('newCompanyName')}
           value={name}
           onChange={(event) => setName(event.target.value)}
           fullWidth
+          size="small"
+          inputProps={{ 'data-testid': 'settings-company-name-input' }}
         />
         <Button
           variant="contained"
           onClick={handleCreate}
           disabled={isPending || !name.trim()}
+          sx={{ minWidth: 100 }}
+          data-testid="settings-company-add-button"
         >
-          Add
+          {t('add')}
         </Button>
       </Stack>
-      <Stack spacing={1}>
+      <Stack spacing={1.5}>
         {companies.map((company) => (
-          <Card key={company.id} variant="outlined">
+          <Card
+            key={company.id}
+            variant="outlined"
+            sx={{
+              border: '1px solid',
+              borderColor: 'divider',
+              borderRadius: 2,
+              transition: 'all 0.2s',
+              '&:hover': {
+                borderColor: 'primary.main',
+                boxShadow: 1,
+              },
+            }}
+          >
             <CardContent
               sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                py: 1.5,
+                '&:last-child': { pb: 1.5 },
               }}
             >
-              <Typography>{company.name}</Typography>
+              <Typography variant="body1" fontWeight={500}>
+                {company.name}
+              </Typography>
               <IconButton
-                aria-label="Delete"
+                aria-label={tCommon('delete')}
                 onClick={() => handleDelete(company.id)}
+                size="small"
+                data-testid={`settings-company-delete-${company.id}`}
+                sx={{
+                  color: 'error.main',
+                  '&:hover': {
+                    bgcolor: 'error.light',
+                    color: 'error.dark',
+                  },
+                }}
               >
-                <DeleteIcon />
+                <DeleteIcon fontSize="small" />
               </IconButton>
             </CardContent>
           </Card>
         ))}
         {companies.length === 0 && (
-          <Typography color="text.secondary">
-            No betting companies yet.
+          <Typography color="text.secondary" variant="body2" sx={{ py: 2 }}>
+            {t('noCompanies')}
           </Typography>
         )}
       </Stack>

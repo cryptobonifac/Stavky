@@ -1,165 +1,203 @@
-import MainLayout from '@/components/layout/MainLayout'
-import PageSection from '@/components/layout/PageSection'
-import SectionCard from '@/components/layout/SectionCard'
-import HeroAuthButtons from '@/components/home/HeroAuthButtons'
-import CallToActionCard from '@/components/home/CallToActionCard'
-import DemoPlannerSection from '@/components/home/DemoPlannerSection'
-import Grid from '@mui/material/Grid'
+'use client'
+
+import NextLink from 'next/link'
 import {
   Box,
-  Card,
-  CardContent,
-  Chip,
-  Divider,
+  Button,
+  Container,
+  Grid,
   Stack,
   Typography,
+  useTheme,
+  Paper,
 } from '@mui/material'
-
-const highlights = [
-  {
-    title: 'Consistent theming',
-    description:
-      'Custom palette, typography scale, and rounded surfaces aligned with the minimalist identity.',
-  },
-  {
-    title: 'Responsive building blocks',
-    description:
-      'Reusable page sections and cards keep layouts adaptive on phones, tablets, and desktops.',
-  },
-  {
-    title: 'Date picker ready to drop in',
-    description:
-      'MUI X DateTimePicker pre-configured with dayjs, locale formatting, and full-width inputs.',
-  },
-] as const
-
-const roadmap = [
-  {
-    title: 'Realtime tip feed',
-    description: 'Supabase channels keep customers synced with fresh tips.',
-  },
-  {
-    title: 'Role-based dashboards',
-    description: 'Separate views for betting admins and active subscribers.',
-  },
-  {
-    title: 'Mobile-first layouts',
-    description: 'Optimized spacing and typography across devices.',
-  },
-] as const
-
-const stats = [
-  { label: 'Markets covered', value: '25+' },
-  { label: 'Avg. response time', value: '<200ms' },
-  { label: 'Customers per cohort', value: '100' },
-] as const
+import TrendingUpIcon from '@mui/icons-material/TrendingUp'
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser'
+import SpeedIcon from '@mui/icons-material/Speed'
+import TopNav from '@/components/navigation/TopNav'
+import Footer from '@/components/layout/Footer'
+import { useAuth } from '@/components/providers/auth-provider'
 
 export default function Home() {
+  const theme = useTheme()
+  const { profile } = useAuth()
+
   return (
-    <MainLayout>
-      <PageSection
-        title="Sports betting operations need a reliable toolkit"
-        subtitle="We now have Material UI, custom theming, date pickers, and responsive layout primitives configured for every upcoming screen."
+    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ px: { xs: 2, md: 4 }, pt: 3 }}>
+        <TopNav showSettingsLink={false} />
+      </Box>
+
+      <Box
+        component="main"
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
       >
-        <Stack
-          direction={{ xs: 'column', lg: 'row' }}
-          spacing={{ xs: 4, lg: 8 }}
-          alignItems="center"
+        {/* Hero Section */}
+        <Box
+          sx={{
+            py: { xs: 8, md: 12 },
+            textAlign: 'center',
+            background: `radial-gradient(circle at 50% 50%, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`,
+          }}
         >
-          <Stack spacing={3} flex={1}>
-            <Chip
-              label="Phase 1 • UI framework ready"
-              color="secondary"
-              sx={{ width: 'fit-content' }}
-            />
-            <Stack spacing={1}>
-              <Typography variant="h1" component="h1">
-                Ship confident layouts faster.
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                The base layer covers typography, color, spacing, and
-                date-handling so tip creation, history tracking, and
-                subscription dashboards can focus on logic instead of setup.
-              </Typography>
+          <Container maxWidth="md">
+            <Typography
+              component="h1"
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                mb: 2,
+                fontSize: { xs: '2.5rem', md: '3.75rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
+              Expert Betting Tips that{' '}
+              <Box component="span" sx={{ color: 'primary.main' }}>
+                Actually Win
+              </Box>
+            </Typography>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{ mb: 4, maxWidth: 600, mx: 'auto', lineHeight: 1.6 }}
+            >
+              Stop guessing. Start winning. Get access to verified, high-probability
+              sports betting tips from professional analysts.
+            </Typography>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              justifyContent="center"
+            >
+              <Button
+                component={NextLink}
+                href={profile ? '/bettings' : '/signup'}
+                variant="contained"
+                size="large"
+                sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
+                data-testid="home-cta-primary-button"
+              >
+                {profile ? 'View Active Tips' : 'Get Started Free'}
+              </Button>
+              <Button
+                component={NextLink}
+                href="#features"
+                variant="outlined"
+                size="large"
+                sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
+                data-testid="home-cta-secondary-button"
+              >
+                Learn More
+              </Button>
             </Stack>
-            <HeroAuthButtons />
-          </Stack>
-          <Box flex={1} width="100%">
-            <DemoPlannerSection />
-          </Box>
-        </Stack>
-      </PageSection>
+          </Container>
+        </Box>
 
-      <PageSection
-        title="Project snapshot"
-        subtitle="Everything about Stavky revolves around clarity and trusted information."
-      >
-        <Grid container spacing={3}>
-          <Grid size={{ xs: 12, lg: 7 }}>
-            <Card variant="outlined" sx={{ height: '100%' }}>
-              <CardContent>
-                <Stack spacing={3}>
-                  <Typography variant="h5">
-                    Built for tipsters and subscribers
+        {/* Value Props */}
+        <Box id="features" sx={{ py: { xs: 8, md: 10 }, bgcolor: 'background.paper' }}>
+          <Container maxWidth="lg">
+            <Grid container spacing={4}>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Paper
+                  elevation={0}
+                  variant="outlined"
+                  sx={{
+                    p: 4,
+                    height: '100%',
+                    textAlign: 'center',
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'translateY(-4px)' },
+                  }}
+                >
+                  <TrendingUpIcon
+                    sx={{ fontSize: 48, color: 'secondary.main', mb: 2 }}
+                  />
+                  <Typography variant="h5" gutterBottom fontWeight="bold">
+                    High Win Rate
                   </Typography>
-                  <Typography variant="body1" color="text.secondary">
-                    The homepage explains the product promise, highlights the
-                    Supabase-powered backend, and surfaces registration calls to
-                    action. Customers can instantly see why engagement matters,
-                    while betting admins know the system supports rapid tip
-                    submission, evaluation, and subscription management.
+                  <Typography color="text.secondary">
+                    Our tips are backed by rigorous analysis and historical data to ensure consistent profitability over time.
                   </Typography>
-                  <Divider />
-                  <Stack
-                    direction={{ xs: 'column', sm: 'row' }}
-                    spacing={3}
-                    justifyContent="space-between"
-                  >
-                    {stats.map((item) => (
-                      <Stack key={item.label} spacing={0.5}>
-                        <Typography variant="h4">{item.value}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                          {item.label}
-                        </Typography>
-                      </Stack>
-                    ))}
-                  </Stack>
-                </Stack>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid size={{ xs: 12, lg: 5 }}>
-            <CallToActionCard />
-          </Grid>
-        </Grid>
-      </PageSection>
-
-      <PageSection
-        title="Framework highlights"
-        subtitle="Each section card below is powered by the new responsive layout helpers."
-      >
-        <Grid container spacing={3}>
-          {highlights.map((item) => (
-            <Grid key={item.title} size={{ xs: 12, md: 4 }}>
-              <SectionCard title={item.title} description={item.description} />
+                </Paper>
+              </Grid>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Paper
+                  elevation={0}
+                  variant="outlined"
+                  sx={{
+                    p: 4,
+                    height: '100%',
+                    textAlign: 'center',
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'translateY(-4px)' },
+                  }}
+                >
+                  <VerifiedUserIcon
+                    sx={{ fontSize: 48, color: 'secondary.main', mb: 2 }}
+                  />
+                  <Typography variant="h5" gutterBottom fontWeight="bold">
+                    Verified History
+                  </Typography>
+                  <Typography color="text.secondary">
+                    Total transparency. We track and publish every win and loss so you know exactly what to expect.
+                  </Typography>
+                </Paper>
+              </Grid>
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Paper
+                  elevation={0}
+                  variant="outlined"
+                  sx={{
+                    p: 4,
+                    height: '100%',
+                    textAlign: 'center',
+                    transition: 'transform 0.2s',
+                    '&:hover': { transform: 'translateY(-4px)' },
+                  }}
+                >
+                  <SpeedIcon
+                    sx={{ fontSize: 48, color: 'secondary.main', mb: 2 }}
+                  />
+                  <Typography variant="h5" gutterBottom fontWeight="bold">
+                    Real-time Updates
+                  </Typography>
+                  <Typography color="text.secondary">
+                    Get instant notifications for new tips. Never miss a valuable betting opportunity again.
+                  </Typography>
+                </Paper>
+              </Grid>
             </Grid>
-          ))}
-        </Grid>
-      </PageSection>
+          </Container>
+        </Box>
 
-      <PageSection
-        title="Why customers trust Stavky"
-        subtitle="Concise messaging communicates the roadmap and removes friction during onboarding."
-      >
-        <Grid container spacing={3}>
-          {roadmap.map((item) => (
-            <Grid key={item.title} size={{ xs: 12, md: 4 }}>
-              <SectionCard title={item.title} description={item.description} />
-            </Grid>
-          ))}
-        </Grid>
-      </PageSection>
-    </MainLayout>
+        {/* CTA Section */}
+        <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: 'primary.main', color: 'primary.contrastText', textAlign: 'center' }}>
+          <Container maxWidth="md">
+            <Typography variant="h3" fontWeight="bold" gutterBottom>
+              Ready to beat the bookies?
+            </Typography>
+            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
+              Join hundreds of satisfied members who are already profiting from our expert analysis.
+            </Typography>
+            <Button
+              component={NextLink}
+              href={profile ? '/bettings' : '/signup'}
+              variant="contained"
+              color="secondary"
+              size="large"
+              sx={{ px: 6, py: 2, fontSize: '1.2rem', fontWeight: 'bold' }}
+            >
+              Start Winning Today
+            </Button>
+          </Container>
+        </Box>
+      </Box>
+
+      <Footer />
+    </Box>
   )
 }
-

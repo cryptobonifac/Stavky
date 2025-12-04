@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import dayjs from 'dayjs'
 import {
   Alert,
@@ -19,6 +21,9 @@ type PendingTipsListProps = {
 }
 
 const PendingTipsList = ({ tips }: PendingTipsListProps) => {
+  const router = useRouter()
+  const t = useTranslations('manage')
+  const tBettings = useTranslations('bettings')
   const [isPending, startTransition] = useTransition()
   const [feedback, setFeedback] = useState<{
     type: 'success' | 'error'
@@ -26,10 +31,13 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
   } | null>(null)
 
   const handleUpdate = (id: string, status: 'win' | 'loss') => {
-    const confirmed = window.confirm(
-      `Mark this tip as ${status === 'win' ? 'Win' : 'Loss'}?`
-    )
-    if (!confirmed) return
+    if (!id || id === 'undefined') {
+      setFeedback({
+        type: 'error',
+        text: t('invalidTipId'),
+      })
+      return
+    }
 
     startTransition(async () => {
       setFeedback(null)
@@ -45,15 +53,13 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
         const payload = await response.json().catch(() => ({}))
         setFeedback({
           type: 'error',
-          text: payload.error ?? 'Failed to update tip.',
+          text: payload.error ?? t('updateFailed'),
         })
         return
       }
 
-      setFeedback({
-        type: 'success',
-        text: 'Tip updated successfully. Refresh to see latest status.',
-      })
+      // Refresh the page to show updated status
+      router.refresh()
     })
   }
 
@@ -65,7 +71,7 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
         </Alert>
       )}
       {tips.length === 0 ? (
-        <Alert severity="info">No pending tips to evaluate.</Alert>
+        <Alert severity="info">{t('noPendingTips')}</Alert>
       ) : (
         tips.map((tip) => (
           <Card key={tip.id} variant="outlined">
@@ -94,7 +100,7 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
                   spacing={1}
                   alignItems={{ xs: 'flex-start', md: 'flex-end' }}
                 >
-                  <Chip label={`Odds ${tip.odds.toFixed(3)}`} color="primary" />
+                  <Chip label={`${tBettings('odds')} ${tip.odds.toFixed(3)}`} color="primary" />
                   <Stack direction="row" spacing={1}>
                     <Button
                       variant="contained"
@@ -102,8 +108,9 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
                       color="success"
                       disabled={isPending}
                       onClick={() => handleUpdate(tip.id, 'win')}
+                      data-testid={`pending-tip-${tip.id}-mark-win`}
                     >
-                      Mark win
+                      {t('markAsWin')}
                     </Button>
                     <Button
                       variant="outlined"
@@ -111,8 +118,9 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
                       color="error"
                       disabled={isPending}
                       onClick={() => handleUpdate(tip.id, 'loss')}
+                      data-testid={`pending-tip-${tip.id}-mark-loss`}
                     >
-                      Mark loss
+                      {t('markAsLoss')}
                     </Button>
                   </Stack>
                 </Stack>
