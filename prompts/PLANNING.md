@@ -260,10 +260,12 @@ A minimalist Next.js web application for sports betting tipsters with Supabase b
 ## Phase 9: Deployment
 
 ### 9.1 Vercel Configuration
-- [ ] Connect GitHub repository to Vercel
-- [ ] Configure environment variables in Vercel
-- [ ] Set up build configuration
-- [ ] Configure custom domain (if needed)
+- [x] Create `vercel.json` configuration file
+- [x] Create comprehensive deployment guide (`docs/VERCEL_DEPLOYMENT.md`)
+- [ ] Connect GitHub repository to Vercel (manual step - see deployment guide)
+- [ ] Configure environment variables in Vercel (manual step - see deployment guide)
+- [x] Set up build configuration (configured in `vercel.json`)
+- [ ] Configure custom domain (if needed - manual step - see deployment guide)
 
 ### 9.2 Supabase Production Setup
 - [ ] Set up production Supabase project

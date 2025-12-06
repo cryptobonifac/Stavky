@@ -4,8 +4,9 @@ import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const supabase = await createServerClient()
   const {
     data: { user },
@@ -34,7 +35,7 @@ export async function PATCH(
       role,
       account_active_until,
     })
-    .eq('id', params.id)
+    .eq('id', id)
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 })

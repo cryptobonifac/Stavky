@@ -1,7 +1,6 @@
 'use client'
 
 import { Box, Drawer, List, Typography, useMediaQuery, Theme } from '@mui/material'
-import HomeIcon from '@mui/icons-material/Home'
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 import HistoryIcon from '@mui/icons-material/History'
 import PersonIcon from '@mui/icons-material/Person'
@@ -26,8 +25,6 @@ const Sidebar = ({ role }: SidebarProps) => {
         Stavky
       </Typography>
       <List>
-        <SidebarItem href="/" icon={<HomeIcon />} label={t('home')} />
-        
         {role && (
           <>
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />

@@ -18,6 +18,17 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import { useTranslations } from 'next-intl'
 
+export type TipItem = {
+  id: string
+  match: string
+  odds: number
+  match_date: string
+  status: 'pending' | 'win' | 'loss'
+  betting_companies?: { name: string | null } | null
+  sports?: { name: string | null } | null
+  leagues?: { name: string | null } | null
+}
+
 export type TipRecord = {
   id: string
   match: string
@@ -27,6 +38,7 @@ export type TipRecord = {
   betting_companies?: { name: string | null } | null
   sports?: { name: string | null } | null
   leagues?: { name: string | null } | null
+  items?: TipItem[]
 }
 
 type FilterValue = 'today' | 'tomorrow' | 'upcoming' | 'all'
@@ -49,6 +61,22 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   const filteredTips = useMemo(() => {
     const now = dayjs()
     return tips.filter((tip) => {
+      // For tips with items, check if any item matches the filter
+      if (tip.items && tip.items.length > 0) {
+        if (filter === 'all') return true
+        return tip.items.some((item) => {
+          const matchDate = dayjs(item.match_date)
+          if (filter === 'today') {
+            return matchDate.isSame(now, 'day')
+          }
+          if (filter === 'tomorrow') {
+            return matchDate.isSame(now.add(1, 'day'), 'day')
+          }
+          return matchDate.isAfter(now)
+        })
+      }
+      
+      // Legacy structure: single tip
       const matchDate = dayjs(tip.match_date)
       if (filter === 'all') return true
       if (filter === 'today') {
@@ -67,11 +95,11 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
           {t('filterDescription')}
         </Typography>
-        <ToggleButtonGroup
-          value={filter}
-          exclusive
-          onChange={(_event, next) => next && setFilter(next)}
-          color="primary"
+      <ToggleButtonGroup
+        value={filter}
+        exclusive
+        onChange={(_event, next) => next && setFilter(next)}
+        color="primary"
           fullWidth
           data-testid="bettings-filter-group"
           sx={{
@@ -93,13 +121,13 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
               },
             },
           }}
-        >
-          {filters.map(({ value, label }) => (
+      >
+        {filters.map(({ value, label }) => (
             <ToggleButton key={value} value={value} data-testid={`bettings-filter-${value}`}>
-              {label}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+            {label}
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
       </Box>
 
       {filteredTips.length > 0 && (
@@ -168,12 +196,12 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
           >
             <CardContent sx={{ p: 3 }}>
               <Stack spacing={2.5}>
-                <Stack
-                  direction={{ xs: 'column', md: 'row' }}
-                  spacing={2}
-                  justifyContent="space-between"
+              <Stack
+                direction={{ xs: 'column', md: 'row' }}
+                spacing={2}
+                justifyContent="space-between"
                   alignItems={{ xs: 'flex-start', md: 'center' }}
-                >
+              >
                   <Stack spacing={1.5} flex={1}>
                     <Stack direction="row" spacing={1.5} alignItems="center">
                       <Box
@@ -193,29 +221,63 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                         {tip.match}
                       </Typography>
                     </Stack>
-                    <Stack spacing={1} sx={{ pl: 4.5 }}>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                      >
-                        {[
-                          tip.betting_companies?.name,
-                          tip.sports?.name,
-                          tip.leagues?.name,
-                        ]
-                          .filter(Boolean)
-                          .join(' • ')}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        color="text.secondary"
-                        sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
-                      >
-                        <AccessTimeIcon fontSize="small" sx={{ fontSize: 16 }} />
-                        {t('kickoff')}: {dayjs(tip.match_date).format('DD.MM.YYYY HH:mm')}
-                      </Typography>
-                    </Stack>
+                    {tip.items && tip.items.length > 0 ? (
+                      <Stack spacing={1} sx={{ pl: 4.5, mt: 1 }}>
+                        {tip.items.map((item, idx) => (
+                          <Box
+                            key={item.id}
+                            sx={{
+                              p: 1.5,
+                              borderRadius: 1.5,
+                              bgcolor: 'background.default',
+                              border: '1px solid',
+                              borderColor: 'divider',
+                            }}
+                          >
+                            <Typography variant="body2" fontWeight={500} gutterBottom>
+                              {t('tip')} {idx + 1}: {item.match}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                              {[
+                                item.betting_companies?.name,
+                                item.sports?.name,
+                                item.leagues?.name,
+                              ]
+                                .filter(Boolean)
+                                .join(' • ')}
+                              {' • '}
+                              {t('odds')}: {item.odds.toFixed(3)}
+                              {' • '}
+                              {dayjs(item.match_date).format('DD.MM.YYYY HH:mm')}
+                            </Typography>
+                          </Box>
+                        ))}
+                      </Stack>
+                    ) : (
+                      <Stack spacing={1} sx={{ pl: 4.5 }}>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                        >
+                      {[
+                        tip.betting_companies?.name,
+                        tip.sports?.name,
+                        tip.leagues?.name,
+                      ]
+                        .filter(Boolean)
+                        .join(' • ')}
+                    </Typography>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+                        >
+                          <AccessTimeIcon fontSize="small" sx={{ fontSize: 16 }} />
+                      {t('kickoff')}: {dayjs(tip.match_date).format('DD.MM.YYYY HH:mm')}
+                    </Typography>
+                      </Stack>
+                    )}
                   </Stack>
                   <Stack
                     direction={{ xs: 'row', md: 'column' }}

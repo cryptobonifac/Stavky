@@ -171,6 +171,7 @@
     "subtitle": "Fill out the match details, select the league, and set the kickoff time.",
     "formTitle": "New betting tip",
     "formDescription": "Publish a fresh pick including company, league, and kickoff time.",
+    "tip": "Tip",
     "bettingCompany": "Betting company",
     "selectBettingCompany": "Select betting company",
     "sport": "Sport",
@@ -187,11 +188,16 @@
     "decreaseOdds": "Decrease odds",
     "matchDate": "Match Date",
     "matchKickoff": "Match kickoff",
+    "finalOdds": "Final odds",
+    "addAnotherTip": "Add another tip",
+    "sameCompanyAsFirstTip": "Same company as first tip",
     "publishTip": "Publish tip",
     "publishing": "Publishing...",
     "submit": "Create Tip",
     "success": "Betting tip created successfully.",
-    "error": "Failed to save betting tip."
+    "error": "Failed to save betting tip.",
+    "validationError": "Please fill in all required fields for each tip.",
+    "finalOddsExceedsMax": "Final odds exceeds maximum value of 2.000"
   },
   "manage": {
     "title": "Pending tips",
@@ -236,7 +242,7 @@
       "confirmDelete": "Delete this company?",
       "noCompanies": "No betting companies yet.",
       "companyCreated": "Company created successfully",
-      "companyDeleted": "Company deleted. Refresh to see changes.",
+      "companyDeleted": "Company deleted",
       "createFailed": "Failed to add company",
       "deleteFailed": "Failed to delete company"
     },

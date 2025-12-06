@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
 
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons'
@@ -19,6 +19,7 @@ const SignupForm = () => {
   const t = useTranslations('auth.signup')
   const { signUpWithPassword } = useAuth()
   const router = useRouter()
+  const locale = useLocale()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -41,6 +42,7 @@ const SignupForm = () => {
       setSubmitting(false)
       return
     }
+    // Use locale-aware path - router will automatically prefix with current locale
     router.replace('/bettings')
   }
 

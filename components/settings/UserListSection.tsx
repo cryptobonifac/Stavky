@@ -98,7 +98,12 @@ const UserListSection = ({ users }: UserListSectionProps) => {
         }
         onChange={(_event, value) => setSelectedId(value?.id ?? null)}
         renderInput={(params) => (
-          <TextField {...params} label={t('searchUsers')} inputProps={{ ...params.inputProps, 'data-testid': 'settings-user-search' }} />
+          <TextField 
+            {...params} 
+            id="settings-user-search-autocomplete"
+            label={t('searchUsers')} 
+            inputProps={{ ...params.inputProps, 'data-testid': 'settings-user-search' }} 
+          />
         )}
         data-testid="settings-user-autocomplete"
       />

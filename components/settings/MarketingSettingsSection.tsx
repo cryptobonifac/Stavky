@@ -56,45 +56,45 @@ const MarketingSettingsSection = ({
   }
 
   return (
-    <Stack spacing={3}>
-      <Typography variant="body2" color="text.secondary">
-        {t('freeMonthDescription')}
-      </Typography>
-      {feedback && (
-        <Alert severity="success" onClose={() => setFeedback(null)}>
-          {feedback}
-        </Alert>
-      )}
-      <FormControlLabel
-        control={
-          <Switch
-            checked={autoFreeMonth}
-            onChange={(event) => setAutoFreeMonth(event.target.checked)}
+        <Stack spacing={3}>
+            <Typography variant="body2" color="text.secondary">
+              {t('freeMonthDescription')}
+            </Typography>
+          {feedback && (
+            <Alert severity="success" onClose={() => setFeedback(null)}>
+              {feedback}
+            </Alert>
+          )}
+          <FormControlLabel
+            control={
+              <Switch
+                checked={autoFreeMonth}
+                onChange={(event) => setAutoFreeMonth(event.target.checked)}
             data-testid="settings-marketing-auto-free-month-switch"
+              />
+            }
+            label={t('autoEnable')}
           />
-        }
-        label={t('autoEnable')}
-      />
-      <TextField
-        type="number"
-        label={t('lossThreshold')}
-        value={threshold}
-        onChange={(event) =>
-          setThreshold(Number(event.target.value) || 0)
-        }
-        helperText={t('lossThresholdHelper')}
+          <TextField
+            type="number"
+            label={t('lossThreshold')}
+            value={threshold}
+            onChange={(event) =>
+              setThreshold(Number(event.target.value) || 0)
+            }
+            helperText={t('lossThresholdHelper')}
         inputProps={{ 'data-testid': 'settings-marketing-loss-threshold-input' }}
-      />
-      <Button
-        variant="contained"
-        onClick={handleSave}
-        disabled={isPending}
-        sx={{ alignSelf: 'flex-start' }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            disabled={isPending}
+        sx={{ alignSelf: 'flex-end' }}
         data-testid="settings-marketing-save-button"
-      >
-        {t('saveSettings')}
-      </Button>
-    </Stack>
+          >
+            {t('saveSettings')}
+          </Button>
+        </Stack>
   )
 }
 

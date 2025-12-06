@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation'
+import { getLocale } from 'next-intl/server'
 
 import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
@@ -39,7 +40,8 @@ const toMonthKey = (date: Date) =>
 
 const aggregateMonths = (
   tips: TipRecord[],
-  summaries: TipMonthSummary[]
+  summaries: TipMonthSummary[],
+  locale: string
 ): HistoryMonth[] => {
   const summaryMap = new Map(
     summaries.map((summary) => [
@@ -56,7 +58,7 @@ const aggregateMonths = (
   tips.forEach((tip) => {
     const date = new Date(tip.match_date)
     const key = toMonthKey(date)
-    const label = date.toLocaleString('default', {
+    const label = date.toLocaleString(locale, {
       month: 'long',
       year: 'numeric',
     })
@@ -99,7 +101,7 @@ const aggregateMonths = (
 
       const label =
         tipGroup?.label ??
-        new Date(`${key}-01T00:00:00Z`).toLocaleString('default', {
+        new Date(`${key}-01T00:00:00Z`).toLocaleString(locale, {
           month: 'long',
           year: 'numeric',
         })
@@ -121,6 +123,7 @@ const aggregateMonths = (
 }
 
 export default async function HistoryPage() {
+  const locale = await getLocale()
   const supabase = await createServerClient()
   const {
     data: { user },
@@ -173,7 +176,7 @@ export default async function HistoryPage() {
     )
   }
 
-  const months = aggregateMonths(tips, monthlySummaries)
+  const months = aggregateMonths(tips, monthlySummaries, locale)
 
   return (
     <MainLayout>

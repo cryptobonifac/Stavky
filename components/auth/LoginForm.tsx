@@ -10,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
 
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons'
@@ -20,13 +20,18 @@ const LoginForm = () => {
   const t = useTranslations('auth.login')
   const { signInWithPassword } = useAuth()
   const router = useRouter()
+  const locale = useLocale()
   const searchParams = useSearchParams()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
-  const redirectTo = searchParams.get('redirectedFrom') ?? '/bettings'
+  // Get redirect path and ensure it's locale-aware
+  // If redirectedFrom starts with a locale prefix, use it as-is
+  // Otherwise, use the current locale (router will handle prefixing)
+  const redirectedFrom = searchParams.get('redirectedFrom')
+  const redirectTo = redirectedFrom ?? '/bettings'
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

@@ -171,6 +171,7 @@
     "subtitle": "Vyplňte podrobnosti o zápase, vyberte ligu a nastavte čas začiatku.",
     "formTitle": "Nový stávkový tip",
     "formDescription": "Publikujte nový tip vrátane kancelárie, ligy a času začiatku.",
+    "tip": "Tip",
     "bettingCompany": "Stávková kancelária",
     "selectBettingCompany": "Vyberte stávkovú kanceláriu",
     "sport": "Šport",
@@ -187,11 +188,16 @@
     "decreaseOdds": "Znížiť kurz",
     "matchDate": "Dátum zápasu",
     "matchKickoff": "Začiatok zápasu",
+    "finalOdds": "Finálny kurz",
+    "addAnotherTip": "Pridať ďalší tip",
+    "sameCompanyAsFirstTip": "Rovnaká spoločnosť ako v prvom tipe",
     "publishTip": "Publikovať tip",
     "publishing": "Publikovanie...",
     "submit": "Vytvoriť tip",
     "success": "Stávkový tip bol úspešne vytvorený.",
-    "error": "Nepodarilo sa uložiť stávkový tip."
+    "error": "Nepodarilo sa uložiť stávkový tip.",
+    "validationError": "Prosím vyplňte všetky povinné polia pre každý tip.",
+    "finalOddsExceedsMax": "Finálny kurz presahuje maximálnu hodnotu 2,000"
   },
   "manage": {
     "title": "Čakajúce tipy",
@@ -236,7 +242,7 @@
       "confirmDelete": "Naozaj chcete vymazať túto spoločnosť?",
       "noCompanies": "Zatiaľ žiadne stávkové spoločnosti.",
       "companyCreated": "Spoločnosť bola úspešne vytvorená",
-      "companyDeleted": "Spoločnosť bola vymazaná. Obnovte stránku, aby ste videli zmeny.",
+      "companyDeleted": "Spoločnosť bola vymazaná",
       "createFailed": "Nepodarilo sa pridať spoločnosť",
       "deleteFailed": "Nepodarilo sa vymazať spoločnosť"
     },

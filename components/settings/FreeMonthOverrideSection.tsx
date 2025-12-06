@@ -83,67 +83,67 @@ const FreeMonthOverrideSection = ({ users }: FreeMonthOverrideSectionProps) => {
 
   if (users.length === 0) {
     return (
-      <Typography color="text.secondary">
-        {t('noUsersAvailable')}
-      </Typography>
+          <Typography color="text.secondary">
+            {t('noUsersAvailable')}
+          </Typography>
     )
   }
 
   return (
-    <Stack spacing={3}>
-      <Typography variant="body2" color="text.secondary">
-        {t('description')}
-      </Typography>
-      {feedback && (
-        <Alert
-          severity={feedback.type}
-          onClose={() => setFeedback(null)}
-        >
-          {feedback.text}
-        </Alert>
-      )}
-      <Autocomplete
-        options={userOptions}
-        value={
-          userOptions.find((option) => option.id === selectedId) ?? null
-        }
-        onChange={(_event, value) => setSelectedId(value?.id ?? '')}
-        renderInput={(params) => (
+        <Stack spacing={3}>
+            <Typography variant="body2" color="text.secondary">
+              {t('description')}
+            </Typography>
+          {feedback && (
+            <Alert
+              severity={feedback.type}
+              onClose={() => setFeedback(null)}
+            >
+              {feedback.text}
+            </Alert>
+          )}
+          <Autocomplete
+            options={userOptions}
+            value={
+              userOptions.find((option) => option.id === selectedId) ?? null
+            }
+            onChange={(_event, value) => setSelectedId(value?.id ?? '')}
+            renderInput={(params) => (
           <TextField {...params} label={t('selectUser')} inputProps={{ ...params.inputProps, 'data-testid': 'settings-free-month-user-select' }} />
-        )}
+            )}
         data-testid="settings-free-month-user-autocomplete"
-      />
-      <DatePicker
-        label={t('subscriptionMonth')}
-        views={['year', 'month']}
-        value={selectedMonth}
-        onChange={(value) => setSelectedMonth(value)}
-        slotProps={{ textField: { fullWidth: true, inputProps: { 'data-testid': 'settings-free-month-date-input' } } }}
-      />
-      <FormControlLabel
-        control={
-          <Switch
-            checked={grantFreeMonth}
-            onChange={(event) => setGrantFreeMonth(event.target.checked)}
-            data-testid="settings-free-month-grant-switch"
           />
-        }
-        label={
-          grantFreeMonth
-            ? t('grantNextMonthFree')
-            : t('removeNextMonthFree')
-        }
-      />
-      <Button
-        variant="contained"
-        disabled={isPending}
-        onClick={handleSubmit}
-        sx={{ alignSelf: 'flex-start' }}
+          <DatePicker
+            label={t('subscriptionMonth')}
+            views={['year', 'month']}
+            value={selectedMonth}
+            onChange={(value) => setSelectedMonth(value)}
+        slotProps={{ textField: { fullWidth: true, inputProps: { 'data-testid': 'settings-free-month-date-input' } } }}
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                checked={grantFreeMonth}
+                onChange={(event) => setGrantFreeMonth(event.target.checked)}
+            data-testid="settings-free-month-grant-switch"
+              />
+            }
+            label={
+              grantFreeMonth
+                ? t('grantNextMonthFree')
+                : t('removeNextMonthFree')
+            }
+          />
+          <Button
+            variant="contained"
+            disabled={isPending}
+            onClick={handleSubmit}
+        sx={{ alignSelf: 'flex-end' }}
         data-testid="settings-free-month-save-button"
-      >
-        {t('saveOverride')}
-      </Button>
-    </Stack>
+          >
+            {t('saveOverride')}
+          </Button>
+        </Stack>
   )
 }
 

@@ -171,6 +171,7 @@
     "subtitle": "Vyplňte podrobnosti o zápase, vyberte ligu a nastavte čas začátku.",
     "formTitle": "Nový sázkový tip",
     "formDescription": "Publikujte nový tip včetně kanceláře, ligy a času začátku.",
+    "tip": "Tip",
     "bettingCompany": "Sázková kancelář",
     "selectBettingCompany": "Vyberte sázkovou kancelář",
     "sport": "Sport",
@@ -187,11 +188,16 @@
     "decreaseOdds": "Snížit kurz",
     "matchDate": "Datum zápasu",
     "matchKickoff": "Začátek zápasu",
+    "finalOdds": "Finální kurz",
+    "addAnotherTip": "Přidat další tip",
+    "sameCompanyAsFirstTip": "Stejná kancelář jako v prvním tipu",
     "publishTip": "Publikovat tip",
     "publishing": "Publikování...",
     "submit": "Vytvořit tip",
     "success": "Sázkový tip byl úspěšně vytvořen.",
-    "error": "Nepodařilo se uložit sázkový tip."
+    "error": "Nepodařilo se uložit sázkový tip.",
+    "validationError": "Prosím vyplňte všechna povinná pole pro každý tip.",
+    "finalOddsExceedsMax": "Finální kurz překračuje maximální hodnotu 2,000"
   },
   "manage": {
     "title": "Čekající tipy",
@@ -236,7 +242,7 @@
       "confirmDelete": "Opravdu chcete smazat tuto kancelář?",
       "noCompanies": "Zatím žádné sázkové kanceláře.",
       "companyCreated": "Kancelář byla úspěšně vytvořena",
-      "companyDeleted": "Kancelář byla smazána. Obnovte stránku, abyste viděli změny.",
+      "companyDeleted": "Kancelář byla smazána",
       "createFailed": "Nepodařilo se přidat kancelář",
       "deleteFailed": "Nepodařilo se smazat kancelář"
     },

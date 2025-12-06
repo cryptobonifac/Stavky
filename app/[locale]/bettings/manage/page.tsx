@@ -38,18 +38,80 @@ export default async function ManageBettingTipsPage() {
     .select(
       `
         id,
+        description,
         match,
         odds,
         match_date,
         status,
+        created_at,
         betting_companies ( name ),
         sports ( name ),
-        leagues ( name )
+        leagues ( name ),
+        betting_tip_items (
+          id,
+          match,
+          odds,
+          match_date,
+          status,
+          betting_companies ( name ),
+          sports ( name ),
+          leagues ( name )
+        )
       `
     )
     .eq('status', 'pending')
-    .order('match_date', { ascending: true })
+    .order('created_at', { ascending: false })
 
+  // Normalize tips data to match TipRecord type
+  const normalizedTips: TipRecord[] = ((tips ?? []) as any[]).map((tip) => {
+    // New structure: has items
+    if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
+      // Use the earliest match_date from items
+      const earliestDate = tip.betting_tip_items.reduce((earliest: string, item: any) => {
+        return !earliest || new Date(item.match_date) < new Date(earliest)
+          ? item.match_date
+          : earliest
+      }, null)
+      
+      return {
+        id: tip.id,
+        match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
+        odds: tip.odds,
+        match_date: earliestDate || tip.match_date || new Date().toISOString(),
+        status: tip.status,
+        betting_companies: null,
+        sports: null,
+        leagues: null,
+        items: tip.betting_tip_items.map((item: any) => ({
+          id: item.id,
+          match: item.match,
+          odds: item.odds,
+          match_date: item.match_date,
+          status: item.status,
+          betting_companies: item.betting_companies
+            ? { name: item.betting_companies.name ?? null }
+            : null,
+          sports: item.sports ? { name: item.sports.name ?? null } : null,
+          leagues: item.leagues ? { name: item.leagues.name ?? null } : null,
+        })),
+      }
+    }
+    
+    // Legacy structure: single tip
+    return {
+      id: tip.id,
+      match: tip.match,
+      odds: tip.odds,
+      match_date: tip.match_date,
+      status: tip.status,
+      betting_companies: tip.betting_companies
+        ? { name: tip.betting_companies.name ?? null }
+        : null,
+      sports: tip.sports ? { name: tip.sports.name ?? null } : null,
+      leagues: tip.leagues ? { name: tip.leagues.name ?? null } : null,
+    }
+  })
+  
   return (
     <MainLayout>
       <TopNav
@@ -57,7 +119,7 @@ export default async function ManageBettingTipsPage() {
         canAccessSettings={true}
       />
       <PageSection>
-        <PendingTipsList tips={(tips ?? []) as TipRecord[]} />
+        <PendingTipsList tips={normalizedTips} />
       </PageSection>
     </MainLayout>
   )

@@ -161,15 +161,76 @@ export default async function HistoryPage({
     const [tipsRes, summaryRes] = await Promise.all([
       supabase
         .from('betting_tips')
-        .select('id,match,odds,match_date,status')
-        .gte('match_date', cutoffIso)
-        .order('match_date', { ascending: false }),
+        .select(
+          `
+          id,
+          description,
+          match,
+          odds,
+          match_date,
+          status,
+          created_at,
+          betting_tip_items (
+            id,
+            match,
+            odds,
+            match_date,
+            status
+          )
+        `
+        )
+        .gte('created_at', cutoffIso)
+        .order('created_at', { ascending: false }),
       supabase.rpc('tip_monthly_summary', {
         months_back: HISTORY_MONTHS_LIMIT,
       }),
     ])
 
-    tips = (tipsRes.data ?? []) as TipRecord[]
+    // Normalize tips data to handle both old and new structures
+    tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
+      // New structure: has items
+      if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
+        // Use the earliest match_date from items for grouping
+        const earliestDate = tip.betting_tip_items.reduce((earliest: string, item: any) => {
+          return !earliest || new Date(item.match_date) < new Date(earliest)
+            ? item.match_date
+            : earliest
+        }, null)
+        
+        return {
+          id: tip.id,
+          match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
+          odds: tip.odds,
+          match_date: earliestDate || tip.match_date || tip.created_at || new Date().toISOString(),
+          status: tip.status,
+        }
+      }
+      
+      // Legacy structure: single tip with match_date
+      if (tip.match_date) {
+        return {
+          id: tip.id,
+          match: tip.match,
+          odds: tip.odds,
+          match_date: tip.match_date,
+          status: tip.status,
+        }
+      }
+      
+      // Fallback: use created_at if match_date is null
+      return {
+        id: tip.id,
+        match: tip.match || tip.description || 'Unknown',
+        odds: tip.odds,
+        match_date: tip.created_at || new Date().toISOString(),
+        status: tip.status,
+      }
+    })
+    // Filter out tips that don't have a valid match_date within the cutoff period
+    .filter((tip) => {
+      const tipDate = new Date(tip.match_date)
+      return tipDate >= new Date(cutoffIso)
+    }) as TipRecord[]
     monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
       (entry) => ({
         ...entry,

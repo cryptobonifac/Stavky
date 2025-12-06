@@ -128,8 +128,8 @@ export default async function SettingsPage({
                       <PeopleIcon fontSize="small" />
                     </Box>
                     <Typography variant="h5" fontWeight={600}>
-                      {t('users.title')}
-                    </Typography>
+                    {t('users.title')}
+                  </Typography>
                   </Stack>
                 </Box>
                 <CardContent sx={{ pt: 3 }}>
@@ -175,7 +175,7 @@ export default async function SettingsPage({
                   </Stack>
                 </Box>
                 <CardContent sx={{ pt: 3 }}>
-                  <FreeMonthOverrideSection users={managedUsers} />
+              <FreeMonthOverrideSection users={managedUsers} />
                 </CardContent>
               </Card>
             </Stack>
@@ -220,9 +220,9 @@ export default async function SettingsPage({
                   </Stack>
                 </Box>
                 <CardContent sx={{ pt: 3 }}>
-                  <BettingCompaniesSection companies={companiesRes.data ?? []} />
-                </CardContent>
-              </Card>
+                    <BettingCompaniesSection companies={companiesRes.data ?? []} />
+                  </CardContent>
+                </Card>
 
               <Card
                 elevation={0}
@@ -262,9 +262,9 @@ export default async function SettingsPage({
                   </Stack>
                 </Box>
                 <CardContent sx={{ pt: 3 }}>
-                  <MarketingSettingsSection settings={marketingRes.data ?? null} />
-                </CardContent>
-              </Card>
+                    <MarketingSettingsSection settings={marketingRes.data ?? null} />
+                  </CardContent>
+                </Card>
             </Stack>
           </Grid>
         </Grid>

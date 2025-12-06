@@ -4,8 +4,9 @@ import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params
   const supabase = await createServerClient()
   const {
     data: { user },
@@ -25,10 +26,14 @@ export async function DELETE(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
+  if (!id) {
+    return NextResponse.json({ error: 'Company ID is required' }, { status: 400 })
+  }
+
   const { error } = await supabase
     .from('betting_companies')
     .delete()
-    .eq('id', params.id)
+    .eq('id', id)
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 400 })
