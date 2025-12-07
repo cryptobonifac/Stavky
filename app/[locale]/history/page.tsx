@@ -226,6 +226,12 @@ export default async function HistoryPage({
         match_date: tip.created_at || new Date().toISOString(),
         status: tip.status,
       }
+    })
+    // Filter to only show tips for matches within the cutoff period (last 12 months)
+    // This ensures we show matches by their match_date, not by when the tip was created
+    .filter((tip) => {
+      const tipMatchDate = new Date(tip.match_date)
+      return tipMatchDate >= new Date(cutoffIso)
     }) as TipRecord[]
     monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
       (entry) => ({
