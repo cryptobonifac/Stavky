@@ -118,6 +118,7 @@ file_size_limit = "50MiB"
 
 [auth]
 enabled = true
+enable_confirmations = false
 # The base URL of your website. Used as an allow-list for redirects and for constructing URLs used
 # in emails.
 site_url = "env(APP_SITE_URL)"
