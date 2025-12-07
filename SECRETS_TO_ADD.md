@@ -19,6 +19,7 @@ Vo9y6tdMIaDDbWKxQTEgne61
 ```
 team_XkG11udHVddz4sioFLNrLfG2
 ```
+*Note: For personal accounts, this value corresponds to your Vercel User ID. In Vercel contexts, `organization_id` effectively means your User ID or Team ID depending on your plan.*
 
 ### 3. VERCEL_PROJECT_ID
 **Value:**

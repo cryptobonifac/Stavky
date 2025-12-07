@@ -1,5 +1,8 @@
 # Coding Standards & Best Practices
 
+## Vercel Secrets
+- **VERCEL_ORG_ID is User ID**: When deploying from a personal Vercel account, the `VERCEL_ORG_ID` required by GitHub Actions or Vercel CLI corresponds to your **Vercel User ID**. It is often referred to as `orgId` in config files.
+
 ## Middleware vs Proxy
 
 **CRITICAL RULE: DO NOT USE `middleware.ts`**
