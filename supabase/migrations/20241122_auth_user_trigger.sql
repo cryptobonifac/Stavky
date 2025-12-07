@@ -5,8 +5,8 @@ security definer
 set search_path = public
 as $$
 begin
-  insert into public.users (id, email, role)
-  values (new.id, new.email, 'customer')
+  insert into public.users (id, email, role, account_active_until)
+  values (new.id, new.email, 'customer', '2099-12-31 23:59:59+00'::timestamptz)
   on conflict (id) do nothing;
   return new;
 end;

@@ -1,207 +1,254 @@
-# Production OAuth Redirect Fix
+# Production OAuth Redirect Fix - Documentation
 
 ## Problem
 
-After Google login in production, users are being redirected to `http://localhost:3000/sk?code=...` instead of the production URL. This happens because the redirect URL is hardcoded or misconfigured.
+After Google OAuth login in production, users are being redirected to `http://localhost:3000/sk?code=...` instead of the production URL. This happens because:
 
-## Code Changes (Already Implemented)
+1. **Supabase Dashboard Site URL** is set to `http://localhost:3000` in the production project
+2. **Supabase validates redirect URLs** against its dashboard configuration and may override the `redirectTo` parameter
+3. **Environment variables** might contain localhost values in Vercel production settings
 
-The code has been updated in `components/providers/auth-provider.tsx` to always use `window.location.origin` for the callback URL, ensuring it works correctly in both development and production environments.
+**Critical**: Even if your code correctly uses `window.location.origin`, Supabase will validate the redirect URL against its dashboard settings. If the production URL is not in the allowed list, Supabase may fall back to the Site URL (which might be localhost).
 
-## Additional Configuration Steps Required
+## Code Changes Made
 
-### Step 1: Update Supabase Dashboard Redirect URLs
+The following code changes have been implemented to ensure the redirect URL always uses the current origin:
+
+### File: `components/providers/auth-provider.tsx`
+
+The `signInWithProvider` function now:
+- Always uses `window.location.origin` to build the callback URL
+- Replaces the hostname from environment variables with the current origin
+- Ensures the redirect URL matches the current environment (production or local)
+
+**Key Change**: The callback URL is now dynamically built based on `window.location.origin`, which will be:
+- `http://localhost:3000` in local development
+- `https://your-production-domain.com` in production
+
+## Additional Configuration Required
+
+### 1. Supabase Dashboard Configuration (CRITICAL - Most Likely Cause)
+
+**This is the most common cause of the localhost redirect issue.** Supabase validates all redirect URLs against its dashboard configuration. If your production URL is not in the allowed list, Supabase will use the Site URL (which might be localhost).
+
+#### Steps:
 
 1. **Go to Supabase Dashboard**:
    - Navigate to: https://supabase.com/dashboard
-   - Select your production project
+   - **IMPORTANT**: Select your **PRODUCTION** project (not local/staging)
 
 2. **Open Authentication Settings**:
    - Go to: **Authentication** → **URL Configuration**
-   - Or: **Settings** → **Auth** → **URL Configuration**
 
-3. **Update Redirect URLs**:
-   - In the **Redirect URLs** section, add your production URLs:
-     ```
-     https://your-production-domain.com/auth/callback
-     https://your-production-domain.vercel.app/auth/callback
-     ```
-   - If you have a custom domain, add:
-     ```
-     https://your-custom-domain.com/auth/callback
-     ```
-   - **Important**: Keep `http://localhost:3000/auth/callback` only if you need local development
-   - **Remove** any incorrect localhost URLs that shouldn't be in production
-
-4. **Update Site URL**:
+3. **Configure Site URL (CRITICAL)**:
    - Set **Site URL** to your production domain:
      ```
      https://your-production-domain.com
      ```
-   - Or: `https://your-production-domain.vercel.app`
+   - **DO NOT** use `http://localhost:3000` in production
+   - This is the default redirect URL Supabase uses if validation fails
+   - **This is likely the root cause** - if Site URL is localhost, users will be redirected there
 
-5. **Save Changes**:
+4. **Configure Redirect URLs (REQUIRED)**:
+   - In the **Redirect URLs** section, add your production URLs:
+     ```
+     https://your-production-domain.com/auth/callback
+     https://your-production-domain.vercel.app/auth/callback
+     https://*.vercel.app/auth/callback
+     ```
+   - **IMPORTANT**: The exact URL must match what your code sends (including `/auth/callback` path)
+   - Keep `http://localhost:3000/auth/callback` ONLY if you need it for local development
+   - **Remove** `http://localhost:3000` from production project settings
+
+5. **Verify Google OAuth Provider Settings**:
+   - Go to: **Authentication** → **Providers** → **Google**
+   - Ensure the redirect URI shown matches your Supabase callback:
+     ```
+     https://xxxxx.supabase.co/auth/v1/callback
+     ```
+   - This is different from your app's callback URL
+
+6. **Save Changes**:
    - Click **Save** to apply the changes
+   - **Wait 1-2 minutes** for changes to propagate
 
-### Step 2: Configure Vercel Environment Variables
+### 2. Vercel Environment Variables
+
+Ensure the following environment variables are set correctly in Vercel:
+
+#### Required Variables:
+
+1. **`NEXT_PUBLIC_AUTH_CALLBACK_URL`** (Optional but recommended):
+   - **Production**: `https://your-production-domain.com/auth/callback`
+   - **Preview**: `https://your-preview-branch.vercel.app/auth/callback`
+   - **Note**: If not set, the code will use `window.location.origin/auth/callback` automatically
+
+2. **`NEXT_PUBLIC_SUPABASE_URL`**:
+   - Your Supabase project URL
+   - Example: `https://xxxxx.supabase.co`
+
+3. **`NEXT_PUBLIC_SUPABASE_ANON_KEY`**:
+   - Your Supabase anonymous key
+
+#### Steps to Set Environment Variables in Vercel:
 
 1. **Go to Vercel Dashboard**:
    - Navigate to: https://vercel.com/dashboard
    - Select your project
 
-2. **Open Environment Variables**:
-   - Go to: **Settings** → **Environment Variables**
+2. **Open Settings**:
+   - Click on **Settings** → **Environment Variables**
 
-3. **Update `NEXT_PUBLIC_AUTH_CALLBACK_URL`**:
-   - **For Production**:
-     ```
-     https://your-production-domain.com/auth/callback
-     ```
-   - **For Preview** (optional):
-     ```
-     https://your-project.vercel.app/auth/callback
-     ```
-   - **Important**: Do NOT use `http://localhost:3000/auth/callback` in production environment variables
+3. **Add/Update Variables**:
+   - For each variable:
+     - Click **Add New**
+     - Enter the variable name
+     - Enter the value
+     - Select environments: **Production**, **Preview**, and/or **Development**
+     - Click **Save**
 
-4. **Verify Other Environment Variables**:
-   - Ensure `NEXT_PUBLIC_SUPABASE_URL` points to your production Supabase project
-   - Ensure `NEXT_PUBLIC_SUPABASE_ANON_KEY` is your production anon key
-   - Ensure `SUPABASE_SERVICE_ROLE_KEY` is your production service role key
+4. **Redeploy**:
+   - After adding/updating variables, trigger a new deployment:
+     - Go to **Deployments**
+     - Click **Redeploy** on the latest deployment
+     - Or push a new commit to trigger automatic deployment
 
-5. **Redeploy**:
-   - After updating environment variables, trigger a new deployment
-   - Or wait for the next automatic deployment
+### 3. Google Cloud Console Configuration
 
-### Step 3: Update Google Cloud Console (If Needed)
+Ensure Google OAuth redirect URIs are configured correctly for production.
 
-If Google OAuth is still redirecting to localhost, check Google Cloud Console:
+#### Steps:
 
 1. **Go to Google Cloud Console**:
    - Navigate to: https://console.cloud.google.com
    - Select your project
 
-2. **Open OAuth 2.0 Client IDs**:
+2. **Open OAuth Credentials**:
    - Go to: **APIs & Services** → **Credentials**
    - Find your OAuth 2.0 Client ID
 
-3. **Update Authorized Redirect URIs**:
-   - Add your production Supabase redirect URI:
-     ```
-     https://your-supabase-project.supabase.co/auth/v1/callback
-     ```
-   - **Note**: This is Supabase's callback URL, not your app's callback URL
-   - Supabase handles the OAuth flow and then redirects to your app
-
-4. **Save Changes**:
-   - Click **Save** to apply
-
-### Step 4: Verify Supabase OAuth Provider Configuration
-
-1. **Go to Supabase Dashboard**:
-   - Navigate to: **Authentication** → **Providers**
-
-2. **Check Google Provider**:
-   - Ensure Google provider is enabled
-   - Verify the **Client ID** and **Client Secret** are correct
-   - The redirect URI in Supabase should be:
-     ```
-     https://your-supabase-project.supabase.co/auth/v1/callback
-     ```
-   - This is automatically configured by Supabase
-
-3. **Check Additional Redirect URLs**:
-   - In **Authentication** → **URL Configuration**
-   - Verify **Additional Redirect URLs** includes:
+3. **Configure Authorized Redirect URIs**:
+   - Click **Edit** on your OAuth client
+   - In **Authorized redirect URIs**, add:
      ```
      https://your-production-domain.com/auth/callback
+     https://your-production-domain.vercel.app/auth/callback
      ```
+   - **Important**: For Supabase OAuth, you should also have:
+     ```
+     https://xxxxx.supabase.co/auth/v1/callback
+     ```
+   - Keep `http://localhost:3000/auth/callback` for local development
 
-## Testing Steps
+4. **Save Changes**:
+   - Click **Save** to apply changes
 
-### Test in Production
+### 4. Verify Configuration
 
-1. **Clear Browser Cache**:
-   - Clear cookies and cache for your production domain
-   - Or use an incognito/private window
+After making all the above changes, verify the configuration:
 
-2. **Test Google Login**:
-   - Navigate to your production site
+#### Checklist:
+
+- [ ] Supabase Dashboard has production redirect URLs configured
+- [ ] Supabase Site URL is set to production domain
+- [ ] Vercel environment variables are set correctly
+- [ ] Google Cloud Console has production redirect URIs
+- [ ] Application has been redeployed after environment variable changes
+
+## Testing
+
+### Local Testing:
+
+1. Start local development server:
+   ```bash
+   npm run dev
+   ```
+
+2. Test Google OAuth login:
+   - Navigate to `http://localhost:3000/sk/login`
    - Click "Sign in with Google"
-   - Complete the OAuth flow
-   - **Expected**: Should redirect to `https://your-production-domain.com/sk/bettings` (or appropriate page)
-   - **Not Expected**: Should NOT redirect to `http://localhost:3000`
+   - Verify redirect goes to `http://localhost:3000/auth/callback?code=...&locale=sk`
+   - Verify final redirect goes to `http://localhost:3000/sk/bettings`
 
-3. **Verify Session**:
-   - After login, check that you're authenticated
-   - Navigate to protected routes
-   - Verify user profile is loaded
+### Production Testing:
 
-### Test Locally
+1. Deploy to production (or use preview deployment)
 
-1. **Verify Local Environment**:
-   - Ensure `.env.local` has:
-     ```
-     NEXT_PUBLIC_AUTH_CALLBACK_URL=http://localhost:3000/auth/callback
-     ```
+2. Test Google OAuth login:
+   - Navigate to `https://your-production-domain.com/sk/login`
+   - Click "Sign in with Google"
+   - Verify redirect goes to `https://your-production-domain.com/auth/callback?code=...&locale=sk`
+   - Verify final redirect goes to `https://your-production-domain.com/sk/bettings`
 
-2. **Test Local Login**:
-   - Start dev server: `npm run dev`
-   - Test Google login
-   - Should redirect to `http://localhost:3000/sk/bettings`
+3. **Important**: If you see `localhost` in the redirect URL:
+   - Check Supabase Dashboard redirect URLs
+   - Check Vercel environment variables
+   - Verify the code is using `window.location.origin` (check browser console)
 
 ## Troubleshooting
 
 ### Issue: Still redirecting to localhost in production
 
+**This is the most common issue. Follow these steps in order:**
+
+**Step 1: Check Supabase Dashboard Site URL (MOST LIKELY CAUSE)**
+1. Go to Supabase Dashboard → Your Production Project
+2. Navigate to: **Authentication** → **URL Configuration**
+3. Check the **Site URL** field
+4. **If it says `http://localhost:3000`**, this is your problem!
+5. Change it to: `https://your-production-domain.com`
+6. Save and wait 1-2 minutes
+
+**Step 2: Verify Redirect URLs List**
+1. In the same page, check **Redirect URLs**
+2. Ensure your production URL is listed: `https://your-production-domain.com/auth/callback`
+3. Remove `http://localhost:3000/auth/callback` if it's there
+4. Save changes
+
+**Step 3: Check Vercel Environment Variables**
+1. Go to Vercel Dashboard → Your Project → Settings → Environment Variables
+2. Check if `NEXT_PUBLIC_AUTH_CALLBACK_URL` is set
+3. **If it contains `localhost`**, either:
+   - Remove it (recommended - code will use `window.location.origin`)
+   - Or change it to your production URL
+4. Redeploy after changing environment variables
+
+**Step 4: Verify Code is Using Correct URL**
+1. Open browser console in production
+2. Look for `[Auth] OAuth redirect URL:` log message (in development)
+3. In production, check Network tab → OAuth request → see what `redirectTo` parameter is sent
+4. Verify it's the production URL, not localhost
+
+**Step 5: Clear Browser Cache**
+1. Clear browser cookies and cache
+2. Try OAuth login again
+3. Check if issue persists
+
+**Step 6: Verify Correct Supabase Project**
+1. Ensure you're configuring the **production** Supabase project
+2. Not a local/staging/test project
+3. Check the project URL matches your `NEXT_PUBLIC_SUPABASE_URL` environment variable
+
+### Issue: Redirect URL mismatch error from Google
+
 **Possible Causes**:
-1. Environment variables not updated in Vercel
-2. Supabase redirect URLs not updated
-3. Browser cache/cookies
-4. Old deployment still running
+1. Google Cloud Console doesn't have the production redirect URI
+2. Redirect URI doesn't exactly match (including protocol, domain, path)
 
 **Solutions**:
-1. Verify Vercel environment variables are set correctly
-2. Check Supabase Dashboard redirect URLs
-3. Clear browser cache and cookies
-4. Trigger a new deployment in Vercel
-5. Check Vercel deployment logs for environment variable issues
+1. Add exact redirect URI to Google Cloud Console
+2. Ensure protocol is `https://` (not `http://`) for production
+3. Ensure path is exactly `/auth/callback` (no trailing slash)
 
-### Issue: Redirect URL mismatch error
+### Issue: Supabase redirect URL not in allowed list
 
-**Error**: `redirect_uri_mismatch`
+**Error**: "redirect_uri is not allowed"
 
-**Solution**:
-1. Verify the redirect URL in Supabase Dashboard matches exactly
-2. Check for trailing slashes or protocol mismatches (http vs https)
-3. Ensure the URL is in the allowed list in Supabase
-
-### Issue: Code changes not taking effect
-
-**Solution**:
-1. Verify the code changes are deployed
-2. Check Vercel deployment logs
-3. Clear browser cache
-4. Hard refresh the page (Ctrl+Shift+R or Cmd+Shift+R)
-
-## Environment Variable Reference
-
-### Production (Vercel)
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-production-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-production-service-role-key
-NEXT_PUBLIC_AUTH_CALLBACK_URL=https://your-production-domain.com/auth/callback
-```
-
-### Development (Local)
-
-```env
-NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-local-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-local-service-role-key
-NEXT_PUBLIC_AUTH_CALLBACK_URL=http://localhost:3000/auth/callback
-```
+**Solutions**:
+1. Go to Supabase Dashboard → Authentication → URL Configuration
+2. Add the exact redirect URL to the **Redirect URLs** list
+3. Ensure the URL matches exactly (including protocol and path)
+4. Save and wait a few minutes for changes to propagate
 
 ## Related Files
 
@@ -212,12 +259,41 @@ NEXT_PUBLIC_AUTH_CALLBACK_URL=http://localhost:3000/auth/callback
 
 ## Summary
 
-The code has been fixed to always use the current origin. However, you must also:
+### Code Changes Made
 
-1. ✅ **Update Supabase Dashboard** - Add production redirect URLs
-2. ✅ **Update Vercel Environment Variables** - Set production callback URL
-3. ✅ **Verify Google Cloud Console** - Ensure redirect URIs are correct
-4. ✅ **Test in Production** - Verify the fix works
+The code has been updated to:
+- **Always use `window.location.origin`** to build the redirect URL (no dependency on environment variables)
+- **Add production detection** to prevent localhost URLs in production
+- **Add validation and logging** to help debug redirect URL issues
+- **Simplify logic** to remove dependency on `NEXT_PUBLIC_AUTH_CALLBACK_URL` environment variable
 
-After completing these steps, OAuth should work correctly in production, redirecting users to the production domain instead of localhost.
+### Configuration Required
 
+**CRITICAL**: Even with correct code, Supabase validates redirect URLs against its dashboard settings. You MUST configure:
+
+1. **Supabase Dashboard Site URL** (MOST IMPORTANT):
+   - Set to your production domain: `https://your-production-domain.com`
+   - **NOT** `http://localhost:3000`
+   - This is likely the root cause of your issue
+
+2. **Supabase Dashboard Redirect URLs**:
+   - Add: `https://your-production-domain.com/auth/callback`
+   - Remove localhost from production project
+
+3. **Vercel Environment Variables** (Optional):
+   - Remove `NEXT_PUBLIC_AUTH_CALLBACK_URL` if it contains localhost
+   - Or set it to production URL (code will still use `window.location.origin`)
+
+4. **Google Cloud Console**:
+   - Add production redirect URIs
+
+### Verification Steps
+
+After making changes:
+1. Wait 1-2 minutes for Supabase changes to propagate
+2. Redeploy your Vercel application
+3. Clear browser cache and cookies
+4. Test OAuth login in production
+5. Check browser console/network tab to verify redirect URL is production, not localhost
+
+**If still redirecting to localhost**: The Supabase Dashboard Site URL is almost certainly set to localhost. Check and fix that first.
