@@ -1,15 +1,13 @@
 'use client'
 
 import {
-  List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
   styled,
 } from '@mui/material'
-import { usePathname } from '@/i18n/routing'
+import { Link, usePathname } from '@/i18n/routing'
 import { useLocale } from 'next-intl'
-import { useParams } from 'next/navigation'
 import { ReactNode } from 'react'
 
 type SidebarItemProps = {
@@ -35,29 +33,17 @@ const StyledListItemButton = styled(ListItemButton)(({ theme }) => ({
 
 const SidebarItem = ({ href, icon, label }: SidebarItemProps) => {
   const pathname = usePathname()
-  const locale = useLocale()
-  const params = useParams()
-  const currentLocale = (params?.locale as string) || locale
   const selected = pathname === href || pathname.startsWith(`${href}/`)
 
-  // Construct the full path with locale
-  const fullHref = `/${currentLocale}${href === '/' ? '' : href}`
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    window.location.href = fullHref
-  }
-
   return (
-    <StyledListItemButton 
-      selected={selected}
-      onClick={handleClick}
-      component="a"
-      href={fullHref}
-    >
-      <ListItemIcon sx={{ minWidth: 40 }}>{icon}</ListItemIcon>
-      <ListItemText primary={label} />
-    </StyledListItemButton>
+    <Link href={href} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <StyledListItemButton 
+        selected={selected}
+      >
+        <ListItemIcon sx={{ minWidth: 40 }}>{icon}</ListItemIcon>
+        <ListItemText primary={label} />
+      </StyledListItemButton>
+    </Link>
   )
 }
 

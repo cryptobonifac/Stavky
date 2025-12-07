@@ -456,7 +456,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                     <DateTimePickerField
                       label={t('matchKickoff')}
                       value={tip.match_date}
-                      onChange={(value) =>
+                      onChange={(value: Dayjs | null) =>
                         handleTipChange(tip.id, 'match_date', value ?? dayjs())
                       }
                       minDateTime={dayjs()}

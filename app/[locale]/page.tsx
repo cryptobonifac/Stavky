@@ -19,6 +19,9 @@ import TopNav from '@/components/navigation/TopNav'
 import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/components/providers/auth-provider'
 
+// Mark as dynamic because useAuth requires client-side context
+export const dynamic = 'force-dynamic'
+
 export default function Home() {
   const theme = useTheme()
   const { profile } = useAuth()

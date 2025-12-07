@@ -5,10 +5,14 @@ import { TextField } from '@mui/material'
 import { Dayjs } from 'dayjs'
 import { useState, useEffect } from 'react'
 
-type BaseProps = DateTimePickerProps<Dayjs>
+// MUI v8 changed the type signature - use props directly without generic
+type BaseProps = DateTimePickerProps
 
 type DateTimePickerFieldProps = Omit<BaseProps, 'format'> & {
   format?: string
+  value?: Dayjs | null
+  onChange?: (value: Dayjs | null) => void
+  minDateTime?: Dayjs
 }
 
 // Internal component that actually renders the DateTimePicker
@@ -47,14 +51,16 @@ const DateTimePickerField = ({
 
   if (!mounted) {
     // Render a TextField placeholder during SSR to prevent hydration mismatch
-    const textFieldProps = {
-      fullWidth: true,
-      size: 'medium' as const,
-      ...slotProps?.textField,
-      label,
-      value: value ? (value as any).format?.(format) || '' : '',
-    }
-    return <TextField {...textFieldProps} disabled />
+    return (
+      <TextField
+        fullWidth
+        size="medium"
+        label={label}
+        value={value ? (value as any).format?.(format) || '' : ''}
+        disabled
+        {...(slotProps?.textField as any)}
+      />
+    )
   }
 
   return (

@@ -18,7 +18,8 @@ type AppThemeProviderProps = {
 }
 
 // Date picker translations
-const datePickerTranslations = {
+// Using Record<string, any> to allow custom locale text properties
+const datePickerTranslations: Record<string, Record<string, string>> = {
   en: {
     cancel: 'Cancel',
     clear: 'Clear',
@@ -71,7 +72,7 @@ export const AppThemeProvider = ({ children }: AppThemeProviderProps) => {
       <LocalizationProvider 
         dateAdapter={AdapterDayjs}
         adapterLocale={dayjsLocale}
-        localeText={localeText}
+        localeText={localeText as any}
       >
         <ThemeProvider theme={theme}>
           <CssBaseline />

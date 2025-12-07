@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     }
 
     // Validate final odds
-    if (!body.final_odds || body.final_odds > 2.0) {
+    if (!body.final_odds || body.final_odds < 1.001 || body.final_odds > 2.0) {
       return NextResponse.json(
         { error: 'Final odds must be between 1.001 and 2.0' },
         { status: 400 }

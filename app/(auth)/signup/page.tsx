@@ -1,6 +1,9 @@
 import AuthPageLayout from '@/components/auth/AuthPageLayout'
 import SignupForm from '@/components/auth/SignupForm'
 
+// Mark as dynamic to prevent prerendering issues
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
   title: 'Create account | Stavky',
 }

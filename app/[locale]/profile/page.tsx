@@ -31,31 +31,34 @@ export default async function ProfilePage({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login', { locale, searchParams: { redirectedFrom: '/profile' } })
+    redirect({ href: { pathname: '/login', query: { redirectedFrom: '/profile' } }, locale })
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('id,email,role,account_active_until,full_name')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   if (!profile) {
-    redirect('/login', { locale })
+    redirect({ href: '/login', locale })
   }
 
+  // TypeScript: profile is guaranteed to be non-null after redirect check
   const { data: subscriptions } = await supabase
     .from('user_subscriptions')
     .select('id,month,valid_to,next_month_free')
-    .eq('user_id', profile.id)
+    .eq('user_id', profile!.id)
     .order('month', { ascending: false })
 
+  // TypeScript: profile is guaranteed to be non-null after redirect check
   const profileData: UserProfile = {
-    id: profile.id,
-    email: profile.email,
-    role: profile.role as UserProfile['role'],
-    account_active_until: profile.account_active_until,
-    full_name: profile.full_name,
+    id: profile!.id,
+    email: profile!.email,
+    role: profile!.role as UserProfile['role'],
+    account_active_until: profile!.account_active_until,
+    full_name: profile!.full_name,
   }
 
   const subscriptionHistory: SubscriptionHistoryEntry[] = (subscriptions ?? []).map(

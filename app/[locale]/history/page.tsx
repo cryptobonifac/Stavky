@@ -135,13 +135,14 @@ export default async function HistoryPage({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login', { locale, searchParams: { redirectedFrom: '/history' } })
+    redirect({ href: { pathname: '/login', query: { redirectedFrom: '/history' } }, locale })
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('account_active_until,role')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   const activeAccount = profile
@@ -225,11 +226,6 @@ export default async function HistoryPage({
         match_date: tip.created_at || new Date().toISOString(),
         status: tip.status,
       }
-    })
-    // Filter out tips that don't have a valid match_date within the cutoff period
-    .filter((tip) => {
-      const tipDate = new Date(tip.match_date)
-      return tipDate >= new Date(cutoffIso)
     }) as TipRecord[]
     monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
       (entry) => ({

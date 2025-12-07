@@ -27,10 +27,11 @@ export default async function SettingsPage() {
     redirect('/login?redirectedFrom=/settings')
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('role,email')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   if (profile?.role !== 'betting') {

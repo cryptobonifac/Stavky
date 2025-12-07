@@ -154,7 +154,7 @@ const UserListSection = ({ users }: UserListSectionProps) => {
                     ? dayjs(selectedDraft.account_active_until)
                     : null
                 }
-                onChange={(value) => handleDateChange(selectedDraft.id, value)}
+                onChange={(value: Dayjs | null) => handleDateChange(selectedDraft.id, value)}
                 slotProps={{
                   textField: {
                     inputProps: { 'data-testid': 'settings-user-active-until' },

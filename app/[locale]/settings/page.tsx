@@ -45,17 +45,18 @@ export default async function SettingsPage({
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login', { locale, searchParams: { redirectedFrom: '/settings' } })
+    redirect({ href: { pathname: '/login', query: { redirectedFrom: '/settings' } }, locale })
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('role,email')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   if (profile?.role !== 'betting') {
-    redirect('/bettings', { locale })
+    redirect({ href: '/bettings', locale })
   }
 
   const [usersRes, companiesRes, marketingRes] = await Promise.all([

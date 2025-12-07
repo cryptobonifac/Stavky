@@ -30,10 +30,11 @@ export default async function BettingTipsPage() {
     redirect('/login?redirectedFrom=/bettings')
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('account_active_until,role')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   const isBettingAdmin = profile?.role === 'betting'

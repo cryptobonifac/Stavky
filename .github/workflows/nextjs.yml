@@ -73,6 +73,33 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Setup PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+      - name: Run Supabase migrations
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: |
+          if [ -n "$SUPABASE_PROJECT_ID" ] && [ -n "$SUPABASE_DB_PASSWORD" ]; then
+            echo "Applying database migrations..."
+            export SUPABASE_DB_URL="postgresql://postgres:${SUPABASE_DB_PASSWORD}@db.${SUPABASE_PROJECT_ID}.supabase.co:5432/postgres"
+            # Apply migrations in order (sorted by filename)
+            for migration in supabase/migrations/*.sql; do
+              if [ -f "$migration" ]; then
+                echo "Applying migration: $(basename $migration)"
+                psql "$SUPABASE_DB_URL" -f "$migration" || {
+                  echo "Error: Failed to apply migration $(basename $migration)"
+                  exit 1
+                }
+              fi
+            done
+            echo "All migrations applied successfully"
+          else
+            echo "Skipping migrations: Required secrets not configured"
+            echo "Required secrets: SUPABASE_PROJECT_ID, SUPABASE_DB_PASSWORD"
+          fi
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact

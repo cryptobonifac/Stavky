@@ -217,6 +217,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext)
   if (!context) {
+    // Return default values during SSR or when provider is not available
+    // This prevents build errors when pages are prerendered
+    if (typeof window === 'undefined') {
+      return {
+        session: null,
+        user: null,
+        loading: true,
+        profile: null,
+        profileLoading: true,
+        isBetting: false,
+        isCustomer: false,
+        canManageBets: false,
+        supabase: createClient(),
+        signInWithPassword: async () => ({ error: null }),
+        signUpWithPassword: async () => ({ error: null }),
+        signInWithProvider: async () => ({ error: null }),
+        signOut: async () => ({ error: null }),
+        refreshProfile: async () => {},
+      } as AuthContextValue
+    }
     throw new Error('useAuth must be used within an AuthProvider')
   }
   return context

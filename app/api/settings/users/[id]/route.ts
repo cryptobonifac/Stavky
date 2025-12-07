@@ -7,6 +7,16 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params
+  
+  // Validate UUID format
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  if (!id || id === 'undefined' || !uuidRegex.test(id)) {
+    return NextResponse.json(
+      { error: `Invalid user ID: ${id}` },
+      { status: 400 }
+    )
+  }
+  
   const supabase = await createServerClient()
   const {
     data: { user },

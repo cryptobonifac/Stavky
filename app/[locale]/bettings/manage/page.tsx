@@ -20,17 +20,18 @@ export default async function ManageBettingTipsPage() {
   } = await supabase.auth.getUser()
 
   if (!user) {
-    redirect('/login', { locale, searchParams: { redirectedFrom: '/bettings/manage' } })
+    redirect({ href: { pathname: '/login', query: { redirectedFrom: '/bettings/manage' } }, locale })
   }
 
+  // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
     .select('role')
-    .eq('id', user.id)
+    .eq('id', user!.id)
     .single()
 
   if (profile?.role !== 'betting') {
-    redirect('/bettings', { locale })
+    redirect({ href: '/bettings', locale })
   }
 
   const { data: tips } = await supabase
