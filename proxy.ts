@@ -17,7 +17,7 @@ const PROTECTED_ROUTES = [
 const AUTH_ROUTES = ['/login']
 const BETTING_ONLY_ROUTES = ['/newbet', '/bettings/manage', '/settings']
 
-export async function proxy(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   // Handle Supabase session update first
   const { supabase, response: supabaseResponse } = await updateSession(request)
   const {
@@ -120,7 +120,8 @@ export const config = {
     '/(cs|en|sk)/:path*',
     // Enable redirects that add missing locales
     // (e.g. `/pathnames` -> `/en/pathnames`)
-    '/((?!_next|_vercel|api|.*\\..*).*)',
+    // Exclude: _next, _vercel, api routes, auth/callback, and static files
+    '/((?!_next|_vercel|api|auth/callback|.*\\..*).*)',
   ],
 }
 

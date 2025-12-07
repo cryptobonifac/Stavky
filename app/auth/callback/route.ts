@@ -24,15 +24,16 @@ export async function GET(request: NextRequest) {
     locale = routing.defaultLocale
   }
   
-  // Default redirect to locale-aware path (will be overridden by role-based redirect if user exists)
+  // Default redirect path (without locale - middleware will add it)
   const nextParam = requestUrl.searchParams.get('next')
   let next = nextParam 
-    ? (nextParam.startsWith('/') ? `/${locale}${nextParam}` : `/${locale}/${nextParam}`)
-    : `/${locale}/bettings`
+    ? (nextParam.startsWith('/') ? nextParam : `/${nextParam}`)
+    : '/bettings'
 
   if (!code) {
-    requestUrl.pathname = `/${locale}/login`
+    requestUrl.pathname = '/login'
     requestUrl.searchParams.set('error', 'missing_code')
+    requestUrl.searchParams.set('locale', locale)
     return NextResponse.redirect(requestUrl)
   }
 
@@ -59,8 +60,9 @@ export async function GET(request: NextRequest) {
   const { error } = await supabase.auth.exchangeCodeForSession(code)
 
   if (error) {
-    requestUrl.pathname = `/${locale}/login`
+    requestUrl.pathname = '/login'
     requestUrl.searchParams.set('error', error.message)
+    requestUrl.searchParams.set('locale', locale)
     return NextResponse.redirect(requestUrl)
   }
 
@@ -75,15 +77,27 @@ export async function GET(request: NextRequest) {
     
     // Determine redirect based on role (similar to proxy.ts logic)
     // Only override if no explicit 'next' parameter was provided
+    // Don't add locale prefix - middleware will handle it
     if (!nextParam) {
       const role = userProfile?.role
-      next = role === 'betting' ? `/${locale}/newbet` : `/${locale}/bettings`
+      next = role === 'betting' ? '/newbet' : '/bettings'
     }
   }
   
-  // Update response with final redirect destination
-  const finalRedirectUrl = new URL(next, request.url)
-  return NextResponse.redirect(finalRedirectUrl)
+  // Redirect directly to locale-prefixed path
+  // Build the full URL with locale prefix to avoid middleware adding it twice
+  const localePrefixedPath = `/${locale}${next}`
+  const finalRedirectUrl = new URL(localePrefixedPath, request.url)
+  
+  // Create redirect response and ensure session cookies are included
+  // The response object already has the session cookies from exchangeCodeForSession
+  const redirectResponse = NextResponse.redirect(finalRedirectUrl)
+  
+  // Copy all cookies from the session response to the redirect response
+  response.cookies.getAll().forEach((cookie) => {
+    redirectResponse.cookies.set(cookie.name, cookie.value, cookie)
+  })
+  
+  return redirectResponse
 }
-
 
