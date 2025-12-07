@@ -156,10 +156,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const locale = localeMatch ? localeMatch[1] : 'en'
       
       // Build callback URL with locale parameter
-      const baseCallbackUrl =
-        process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL ??
-        `${window.location.origin}/auth/callback`
-      const callbackUrl = new URL(baseCallbackUrl)
+      // Always use current origin (window.location.origin) to ensure it works in production
+      // This will be the production URL when deployed, or localhost when in dev
+      const currentOrigin = window.location.origin
+      let callbackUrl: URL
+      
+      if (process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL) {
+        // If env var is set, use it but replace hostname with current origin
+        callbackUrl = new URL(process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL)
+        const currentUrl = new URL(currentOrigin)
+        callbackUrl.protocol = currentUrl.protocol
+        callbackUrl.hostname = currentUrl.hostname
+        callbackUrl.port = currentUrl.port
+      } else {
+        // Default to current origin
+        callbackUrl = new URL(`${currentOrigin}/auth/callback`)
+      }
+      
       callbackUrl.searchParams.set('locale', locale)
       
       const { error } = await supabase.auth.signInWithOAuth({
