@@ -150,12 +150,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     async (
       provider: 'google' | 'facebook'
     ): Promise<{ error: AuthError | null }> => {
+      // Extract current locale from pathname
+      const currentPath = window.location.pathname
+      const localeMatch = currentPath.match(/^\/(en|cs|sk)/)
+      const locale = localeMatch ? localeMatch[1] : 'en'
+      
+      // Build callback URL with locale parameter
+      const baseCallbackUrl =
+        process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL ??
+        `${window.location.origin}/auth/callback`
+      const callbackUrl = new URL(baseCallbackUrl)
+      callbackUrl.searchParams.set('locale', locale)
+      
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo:
-            process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL ??
-            `${window.location.origin}/auth/callback`,
+          redirectTo: callbackUrl.toString(),
         },
       })
       return { error }

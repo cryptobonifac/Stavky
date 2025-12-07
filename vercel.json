@@ -4,12 +4,6 @@
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["iad1"],
-  "rewrites": [
-    {
-      "source": "/:locale(en|cs|sk)/:path*",
-      "destination": "/:locale/:path*"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

@@ -83,7 +83,15 @@ jobs:
             echo "Please add VERCEL_PROJECT_ID to: Settings → Secrets and variables → Actions"
             exit 1
           fi
+          if [ -z "${{ secrets.VERCEL_ORG_ID }}" ]; then
+            echo "::error::VERCEL_ORG_ID secret is not set in GitHub Secrets"
+            echo "Please add VERCEL_ORG_ID to: Settings → Secrets and variables → Actions"
+            echo "For personal accounts, this should be your Vercel User ID (not Team ID)"
+            exit 1
+          fi
           echo "✓ Vercel secrets are configured"
+          echo "VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}"
+          echo "VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}"
       
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v25
