@@ -31,11 +31,18 @@ jobs:
 
       - name: Link to Supabase project
         run: |
+          echo "Checking secrets..."
+          echo "SUPABASE_PROJECT_ID is set: $([ -n "$SUPABASE_PROJECT_ID" ] && echo 'yes' || echo 'no')"
+          echo "SUPABASE_ACCESS_TOKEN is set: $([ -n "$SUPABASE_ACCESS_TOKEN" ] && echo 'yes' || echo 'no')"
+          
           if [ -z "$SUPABASE_PROJECT_ID" ] || [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
-            echo "Skipping migrations: Required secrets not configured"
+            echo "::warning::Skipping migrations: Required secrets not configured"
             echo "Required secrets: SUPABASE_PROJECT_ID, SUPABASE_ACCESS_TOKEN"
+            echo "Please configure these secrets in: Settings → Secrets and variables → Actions"
             exit 0
           fi
+          
+          echo "Linking to Supabase project..."
           supabase link --project-ref $SUPABASE_PROJECT_ID
         env:
           SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
@@ -45,9 +52,11 @@ jobs:
       - name: Run migrations
         run: |
           if [ -z "$SUPABASE_PROJECT_ID" ] || [ -z "$SUPABASE_ACCESS_TOKEN" ]; then
-            echo "Skipping migrations: Required secrets not configured"
+            echo "::warning::Skipping migrations: Required secrets not configured"
             exit 0
           fi
+          
+          echo "Running database migrations..."
           supabase db push
         env:
           SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
