@@ -81,7 +81,13 @@ export default async function NewBetPage({
         .map(league => ({ id: league.id, name: league.name })),
     }))
 
-    sportsRes = { data: sportsWithLeagues, error: null }
+    sportsRes = { 
+      data: sportsWithLeagues, 
+      error: null,
+      count: null,
+      status: 200,
+      statusText: 'OK'
+    } as typeof sportsRes
   }
 
   // Log errors for debugging
