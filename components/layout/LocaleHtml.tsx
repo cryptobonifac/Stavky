@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
+import { inject } from '@vercel/analytics'
 
 type LocaleHtmlProps = {
   children: React.ReactNode
@@ -28,6 +29,11 @@ export default function LocaleHtml({ children, locale }: LocaleHtmlProps) {
       }
     }
   }, [locale])
+
+  useEffect(() => {
+    // Initialize Vercel Web Analytics
+    inject()
+  }, [])
 
   return <>{children}</>
 }
