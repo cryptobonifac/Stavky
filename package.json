@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
+    "type-check": "tsc --noEmit",
+    "dev": "npm run type-check && next dev",
+    "dev:skip-check": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

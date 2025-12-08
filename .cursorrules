@@ -1,0 +1,221 @@
+# Cursor Rules - Production Build Compliance
+
+## Core Principle
+
+**ALL generated code MUST comply with production build requirements from the start.** Code that works in `npm run dev` but fails in `npm run build` is considered broken and must be fixed immediately.
+
+## TypeScript Standards
+
+### 1. Type Safety
+- **NEVER use `any` type** unless absolutely necessary (and always document why)
+- **NEVER use unsafe type assertions** (`as SomeType`) without proper validation
+- **ALWAYS use proper type guards** and null checks
+- **ALWAYS normalize data structures** instead of using type assertions
+
+### Bad Examples (FAILS IN BUILD):
+```typescript
+// ❌ BAD - Unsafe type assertion
+const tips = (data ?? []) as TipRecord[]
+
+// ❌ BAD - Missing null check
+if (!user) redirect('/login')
+const id = user.id // TypeScript doesn't know redirect throws
+
+// ❌ BAD - Using `any`
+const data = (response as any).data
+```
+
+### Good Examples (PASSES IN BUILD):
+```typescript
+// ✅ GOOD - Proper normalization
+const tips: TipRecord[] = (data ?? []).map(normalizeTip)
+
+// ✅ GOOD - Non-null assertion after guard
+if (!user) redirect('/login')
+const id = user!.id // Use ! to assert non-null after guard
+
+// ✅ GOOD - Proper typing
+interface ApiResponse {
+  data: TipRecord[]
+}
+const { data }: ApiResponse = response
+```
+
+### 2. Next.js 16 Route Handlers
+**CRITICAL**: Next.js 16 requires `params` to be a `Promise`.
+
+```typescript
+// ❌ BAD - Old Next.js 15 format
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  const id = params.id
+}
+
+// ✅ GOOD - Next.js 16 format
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const { id } = await params
+}
+```
+
+### 3. Null/Undefined Handling
+- **ALWAYS check for null/undefined** before accessing properties
+- **Use non-null assertions (`!`)** after type guards that throw
+- **Normalize optional values** with nullish coalescing (`??`)
+
+```typescript
+// ✅ GOOD - Proper null handling
+if (!user) {
+  redirect('/login')
+  return // Explicit return helps TypeScript
+}
+// Or use non-null assertion
+const id = user!.id
+
+// ✅ GOOD - Normalize optional values
+const name = user.name ?? 'Anonymous'
+```
+
+### 4. Data Normalization
+Supabase returns arrays for relations. **ALWAYS normalize** to expected object types.
+
+```typescript
+// ❌ BAD - Direct use of Supabase response
+betting_companies: tip.betting_companies // Could be array
+
+// ✅ GOOD - Normalize data structures
+betting_companies: Array.isArray(tip.betting_companies) && tip.betting_companies.length > 0
+  ? { name: tip.betting_companies[0].name ?? null }
+  : null
+```
+
+### 5. Dynamic Imports
+- **AVOID dynamic template literal imports** - build requires static analysis
+- **Use static imports** or known string literals
+
+```typescript
+// ❌ BAD - Dynamic path (fails in build)
+const messages = await import(`../../../messages/${locale}.json`)
+
+// ✅ GOOD - Static import with known locales
+const localeMap = {
+  en: () => import('../../../messages/en.json'),
+  cs: () => import('../../../messages/cs.json'),
+  sk: () => import('../../../messages/sk.json'),
+}
+const messages = await localeMap[locale]()
+```
+
+## Component Standards
+
+### 1. Type Props Correctly
+```typescript
+// ✅ GOOD - Explicit prop types
+interface ComponentProps {
+  tips: TipRecord[]
+  userId: string
+  onSelect?: (tip: TipRecord) => void
+}
+
+export function Component({ tips, userId, onSelect }: ComponentProps) {
+  // ...
+}
+```
+
+### 2. Client vs Server Components
+- **Mark client components** with `'use client'` directive
+- **Use server components by default**
+- **Import types properly** across component boundaries
+
+## API Route Standards
+
+### 1. Error Handling
+```typescript
+// ✅ GOOD - Proper error handling with types
+export async function GET(request: Request) {
+  try {
+    const data = await fetchData()
+    return Response.json(data)
+  } catch (error) {
+    console.error('API error:', error)
+    return Response.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
+}
+```
+
+### 2. Request/Response Types
+```typescript
+// ✅ GOOD - Typed request/response
+interface RequestBody {
+  tipId: string
+  action: 'approve' | 'reject'
+}
+
+export async function POST(request: Request) {
+  const body: RequestBody = await request.json()
+  // ...
+}
+```
+
+## Import/Export Standards
+
+- **ALWAYS use explicit imports/exports**
+- **NEVER use wildcard imports** (`import *`)
+- **Validate all imports exist** at build time
+- **Use path aliases** (`@/`) consistently
+
+## Pre-Commit Checklist
+
+Before completing any code generation or modification, verify:
+
+- [ ] Code passes `npx tsc --noEmit` (full type checking)
+- [ ] No type assertions (`as`) without proper validation
+- [ ] All null/undefined values are properly handled
+- [ ] Route handlers use Next.js 16 format (params as Promise)
+- [ ] Data structures are normalized, not asserted
+- [ ] No `any` types (unless explicitly documented as necessary)
+- [ ] All imports are static or use known literals
+- [ ] Component props are properly typed
+- [ ] API routes have proper error handling
+
+## Testing
+
+**ALWAYS** test code generation with:
+```bash
+npx tsc --noEmit  # Type checking
+npm run build     # Full production build
+```
+
+If either fails, the code is NOT complete and must be fixed.
+
+## Reference Documentation
+
+See `docs/DEV_VS_BUILD_DIFFERENCES.md` for detailed explanation of why these rules exist.
+
+## Additional Guidelines
+
+### Supabase Integration
+- Normalize Supabase responses to match application types
+- Handle array relations correctly
+- Validate response structures before using
+
+### React Patterns
+- Use proper React hooks typing
+- Handle async operations with proper error boundaries
+- Validate component props at boundaries
+
+### Performance
+- Avoid unnecessary type computations
+- Use proper memoization where needed
+- Ensure types don't impact runtime performance
+
+---
+
+**Remember**: If code works in `npm run dev` but fails in `npm run build`, it's broken code. Fix it immediately, don't assume it will be caught later.
