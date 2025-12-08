@@ -40,13 +40,49 @@ export default async function NewBetPage({
     redirect({ href: '/bettings', locale })
   }
 
-  const [companiesRes, sportsRes] = await Promise.all([
-    supabase.from('betting_companies').select('id,name').order('name'),
-    supabase
-      .from('sports')
-      .select('id,name,leagues(id,name)')
-      .order('name'),
-  ])
+  // Fetch betting companies
+  const companiesRes = await supabase
+    .from('betting_companies')
+    .select('id,name')
+    .order('name')
+
+  // Try nested query first, fallback to separate queries if it fails
+  let sportsRes = await supabase
+    .from('sports')
+    .select('id,name,leagues(id,name)')
+    .order('name')
+
+  // If nested query fails or returns empty leagues, try separate queries
+  if (sportsRes.error || (sportsRes.data && sportsRes.data.some(sport => !sport.leagues || sport.leagues.length === 0))) {
+    console.warn('[NewBetPage] Nested query failed or returned empty leagues, trying separate queries')
+    
+    // Fetch sports and leagues separately
+    const [sportsOnlyRes, leaguesRes] = await Promise.all([
+      supabase.from('sports').select('id,name').order('name'),
+      supabase.from('leagues').select('id,name,sport_id').order('name'),
+    ])
+
+    if (sportsOnlyRes.error) {
+      console.error('[NewBetPage] Error fetching sports:', sportsOnlyRes.error)
+    }
+    if (leaguesRes.error) {
+      console.error('[NewBetPage] Error fetching leagues:', leaguesRes.error)
+    }
+
+    // Combine sports and leagues manually
+    const sportsData = sportsOnlyRes.data ?? []
+    const leaguesData = leaguesRes.data ?? []
+    
+    const sportsWithLeagues = sportsData.map(sport => ({
+      id: sport.id,
+      name: sport.name,
+      leagues: leaguesData
+        .filter(league => league.sport_id === sport.id)
+        .map(league => ({ id: league.id, name: league.name })),
+    }))
+
+    sportsRes = { data: sportsWithLeagues, error: null }
+  }
 
   // Log errors for debugging
   if (companiesRes.error) {
@@ -64,6 +100,7 @@ export default async function NewBetPage({
   console.log('[NewBetPage] Sports count:', sports.length)
   if (sports.length > 0) {
     console.log('[NewBetPage] First sport leagues:', sports[0].leagues?.length ?? 0)
+    console.log('[NewBetPage] Sample sport data:', JSON.stringify(sports[0], null, 2))
   }
 
   // Load translations explicitly with locale to ensure correct language
