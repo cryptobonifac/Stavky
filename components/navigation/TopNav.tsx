@@ -28,7 +28,7 @@ const TopNav = ({
 }: TopNavProps) => {
   const router = useRouter()
   const supabase = createClient()
-  const { profile, loading, profileLoading } = useAuth()
+  const { user, profile, loading, profileLoading } = useAuth()
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const [mobileOpen, setMobileOpen] = useState(false)
   const t = useTranslations('navigation')
@@ -36,6 +36,8 @@ const TopNav = ({
   
   // Don't show login buttons while auth is still loading to prevent flicker
   const isAuthLoading = loading || profileLoading
+  // Use user (auth state) to determine if logged in, not profile (database state)
+  const isLoggedIn = !!user
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -75,7 +77,7 @@ const TopNav = ({
         )}
       </List>
       <Box sx={{ mt: 'auto', pt: 2, borderTop: 1, borderColor: 'divider', display: 'flex', flexDirection: 'column', gap: 1 }}>
-        {!isAuthLoading && !profile ? (
+        {!isAuthLoading && !isLoggedIn ? (
           <>
             <Button
               component={Link}
@@ -134,7 +136,7 @@ const TopNav = ({
 
           <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
             <LanguageSwitcher />
-            {!isMobile && !isAuthLoading && !profile && (
+            {!isMobile && !isAuthLoading && !isLoggedIn && (
               <>
                 <Button
                   component={Link}
@@ -156,7 +158,7 @@ const TopNav = ({
                 </Button>
               </>
             )}
-            {!isMobile && (profile || isAuthLoading) && (
+            {!isMobile && isLoggedIn && (
               <Button variant="outlined" onClick={handleLogout} data-testid="nav-logout-button" disabled={isAuthLoading}>
                 {tCommon('logout')}
               </Button>
