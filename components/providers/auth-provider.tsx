@@ -50,7 +50,7 @@ type AuthContextValue = {
     password: string
   ) => Promise<{ error: AuthError | null }>
   signInWithProvider: (
-    provider: 'google' | 'facebook'
+    provider: 'google'
   ) => Promise<{ error: AuthError | null }>
   signOut: () => Promise<{ error: AuthError | null }>
   refreshProfile: () => Promise<void>
@@ -148,7 +148,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signInWithProvider = useCallback(
     async (
-      provider: 'google' | 'facebook'
+      provider: 'google'
     ): Promise<{ error: AuthError | null }> => {
       // Extract current locale from pathname
       const currentPath = window.location.pathname

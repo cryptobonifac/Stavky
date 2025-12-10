@@ -33,9 +33,6 @@ npm install
    GOOGLE_CLIENT_ID=your-google-client-id
    GOOGLE_CLIENT_SECRET=your-google-client-secret
    GOOGLE_REDIRECT_URL=http://localhost:3000/auth/callback
-   FACEBOOK_CLIENT_ID=your-facebook-app-id
-   FACEBOOK_CLIENT_SECRET=your-facebook-app-secret
-   FACEBOOK_REDIRECT_URL=http://localhost:3000/auth/callback
    ```
 
 3. Configure Supabase CLI (for database migrations):
@@ -89,14 +86,14 @@ Then rerun `npm run db:push` with `SUPABASE_DB_PASSWORD` exported in your shell.
 - **Linting**: ESLint + Prettier
 - **Database**: Supabase (PostgreSQL)
 - **Deployment**: Vercel
-- **Auth Providers**: Supabase Auth (Email/Password, Google OAuth, Facebook OAuth)
+- **Auth Providers**: Supabase Auth (Email/Password, Google OAuth)
 
 ## Authentication Setup
 
 The Supabase CLI config (`supabase/config.toml`) enables:
 
 - Email/password sign-in with custom magic-link and reset email templates located in `supabase/templates/`.
-- Google and Facebook OAuth providers using the environment variables above.
+- Google OAuth provider using the environment variables above.
 - Redirect URLs for login, signup, and shared OAuth callback paths (`/auth/callback`).
 
 After populating the env vars, run `supabase start` locally or configure the same values in the Supabase Dashboard → Authentication → Providers section.

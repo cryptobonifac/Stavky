@@ -49,22 +49,6 @@ These variables configure the application URLs for authentication callbacks and 
    - `http://localhost:3000/auth/callback` (development)
    - `https://yourdomain.com/auth/callback` (production)
 
-#### Facebook OAuth
-
-| Variable | Description | Where to Find |
-|----------|-------------|---------------|
-| `FACEBOOK_CLIENT_ID` | Facebook App ID | [Facebook Developers](https://developers.facebook.com/) → My Apps → Settings → Basic |
-| `FACEBOOK_CLIENT_SECRET` | Facebook App Secret | Same as above |
-| `FACEBOOK_REDIRECT_URL` | Facebook OAuth redirect URI | Must match: `http://localhost:3000/auth/callback` (dev) or your production URL |
-
-**Setup Instructions:**
-1. Go to [Facebook Developers](https://developers.facebook.com/)
-2. Create a new app
-3. Add Facebook Login product
-4. Configure OAuth redirect URIs:
-   - `http://localhost:3000/auth/callback` (development)
-   - `https://yourdomain.com/auth/callback` (production)
-
 ### Email Service (Resend)
 
 | Variable | Description | Where to Find |
