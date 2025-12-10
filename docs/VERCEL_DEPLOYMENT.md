@@ -303,3 +303,4 @@ After successful deployment:
 - [Supabase Production Guide](https://supabase.com/docs/guides/hosting/overview)
 - [next-intl Deployment](https://next-intl-docs.vercel.app/docs/next-13/server-components)
 
+

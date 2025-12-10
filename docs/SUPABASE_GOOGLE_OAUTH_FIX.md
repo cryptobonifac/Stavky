@@ -120,3 +120,4 @@ await supabase.auth.signInWithOAuth({
 - [Supabase OAuth Providers Documentation](https://supabase.com/docs/guides/auth/social-login/auth-google)
 - [Google OAuth 2.0 Setup](https://developers.google.com/identity/protocols/oauth2)
 
+

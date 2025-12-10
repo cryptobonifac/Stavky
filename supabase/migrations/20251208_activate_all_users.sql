@@ -30,3 +30,4 @@ $$;
 -- Execute the function to activate all existing users
 select public.activate_all_users();
 
+

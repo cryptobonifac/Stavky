@@ -121,3 +121,4 @@ console.log('   4. You should see "resendConfigured": true in the response\n')
 
 process.exit(0)
 
+

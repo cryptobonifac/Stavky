@@ -152,3 +152,4 @@ If it works locally but not on Vercel, the issue is missing environment variable
 3. Test the root URL - it should redirect to `/en` (or default locale)
 4. Verify the application loads correctly
 
+

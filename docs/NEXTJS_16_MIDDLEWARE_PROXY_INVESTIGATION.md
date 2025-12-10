@@ -167,3 +167,4 @@ To verify the current setup works correctly:
 - `[app/auth/callback/route.ts](app/auth/callback/route.ts)` - OAuth callback route
 - `[i18n/routing.ts](i18n/routing.ts)` - Internationalization routing configuration
 
+

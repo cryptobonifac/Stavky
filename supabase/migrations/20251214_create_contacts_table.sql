@@ -40,3 +40,4 @@ create policy "betting role can delete contacts"
   for delete
   using (public.has_role('betting'));
 
+

@@ -197,3 +197,4 @@ Once local OAuth is working:
 2. Verify user creation and role assignment
 3. Then configure for production Supabase (Dashboard settings)
 
+

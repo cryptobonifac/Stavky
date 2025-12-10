@@ -245,3 +245,4 @@ The implementation is actually **better than the tutorial** because:
 4. Has a clean component structure
 5. Integrates with your auth provider pattern
 
+

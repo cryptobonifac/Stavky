@@ -45,3 +45,4 @@ node scripts/create-betting-user.js betting1@gmail.com betting123 betting
 - `set-betting-role.*`: Scripts to change an existing user's role to 'betting'
 - `activate-user.*`: Scripts to activate a user's account
 
+

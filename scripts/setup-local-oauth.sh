@@ -28,3 +28,4 @@ echo ""
 echo "Note: These environment variables are only set for this shell session."
 echo "If you open a new terminal, run this script again or set them manually."
 
+

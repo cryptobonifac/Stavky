@@ -28,3 +28,4 @@ COMMENT ON POLICY "public can view sports" ON public.sports IS
 COMMENT ON POLICY "public can view leagues" ON public.leagues IS 
   'Allows public read access to leagues table. Required for nested queries from sports.';
 
+

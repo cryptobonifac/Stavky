@@ -49,3 +49,4 @@ After redeploying:
 
 The middleware/proxy tries to initialize Supabase on every request. Without these environment variables, the Supabase client cannot be created, causing the 500 error.
 
+

@@ -77,3 +77,4 @@ $$;
 -- Grant execute permission on the function to authenticated users (optional, for future use)
 grant execute on function public.create_or_update_user(text, public.user_role) to authenticated;
 
+

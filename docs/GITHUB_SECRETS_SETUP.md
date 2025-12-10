@@ -114,3 +114,4 @@ This means the secrets are empty or not configured. Check:
 - [Supabase CLI Authentication](https://supabase.com/docs/guides/cli/getting-started#authentication)
 - [Supabase Project Settings](https://supabase.com/docs/guides/platform/project-settings)
 
+

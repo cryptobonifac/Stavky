@@ -28,3 +28,4 @@ Write-Host "3. Start your app: npm run dev" -ForegroundColor White
 Write-Host "`nNote: These environment variables are only set for this PowerShell session." -ForegroundColor Cyan
 Write-Host "If you open a new terminal, run this script again or set them manually." -ForegroundColor Cyan
 
+

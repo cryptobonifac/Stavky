@@ -55,3 +55,4 @@ $$;
 -- The trigger already exists, but we've updated the function it calls
 -- No need to recreate the trigger
 
+
