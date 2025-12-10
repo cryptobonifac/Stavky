@@ -653,8 +653,7 @@ const NewBetForm = ({ bettingCompanies }: NewBetFormProps) => {
         }}
       >
         <DialogTitle>
-          <Stack direction="row" justifyContent="space-between" alignItems="center">
-            <Typography variant="h5">{t('title')}</Typography>
+          <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton
               onClick={handleClose}
               disabled={isPending}
@@ -662,7 +661,7 @@ const NewBetForm = ({ bettingCompanies }: NewBetFormProps) => {
             >
               <CloseIcon />
             </IconButton>
-          </Stack>
+          </Box>
         </DialogTitle>
         
         <DialogContent>
