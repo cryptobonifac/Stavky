@@ -105,15 +105,37 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                 spacing={1}
                 justifyContent="space-between"
               >
-                <Typography fontWeight={600}>{tip.match}</Typography>
-                <Stack direction="row" spacing={2}>
-                  <Typography color="text.secondary">
-                    {dayjs(tip.match_date).format('DD.MM.YYYY')}
-                  </Typography>
+                <Stack spacing={0.5} flex={1}>
+                  <Typography fontWeight={600}>{tip.match}</Typography>
+                </Stack>
+                <Stack direction="row" spacing={2} alignItems="center">
+                  {(tip.stake || tip.total_win) && (
+                    <Stack direction="row" spacing={2}>
+                      {tip.stake && (
+                        <Typography variant="caption" color="text.secondary">
+                          {tBettings('stake')}: {tip.stake.toFixed(2)}
+                        </Typography>
+                      )}
+                      {tip.total_win && tip.status === 'win' && (
+                        <Typography variant="caption" color="success.main" fontWeight={600}>
+                          {tBettings('totalWin')}: {tip.total_win.toFixed(2)}
+                        </Typography>
+                      )}
+                      {tip.status === 'loss' && tip.stake && (
+                        <Typography variant="caption" color="error.main" fontWeight={600}>
+                          {tBettings('loss')}: {tip.stake.toFixed(2)}
+                        </Typography>
+                      )}
+                    </Stack>
+                  )}
                   <Chip 
                     label={tip.status === 'win' ? tBettings('win') : tip.status === 'loss' ? tBettings('loss') : tBettings('pending')} 
-                    size="small" 
+                    size="small"
+                    color={tip.status === 'win' ? 'success' : tip.status === 'loss' ? 'error' : 'default'}
                   />
+                  <Typography color="text.secondary" variant="body2">
+                    {dayjs(tip.match_date).format('DD.MM.YYYY')}
+                  </Typography>
                 </Stack>
               </Stack>
             ))}

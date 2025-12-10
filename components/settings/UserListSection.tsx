@@ -5,6 +5,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import dayjs, { Dayjs } from 'dayjs'
 import {
   Alert,
+  Box,
   Button,
   Card,
   CardContent,
@@ -46,13 +47,6 @@ const UserListSection = ({ users }: UserListSectionProps) => {
   )
 
   const selectedDraft = selectedId ? drafts[selectedId] : null
-
-  const handleRoleChange = (id: string, role: ManagedUser['role']) => {
-    setDrafts((prev) => ({
-      ...prev,
-      [id]: { ...prev[id], role },
-    }))
-  }
 
   const handleDateChange = (id: string, value: Dayjs | null) => {
     setDrafts((prev) => ({
@@ -122,50 +116,37 @@ const UserListSection = ({ users }: UserListSectionProps) => {
               spacing={2}
               alignItems={{ xs: 'stretch', md: 'flex-end' }}
             >
-              <Stack flex={1} spacing={2}>
-                <TextField
-                  value={selectedDraft.email}
-                  label={t('userEmail')}
-                  InputProps={{ readOnly: true }}
-                  size="small"
-                  inputProps={{ 'data-testid': 'settings-user-email' }}
-                />
-                <TextField
-                  select
-                  label={t('role')}
-                  value={selectedDraft.role}
-                  onChange={(event) =>
-                    handleRoleChange(
-                      selectedDraft.id,
-                      event.target.value as ManagedUser['role']
-                    )
-                  }
-                  size="small"
-                  inputProps={{ 'data-testid': 'settings-user-role-select' }}
-                >
-                  <MenuItem value="customer" data-testid="settings-role-customer">{t('roleCustomer')}</MenuItem>
-                  <MenuItem value="betting" data-testid="settings-role-betting">{t('roleBetting')}</MenuItem>
-                </TextField>
-              </Stack>
-              <DateTimePickerField
-                label={t('accountActiveUntil')}
-                value={
-                  selectedDraft.account_active_until
-                    ? dayjs(selectedDraft.account_active_until)
-                    : null
-                }
-                onChange={(value: Dayjs | null) => handleDateChange(selectedDraft.id, value)}
-                slotProps={{
-                  textField: {
-                    inputProps: { 'data-testid': 'settings-user-active-until' },
-                  },
-                }}
+              <TextField
+                value={selectedDraft.email}
+                label={t('userEmail')}
+                InputProps={{ readOnly: true }}
+                size="small"
+                sx={{ flex: 1, minWidth: 250, maxWidth: 400 }}
+                inputProps={{ 'data-testid': 'settings-user-email' }}
               />
+              <Box sx={{ flex: 1, minWidth: 200, maxWidth: 250 }}>
+                <DateTimePickerField
+                  label={t('accountActiveUntil')}
+                  value={
+                    selectedDraft.account_active_until
+                      ? dayjs(selectedDraft.account_active_until)
+                      : null
+                  }
+                  onChange={(value: Dayjs | null) => handleDateChange(selectedDraft.id, value)}
+                  slotProps={{
+                    textField: {
+                      fullWidth: true,
+                      size: 'small',
+                      inputProps: { 'data-testid': 'settings-user-active-until' },
+                    },
+                  }}
+                />
+              </Box>
               <Button
                 variant="contained"
                 onClick={() => handleSave(selectedDraft.id)}
                 disabled={isPending}
-                sx={{ minWidth: 100 }}
+                sx={{ minWidth: 100, ml: { md: -1 } }}
                 data-testid="settings-user-save-button"
               >
                 {tCommon('save')}

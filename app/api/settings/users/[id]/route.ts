@@ -37,12 +37,11 @@ export async function PATCH(
   }
 
   const body = await request.json().catch(() => ({}))
-  const { role, account_active_until } = body
+  const { account_active_until } = body
 
   const { error } = await supabase
     .from('users')
     .update({
-      role,
       account_active_until,
     })
     .eq('id', id)

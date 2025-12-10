@@ -7,7 +7,8 @@ import ActiveTipsList, {
   type TipRecord,
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
-import { Alert } from '@mui/material'
+import ContactForm from '@/components/contact/ContactForm'
+import { Alert, Box, Typography, Stack } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -62,18 +63,18 @@ export default async function BettingTipsPage({
             match_date,
             status,
             created_at,
+            stake,
+            total_win,
             betting_companies ( name ),
-            sports ( name ),
-            leagues ( name ),
             betting_tip_items (
               id,
               match,
               odds,
               match_date,
               status,
-              betting_companies ( name ),
-              sports ( name ),
-              leagues ( name )
+              sport,
+              league,
+              betting_companies ( name )
             )
           `
         )
@@ -101,6 +102,8 @@ export default async function BettingTipsPage({
           betting_companies: null,
           sports: null,
           leagues: null,
+          stake: tip.stake ?? null,
+          total_win: tip.total_win ?? null,
           items: tip.betting_tip_items.map((item: any) => ({
             id: item.id,
             match: item.match,
@@ -110,13 +113,13 @@ export default async function BettingTipsPage({
             betting_companies: item.betting_companies
               ? { name: item.betting_companies.name ?? null }
               : null,
-            sports: item.sports ? { name: item.sports.name ?? null } : null,
-            leagues: item.leagues ? { name: item.leagues.name ?? null } : null,
+            sports: item.sport ? { name: item.sport } : null,
+            leagues: item.league ? { name: item.league } : null,
           })),
         }
       }
       
-      // Legacy structure: single tip
+      // Legacy structure: single tip (deprecated - should not be used with new schema)
       return {
         id: tip.id,
         match: tip.match,
@@ -126,8 +129,10 @@ export default async function BettingTipsPage({
         betting_companies: tip.betting_companies
           ? { name: tip.betting_companies.name ?? null }
           : null,
-        sports: tip.sports ? { name: tip.sports.name ?? null } : null,
-        leagues: tip.leagues ? { name: tip.leagues.name ?? null } : null,
+        sports: null,
+        leagues: null,
+        stake: tip.stake ?? null,
+        total_win: tip.total_win ?? null,
       }
     })
     // Filter to only show upcoming matches
@@ -148,12 +153,19 @@ export default async function BettingTipsPage({
   // Load translations explicitly with locale to ensure correct language
   const messages = (await import(`../../../messages/${locale}.json`)).default
   const bettingsMessages = messages.bettings as Record<string, string>
+  const contactMessages = messages.contact as Record<string, string>
   const t = (key: string): string => {
     return bettingsMessages[key] || key
+  }
+  const tContact = (key: string): string => {
+    return contactMessages[key] || key
   }
   const subtitle = activeAccount
     ? t('subtitleActive')
     : t('subtitleInactive')
+
+  // Check if user is inactive customer (not betting admin and account not active)
+  const isInactiveCustomer = profile?.role === 'customer' && !activeAccount
 
   return (
     <MainLayout>
@@ -168,9 +180,22 @@ export default async function BettingTipsPage({
         {activeAccount ? (
           <ActiveTipsList tips={normalizedTips} />
         ) : (
-          <Alert severity="info">
-            {t('accountNotActive')}
-          </Alert>
+          <Stack spacing={3}>
+            <Alert severity="info">
+              {t('accountNotActive')}
+            </Alert>
+            {isInactiveCustomer && (
+              <Box>
+                <Typography variant="h6" fontWeight="bold" gutterBottom>
+                  {tContact('bettingPageTitle')}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                  {tContact('bettingPageDescription')}
+                </Typography>
+                <ContactForm showTitle={false} showDescription={false} />
+              </Box>
+            )}
+          </Stack>
         )}
       </PageSection>
     </MainLayout>

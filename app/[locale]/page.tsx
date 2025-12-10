@@ -188,11 +188,8 @@ export default function Home() {
         {/* CTA Section */}
         <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: 'primary.main', color: 'primary.contrastText', textAlign: 'center' }}>
           <Container maxWidth="md">
-            <Typography variant="h3" fontWeight="bold" gutterBottom>
+            <Typography variant="h3" fontWeight="bold" sx={{ mb: 4 }}>
               {t('cta.title')}
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-              {t('cta.description')}
             </Typography>
             <Link href={profile ? '/bettings' : '/signup'} style={{ textDecoration: 'none' }}>
               <Button

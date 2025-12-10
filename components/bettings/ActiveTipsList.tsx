@@ -39,6 +39,8 @@ export type TipRecord = {
   sports?: { name: string | null } | null
   leagues?: { name: string | null } | null
   items?: TipItem[]
+  stake?: number | null
+  total_win?: number | null
 }
 
 type FilterValue = 'today' | 'tomorrow' | 'upcoming' | 'all'
@@ -308,6 +310,29 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                     />
                   </Stack>
                 </Stack>
+                {(tip.stake || tip.total_win) && (
+                  <Stack
+                    direction={{ xs: 'column', sm: 'row' }}
+                    spacing={2}
+                    sx={{
+                      mt: 2,
+                      pt: 2,
+                      borderTop: '1px solid',
+                      borderColor: 'divider',
+                    }}
+                  >
+                    {tip.stake && (
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>{t('stake')}:</strong> {tip.stake.toFixed(2)}
+                      </Typography>
+                    )}
+                    {tip.total_win && (
+                      <Typography variant="body2" color="success.main" fontWeight={600}>
+                        <strong>{t('totalWin')}:</strong> {tip.total_win.toFixed(2)}
+                      </Typography>
+                    )}
+                  </Stack>
+                )}
               </Stack>
             </CardContent>
           </Card>

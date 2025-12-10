@@ -171,6 +171,8 @@ export default async function HistoryPage({
           match_date,
           status,
           created_at,
+          stake,
+          total_win,
           betting_tip_items (
             id,
             match,
@@ -204,6 +206,8 @@ export default async function HistoryPage({
           odds: tip.odds,
           match_date: earliestDate || tip.match_date || tip.created_at || new Date().toISOString(),
           status: tip.status,
+          stake: tip.stake ?? null,
+          total_win: tip.total_win ?? null,
         }
       }
       
@@ -215,6 +219,8 @@ export default async function HistoryPage({
           odds: tip.odds,
           match_date: tip.match_date,
           status: tip.status,
+          stake: tip.stake ?? null,
+          total_win: tip.total_win ?? null,
         }
       }
       
@@ -225,6 +231,8 @@ export default async function HistoryPage({
         odds: tip.odds,
         match_date: tip.created_at || new Date().toISOString(),
         status: tip.status,
+        stake: tip.stake ?? null,
+        total_win: tip.total_win ?? null,
       }
     })
     // Filter to only show tips for matches within the cutoff period (last 12 months)

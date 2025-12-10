@@ -21,7 +21,8 @@ tests/
 │   ├── betting.spec.ts     # Betting functionality
 │   ├── navigation.spec.ts  # Navigation tests
 │   ├── features.spec.ts    # Feature tests
-│   └── access-control.spec.ts # Role-based access control
+│   ├── access-control.spec.ts # Role-based access control
+│   └── contact.spec.ts     # Contact form functionality
 └── utils/                   # Test utilities and helpers
     └── test-helpers.ts     # Common test utilities
 ```
@@ -46,12 +47,27 @@ npx playwright test tests/e2e
 
 # Specific test file
 npx playwright test tests/unit/roles.spec.ts
+
+# Contact form test
+npx playwright test tests/e2e/contact.spec.ts
 ```
 
 ### Run Tests in UI Mode
 ```bash
+# Run all tests in UI mode
 npx playwright test --ui
+
+# Run contact form test in UI mode (recommended for debugging)
+npx playwright test tests/e2e/contact.spec.ts --ui
 ```
+
+The UI mode provides an interactive interface where you can:
+- See all tests in a sidebar
+- Watch tests execute in real-time
+- Step through tests with breakpoints
+- Inspect page state at any point
+- View network requests and responses
+- See console logs and errors
 
 ### Run Tests in Debug Mode
 ```bash
@@ -113,6 +129,7 @@ End-to-end tests verify complete user workflows from start to finish.
 - ✅ Settings page functionality
 - ✅ Profile management
 - ✅ History and statistics viewing
+- ✅ Contact form submission and validation
 
 **Files:**
 - `tests/e2e/auth.spec.ts`
@@ -120,6 +137,7 @@ End-to-end tests verify complete user workflows from start to finish.
 - `tests/e2e/navigation.spec.ts`
 - `tests/e2e/features.spec.ts`
 - `tests/e2e/access-control.spec.ts`
+- `tests/e2e/contact.spec.ts`
 
 ## Test Utilities
 
@@ -187,6 +205,65 @@ Tests are configured to run in CI environments with:
 - **Integration Tests**: All API endpoints tested
 - **E2E Tests**: All critical user flows tested
 
+## Contact Form Testing
+
+The contact form test (`tests/e2e/contact.spec.ts`) verifies the contact form functionality:
+
+### Test Cases:
+1. **Happy Path**: Full form submission with email, mobile, and message
+2. **Minimal Submission**: Submission with only email (optional fields empty)
+3. **Email Validation**: Invalid email format handling
+4. **Required Field Validation**: Email field requirement
+
+### Running Contact Form Tests:
+
+```bash
+# Run contact form tests in headless mode
+npx playwright test tests/e2e/contact.spec.ts
+
+# Run contact form tests in UI mode (recommended for debugging)
+npx playwright test tests/e2e/contact.spec.ts --ui
+
+# Run a specific test case
+npx playwright test tests/e2e/contact.spec.ts -g "happy path"
+```
+
+### Prerequisites for Contact Form Tests:
+
+1. **RESEND_API_KEY must be configured** in `.env.local`:
+   ```env
+   RESEND_API_KEY=re_xxxxxxxxxxxxx
+   ```
+
+2. **Development server must be running** (Playwright config handles this automatically)
+
+3. **Contact page must be accessible** at `/contact` route
+
+### What the Tests Verify:
+
+- ✅ Form fields are visible and accessible
+- ✅ Form accepts valid email addresses
+- ✅ Form accepts optional mobile and message fields
+- ✅ Form validates email format
+- ✅ Form requires email field
+- ✅ Successful submission shows success message
+- ✅ Form fields are cleared after successful submission
+- ✅ API returns 200 status on successful submission
+
+### Debugging Contact Form Tests:
+
+If tests fail, use UI mode to debug:
+```bash
+npx playwright test tests/e2e/contact.spec.ts --ui
+```
+
+In UI mode, you can:
+- See the form being filled step-by-step
+- Inspect API responses in the Network tab
+- Check for validation errors
+- View console logs for any errors
+- Pause execution at any point
+
 ## Troubleshooting
 
 ### Tests Failing Locally
@@ -205,6 +282,8 @@ Tests are configured to run in CI environments with:
    ```bash
    npm run db:reset
    ```
+
+4. **For contact form tests**: Verify `RESEND_API_KEY` is set in `.env.local`
 
 ### Timeout Errors
 

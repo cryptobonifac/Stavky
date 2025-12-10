@@ -45,18 +45,18 @@ export default async function ManageBettingTipsPage() {
         match_date,
         status,
         created_at,
+        stake,
+        total_win,
         betting_companies ( name ),
-        sports ( name ),
-        leagues ( name ),
         betting_tip_items (
           id,
           match,
           odds,
           match_date,
           status,
-          betting_companies ( name ),
-          sports ( name ),
-          leagues ( name )
+          sport,
+          league,
+          betting_companies ( name )
         )
       `
     )
@@ -92,13 +92,13 @@ export default async function ManageBettingTipsPage() {
           betting_companies: item.betting_companies
             ? { name: item.betting_companies.name ?? null }
             : null,
-          sports: item.sports ? { name: item.sports.name ?? null } : null,
-          leagues: item.leagues ? { name: item.leagues.name ?? null } : null,
+          sports: item.sport ? { name: item.sport } : null,
+          leagues: item.league ? { name: item.league } : null,
         })),
       }
     }
     
-    // Legacy structure: single tip
+    // Legacy structure: single tip (deprecated - should not be used with new schema)
     return {
       id: tip.id,
       match: tip.match,
@@ -108,8 +108,8 @@ export default async function ManageBettingTipsPage() {
       betting_companies: tip.betting_companies
         ? { name: tip.betting_companies.name ?? null }
         : null,
-      sports: tip.sports ? { name: tip.sports.name ?? null } : null,
-      leagues: tip.leagues ? { name: tip.leagues.name ?? null } : null,
+      sports: null,
+      leagues: null,
     }
   })
   

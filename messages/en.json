@@ -17,7 +17,9 @@
     "signup": "Sign Up",
     "profile": "Profile",
     "settings": "Settings",
-    "home": "Home"
+    "home": "Home",
+    "back": "Back",
+    "next": "Next"
   },
   "home": {
     "title": "Expert Betting Tips that",
@@ -43,7 +45,6 @@
     },
     "cta": {
       "title": "Ready to Start Winning?",
-      "description": "Join thousands of satisfied customers who trust our betting tips.",
       "button": "Get Started Today"
     }
   },
@@ -117,7 +118,9 @@
     "showing": "Showing",
     "tip": "tip",
     "tips": "tips",
-    "checkBackLater": "Check back later or try a different filter."
+    "checkBackLater": "Check back later or try a different filter.",
+    "stake": "Stake",
+    "totalWin": "Win"
   },
   "history": {
     "title": "History & performance",
@@ -189,6 +192,10 @@
     "matchDate": "Match Date",
     "matchKickoff": "Match kickoff",
     "finalOdds": "Final odds",
+    "stake": "Stake",
+    "stakeHelper": "Enter the stake amount",
+    "stakeRequired": "Stake must be a positive number",
+    "totalWin": "Win",
     "addAnotherTip": "Add another tip",
     "sameCompanyAsFirstTip": "Same company as first tip",
     "publishTip": "Publish tip",
@@ -197,7 +204,15 @@
     "success": "Betting tip created successfully.",
     "error": "Failed to save betting tip.",
     "validationError": "Please fill in all required fields for each tip.",
-    "finalOddsExceedsMax": "Final odds exceeds maximum value of 2.000"
+    "finalOddsExceedsMax": "Final odds exceeds maximum value of 2.000",
+    "stepTips": "Add Tips",
+    "stepStake": "Set Stake",
+    "stepReview": "Review",
+    "tipsStepDescription": "Add one or more tips to your bet. All tips must be from the same betting company.",
+    "stakeStepDescription": "Enter the stake amount that will be applied to all tips in this bet.",
+    "reviewStepDescription": "Review your bet details before publishing.",
+    "confirmAndPublish": "Confirm & Publish",
+    "of": "of"
   },
   "manage": {
     "title": "Pending tips",
@@ -271,6 +286,15 @@
       "freeMonthGranted": "Free month granted for the selected user and month.",
       "freeMonthRemoved": "Free month flag removed for the selected user and month.",
       "updateFailed": "Failed to update free month flag."
+    },
+    "deleteAllTips": {
+      "title": "Delete all betting tips",
+      "description": "Permanently delete all betting tips and tip items from the database. This action cannot be undone.",
+      "buttonLabel": "Delete all tips",
+      "dialogTitle": "Confirm deletion",
+      "dialogDescription": "Are you sure you want to delete all betting tips? This action will permanently remove all tips and cannot be undone.",
+      "deleteSuccess": "All betting tips have been successfully deleted.",
+      "deleteFailed": "Failed to delete betting tips."
     }
   },
   "navigation": {
@@ -282,13 +306,45 @@
     "settings": "Settings",
     "newbet": "New Bet",
     "manage": "Manage Tips",
+    "contacts": "Contacts",
     "admin": "ADMIN"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "Get in touch with us. We'll respond as soon as possible.",
+    "email": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "mobile": "Mobile Number",
+    "mobilePlaceholder": "+421 123 456 789",
+    "message": "Message",
+    "messagePlaceholder": "Enter your message here...",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "success": "Thank you! Your message has been submitted successfully.",
+    "error": "Failed to send message. Please try again.",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email address",
+    "mobileRequired": "Mobile number is required",
+    "messageRequired": "Message is required",
+    "messageMinLength": "Message must be at least 10 characters",
+    "bettingPageTitle": "Need Help?",
+    "bettingPageDescription": "Contact us to activate your account or ask any questions."
   },
   "errors": {
     "generic": "An error occurred. Please try again.",
     "unauthorized": "You are not authorized to access this page.",
     "notFound": "Page not found.",
     "networkError": "Network error. Please check your connection."
+  },
+  "contacts": {
+    "title": "Contact Submissions",
+    "subtitle": "View and manage all contact form submissions.",
+    "noContacts": "No contact submissions yet.",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirmDelete": "Delete Contact",
+    "deleteConfirmation": "Are you sure you want to delete the contact submission from {email}? This action cannot be undone.",
+    "deleting": "Deleting..."
   },
   "footer": {
     "copyright": "© {year} Stavky. All rights reserved.",

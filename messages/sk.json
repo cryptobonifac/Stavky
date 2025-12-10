@@ -17,7 +17,9 @@
     "signup": "Registrovať sa",
     "profile": "Profil",
     "settings": "Nastavenia",
-    "home": "Domov"
+    "home": "Domov",
+    "back": "Späť",
+    "next": "Ďalej"
   },
   "home": {
     "title": "Odborné stávkové tipy, ktoré",
@@ -43,7 +45,6 @@
     },
     "cta": {
       "title": "Pripravení začať vyhrávať?",
-      "description": "Pridajte sa k tisíckam spokojných zákazníkov, ktorí veria našim stávkovým tipom.",
       "button": "Začnite ešte dnes"
     }
   },
@@ -117,7 +118,9 @@
     "showing": "Zobrazuje sa",
     "tip": "tip",
     "tips": "tipov",
-    "checkBackLater": "Skúste to znova neskôr alebo zmeňte filter."
+    "checkBackLater": "Skúste to znova neskôr alebo zmeňte filter.",
+    "stake": "Stávka",
+    "totalWin": "Výhra"
   },
   "history": {
     "title": "História a výkonnosť",
@@ -189,6 +192,10 @@
     "matchDate": "Dátum zápasu",
     "matchKickoff": "Začiatok zápasu",
     "finalOdds": "Finálny kurz",
+    "stake": "Stávka",
+    "stakeHelper": "Zadajte výšku stávky",
+    "stakeRequired": "Stávka musí byť kladné číslo",
+    "totalWin": "Výhra",
     "addAnotherTip": "Pridať ďalší tip",
     "sameCompanyAsFirstTip": "Rovnaká spoločnosť ako v prvom tipe",
     "publishTip": "Publikovať tip",
@@ -197,7 +204,15 @@
     "success": "Stávkový tip bol úspešne vytvorený.",
     "error": "Nepodarilo sa uložiť stávkový tip.",
     "validationError": "Prosím vyplňte všetky povinné polia pre každý tip.",
-    "finalOddsExceedsMax": "Finálny kurz presahuje maximálnu hodnotu 2,000"
+    "finalOddsExceedsMax": "Finálny kurz presahuje maximálnu hodnotu 2,000",
+    "stepTips": "Pridať tipy",
+    "stepStake": "Nastaviť stávku",
+    "stepReview": "Prehľad",
+    "tipsStepDescription": "Pridajte jeden alebo viac tipov do vašej stávky. Všetky tipy musia byť z rovnakej stávkovej kancelárie.",
+    "stakeStepDescription": "Zadajte výšku stávky, ktorá sa použije na všetky tipy v tejto stávke.",
+    "reviewStepDescription": "Skontrolujte podrobnosti vašej stávky pred publikovaním.",
+    "confirmAndPublish": "Potvrdiť a publikovať",
+    "of": "z"
   },
   "manage": {
     "title": "Čakajúce tipy",
@@ -271,6 +286,15 @@
       "freeMonthGranted": "Zdarma mesiac bol poskytnutý pre vybraného používateľa a mesiac.",
       "freeMonthRemoved": "Označenie zdarma mesiaca bolo odstránené pre vybraného používateľa a mesiac.",
       "updateFailed": "Nepodarilo sa aktualizovať označenie zdarma mesiaca."
+    },
+    "deleteAllTips": {
+      "title": "Vymazať všetky stávkové tipy",
+      "description": "Trvalo vymazať všetky stávkové tipy a položky tipov z databázy. Táto akcia sa nedá vrátiť späť.",
+      "buttonLabel": "Vymazať všetky tipy",
+      "dialogTitle": "Potvrdiť vymazanie",
+      "dialogDescription": "Naozaj chcete vymazať všetky stávkové tipy? Táto akcia trvalo odstráni všetky tipy a nedá sa vrátiť späť.",
+      "deleteSuccess": "Všetky stávkové tipy boli úspešne vymazané.",
+      "deleteFailed": "Nepodarilo sa vymazať stávkové tipy."
     }
   },
   "navigation": {
@@ -282,13 +306,45 @@
     "settings": "Nastavenia",
     "newbet": "Nový tip",
     "manage": "Spravovať tipy",
+    "contacts": "Kontakty",
     "admin": "ADMIN"
+  },
+  "contact": {
+    "title": "Kontaktujte nás",
+    "subtitle": "Spojte sa s nami. Odpovieme čo najskôr.",
+    "email": "Email",
+    "emailPlaceholder": "vas.email@priklad.sk",
+    "mobile": "Mobilné číslo",
+    "mobilePlaceholder": "+421 123 456 789",
+    "message": "Správa",
+    "messagePlaceholder": "Zadajte vašu správu tu...",
+    "submit": "Odoslať správu",
+    "submitting": "Odosielanie...",
+    "success": "Ďakujeme! Vaša správa bola úspešne odoslaná.",
+    "error": "Nepodarilo sa odoslať správu. Skúste to prosím znova.",
+    "emailRequired": "Email je povinný",
+    "emailInvalid": "Zadajte prosím platnú emailovú adresu",
+    "mobileRequired": "Mobilné číslo je povinné",
+    "messageRequired": "Správa je povinná",
+    "messageMinLength": "Správa musí mať aspoň 10 znakov",
+    "bettingPageTitle": "Potrebujete pomoc?",
+    "bettingPageDescription": "Kontaktujte nás pre aktiváciu účtu alebo ak máte akékoľvek otázky."
   },
   "errors": {
     "generic": "Došlo k chybe. Skúste to prosím znova.",
     "unauthorized": "Nemáte oprávnenie pristupovať na túto stránku.",
     "notFound": "Stránka nenájdená.",
     "networkError": "Sieťová chyba. Skontrolujte prosím vaše pripojenie."
+  },
+  "contacts": {
+    "title": "Kontaktné odoslania",
+    "subtitle": "Zobraziť a spravovať všetky odoslania kontaktného formulára.",
+    "noContacts": "Zatiaľ žiadne kontaktné odoslania.",
+    "delete": "Vymazať",
+    "cancel": "Zrušiť",
+    "confirmDelete": "Vymazať kontakt",
+    "deleteConfirmation": "Naozaj chcete vymazať kontaktné odoslanie od {email}? Táto akcia sa nedá vrátiť späť.",
+    "deleting": "Vymazávanie..."
   },
   "footer": {
     "copyright": "© {year} Stavky. Všetky práva vyhradené.",

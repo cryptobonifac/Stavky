@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   other: {
     'google': 'notranslate',
   },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
 }
 
 export default async function LocaleLayout({

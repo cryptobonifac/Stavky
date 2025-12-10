@@ -17,7 +17,9 @@
     "signup": "Registrovat se",
     "profile": "Profil",
     "settings": "Nastavení",
-    "home": "Domů"
+    "home": "Domů",
+    "back": "Zpět",
+    "next": "Další"
   },
   "home": {
     "title": "Odborné sázkové tipy, které",
@@ -43,7 +45,6 @@
     },
     "cta": {
       "title": "Připraveni začít vyhrávat?",
-      "description": "Připojte se k tisícům spokojených zákazníků, kteří věří našim sázkovým tipům.",
       "button": "Začněte ještě dnes"
     }
   },
@@ -117,7 +118,9 @@
     "showing": "Zobrazuje se",
     "tip": "tip",
     "tips": "tipů",
-    "checkBackLater": "Zkuste to znovu později nebo změňte filtr."
+    "checkBackLater": "Zkuste to znovu později nebo změňte filtr.",
+    "stake": "Sázka",
+    "totalWin": "Výhra"
   },
   "history": {
     "title": "Historie a výkonnost",
@@ -189,6 +192,10 @@
     "matchDate": "Datum zápasu",
     "matchKickoff": "Začátek zápasu",
     "finalOdds": "Finální kurz",
+    "stake": "Sázka",
+    "stakeHelper": "Zadejte výši sázky",
+    "stakeRequired": "Sázka musí být kladné číslo",
+    "totalWin": "Výhra",
     "addAnotherTip": "Přidat další tip",
     "sameCompanyAsFirstTip": "Stejná kancelář jako v prvním tipu",
     "publishTip": "Publikovat tip",
@@ -197,7 +204,15 @@
     "success": "Sázkový tip byl úspěšně vytvořen.",
     "error": "Nepodařilo se uložit sázkový tip.",
     "validationError": "Prosím vyplňte všechna povinná pole pro každý tip.",
-    "finalOddsExceedsMax": "Finální kurz překračuje maximální hodnotu 2,000"
+    "finalOddsExceedsMax": "Finální kurz překračuje maximální hodnotu 2,000",
+    "stepTips": "Přidat tipy",
+    "stepStake": "Nastavit sázku",
+    "stepReview": "Přehled",
+    "tipsStepDescription": "Přidejte jeden nebo více tipů do vaší sázky. Všechny tipy musí být ze stejné sázkové kanceláře.",
+    "stakeStepDescription": "Zadejte výši sázky, která se použije na všechny tipy v této sázce.",
+    "reviewStepDescription": "Zkontrolujte podrobnosti vaší sázky před publikováním.",
+    "confirmAndPublish": "Potvrdit a publikovat",
+    "of": "z"
   },
   "manage": {
     "title": "Čekající tipy",
@@ -271,6 +286,15 @@
       "freeMonthGranted": "Zdarma měsíc byl poskytnut pro vybraného uživatele a měsíc.",
       "freeMonthRemoved": "Označení zdarma měsíce bylo odstraněno pro vybraného uživatele a měsíc.",
       "updateFailed": "Nepodařilo se aktualizovat označení zdarma měsíce."
+    },
+    "deleteAllTips": {
+      "title": "Smazat všechny sázkové tipy",
+      "description": "Trvale smazat všechny sázkové tipy a položky tipů z databáze. Tato akce nelze vrátit zpět.",
+      "buttonLabel": "Smazat všechny tipy",
+      "dialogTitle": "Potvrdit smazání",
+      "dialogDescription": "Opravdu chcete smazat všechny sázkové tipy? Tato akce trvale odstraní všechny tipy a nelze ji vrátit zpět.",
+      "deleteSuccess": "Všechny sázkové tipy byly úspěšně smazány.",
+      "deleteFailed": "Nepodařilo se smazat sázkové tipy."
     }
   },
   "navigation": {
@@ -282,13 +306,45 @@
     "settings": "Nastavení",
     "newbet": "Nový tip",
     "manage": "Spravovat tipy",
+    "contacts": "Kontakty",
     "admin": "ADMIN"
+  },
+  "contact": {
+    "title": "Kontaktujte nás",
+    "subtitle": "Spojte se s námi. Odpovíme co nejdříve.",
+    "email": "Email",
+    "emailPlaceholder": "vas.email@priklad.cz",
+    "mobile": "Mobilní číslo",
+    "mobilePlaceholder": "+420 123 456 789",
+    "message": "Zpráva",
+    "messagePlaceholder": "Zadejte vaši zprávu zde...",
+    "submit": "Odeslat zprávu",
+    "submitting": "Odesílání...",
+    "success": "Děkujeme! Vaše zpráva byla úspěšně odeslána.",
+    "error": "Nepodařilo se odeslat zprávu. Zkuste to prosím znovu.",
+    "emailRequired": "Email je povinný",
+    "emailInvalid": "Zadejte prosím platnou emailovou adresu",
+    "mobileRequired": "Mobilní číslo je povinné",
+    "messageRequired": "Zpráva je povinná",
+    "messageMinLength": "Zpráva musí mít alespoň 10 znaků",
+    "bettingPageTitle": "Potřebujete pomoc?",
+    "bettingPageDescription": "Kontaktujte nás pro aktivaci účtu nebo pokud máte jakékoli otázky."
   },
   "errors": {
     "generic": "Došlo k chybě. Zkuste to prosím znovu.",
     "unauthorized": "Nemáte oprávnění přistupovat na tuto stránku.",
     "notFound": "Stránka nenalezena.",
     "networkError": "Síťová chyba. Zkontrolujte prosím vaše připojení."
+  },
+  "contacts": {
+    "title": "Kontaktní odeslání",
+    "subtitle": "Zobrazit a spravovat všechna odeslání kontaktního formuláře.",
+    "noContacts": "Zatím žádná kontaktní odeslání.",
+    "delete": "Smazat",
+    "cancel": "Zrušit",
+    "confirmDelete": "Smazat kontakt",
+    "deleteConfirmation": "Opravdu chcete smazat kontaktní odeslání od {email}? Tato akce nelze vrátit zpět.",
+    "deleting": "Mazání..."
   },
   "footer": {
     "copyright": "© {year} Stavky. Všechna práva vyhrazena.",

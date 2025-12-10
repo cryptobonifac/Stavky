@@ -37,8 +37,8 @@ export async function POST(request: Request) {
     for (const tip of body.tips) {
       const requiredFields = [
         'betting_company_id',
-        'sport_id',
-        'league_id',
+        'sport',
+        'league',
         'match',
         'odds',
         'match_date',
@@ -62,12 +62,26 @@ export async function POST(request: Request) {
       )
     }
 
+    // Validate stake
+    const stake = parseFloat(body.stake)
+    if (!stake || stake <= 0) {
+      return NextResponse.json(
+        { error: 'Stake must be a positive number' },
+        { status: 400 }
+      )
+    }
+
+    // Calculate total_win
+    const total_win = body.final_odds * stake
+
     // Create the main betting_tip record
     const { data: bettingTip, error: tipError } = await supabase
       .from('betting_tips')
       .insert({
         description: body.description || `Combined bet with ${body.tips.length} tips`,
         odds: body.final_odds,
+        stake: stake,
+        total_win: total_win,
         status: 'pending',
         created_by: user.id,
       })
@@ -85,8 +99,8 @@ export async function POST(request: Request) {
     const tipItems = body.tips.map((tip: any) => ({
       betting_tip_id: bettingTip.id,
       betting_company_id: tip.betting_company_id,
-      sport_id: tip.sport_id,
-      league_id: tip.league_id,
+      sport: tip.sport,
+      league: tip.league,
       match: tip.match,
       odds: tip.odds,
       match_date: tip.match_date,
@@ -110,10 +124,12 @@ export async function POST(request: Request) {
   }
 
   // Legacy structure: single tip (for backward compatibility)
+  // Note: This structure is deprecated but kept for backward compatibility
+  // New bets should use the tips array structure
   const REQUIRED_FIELDS = [
     'betting_company_id',
-    'sport_id',
-    'league_id',
+    'sport',
+    'league',
     'match',
     'odds',
     'match_date',
@@ -129,13 +145,17 @@ export async function POST(request: Request) {
     )
   }
 
+  // Validate stake for legacy structure
+  const stake = parseFloat(body.stake || '0')
+  const total_win = stake > 0 ? (body.odds || 1) * stake : null
+
   const { error } = await supabase.from('betting_tips').insert({
     betting_company_id: body.betting_company_id,
-    sport_id: body.sport_id,
-    league_id: body.league_id,
     match: body.match,
     odds: body.odds,
     match_date: body.match_date,
+    stake: stake > 0 ? stake : null,
+    total_win: total_win,
     status: 'pending',
     created_by: user.id,
   })

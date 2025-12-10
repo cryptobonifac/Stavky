@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Typography, Stack, Link as MuiLink } from '@mui/material'
-import Link from 'next/link'
+import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
 
 const Footer = () => {
@@ -34,7 +34,7 @@ const Footer = () => {
           <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
             {t('privacy')}
           </MuiLink>
-          <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
+          <MuiLink component={Link} href="/contact" color="text.secondary" underline="hover">
             {t('contact')}
           </MuiLink>
         </Stack>

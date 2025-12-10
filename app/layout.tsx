@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   other: {
     'google': 'notranslate',
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
