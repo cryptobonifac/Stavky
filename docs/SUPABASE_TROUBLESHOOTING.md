@@ -256,3 +256,4 @@ Open http://127.0.0.1:54323 in your browser
 - [Supabase CLI Reference](https://supabase.com/docs/reference/cli)
 - [Local OAuth Setup](./LOCAL_SUPABASE_GOOGLE_OAUTH.md)
 
+
