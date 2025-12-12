@@ -49,19 +49,6 @@ These variables configure the application URLs for authentication callbacks and 
    - `http://localhost:3000/auth/callback` (development)
    - `https://yourdomain.com/auth/callback` (production)
 
-### Email Service (Resend)
-
-| Variable | Description | Where to Find |
-|----------|-------------|---------------|
-| `RESEND_API_KEY` | Resend API key for sending emails | [Resend Dashboard](https://resend.com/api-keys) → Create API Key |
-
-**Setup Instructions:**
-1. Go to [Resend](https://resend.com/) and create an account
-2. Navigate to API Keys section
-3. Create a new API key
-4. Copy the API key and add it to your environment variables
-5. **Note**: For production, you'll need to verify your domain in Resend to send from custom email addresses. For development, you can use the default `onboarding@resend.dev` sender.
-
 ### Vercel Configuration (Optional)
 
 These are only needed if deploying to Vercel or using Vercel CLI.
@@ -112,103 +99,11 @@ npm run dev
 # The application should start without errors related to missing environment variables
 ```
 
-### Testing Contact Form API Configuration
-
-To verify `RESEND_API_KEY` is configured correctly:
-
-**Option 1: Use Verification Script (Recommended)**
-```bash
-npm run verify:resend
-```
-
-This automated script will:
-- Check if `.env.local` exists
-- Verify `RESEND_API_KEY` is defined
-- Validate the format
-- Provide specific fix instructions
-
-**Option 2: Test API Endpoint**
-
-1. **Visit the diagnostic endpoint**:
-   ```
-   http://localhost:3000/api/contact
-   ```
-
-2. **Check the response** - You should see:
-   ```json
-   {
-     "message": "Contact API is working",
-     "resendConfigured": true,
-     "diagnostics": {
-       "hasKey": true,
-       "keyNotEmpty": true,
-       "keyStartsWithRe": true,
-       "keyLength": <number>,
-       "nodeEnv": "development"
-     }
-   }
-   ```
-
-3. **If `resendConfigured` is `false`**, check the `diagnostics` and `troubleshooting` fields for specific issues.
-
-**For detailed troubleshooting**, see [Contact Form Troubleshooting Guide](./CONTACT_FORM_TROUBLESHOOTING.md)
-
 ## Troubleshooting
 
 ### Common Issues
 
-1. **"Email service is not configured" (RESEND_API_KEY)**
-
-   **Symptoms:**
-   - Contact form shows error: "Email service is not configured"
-   - GET `/api/contact` shows `resendConfigured: false`
-
-   **Solutions:**
-
-   a. **Verify file location and format**:
-      - `.env.local` must be in project root (same directory as `package.json`)
-      - Format must be: `RESEND_API_KEY=re_xxxxxxxxxxxxx`
-      - ❌ Wrong: `RESEND_API_KEY="re_xxx"` (quotes)
-      - ❌ Wrong: `RESEND_API_KEY = re_xxx` (spaces)
-      - ✅ Correct: `RESEND_API_KEY=re_xxxxxxxxxxxxx`
-
-   b. **Restart development server**:
-      ```bash
-      # Stop server (Ctrl+C)
-      # Then restart:
-      npm run dev
-      ```
-      ⚠️ **Critical**: Next.js loads environment variables at startup. Changes to `.env.local` require a server restart.
-
-   c. **Check variable name**:
-      - Must be exactly `RESEND_API_KEY` (case-sensitive)
-      - No typos: not `RESEND_API_KEY_` or `RESEND_APIKEY`
-
-   d. **Verify key format**:
-      - Resend API keys start with `re_`
-      - Get your key from [Resend Dashboard](https://resend.com/api-keys)
-
-   e. **Check for multiple env files**:
-      - Next.js loads: `.env.local` > `.env.development` > `.env`
-      - If `RESEND_API_KEY` exists in multiple files, `.env.local` takes precedence
-      - Remove duplicate definitions
-
-   f. **Use diagnostic endpoint**:
-      - Visit `http://localhost:3000/api/contact` to see detailed diagnostics
-      - Check server console for error logs
-
-   **Example `.env.local` file:**
-   ```env
-   # Supabase
-   NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGc...
-   SUPABASE_SERVICE_ROLE_KEY=eyJhbGc...
-
-   # Resend (for contact form)
-   RESEND_API_KEY=re_xxxxxxxxxxxxx
-   ```
-
-2. **"Missing Supabase environment variables"**
+1. **"Missing Supabase environment variables"**
    - Ensure `.env.local` exists and contains all Supabase variables
    - Restart the development server after adding variables
 
@@ -219,6 +114,8 @@ This automated script will:
 3. **Database connection errors**
    - Verify `SUPABASE_DB_PASSWORD` is correct
    - Check Supabase project status in the dashboard
+   - For local development: Ensure Supabase is running (`npm run db:local`)
+   - See [Supabase Troubleshooting Guide](./SUPABASE_TROUBLESHOOTING.md) for connection issues
 
 4. **Service role key errors**
    - Ensure `SUPABASE_SERVICE_ROLE_KEY` is the `service_role` key, not the `anon` key
@@ -232,6 +129,26 @@ This automated script will:
 4. ❌ **Don't**: Commit `.env.local` to version control
 5. ❌ **Don't**: Share service role keys
 6. ❌ **Don't**: Use production keys in development
+
+## Troubleshooting
+
+### Supabase Connection Issues
+
+If you encounter connection errors like `ECONNREFUSED 127.0.0.1:54321` or `fetch failed` errors:
+
+1. **Ensure Supabase is running:**
+   ```bash
+   npm run db:local
+   # or
+   supabase start
+   ```
+
+2. **Check Supabase status:**
+   ```bash
+   supabase status
+   ```
+
+3. **For detailed troubleshooting**, see the [Supabase Troubleshooting Guide](./SUPABASE_TROUBLESHOOTING.md)
 
 
 

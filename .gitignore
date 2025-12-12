@@ -8,6 +8,10 @@
 
 # testing
 /coverage
+/playwright-report/
+/test-results/
+/tests/.auth/
+.env.test
 
 # next.js
 /.next/
@@ -37,3 +41,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+playwright-report/index.html
+playwright-report/index.html

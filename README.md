@@ -39,7 +39,13 @@ npm install
    - Update `supabase/config.toml` with your Supabase project ref (`project_id`) and service role key (`api_key`).
    - The CLI is installed as a dev dependency, so `npm install` also makes the `supabase` binary available locally.
 
-4. Run the development server:
+4. Start local Supabase instance (required for local development):
+```bash
+npm run db:local
+```
+   **Important**: Always start Supabase before starting the Next.js dev server. See [Supabase Troubleshooting Guide](./docs/SUPABASE_TROUBLESHOOTING.md) for common issues.
+
+5. Run the development server:
 ```bash
 npm run dev
 ```
