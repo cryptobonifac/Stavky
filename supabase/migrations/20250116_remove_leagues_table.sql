@@ -33,3 +33,4 @@ DROP TABLE IF EXISTS public.leagues CASCADE;
 -- Step 5: Clean up any functions that reference leagues
 -- (None expected, but this is a placeholder for any cleanup needed)
 
+

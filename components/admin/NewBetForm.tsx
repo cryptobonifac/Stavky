@@ -474,10 +474,12 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                       />
                     )}
                     renderOption={(props, option) => {
+                      const { key, ...otherProps } = props
                       const sportName = typeof option === 'string' ? option : option.name
                       return (
                         <li
-                          {...props}
+                          key={key}
+                          {...otherProps}
                           style={{
                             whiteSpace: 'normal',
                             wordBreak: 'break-word',

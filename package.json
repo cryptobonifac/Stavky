@@ -12,7 +12,6 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test": "playwright test",
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
     "db:local": "supabase start"
@@ -50,15 +49,12 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^12.3.0",
-    "@playwright/test": "^1.56.1",
     "autoprefixer": "^10.4.22",
     "baseline-browser-mapping": "^2.8.32",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.7",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "playwright-bdd": "^8.4.2",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
     "supabase": "^2.65.8",

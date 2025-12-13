@@ -1,0 +1,71 @@
+name: .NET Playwright Tests
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - 'Stavky.Tests/**'
+      - 'app/**'
+      - 'components/**'
+      - '.github/workflows/playwright-tests.yml'
+  pull_request:
+    branches: ["main"]
+    paths:
+      - 'Stavky.Tests/**'
+      - 'app/**'
+      - 'components/**'
+      - '.github/workflows/playwright-tests.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: Stavky.Tests
+
+      - name: Build
+        run: dotnet build --no-restore
+        working-directory: Stavky.Tests
+
+      - name: Install Playwright browsers
+        run: |
+          cd Stavky.Tests
+          dotnet build
+          bash bin/Debug/net10.0/playwright.sh install --with-deps
+        continue-on-error: false
+
+      - name: Run Playwright tests
+        run: dotnet test --no-build --verbosity normal --logger "trx;LogFileName=test-results.trx"
+        working-directory: Stavky.Tests
+        continue-on-error: false
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-results
+          path: |
+            Stavky.Tests/TestResults/**/*
+            Stavky.Tests/bin/**/test-results.trx
+          retention-days: 30
+
+      - name: Publish test results
+        if: always()
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        with:
+          files: |
+            Stavky.Tests/**/test-results.trx
+          check_name: Playwright Test Results
+          comment_mode: create new
+          report_individual_runs: true
