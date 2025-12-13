@@ -1,20 +1,9 @@
 -- Apply migration for betting_tip_items
 -- Run this in Supabase SQL Editor if migration didn't apply automatically
 
--- Create betting_tip_items table
-CREATE TABLE IF NOT EXISTS public.betting_tip_items (
-  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-  betting_tip_id uuid NOT NULL REFERENCES public.betting_tips (id) ON DELETE CASCADE,
-  betting_company_id uuid NOT NULL REFERENCES public.betting_companies (id) ON DELETE RESTRICT,
-  sport_id uuid NOT NULL REFERENCES public.sports (id) ON DELETE RESTRICT,
-  league_id uuid NOT NULL REFERENCES public.leagues (id) ON DELETE RESTRICT,
-  match text NOT NULL,
-  odds numeric(5,3) NOT NULL CHECK (odds >= 1.001 AND odds <= 2.0),
-  match_date timestamptz NOT NULL,
-  status public.tip_status NOT NULL DEFAULT 'pending',
-  created_at timestamptz NOT NULL DEFAULT timezone('utc', now()),
-  updated_at timestamptz NOT NULL DEFAULT timezone('utc', now())
-);
+-- betting_tip_items table is already created by 20241203_betting_tip_items.sql
+-- and updated by 20251215_change_sports_leagues_to_text.sql to use text fields
+-- No need to recreate it here
 
 -- Create trigger for updated_at
 DROP TRIGGER IF EXISTS set_betting_tip_items_updated_at ON public.betting_tip_items;
@@ -46,11 +35,7 @@ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 
-DO $$
-BEGIN
-  ALTER TABLE public.betting_tips ALTER COLUMN league_id DROP NOT NULL;
-EXCEPTION WHEN OTHERS THEN NULL;
-END $$;
+-- league_id column has been removed - leagues are now text in betting_tip_items
 
 DO $$
 BEGIN
@@ -71,7 +56,7 @@ ALTER TABLE public.betting_tips
 ALTER TABLE public.betting_tips
   ADD CONSTRAINT betting_tips_structure_check
   CHECK (
-    (betting_company_id IS NOT NULL AND sport_id IS NOT NULL AND league_id IS NOT NULL AND match IS NOT NULL AND match_date IS NOT NULL)
+    (betting_company_id IS NOT NULL AND sport_id IS NOT NULL AND match IS NOT NULL AND match_date IS NOT NULL)
     OR
     (description IS NOT NULL)
   );

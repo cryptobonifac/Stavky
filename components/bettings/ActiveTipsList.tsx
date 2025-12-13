@@ -17,6 +17,7 @@ import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
 import AccessTimeIcon from '@mui/icons-material/AccessTime'
 import TrendingUpIcon from '@mui/icons-material/TrendingUp'
 import { useTranslations } from 'next-intl'
+import { useSportLeagueTranslations } from '@/lib/i18n/translate-sports-leagues'
 
 export type TipItem = {
   id: string
@@ -51,6 +52,7 @@ type ActiveTipsListProps = {
 
 const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   const t = useTranslations('bettings')
+  const { translateSport, translateLeague } = useSportLeagueTranslations()
   const [filter, setFilter] = useState<FilterValue>('today')
   
   const filters = [
@@ -264,8 +266,8 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                         >
                       {[
                         tip.betting_companies?.name,
-                        tip.sports?.name,
-                        tip.leagues?.name,
+                        tip.sports?.name ? translateSport(tip.sports.name) : null,
+                        tip.leagues?.name ? translateLeague(tip.leagues.name) : null,
                       ]
                         .filter(Boolean)
                         .join(' • ')}

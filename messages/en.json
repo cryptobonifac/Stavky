@@ -27,6 +27,7 @@
     "subtitle": "Stop guessing. Start winning. Get access to verified, high-probability sports betting tips from professional analysts.",
     "getStarted": "Get Started Free",
     "viewActiveTips": "View Active Tips",
+    "viewStatistics": "View Statistics",
     "learnMore": "Learn More",
     "features": {
       "title": "Why Choose Our Tips",
@@ -119,11 +120,15 @@
     "tips": "tips",
     "checkBackLater": "Check back later or try a different filter.",
     "stake": "Stake",
-    "totalWin": "Win"
+    "totalWin": "Win",
+    "statistics": "Statistics",
+    "viewStatistics": "View Statistics",
+    "viewStatisticsDescription": "View your betting statistics and past tips."
   },
-  "history": {
-    "title": "History & performance",
+  "statistics": {
+    "title": "Statistics & performance",
     "subtitle": "Review win/loss ratios grouped by calendar month.",
+    "loginRequired": "Please log in to view your personal statistics.",
     "accountNotActive": "Activate your account to unlock historical win/loss statistics. Contact admin to activate your account.",
     "monthlyPerformance": "Monthly performance",
     "monthlyStats": "Monthly Statistics",
@@ -132,8 +137,8 @@
     "losses": "Losses",
     "pending": "Pending",
     "total": "Total",
-    "noHistory": "No history available",
-    "noHistoryYet": "No history available yet.",
+    "noHistory": "No statistics available",
+    "noHistoryYet": "No statistics available yet.",
     "selectMonth": "Select Month"
   },
   "profile": {
@@ -260,6 +265,21 @@
       "createFailed": "Failed to add company",
       "deleteFailed": "Failed to delete company"
     },
+    "sports": {
+      "title": "Sports",
+      "name": "Name",
+      "newSportName": "New sport name",
+      "add": "Add",
+      "addSport": "Add Sport",
+      "edit": "Edit Sport",
+      "delete": "Delete Sport",
+      "confirmDelete": "Are you sure you want to delete {name}?",
+      "noSports": "No sports yet.",
+      "sportCreated": "Sport created successfully",
+      "sportDeleted": "Sport deleted",
+      "createFailed": "Failed to add sport",
+      "deleteFailed": "Failed to delete sport"
+    },
     "marketing": {
       "title": "Marketing & free month logic",
       "freeMonthTitle": "Marketing & free month settings",
@@ -301,6 +321,7 @@
     "bettings": "Tips",
     "bettingTips": "Betting Tips",
     "history": "History",
+    "statistics": "Statistics",
     "profile": "Profile",
     "settings": "Settings",
     "newbet": "New Bet",
@@ -348,8 +369,27 @@
   "footer": {
     "copyright": "© {year} Stavky. All rights reserved.",
     "terms": "Terms",
+    "statistics": "Statistics",
     "privacy": "Privacy",
     "contact": "Contact"
+  },
+  "sports": {
+    "Soccer": "Soccer",
+    "Tennis": "Tennis",
+    "Basketball": "Basketball",
+    "Ice Hockey": "Ice Hockey",
+    "Volleyball": "Volleyball",
+    "Handball": "Handball",
+    "Rugby": "Rugby",
+    "Badminton": "Badminton",
+    "Squash": "Squash",
+    "Water Polo": "Water Polo",
+    "Floorball": "Floorball",
+    "Futsal": "Futsal",
+    "Beach Volleyball": "Beach Volleyball",
+    "Athletics": "Athletics",
+    "Softball": "Softball",
+    "Politics": "Politics"
   }
 }
 

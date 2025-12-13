@@ -2,6 +2,7 @@ import { getTranslations, getLocale } from 'next-intl/server'
 import { redirect } from '@/i18n/routing'
 import PeopleIcon from '@mui/icons-material/People'
 import BusinessIcon from '@mui/icons-material/Business'
+import SportsIcon from '@mui/icons-material/Sports'
 import CampaignIcon from '@mui/icons-material/Campaign'
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
@@ -13,6 +14,7 @@ import UserListSection, {
   type ManagedUser,
 } from '@/components/settings/UserListSection'
 import BettingCompaniesSection from '@/components/settings/BettingCompaniesSection'
+import SportsSection from '@/components/settings/SportsSection'
 import MarketingSettingsSection from '@/components/settings/MarketingSettingsSection'
 import FreeMonthOverrideSection from '@/components/settings/FreeMonthOverrideSection'
 import DeleteAllTipsSection from '@/components/settings/DeleteAllTipsSection'
@@ -61,12 +63,13 @@ export default async function SettingsPage({
     redirect({ href: '/bettings', locale })
   }
 
-  const [usersRes, companiesRes, marketingRes] = await Promise.all([
+  const [usersRes, companiesRes, sportsRes, marketingRes] = await Promise.all([
     supabase
       .from('users')
       .select('id,email,role,account_active_until')
       .order('email'),
     supabase.from('betting_companies').select('id,name').order('name'),
+    supabase.from('sports').select('id,name').order('name'),
     supabase
       .from('marketing_settings')
       .select('id,key,value')
@@ -226,6 +229,48 @@ export default async function SettingsPage({
                     <BettingCompaniesSection companies={companiesRes.data ?? []} />
                   </CardContent>
                 </Card>
+
+              <Card
+                elevation={0}
+                sx={{
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                }}
+              >
+                <Box
+                  sx={{
+                    px: 3,
+                    py: 2.5,
+                    bgcolor: 'background.paper',
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                >
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <Box
+                      sx={{
+                        p: 1,
+                        borderRadius: 2,
+                        bgcolor: 'primary.main',
+                        color: 'primary.contrastText',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                      }}
+                    >
+                      <SportsIcon fontSize="small" />
+                    </Box>
+                    <Typography variant="h5" fontWeight={600}>
+                      {t('sports.title')}
+                    </Typography>
+                  </Stack>
+                </Box>
+                <CardContent sx={{ pt: 3 }}>
+                  <SportsSection sports={sportsRes.data ?? []} />
+                </CardContent>
+              </Card>
 
               <Card
                 elevation={0}

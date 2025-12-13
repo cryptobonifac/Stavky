@@ -35,7 +35,7 @@ type HistoryMonthViewProps = {
 }
 
 const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
-  const t = useTranslations('history')
+  const t = useTranslations('statistics')
   const tBettings = useTranslations('bettings')
   const locale = useLocale()
   const [selectedKey, setSelectedKey] = useState(months[0]?.key ?? '')

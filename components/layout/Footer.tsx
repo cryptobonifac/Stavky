@@ -28,8 +28,8 @@ const Footer = () => {
           {t('copyright', { year: new Date().getFullYear() })}
         </Typography>
         <Stack direction="row" spacing={3}>
-          <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
-            {t('terms')}
+          <MuiLink component={Link} href="/statistics" color="text.secondary" underline="hover">
+            {t('statistics')}
           </MuiLink>
           <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
             {t('privacy')}

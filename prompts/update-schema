@@ -1,0 +1,15 @@
+
+- remove unused table betting_tip_item
+- remove unused table league
+- remove unused table sports 
+
+- Implement this rules
+- one betting tip can contains multiple tips. Relation one to manually
+- sports and ligue are saved as text for every single tip
+
+- update login on route /newbet based on this updates
+
+
+
+
+

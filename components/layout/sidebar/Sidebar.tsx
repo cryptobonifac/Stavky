@@ -29,7 +29,7 @@ const Sidebar = ({ role }: SidebarProps) => {
         {role && (
           <>
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />
-            <SidebarItem href="/history" icon={<HistoryIcon />} label={t('history')} />
+            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
           </>
         )}

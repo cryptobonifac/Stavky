@@ -8,15 +8,21 @@ alter table public.betting_tip_items
   add column if not exists league text;
 
 -- Step 2: Migrate existing data from foreign keys to text fields
--- Copy sport and league names from related tables (only if columns exist)
+-- Copy sport and league names from related tables (only if columns and tables exist)
 do $$
 begin
+  -- Check if sport_id column exists and leagues table exists
   if exists (
     select 1 from information_schema.columns 
     where table_schema = 'public' 
     and table_name = 'betting_tip_items' 
     and column_name = 'sport_id'
+  ) and exists (
+    select 1 from information_schema.tables
+    where table_schema = 'public'
+    and table_name = 'leagues'
   ) then
+    -- Migrate from both sport and league tables
     update public.betting_tip_items bti
     set
       sport = s.name,
@@ -24,13 +30,53 @@ begin
     from public.sports s, public.leagues l
     where bti.sport_id = s.id
       and bti.league_id = l.id;
+  elsif exists (
+    select 1 from information_schema.columns 
+    where table_schema = 'public' 
+    and table_name = 'betting_tip_items' 
+    and column_name = 'sport_id'
+  ) then
+    -- Leagues table doesn't exist, only migrate sport
+    update public.betting_tip_items bti
+    set
+      sport = s.name
+    from public.sports s
+    where bti.sport_id = s.id;
+    -- Set league to empty string or a default value for existing records
+    update public.betting_tip_items
+    set league = ''
+    where league IS NULL;
   end if;
 end $$;
 
 -- Step 3: Make new columns NOT NULL after data migration
-alter table public.betting_tip_items
-  alter column sport set not null,
-  alter column league set not null;
+-- Only set NOT NULL if columns exist and have data
+do $$
+begin
+  -- Set sport to NOT NULL if it exists
+  if exists (
+    select 1 from information_schema.columns 
+    where table_schema = 'public' 
+    and table_name = 'betting_tip_items' 
+    and column_name = 'sport'
+  ) then
+    -- Update any NULL values first
+    update public.betting_tip_items set sport = '' where sport IS NULL;
+    alter table public.betting_tip_items alter column sport set not null;
+  end if;
+  
+  -- Set league to NOT NULL if it exists
+  if exists (
+    select 1 from information_schema.columns 
+    where table_schema = 'public' 
+    and table_name = 'betting_tip_items' 
+    and column_name = 'league'
+  ) then
+    -- Update any NULL values first
+    update public.betting_tip_items set league = '' where league IS NULL;
+    alter table public.betting_tip_items alter column league set not null;
+  end if;
+end $$;
 
 -- Step 4: Drop foreign key constraints and indexes
 alter table public.betting_tip_items

@@ -8,7 +8,7 @@ import ActiveTipsList, {
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
 import ContactForm from '@/components/contact/ContactForm'
-import { Alert, Box, Typography, Stack } from '@mui/material'
+import { Alert, Box, Typography, Stack, Button } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -185,15 +185,32 @@ export default async function BettingTipsPage({
               {t('accountNotActive')}
             </Alert>
             {isInactiveCustomer && (
-              <Box>
-                <Typography variant="h6" fontWeight="bold" gutterBottom>
-                  {tContact('bettingPageTitle')}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                  {tContact('bettingPageDescription')}
-                </Typography>
-                <ContactForm showTitle={false} showDescription={false} />
-              </Box>
+              <>
+                <Box>
+                  <Typography variant="h6" fontWeight="bold" gutterBottom>
+                    {tContact('bettingPageTitle')}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+                    {tContact('bettingPageDescription')}
+                  </Typography>
+                  <ContactForm showTitle={false} showDescription={false} />
+                </Box>
+                <Box sx={{ mt: 3 }}>
+                  <Typography variant="h6" fontWeight="bold" gutterBottom>
+                    {t('statistics') || 'Statistics'}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {t('viewStatisticsDescription') || 'View your betting statistics and past tips.'}
+                  </Typography>
+                  <Button
+                    variant="outlined"
+                    href={`/${locale}/statistics`}
+                    sx={{ mt: 1 }}
+                  >
+                    {t('viewStatistics') || 'View Statistics'}
+                  </Button>
+                </Box>
+              </>
             )}
           </Stack>
         )}

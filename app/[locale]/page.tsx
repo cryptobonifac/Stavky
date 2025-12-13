@@ -58,6 +58,8 @@ export default function Home() {
                 mb: 2,
                 fontSize: { xs: '2.5rem', md: '3.75rem' },
                 letterSpacing: '-0.02em',
+                paddingTop: '2px',
+                paddingBottom: '2px',
               }}
             >
               {t('title')}{' '}
@@ -86,15 +88,26 @@ export default function Home() {
                   {profile ? t('viewActiveTips') : t('getStarted')}
                 </Button>
               </Link>
-              <Button
-                component="a"
-                href="#features"
-                variant="outlined"
-                size="large"
-                sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
-              >
-                {t('learnMore')}
-              </Button>
+              <Link href="/statistics" style={{ textDecoration: 'none' }}>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
+                >
+                  {t('viewStatistics')}
+                </Button>
+              </Link>
+              {!profile && (
+                <Button
+                  component="a"
+                  href="#features"
+                  variant="outlined"
+                  size="large"
+                  sx={{ px: 4, py: 1.5, fontSize: '1.1rem' }}
+                >
+                  {t('learnMore')}
+                </Button>
+              )}
             </Stack>
           </Container>
         </Box>

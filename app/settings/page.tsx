@@ -7,6 +7,7 @@ import UserListSection, {
   type ManagedUser,
 } from '@/components/settings/UserListSection'
 import BettingCompaniesSection from '@/components/settings/BettingCompaniesSection'
+import SportsSection from '@/components/settings/SportsSection'
 import MarketingSettingsSection from '@/components/settings/MarketingSettingsSection'
 import FreeMonthOverrideSection from '@/components/settings/FreeMonthOverrideSection'
 import { createClient as createServerClient } from '@/lib/supabase/server'
@@ -38,12 +39,13 @@ export default async function SettingsPage() {
     redirect('/bettings')
   }
 
-  const [usersRes, companiesRes, marketingRes] = await Promise.all([
+  const [usersRes, companiesRes, sportsRes, marketingRes] = await Promise.all([
     supabase
       .from('users')
       .select('id,email,role,account_active_until')
       .order('email'),
     supabase.from('betting_companies').select('id,name').order('name'),
+    supabase.from('sports').select('id,name').order('name'),
     supabase
       .from('marketing_settings')
       .select('id,key,value')
@@ -83,6 +85,16 @@ export default async function SettingsPage() {
                       Betting companies
                     </Typography>
                     <BettingCompaniesSection companies={companiesRes.data ?? []} />
+                  </CardContent>
+                </Card>
+              </Grid>
+              <Grid size={{ xs: 12 }}>
+                <Card variant="outlined">
+                  <CardContent>
+                    <Typography variant="h5" gutterBottom>
+                      Sports
+                    </Typography>
+                    <SportsSection sports={sportsRes.data ?? []} />
                   </CardContent>
                 </Card>
               </Grid>

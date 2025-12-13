@@ -4,6 +4,7 @@ import { useMemo, useState, useTransition, useRef, useEffect } from 'react'
 import dayjs, { type Dayjs } from 'dayjs'
 import {
   Alert,
+  Autocomplete,
   Button,
   Dialog,
   DialogContent,
@@ -39,11 +40,13 @@ type Option = {
 
 type NewBetFormProps = {
   bettingCompanies: Option[]
+  sports: Option[]
 }
 
 type TipForm = {
   id: string
   betting_company_id: string
+  sport_id: string
   sport: string
   league: string
   match: string
@@ -54,7 +57,7 @@ type TipForm = {
 const steps = ['tips', 'stake', 'review'] as const
 type StepType = typeof steps[number]
 
-const NewBetForm = ({ bettingCompanies }: NewBetFormProps) => {
+const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
   const t = useTranslations('newbet')
   const tCommon = useTranslations('common')
   const idCounterRef = useRef(0)
@@ -67,6 +70,7 @@ const NewBetForm = ({ bettingCompanies }: NewBetFormProps) => {
     return {
       id: `tip-${idCounterRef.current}`,
       betting_company_id: '',
+      sport_id: '',
       sport: '',
       league: '',
       match: '',
@@ -352,54 +356,141 @@ const NewBetForm = ({ bettingCompanies }: NewBetFormProps) => {
               </Stack>
               
               <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-                {activeTipIndex === 0 ? (
-                  <TextField
-                    select
-                    label={t('bettingCompany')}
-                    fullWidth
-                    required
-                    value={tipToShow.betting_company_id}
-                    onChange={(event) => {
-                      const newCompanyId = event.target.value
-                      handleTipChange(tipToShow.id, 'betting_company_id', newCompanyId)
-                      setTips((prev) =>
-                        prev.map((t) =>
-                          t.id !== tipToShow.id
-                            ? { ...t, betting_company_id: newCompanyId }
-                            : t
+                <Box sx={{ width: { xs: '100%', md: '30%' }, flexShrink: 0 }}>
+                  {activeTipIndex === 0 ? (
+                    <TextField
+                      select
+                      label={t('bettingCompany')}
+                      fullWidth
+                      required
+                      value={tipToShow.betting_company_id}
+                      onChange={(event) => {
+                        const newCompanyId = event.target.value
+                        handleTipChange(tipToShow.id, 'betting_company_id', newCompanyId)
+                        setTips((prev) =>
+                          prev.map((t) =>
+                            t.id !== tipToShow.id
+                              ? { ...t, betting_company_id: newCompanyId }
+                              : t
+                          )
                         )
+                      }}
+                    >
+                      {bettingCompanies.map((company) => (
+                        <MenuItem key={company.id} value={company.id}>
+                          {company.name}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  ) : (
+                    <TextField
+                      label={t('bettingCompany')}
+                      fullWidth
+                      required
+                      value={
+                        bettingCompanies.find(
+                          (c) => c.id === (tipToShow.betting_company_id || tips[0]?.betting_company_id)
+                        )?.name || ''
+                      }
+                      disabled
+                      helperText={t('sameCompanyAsFirstTip')}
+                    />
+                  )}
+                </Box>
+                <Box sx={{ width: { xs: '100%', md: '70%' }, flexGrow: 1 }}>
+                  <Autocomplete
+                    freeSolo
+                    options={sports}
+                    getOptionLabel={(option) => {
+                      if (typeof option === 'string') {
+                        return option
+                      }
+                      return option.name
+                    }}
+                    isOptionEqualToValue={(option, value) => {
+                      if (typeof option === 'string' || typeof value === 'string') {
+                        return option === value
+                      }
+                      return option.id === value.id
+                    }}
+                    value={
+                      tipToShow.sport_id
+                        ? sports.find((s) => s.id === tipToShow.sport_id) || null
+                        : tipToShow.sport
+                          ? tipToShow.sport
+                          : null
+                    }
+                    onChange={(event, newValue) => {
+                      if (typeof newValue === 'string') {
+                        // User typed a new sport name (not in the list)
+                        handleTipChange(tipToShow.id, 'sport', newValue)
+                        handleTipChange(tipToShow.id, 'sport_id', '')
+                      } else if (newValue && 'id' in newValue && newValue.id) {
+                        // User selected from dropdown
+                        handleTipChange(tipToShow.id, 'sport_id', newValue.id)
+                        handleTipChange(tipToShow.id, 'sport', newValue.name)
+                      } else {
+                        // Cleared or null
+                        handleTipChange(tipToShow.id, 'sport', '')
+                        handleTipChange(tipToShow.id, 'sport_id', '')
+                      }
+                    }}
+                    onInputChange={(event, newInputValue, reason) => {
+                      // Only update on user input, not when selecting from dropdown
+                      if (reason === 'input') {
+                        handleTipChange(tipToShow.id, 'sport', newInputValue)
+                        // Check if the typed value matches an existing sport
+                        const matchingSport = sports.find((s) => s.name.toLowerCase() === newInputValue.toLowerCase())
+                        if (matchingSport) {
+                          handleTipChange(tipToShow.id, 'sport_id', matchingSport.id)
+                        } else {
+                          handleTipChange(tipToShow.id, 'sport_id', '')
+                        }
+                      }
+                    }}
+                    ListboxProps={{
+                      style: {
+                        maxHeight: '300px',
+                        whiteSpace: 'normal',
+                      },
+                    }}
+                    slotProps={{
+                      paper: {
+                        sx: {
+                          minWidth: '300px',
+                        },
+                      },
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label={t('sport')}
+                        required
+                        fullWidth
+                        inputProps={{
+                          ...params.inputProps,
+                          autoComplete: 'new-password', // disable browser autocomplete
+                        }}
+                      />
+                    )}
+                    renderOption={(props, option) => {
+                      const sportName = typeof option === 'string' ? option : option.name
+                      return (
+                        <li
+                          {...props}
+                          style={{
+                            whiteSpace: 'normal',
+                            wordBreak: 'break-word',
+                            paddingTop: '8px',
+                            paddingBottom: '8px',
+                          }}
+                        >
+                          {sportName}
+                        </li>
                       )
                     }}
-                  >
-                    {bettingCompanies.map((company) => (
-                      <MenuItem key={company.id} value={company.id}>
-                        {company.name}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : (
-                  <TextField
-                    label={t('bettingCompany')}
-                    fullWidth
-                    required
-                    value={
-                      bettingCompanies.find(
-                        (c) => c.id === (tipToShow.betting_company_id || tips[0]?.betting_company_id)
-                      )?.name || ''
-                    }
-                    disabled
-                    helperText={t('sameCompanyAsFirstTip')}
                   />
-                )}
-                <TextField
-                  label={t('sport')}
-                  fullWidth
-                  required
-                  value={tipToShow.sport}
-                  onChange={(event) => {
-                    handleTipChange(tipToShow.id, 'sport', event.target.value)
-                  }}
-                />
+                </Box>
                 <TextField
                   label={t('league')}
                   fullWidth

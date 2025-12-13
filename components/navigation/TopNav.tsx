@@ -61,7 +61,7 @@ const TopNav = ({
         {profile && (
           <>
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
-            <SidebarItem href="/history" icon={<HistoryIcon />} label={t('history')} />
+            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
           </>
         )}

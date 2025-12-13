@@ -27,6 +27,7 @@
     "subtitle": "Prestaňte hádať. Začnite vyhrávať. Získajte prístup k overeným, vysokopravdepodobnostným športovým stávkovým tipom od profesionálnych analytikov.",
     "getStarted": "Začnite zadarmo",
     "viewActiveTips": "Zobraziť aktívne tipy",
+    "viewStatistics": "Zobraziť štatistiky",
     "learnMore": "Zistiť viac",
     "features": {
       "title": "Prečo si vybrať naše tipy",
@@ -119,11 +120,15 @@
     "tips": "tipov",
     "checkBackLater": "Skúste to znova neskôr alebo zmeňte filter.",
     "stake": "Stávka",
-    "totalWin": "Výhra"
+    "totalWin": "Výhra",
+    "statistics": "Štatistiky",
+    "viewStatistics": "Zobraziť štatistiky",
+    "viewStatisticsDescription": "Zobraziť vaše stávkové štatistiky a minulé tipy."
   },
-  "history": {
-    "title": "História a výkonnosť",
+  "statistics": {
+    "title": "Štatistiky a výkonnosť",
     "subtitle": "Prehľadajte pomery výhier/prehier zoskupené podľa kalendárneho mesiaca.",
+    "loginRequired": "Prosím prihláste sa, aby ste mohli zobraziť svoje osobné štatistiky.",
     "accountNotActive": "Aktivujte svoj účet, aby ste odomkli historické štatistiky výhier/prehier. Kontaktujte administrátora pre aktiváciu účtu.",
     "monthlyPerformance": "Mesačný výkon",
     "monthlyStats": "Mesačné štatistiky",
@@ -132,8 +137,8 @@
     "losses": "Prehry",
     "pending": "Čakajúci",
     "total": "Celkom",
-    "noHistory": "Žiadna história k dispozícii",
-    "noHistoryYet": "Zatiaľ žiadna história k dispozícii.",
+    "noHistory": "Žiadne štatistiky k dispozícii",
+    "noHistoryYet": "Zatiaľ žiadne štatistiky k dispozícii.",
     "selectMonth": "Vybrať mesiac"
   },
   "profile": {
@@ -260,6 +265,21 @@
       "createFailed": "Nepodarilo sa pridať spoločnosť",
       "deleteFailed": "Nepodarilo sa vymazať spoločnosť"
     },
+    "sports": {
+      "title": "Športy",
+      "name": "Názov",
+      "newSportName": "Názov nového športu",
+      "add": "Pridať",
+      "addSport": "Pridať šport",
+      "edit": "Upraviť šport",
+      "delete": "Vymazať šport",
+      "confirmDelete": "Naozaj chcete vymazať {name}?",
+      "noSports": "Zatiaľ žiadne športy.",
+      "sportCreated": "Šport bol úspešne vytvorený",
+      "sportDeleted": "Šport bol vymazaný",
+      "createFailed": "Nepodarilo sa pridať šport",
+      "deleteFailed": "Nepodarilo sa vymazať šport"
+    },
     "marketing": {
       "title": "Marketing a logika zdarma mesiaca",
       "freeMonthTitle": "Marketingové nastavenia a nastavenia zdarma mesiaca",
@@ -301,6 +321,7 @@
     "bettings": "Tipy",
     "bettingTips": "Stávkové tipy",
     "history": "História",
+    "statistics": "Štatistiky",
     "profile": "Profil",
     "settings": "Nastavenia",
     "newbet": "Nový tip",
@@ -348,8 +369,27 @@
   "footer": {
     "copyright": "© {year} Stavky. Všetky práva vyhradené.",
     "terms": "Podmienky",
+    "statistics": "Štatistiky",
     "privacy": "Súkromie",
     "contact": "Kontakt"
+  },
+  "sports": {
+    "Soccer": "Futbal",
+    "Tennis": "Tenis",
+    "Basketball": "Basketbal",
+    "Ice Hockey": "Hokej",
+    "Volleyball": "Volejbal",
+    "Handball": "Hádzaná",
+    "Rugby": "Ragby",
+    "Badminton": "Badminton",
+    "Squash": "Squash",
+    "Water Polo": "Vodné pólo",
+    "Floorball": "Florbal",
+    "Futsal": "Futsal",
+    "Beach Volleyball": "Plážový volejbal",
+    "Athletics": "Atletika",
+    "Softball": "Softbal",
+    "Politics": "Politika"
   }
 }
 

@@ -10,12 +10,13 @@ import TopNav from '@/components/navigation/TopNav'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 import { Alert } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export const metadata = {
-  title: 'History | Stavky',
+  title: 'Statistics | Stavky',
 }
 
-const HISTORY_MONTHS_LIMIT = 12
+const STATISTICS_MONTHS_LIMIT = 12
 
 type TipMonthSummary = {
   month_start: string
@@ -123,7 +124,7 @@ const aggregateMonths = (
     .filter((entry) => entry.total > 0 || entry.tips.length > 0)
 }
 
-export default async function HistoryPage({
+export default async function StatisticsPage({
   params,
 }: {
   params: Promise<{ locale: string }>
@@ -134,65 +135,68 @@ export default async function HistoryPage({
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
-    redirect({ href: { pathname: '/login', query: { redirectedFrom: '/history' } }, locale })
+  // Allow statistics access for all users (logged in or not)
+  let profile = null
+  let activeAccount = false
+  let isBettingAdmin = false
+
+  if (user) {
+    const { data: profileData } = await supabase
+      .from('users')
+      .select('account_active_until,role')
+      .eq('id', user.id)
+      .single()
+    
+    profile = profileData
+    activeAccount = profile
+      ? isAccountActive(profile.account_active_until)
+      : false
+    isBettingAdmin = profile?.role === 'betting'
   }
 
-  // TypeScript: user is guaranteed to be non-null after redirect check
-  const { data: profile } = await supabase
-    .from('users')
-    .select('account_active_until,role')
-    .eq('id', user!.id)
-    .single()
-
-  const activeAccount = profile
-    ? isAccountActive(profile.account_active_until)
-    : false
-  const isBettingAdmin = profile?.role === 'betting'
-
-  // Allow history access for all logged-in users (active, inactive, or betting admin)
   let tips: TipRecord[] = []
   let monthlySummaries: TipMonthSummary[] = []
 
-  if (activeAccount || isBettingAdmin) {
-    const cutoff = new Date()
-    cutoff.setUTCDate(1)
-    cutoff.setUTCHours(0, 0, 0, 0)
-    cutoff.setUTCMonth(cutoff.getUTCMonth() - (HISTORY_MONTHS_LIMIT - 1))
-    const cutoffIso = cutoff.toISOString()
+  // Fetch statistics for all users (public access)
+  const adminSupabase = createAdminClient()
+  const cutoff = new Date()
+  cutoff.setUTCDate(1)
+  cutoff.setUTCHours(0, 0, 0, 0)
+  cutoff.setUTCMonth(cutoff.getUTCMonth() - (STATISTICS_MONTHS_LIMIT - 1))
+  const cutoffIso = cutoff.toISOString()
 
-    const [tipsRes, summaryRes] = await Promise.all([
-      supabase
-        .from('betting_tips')
-        .select(
-          `
+  const [tipsRes, summaryRes] = await Promise.all([
+    adminSupabase
+      .from('betting_tips')
+      .select(
+        `
+        id,
+        description,
+        match,
+        odds,
+        match_date,
+        status,
+        created_at,
+        stake,
+        total_win,
+        betting_tip_items (
           id,
-          description,
           match,
           odds,
           match_date,
-          status,
-          created_at,
-          stake,
-          total_win,
-          betting_tip_items (
-            id,
-            match,
-            odds,
-            match_date,
-            status
-          )
-        `
+          status
         )
-        .gte('created_at', cutoffIso)
-        .order('created_at', { ascending: false }),
-      supabase.rpc('tip_monthly_summary', {
-        months_back: HISTORY_MONTHS_LIMIT,
-      }),
-    ])
+      `
+      )
+      .gte('created_at', cutoffIso)
+      .order('created_at', { ascending: false }),
+    adminSupabase.rpc('tip_monthly_summary', {
+      months_back: STATISTICS_MONTHS_LIMIT,
+    }),
+  ])
 
-    // Normalize tips data to handle both old and new structures
-    tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
+  // Normalize tips data to handle both old and new structures
+  tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
       // New structure: has items
       if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
         // Use the earliest match_date from items for grouping
@@ -237,30 +241,29 @@ export default async function HistoryPage({
         total_win: tip.total_win ?? null,
       }
     })
-    // Filter to only show tips for matches within the cutoff period (last 12 months)
-    // This ensures we show matches by their match_date, not by when the tip was created
-    .filter((tip) => {
-      const tipMatchDate = new Date(tip.match_date)
-      return tipMatchDate >= new Date(cutoffIso)
-    }) as TipRecord[]
-    monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
-      (entry) => ({
-        ...entry,
-        success_rate:
-          typeof entry.success_rate === 'string'
-            ? Number(entry.success_rate)
-            : entry.success_rate ?? 0,
-      })
-    )
-  }
+  // Filter to only show tips for matches within the cutoff period (last 12 months)
+  // This ensures we show matches by their match_date, not by when the tip was created
+  .filter((tip) => {
+    const tipMatchDate = new Date(tip.match_date)
+    return tipMatchDate >= new Date(cutoffIso)
+  }) as TipRecord[]
+  monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
+    (entry) => ({
+      ...entry,
+      success_rate:
+        typeof entry.success_rate === 'string'
+          ? Number(entry.success_rate)
+          : entry.success_rate ?? 0,
+    })
+  )
 
   const months = aggregateMonths(tips, monthlySummaries, locale)
   
   // Load translations explicitly with locale to ensure correct language
   const messages = (await import(`../../../messages/${locale}.json`)).default
-  const historyMessages = messages.history as Record<string, string>
+  const statisticsMessages = messages.statistics as Record<string, string>
   const t = (key: string): string => {
-    return historyMessages[key] || key
+    return statisticsMessages[key] || key
   }
 
   return (
@@ -273,16 +276,8 @@ export default async function HistoryPage({
         title={t('title')}
         subtitle={t('subtitle')}
       >
-        {activeAccount || isBettingAdmin ? (
-          <HistoryMonthView months={months} />
-        ) : (
-          <Alert severity="info">
-            {t('accountNotActive') || 'Your account is not active. Please activate your account to view full history.'}
-          </Alert>
-        )}
+        <HistoryMonthView months={months} />
       </PageSection>
     </MainLayout>
   )
 }
-
-

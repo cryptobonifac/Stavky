@@ -3,6 +3,7 @@
 import { useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { useSportLeagueTranslations } from '@/lib/i18n/translate-sports-leagues'
 import dayjs from 'dayjs'
 import {
   Alert,
@@ -26,6 +27,7 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
   const router = useRouter()
   const t = useTranslations('manage')
   const tBettings = useTranslations('bettings')
+  const { translateSport, translateLeague } = useSportLeagueTranslations()
   const [isPending, startTransition] = useTransition()
   const [feedback, setFeedback] = useState<{
     type: 'success' | 'error'
@@ -105,8 +107,8 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
                             <Typography variant="caption" color="text.secondary">
                               {[
                                 item.betting_companies?.name,
-                                item.sports?.name,
-                                item.leagues?.name,
+                                item.sports?.name ? translateSport(item.sports.name) : null,
+                                item.leagues?.name ? translateLeague(item.leagues.name) : null,
                               ]
                                 .filter(Boolean)
                                 .join(' • ')}
