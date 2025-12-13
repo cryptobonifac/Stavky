@@ -240,13 +240,7 @@ export default async function StatisticsPage({
         stake: tip.stake ?? null,
         total_win: tip.total_win ?? null,
       }
-    })
-  // Filter to only show tips for matches within the cutoff period (last 12 months)
-  // This ensures we show matches by their match_date, not by when the tip was created
-  .filter((tip) => {
-    const tipMatchDate = new Date(tip.match_date)
-    return tipMatchDate >= new Date(cutoffIso)
-  }) as TipRecord[]
+    }) as TipRecord[]
   monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
     (entry) => ({
       ...entry,
