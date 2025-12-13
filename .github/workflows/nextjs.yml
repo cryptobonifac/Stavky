@@ -5,9 +5,13 @@
 name: Deploy Next.js site to Vercel
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+  # Wait for Playwright tests to complete successfully before deploying
+  workflow_run:
+    workflows: [".NET Playwright Tests"]
+    types:
+      - completed
+    branches:
+      - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,6 +31,8 @@ jobs:
   migrate:
     runs-on: ubuntu-latest
     environment: production
+    # Only run if Playwright tests passed (or if manually triggered)
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -53,6 +59,10 @@ jobs:
     runs-on: ubuntu-latest
     # Uncomment the line below if your secrets are stored as Environment secrets
     environment: production
+    # Wait for migration to complete
+    needs: migrate
+    # Only run if Playwright tests passed (or if manually triggered)
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4

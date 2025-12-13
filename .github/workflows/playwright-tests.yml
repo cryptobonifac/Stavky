@@ -3,18 +3,8 @@ name: .NET Playwright Tests
 on:
   push:
     branches: ["main"]
-    paths:
-      - 'Stavky.Tests/**'
-      - 'app/**'
-      - 'components/**'
-      - '.github/workflows/playwright-tests.yml'
   pull_request:
     branches: ["main"]
-    paths:
-      - 'Stavky.Tests/**'
-      - 'app/**'
-      - 'components/**'
-      - '.github/workflows/playwright-tests.yml'
   workflow_dispatch:
 
 jobs:
@@ -77,5 +67,5 @@ jobs:
           files: |
             Stavky.Tests/**/test-results.trx
           check_name: Playwright Test Results
-          comment_mode: create new
+          comment_mode: always
           report_individual_runs: true
