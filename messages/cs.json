@@ -126,8 +126,9 @@
     "viewStatisticsDescription": "Zobrazit vaše sázkové statistiky a minulé tipy."
   },
   "statistics": {
-    "title": "Statistiky a výkonnost",
-    "subtitle": "Procházejte poměry výher/proher seskupené podle kalendářního měsíce.",
+    "title": "Statistiky",
+    "subtitle": "Prozkoumejte detailní statistiky všech našich tipů a výsledků. Transparentnost je pro nás klíčová.",
+    "loadingMatches": "Načítám zápasy...",
     "loginRequired": "Prosím přihlaste se, abyste mohli zobrazit své osobní statistiky.",
     "accountNotActive": "Aktivujte svůj účet, abyste odemkli historické statistiky výher/proher. Kontaktujte administrátora pro aktivaci účtu.",
     "monthlyPerformance": "Měsíční výkon",

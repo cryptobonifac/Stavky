@@ -126,8 +126,9 @@
     "viewStatisticsDescription": "View your betting statistics and past tips."
   },
   "statistics": {
-    "title": "Statistics & performance",
-    "subtitle": "Review win/loss ratios grouped by calendar month.",
+    "title": "Statistics",
+    "subtitle": "Explore detailed statistics of all our tips and results. Transparency is key for us.",
+    "loadingMatches": "Loading matches...",
     "loginRequired": "Please log in to view your personal statistics.",
     "accountNotActive": "Activate your account to unlock historical win/loss statistics. Contact admin to activate your account.",
     "monthlyPerformance": "Monthly performance",

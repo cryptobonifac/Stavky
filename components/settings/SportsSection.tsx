@@ -184,7 +184,7 @@ const SportsSection = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            {sportToDelete && t('confirmDelete').replace('{name}', translateSport(sportToDelete.name))}
+            {sportToDelete && t('confirmDelete', { name: translateSport(sportToDelete.name) })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

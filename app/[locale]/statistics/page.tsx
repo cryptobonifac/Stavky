@@ -1,5 +1,5 @@
-import { getTranslations, getLocale } from 'next-intl/server'
-import { redirect } from '@/i18n/routing'
+import { getTranslations } from 'next-intl/server'
+import { Suspense } from 'react'
 
 import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
@@ -8,9 +8,9 @@ import HistoryMonthView, {
 } from '@/components/history/HistoryMonthView'
 import TopNav from '@/components/navigation/TopNav'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
-import { Alert } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import StatisticsLoading from './loading'
 
 export const metadata = {
   title: 'Statistics | Stavky',
@@ -259,12 +259,8 @@ export default async function StatisticsPage({
 
   const months = aggregateMonths(tips, monthlySummaries, locale)
   
-  // Load translations explicitly with locale to ensure correct language
-  const messages = (await import(`../../../messages/${locale}.json`)).default
-  const statisticsMessages = messages.statistics as Record<string, string>
-  const t = (key: string): string => {
-    return statisticsMessages[key] || key
-  }
+  // Use getTranslations for proper translation handling
+  const t = await getTranslations('statistics')
 
   return (
     <MainLayout>
@@ -276,7 +272,9 @@ export default async function StatisticsPage({
         title={t('title')}
         subtitle={t('subtitle')}
       >
-        <HistoryMonthView months={months} />
+        <Suspense fallback={<StatisticsLoading />}>
+          <HistoryMonthView months={months} />
+        </Suspense>
       </PageSection>
     </MainLayout>
   )
