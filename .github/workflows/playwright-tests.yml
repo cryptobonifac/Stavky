@@ -39,11 +39,14 @@ jobs:
         run: dotnet build --no-restore
         working-directory: Stavky.Tests
 
+      - name: Setup PowerShell
+        uses: azure/setup-powershell@v1
+        with:
+          pwsh-version: 'latest'
+
       - name: Install Playwright browsers
-        run: |
-          cd Stavky.Tests
-          dotnet build
-          bash bin/Debug/net10.0/playwright.sh install --with-deps
+        run: pwsh bin/Debug/net10.0/playwright.ps1 install --with-deps
+        working-directory: Stavky.Tests
         continue-on-error: false
 
       - name: Run Playwright tests
