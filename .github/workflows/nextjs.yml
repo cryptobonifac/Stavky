@@ -26,6 +26,8 @@ jobs:
   # Deploy job
   deploy:
     runs-on: ubuntu-latest
+    # Uncomment the line below if your secrets are stored as Environment secrets
+    environment: production
     steps:
       - name: Checkout
         uses: actions/checkout@v4
