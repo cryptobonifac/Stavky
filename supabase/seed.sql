@@ -68,7 +68,7 @@ begin
 
   -- Example betting tip 1: Single tip
   insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Volejbal tip - Kakanj vs Borac', 1.05, 800, 840, 'pending')
+  values ('Volejbal tip - Kakanj vs Borac', 1.05, 800, 840, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
@@ -77,14 +77,14 @@ begin
     )
     values (
       tip_id, bet365_id, 'Volejbal', 'Bosna m', 'Kakanj-Borac', 1.05, 
-      '2025-12-03T10:00:00+01:00'::timestamptz, 'pending'
+      '2025-12-03T10:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 2: Single tip
   insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Tenis tip - UTR Dallas ž', 1.1, 300, 330, 'pending')
+  values ('Tenis tip - UTR Dallas ž', 1.1, 300, 330, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
@@ -93,14 +93,14 @@ begin
     )
     values (
       tip_id, bet365_id, 'Tenis', 'UTR Dallas ž', 'Kook-Colling', 1.1, 
-      '2025-12-04T14:00:00+01:00'::timestamptz, 'pending'
+      '2025-12-04T14:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 3: Single tip
   insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Futsal tip - Česká republika', 1.12, 200, 224, 'pending')
+  values ('Futsal tip - Česká republika', 1.12, 200, 224, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
@@ -109,14 +109,14 @@ begin
     )
     values (
       tip_id, tipsport_id, 'Futsal', 'Česko', 'Chrudim-Chomutov', 1.12, 
-      '2025-12-05T18:00:00+01:00'::timestamptz, 'pending'
+      '2025-12-05T18:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 4: Combined bet with multiple tips
   insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Combined bet: Volejbal + Tenis', 1.134, 500, 567, 'pending')
+  values ('Combined bet: Volejbal + Tenis', 1.134, 500, 567, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
@@ -126,7 +126,7 @@ begin
     )
     values (
       tip_id, bet365_id, 'Volejbal', 'Bosna m', 'Borac-Napredak', 1.04, 
-      '2025-12-05T16:00:00+01:00'::timestamptz, 'pending'
+      '2025-12-05T16:00:00+01:00'::timestamptz, 'win'
     );
 
     -- Second tip item
@@ -135,7 +135,7 @@ begin
     )
     values (
       tip_id, bet365_id, 'Tenis', 'UTR Olomouc ž', 'Mandelikova-Perhacova', 1.06, 
-      '2025-12-08T12:00:00+01:00'::timestamptz, 'pending'
+      '2025-12-08T12:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;

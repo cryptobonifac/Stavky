@@ -1,5 +1,10 @@
 # Cursor Rules - Production Build Compliance
 
+
+
+## Local supabase
+ - run migration: supabase migration up --include-all
+
 ## Core Principle
 
 **ALL generated code MUST comply with production build requirements from the start.** Code that works in `npm run dev` but fails in `npm run build` is considered broken and must be fixed immediately.

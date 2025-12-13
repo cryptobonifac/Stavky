@@ -168,9 +168,7 @@ export default async function HistoryPage({
           `
           id,
           description,
-          match,
           odds,
-          match_date,
           status,
           created_at,
           stake,
@@ -191,7 +189,7 @@ export default async function HistoryPage({
       }),
     ])
 
-    // Normalize tips data to handle both old and new structures
+    // Normalize tips data - all tips now use betting_tip_items structure
     tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
       // New structure: has items
       if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
@@ -206,30 +204,17 @@ export default async function HistoryPage({
           id: tip.id,
           match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
           odds: tip.odds,
-          match_date: earliestDate || tip.match_date || tip.created_at || new Date().toISOString(),
+          match_date: earliestDate || tip.created_at || new Date().toISOString(),
           status: tip.status,
           stake: tip.stake ?? null,
           total_win: tip.total_win ?? null,
         }
       }
       
-      // Legacy structure: single tip with match_date
-      if (tip.match_date) {
-        return {
-          id: tip.id,
-          match: tip.match,
-          odds: tip.odds,
-          match_date: tip.match_date,
-          status: tip.status,
-          stake: tip.stake ?? null,
-          total_win: tip.total_win ?? null,
-        }
-      }
-      
-      // Fallback: use created_at if match_date is null
+      // Fallback: use created_at if no items
       return {
         id: tip.id,
-        match: tip.match || tip.description || 'Unknown',
+        match: tip.description || 'Unknown',
         odds: tip.odds,
         match_date: tip.created_at || new Date().toISOString(),
         status: tip.status,
