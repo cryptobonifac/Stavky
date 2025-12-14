@@ -62,37 +62,10 @@ begin
 end;
 $$;
 
-create or replace function public.apply_free_month_from_loss()
-returns trigger
-language plpgsql
-as $$
-declare
-  target_month date := date_trunc('month', new.match_date)::date;
-begin
-  if coalesce(old.status, 'pending') = new.status then
-    return new;
-  end if;
-
-  if new.status <> 'loss' then
-    return new;
-  end if;
-
-  if public.should_grant_free_month(target_month) then
-    update public.user_subscriptions
-    set next_month_free = true
-    where month = target_month
-      and next_month_free = false;
-  end if;
-
-  return new;
-end;
-$$;
-
-create trigger trg_betting_tips_loss_free_month
-after update on public.betting_tips
-for each row
-when (old.status is distinct from new.status)
-execute function public.apply_free_month_from_loss();
+-- Note: apply_free_month_from_loss function and trg_betting_tips_loss_free_month trigger
+-- have been removed from this migration as they reference the old schema (match_date in betting_tips).
+-- These are properly defined in 20250121_fix_functions_after_column_removal.sql
+-- with the correct schema that gets match_date from betting_tip_items.
 
 create or replace function public.extend_account_on_free_month()
 returns trigger
@@ -126,46 +99,10 @@ after insert or update on public.user_subscriptions
 for each row
 execute function public.extend_account_on_free_month();
 
-create or replace function public.tip_monthly_summary(months_back integer default 12)
-returns table (
-  month_start date,
-  wins integer,
-  losses integer,
-  pending integer,
-  total integer,
-  success_rate numeric
-)
-language sql
-stable
-as $$
-  with month_limits as (
-    select greatest(months_back, 1) as months_to_show
-  )
-  select
-    date_trunc('month', match_date)::date as month_start,
-    count(*) filter (where status = 'win')::integer as wins,
-    count(*) filter (where status = 'loss')::integer as losses,
-    count(*) filter (where status = 'pending')::integer as pending,
-    count(*)::integer as total,
-    case
-      when count(*) filter (where status in ('win', 'loss')) = 0 then 0
-      else round(
-        count(*) filter (where status = 'win')::numeric
-        / nullif(count(*) filter (where status in ('win', 'loss')), 0)
-        * 100,
-        2
-      )
-    end as success_rate
-  from public.betting_tips, month_limits
-  where match_date >= date_trunc(
-      'month',
-      timezone('utc', now())
-      - ((month_limits.months_to_show - 1) * interval '1 month')
-    )
-  group by 1
-  order by month_start desc
-  limit (select months_to_show from month_limits);
-$$;
+-- Note: tip_monthly_summary function has been removed from this migration
+-- as it references the old schema (match_date in betting_tips).
+-- This function is properly defined in 20250121_fix_functions_after_column_removal.sql
+-- with the correct schema that gets match_date from betting_tip_items.
 
 drop policy if exists "active customers view history" on public.betting_tips;
 
