@@ -50,9 +50,8 @@ export default async function ManageBettingTipsPage() {
           odds,
           match_date,
           status,
-          betting_companies ( name ),
-          sports ( name ),
-          leagues ( name )
+          sport,
+          league
         )
       `
     )
@@ -76,20 +75,22 @@ export default async function ManageBettingTipsPage() {
         odds: tip.odds,
         match_date: earliestDate || tip.match_date || new Date().toISOString(),
         status: tip.status,
-        betting_companies: null,
-        sports: null,
-        leagues: null,
+        betting_companies: tip.betting_companies
+          ? { name: tip.betting_companies.name ?? null }
+          : null,
+        sports: tip.sports ? { name: tip.sports.name ?? null } : null,
+        leagues: tip.leagues ? { name: tip.leagues.name ?? null } : null,
         items: tip.betting_tip_items.map((item: any) => ({
           id: item.id,
           match: item.match,
           odds: item.odds,
           match_date: item.match_date,
           status: item.status,
-          betting_companies: item.betting_companies
-            ? { name: item.betting_companies.name ?? null }
+          betting_companies: tip.betting_companies
+            ? { name: tip.betting_companies.name ?? null }
             : null,
-          sports: item.sports ? { name: item.sports.name ?? null } : null,
-          leagues: item.leagues ? { name: item.leagues.name ?? null } : null,
+          sports: item.sport ? { name: item.sport } : null,
+          leagues: item.league ? { name: item.league } : null,
         })),
       }
     }
