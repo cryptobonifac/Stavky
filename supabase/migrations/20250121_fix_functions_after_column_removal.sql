@@ -1,9 +1,49 @@
 -- Migration: Fix database functions after removing match_date from betting_tips
 -- Created: 2025-01-21
--- 
+--
 -- After removing match_date, match, betting_company_id, and sport_id columns from betting_tips,
 -- these functions need to be updated to get match_date from betting_tip_items instead.
 -- For tips with multiple items, we use the earliest match_date for grouping purposes.
+
+-- Fix month_has_losing_tip function
+-- This function checks if a given month has any losing tips
+create or replace function public.month_has_losing_tip(
+  target_month date default date_trunc('month', timezone('utc', now()) - interval '1 month')
+)
+returns boolean
+language sql
+stable
+as $$
+  select exists (
+    select 1
+    from public.betting_tips bt
+    where bt.status = 'loss'
+      and date_trunc('month', coalesce(
+        (select min(bti.match_date)
+         from public.betting_tip_items bti
+         where bti.betting_tip_id = bt.id),
+        bt.created_at
+      )) = date_trunc('month', target_month)
+  );
+$$;
+
+-- Fix month_loss_count function
+-- This function counts the number of losing tips in a given month
+create or replace function public.month_loss_count(target_month date)
+returns integer
+language sql
+stable
+as $$
+  select count(*)::integer
+  from public.betting_tips bt
+  where bt.status = 'loss'
+    and date_trunc('month', coalesce(
+      (select min(bti.match_date)
+       from public.betting_tip_items bti
+       where bti.betting_tip_id = bt.id),
+      bt.created_at
+    )) = date_trunc('month', target_month);
+$$;
 
 -- Fix tip_monthly_summary function
 -- This function is used by the statistics page to get monthly summaries
@@ -139,8 +179,8 @@ begin
   -- Get the earliest match_date from betting_tip_items
   -- Fallback to created_at if no items exist
   select coalesce(
-    (select min(bti.match_date) 
-     from public.betting_tip_items bti 
+    (select min(bti.match_date)
+     from public.betting_tip_items bti
      where bti.betting_tip_id = new.id),
     new.created_at
   ) into earliest_match_date;
@@ -157,5 +197,13 @@ begin
   return new;
 end;
 $$;
+
+-- Create the trigger for apply_free_month_from_loss
+drop trigger if exists trg_betting_tips_loss_free_month on public.betting_tips;
+create trigger trg_betting_tips_loss_free_month
+after update on public.betting_tips
+for each row
+execute function public.apply_free_month_from_loss();
+
 
 

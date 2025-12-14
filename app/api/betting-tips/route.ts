@@ -74,10 +74,15 @@ export async function POST(request: Request) {
     // Calculate total_win
     const total_win = body.final_odds * stake
 
+    // All tips must be from the same betting company (enforced by UI)
+    // Extract betting_company_id from the first tip
+    const bettingCompanyId = body.tips[0].betting_company_id
+
     // Create the main betting_tip record
     const { data: bettingTip, error: tipError } = await supabase
       .from('betting_tips')
       .insert({
+        betting_company_id: bettingCompanyId,
         description: body.description || `Combined bet with ${body.tips.length} tips`,
         odds: body.final_odds,
         stake: stake,
@@ -95,10 +100,9 @@ export async function POST(request: Request) {
       )
     }
 
-    // Create all tip items
+    // Create all tip items (without betting_company_id as it's stored in betting_tips)
     const tipItems = body.tips.map((tip: any) => ({
       betting_tip_id: bettingTip.id,
-      betting_company_id: tip.betting_company_id,
       sport: tip.sport,
       league: tip.league,
       match: tip.match,

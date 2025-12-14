@@ -94,3 +94,4 @@ public PlaywrightInstallationTestSteps()
         Console.WriteLine($"   - Can read text content: ✓");
     }
 }
+

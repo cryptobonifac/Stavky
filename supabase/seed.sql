@@ -49,92 +49,86 @@ end $$;
 
 -- Betting Tips using new schema with betting_tip_items
 -- Example betting tips using the new structure:
--- - betting_tips table: description, odds, stake, total_win, status, created_by
--- - betting_tip_items table: betting_company_id, sport (text), league (text), match, odds, match_date, status
+-- - betting_tips table: description, odds, stake, total_win, status, created_by, betting_company_id
+-- - betting_tip_items table: sport (text), league (text), match, odds, match_date, status
 do $$
 declare
-  bet365_id uuid;
-  nike_id uuid;
-  tipsport_id uuid;
-  fortuna_id uuid;
   tip_id uuid;
   tip_count integer := 0;
+  default_company_id uuid;
 begin
-  -- Get betting company IDs
-  select id into bet365_id from public.betting_companies where name = 'Bet365';
-  select id into nike_id from public.betting_companies where name = 'Nike';
-  select id into tipsport_id from public.betting_companies where name = 'Tipsport';
-  select id into fortuna_id from public.betting_companies where name = 'Fortuna';
+  -- Get the first betting company ID to use for seed tips
+  select id into default_company_id from public.betting_companies limit 1;
 
   -- Example betting tip 1: Single tip
-  insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Volejbal tip - Kakanj vs Borac', 1.05, 800, 840, 'win')
+  insert into public.betting_tips (betting_company_id, description, odds, stake, total_win, status)
+  values (default_company_id, 'Volejbal tip - Kakanj vs Borac', 1.05, 800, 840, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
     insert into public.betting_tip_items (
-      betting_tip_id, betting_company_id, sport, league, match, odds, match_date, status
+      betting_tip_id, sport, league, match, odds, match_date, status
     )
     values (
-      tip_id, bet365_id, 'Volejbal', 'Bosna m', 'Kakanj-Borac', 1.05, 
+      tip_id, 'Volejbal', 'Bosna m', 'Kakanj-Borac', 1.05,
       '2025-12-03T10:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 2: Single tip
-  insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Tenis tip - UTR Dallas ž', 1.1, 300, 330, 'win')
+  insert into public.betting_tips (betting_company_id, description, odds, stake, total_win, status)
+  values (default_company_id, 'Tenis tip - UTR Dallas ž', 1.1, 300, 330, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
     insert into public.betting_tip_items (
-      betting_tip_id, betting_company_id, sport, league, match, odds, match_date, status
+      betting_tip_id, sport, league, match, odds, match_date, status
     )
     values (
-      tip_id, bet365_id, 'Tenis', 'UTR Dallas ž', 'Kook-Colling', 1.1, 
+      tip_id, 'Tenis', 'UTR Dallas ž', 'Kook-Colling', 1.1,
       '2025-12-04T14:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 3: Single tip
-  insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Futsal tip - Česká republika', 1.12, 200, 224, 'win')
+  insert into public.betting_tips (betting_company_id, description, odds, stake, total_win, status)
+  values (default_company_id, 'Futsal tip - Česká republika', 1.12, 200, 224, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
     insert into public.betting_tip_items (
-      betting_tip_id, betting_company_id, sport, league, match, odds, match_date, status
+      betting_tip_id, sport, league, match, odds, match_date, status
     )
     values (
-      tip_id, tipsport_id, 'Futsal', 'Česko', 'Chrudim-Chomutov', 1.12, 
+      tip_id, 'Futsal', 'Česko', 'Chrudim-Chomutov', 1.12,
       '2025-12-05T18:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;
   end if;
 
   -- Example betting tip 4: Combined bet with multiple tips
-  insert into public.betting_tips (description, odds, stake, total_win, status)
-  values ('Combined bet: Volejbal + Tenis', 1.134, 500, 567, 'win')
+  insert into public.betting_tips (betting_company_id, description, odds, stake, total_win, status)
+  values (default_company_id, 'Combined bet: Volejbal + Tenis', 1.134, 500, 567, 'win')
   returning id into tip_id;
 
   if tip_id is not null then
     -- First tip item
     insert into public.betting_tip_items (
-      betting_tip_id, betting_company_id, sport, league, match, odds, match_date, status
+      betting_tip_id, sport, league, match, odds, match_date, status
     )
     values (
-      tip_id, bet365_id, 'Volejbal', 'Bosna m', 'Borac-Napredak', 1.04, 
+      tip_id, 'Volejbal', 'Bosna m', 'Borac-Napredak', 1.04,
       '2025-12-05T16:00:00+01:00'::timestamptz, 'win'
     );
 
     -- Second tip item
     insert into public.betting_tip_items (
-      betting_tip_id, betting_company_id, sport, league, match, odds, match_date, status
+      betting_tip_id, sport, league, match, odds, match_date, status
     )
     values (
-      tip_id, bet365_id, 'Tenis', 'UTR Olomouc ž', 'Mandelikova-Perhacova', 1.06, 
+      tip_id, 'Tenis', 'UTR Olomouc ž', 'Mandelikova-Perhacova', 1.06,
       '2025-12-08T12:00:00+01:00'::timestamptz, 'win'
     );
     tip_count := tip_count + 1;

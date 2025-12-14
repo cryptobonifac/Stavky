@@ -2,7 +2,11 @@
   "permissions": {
     "allow": [
       "Bash(cat:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(npm run db:push:*)",
+      "Bash(supabase status:*)",
+      "Bash(npm run db:reset:*)",
+      "Bash(move \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_add_betting_company_to_tips.sql\" \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_2_add_betting_company_to_tips.sql\")"
     ]
   }
 }

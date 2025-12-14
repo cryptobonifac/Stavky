@@ -2,6 +2,8 @@
 
 drop trigger if exists trg_betting_tips_loss_free_month on public.betting_tips;
 
+-- Note: Temporary placeholder functions that will be replaced in 20250121_fix_functions_after_column_removal.sql
+-- These use created_at as fallback since betting_tip_items doesn't exist yet
 create or replace function public.month_has_losing_tip(
   target_month date default date_trunc('month', timezone('utc', now()) - interval '1 month')
 )
@@ -13,12 +15,7 @@ as $$
     select 1
     from public.betting_tips bt
     where bt.status = 'loss'
-      and date_trunc('month', coalesce(
-        (select min(bti.match_date)
-         from public.betting_tip_items bti
-         where bti.betting_tip_id = bt.id),
-        bt.created_at
-      )) = date_trunc('month', target_month)
+      and date_trunc('month', bt.created_at) = date_trunc('month', target_month)
   );
 $$;
 
@@ -30,12 +27,7 @@ as $$
   select count(*)::integer
   from public.betting_tips bt
   where bt.status = 'loss'
-    and date_trunc('month', coalesce(
-      (select min(bti.match_date)
-       from public.betting_tip_items bti
-       where bti.betting_tip_id = bt.id),
-      bt.created_at
-    )) = date_trunc('month', target_month);
+    and date_trunc('month', bt.created_at) = date_trunc('month', target_month);
 $$;
 
 create or replace function public.should_grant_free_month(target_month date)
