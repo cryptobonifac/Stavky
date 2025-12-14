@@ -100,14 +100,45 @@ create trigger set_betting_tips_updated_at
 before update on public.betting_tips
 for each row execute function public.set_updated_at();
 
-create index if not exists betting_tips_company_idx
-  on public.betting_tips (betting_company_id);
+-- Create indexes only if columns exist (some may be removed by later migrations)
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'betting_tips'
+      and column_name = 'betting_company_id'
+  ) then
+    create index if not exists betting_tips_company_idx
+      on public.betting_tips (betting_company_id);
+  end if;
+end $$;
 
-create index if not exists betting_tips_sport_idx
-  on public.betting_tips (sport_id);
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'betting_tips'
+      and column_name = 'sport_id'
+  ) then
+    create index if not exists betting_tips_sport_idx
+      on public.betting_tips (sport_id);
+  end if;
+end $$;
 
-create index if not exists betting_tips_league_idx
-  on public.betting_tips (league_id);
+do $$
+begin
+  if exists (
+    select 1 from information_schema.columns
+    where table_schema = 'public'
+      and table_name = 'betting_tips'
+      and column_name = 'league_id'
+  ) then
+    create index if not exists betting_tips_league_idx
+      on public.betting_tips (league_id);
+  end if;
+end $$;
 
 create index if not exists betting_tips_status_idx
   on public.betting_tips (status);

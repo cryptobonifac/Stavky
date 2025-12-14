@@ -2,12 +2,12 @@
 -- Created: 2024-12-03
 
 -- Create betting_tip_items table to store individual tips within a bet
+-- Note: Uses text fields for sport and league (final schema after migrations)
 create table if not exists public.betting_tip_items (
   id uuid primary key default gen_random_uuid(),
   betting_tip_id uuid not null references public.betting_tips (id) on delete cascade,
-  betting_company_id uuid not null references public.betting_companies (id) on delete restrict,
-  sport_id uuid not null references public.sports (id) on delete restrict,
-  league_id uuid not null references public.leagues (id) on delete restrict,
+  sport text not null,
+  league text not null,
   match text not null,
   odds numeric(5,3) not null check (odds >= 1.001 and odds <= 2.0),
   match_date timestamptz not null,
@@ -33,36 +33,6 @@ create index if not exists betting_tip_items_status_idx
 -- Add a description field for the combined bet
 alter table public.betting_tips
   add column if not exists description text;
-
--- Make individual fields nullable since they're now in items
-alter table public.betting_tips
-  alter column betting_company_id drop not null;
-
-alter table public.betting_tips
-  alter column sport_id drop not null;
-
-alter table public.betting_tips
-  alter column league_id drop not null;
-
-alter table public.betting_tips
-  alter column match drop not null;
-
-alter table public.betting_tips
-  alter column match_date drop not null;
-
--- Add a check constraint to ensure either old structure (for backward compatibility) or new structure
-alter table public.betting_tips
-  drop constraint if exists betting_tips_structure_check;
-
-alter table public.betting_tips
-  add constraint betting_tips_structure_check
-  check (
-    -- Old structure: all fields required
-    (betting_company_id is not null and sport_id is not null and league_id is not null and match is not null and match_date is not null)
-    OR
-    -- New structure: description required, fields can be null
-    (description is not null)
-  );
 
 -- Add RLS policies for betting_tip_items
 alter table public.betting_tip_items enable row level security;
