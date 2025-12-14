@@ -6,7 +6,16 @@
       "Bash(npm run db:push:*)",
       "Bash(supabase status:*)",
       "Bash(npm run db:reset:*)",
-      "Bash(move \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_add_betting_company_to_tips.sql\" \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_2_add_betting_company_to_tips.sql\")"
+      "Bash(move \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_add_betting_company_to_tips.sql\" \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\\20251214_2_add_betting_company_to_tips.sql\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(supabase migration:*)",
+      "Bash(supabase db push:*)",
+      "Bash($env:SUPABASE_ACCESS_TOKEN=\"sbp_a0cc2c68efbaa4dc13fb1f4b6ea67b8b3e8f1fd8\")",
+      "Bash(supabase db pull:*)",
+      "Bash(set:*)",
+      "Bash(dir /B /O:N *.sql)",
+      "Bash(gh run list:*)"
     ]
   }
 }
