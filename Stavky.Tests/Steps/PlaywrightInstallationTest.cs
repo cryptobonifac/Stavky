@@ -11,7 +11,6 @@ namespace Stavky.Tests;
 /// - Page navigation works
 /// - Basic assertions work
 /// </summary>
-[TestFixture]
 public class PlaywrightInstallationTest : PageTest
 {
     [Test]

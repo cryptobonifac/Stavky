@@ -500,3 +500,12 @@ C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\refint\Stavky
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\Stavky.Tests.pdb
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\Stavky.Tests.genruntimeconfig.cache
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\ref\Stavky.Tests.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Gherkin.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.NUnit.ReqnrollPlugin.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\reqnroll.json
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\CucumberExpressions.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.HtmlFormatter.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.Messages.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.Utils.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.dll

@@ -1,13 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "RbZLD5HnLqI=",
+  "dgSpecHash": "hBZpHHebSEo=",
   "success": true,
   "projectFilePath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mroho\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\cucumber.cucumberexpressions\\17.1.0\\cucumber.cucumberexpressions.17.1.0.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\cucumber.htmlformatter\\21.15.1\\cucumber.htmlformatter.21.15.1.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\cucumber.messages\\29.0.1\\cucumber.messages.29.0.1.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\gherkin\\35.0.0\\gherkin.35.0.0.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\microsoft.applicationinsights\\2.22.0\\microsoft.applicationinsights.2.22.0.nupkg.sha512",
-    "C:\\Users\\mroho\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\9.0.6\\microsoft.bcl.asyncinterfaces.9.0.6.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\microsoft.codecoverage\\17.14.0\\microsoft.codecoverage.17.14.0.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\microsoft.extensions.dependencymodel\\8.0.2\\microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\microsoft.net.test.sdk\\17.14.0\\microsoft.net.test.sdk.17.14.0.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\microsoft.playwright\\1.57.0\\microsoft.playwright.1.57.0.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\microsoft.playwright.nunit\\1.57.0\\microsoft.playwright.nunit.1.57.0.nupkg.sha512",
@@ -23,6 +28,9 @@
     "C:\\Users\\mroho\\.nuget\\packages\\nunit\\4.3.2\\nunit.4.3.2.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\nunit.analyzers\\4.7.0\\nunit.analyzers.4.7.0.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\nunit3testadapter\\5.0.0\\nunit3testadapter.5.0.0.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\reqnroll\\3.2.1\\reqnroll.3.2.1.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\reqnroll.nunit\\3.2.1\\reqnroll.nunit.3.2.1.nupkg.sha512",
+    "C:\\Users\\mroho\\.nuget\\packages\\reqnroll.tools.msbuild.generation\\3.2.1\\reqnroll.tools.msbuild.generation.3.2.1.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
   "logs": []

@@ -40,14 +40,11 @@ export default async function ManageBettingTipsPage() {
       `
         id,
         description,
-        match,
         odds,
-        match_date,
         status,
         created_at,
         stake,
         total_win,
-        betting_companies ( name ),
         betting_tip_items (
           id,
           match,
@@ -98,16 +95,14 @@ export default async function ManageBettingTipsPage() {
       }
     }
     
-    // Legacy structure: single tip (deprecated - should not be used with new schema)
+    // Fallback: use created_at if no items
     return {
       id: tip.id,
-      match: tip.match,
+      match: tip.description || 'Unknown',
       odds: tip.odds,
-      match_date: tip.match_date,
+      match_date: tip.created_at || new Date().toISOString(),
       status: tip.status,
-      betting_companies: tip.betting_companies
-        ? { name: tip.betting_companies.name ?? null }
-        : null,
+      betting_companies: null,
       sports: null,
       leagues: null,
     }

@@ -1,0 +1,2 @@
+﻿{"source":{"uri":"Features/demo.feature","data":"Feature: demo test\r\n\r\n    Feature Demo test\r\n    Given playwright is installed","mediaType":"text/x.cucumber.gherkin+plain"}}
+{"gherkinDocument":{"uri":"Features/demo.feature","feature":{"location":{"line":1,"column":1},"tags":[],"language":"en-US","keyword":"Feature","name":"demo test","description":"    Feature Demo test\r\n    Given playwright is installed","children":[]},"comments":[]}}

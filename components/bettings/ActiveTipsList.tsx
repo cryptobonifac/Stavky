@@ -52,7 +52,7 @@ type ActiveTipsListProps = {
 
 const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   const t = useTranslations('bettings')
-  const { translateSport, translateLeague } = useSportLeagueTranslations()
+  const { translateSport } = useSportLeagueTranslations()
   const [filter, setFilter] = useState<FilterValue>('today')
   
   const filters = [
@@ -267,7 +267,7 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                       {[
                         tip.betting_companies?.name,
                         tip.sports?.name ? translateSport(tip.sports.name) : null,
-                        tip.leagues?.name ? translateLeague(tip.leagues.name) : null,
+                        tip.leagues?.name,
                       ]
                         .filter(Boolean)
                         .join(' • ')}

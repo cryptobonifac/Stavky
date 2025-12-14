@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stavky.Tests", "Stavky.Tests\Stavky.Tests.csproj", "{0E6257B4-81FE-AF66-AB01-141399EC2F83}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0E6257B4-81FE-AF66-AB01-141399EC2F83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E6257B4-81FE-AF66-AB01-141399EC2F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E6257B4-81FE-AF66-AB01-141399EC2F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E6257B4-81FE-AF66-AB01-141399EC2F83}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {37C4B650-948A-4046-A141-2C629C43AA4E}
+	EndGlobalSection
+EndGlobal

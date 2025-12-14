@@ -27,7 +27,7 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
   const router = useRouter()
   const t = useTranslations('manage')
   const tBettings = useTranslations('bettings')
-  const { translateSport, translateLeague } = useSportLeagueTranslations()
+  const { translateSport } = useSportLeagueTranslations()
   const [isPending, startTransition] = useTransition()
   const [feedback, setFeedback] = useState<{
     type: 'success' | 'error'
@@ -108,7 +108,7 @@ const PendingTipsList = ({ tips }: PendingTipsListProps) => {
                               {[
                                 item.betting_companies?.name,
                                 item.sports?.name ? translateSport(item.sports.name) : null,
-                                item.leagues?.name ? translateLeague(item.leagues.name) : null,
+                                item.leagues?.name,
                               ]
                                 .filter(Boolean)
                                 .join(' • ')}

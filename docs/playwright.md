@@ -503,3 +503,4 @@ dotnet test --verbosity normal
 # Run with code coverage
 dotnet test --collect:"XPlat Code Coverage"
 ```
+
