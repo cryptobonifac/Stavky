@@ -50,6 +50,7 @@ create table if not exists public.users (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+drop trigger if exists set_users_updated_at on public.users;
 create trigger set_users_updated_at
 before update on public.users
 for each row execute function public.set_updated_at();
@@ -94,6 +95,7 @@ create table if not exists public.betting_tips (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+drop trigger if exists set_betting_tips_updated_at on public.betting_tips;
 create trigger set_betting_tips_updated_at
 before update on public.betting_tips
 for each row execute function public.set_updated_at();
@@ -130,6 +132,7 @@ create table if not exists public.marketing_settings (
   updated_at timestamptz not null default timezone('utc', now())
 );
 
+drop trigger if exists set_marketing_settings_updated_at on public.marketing_settings;
 create trigger set_marketing_settings_updated_at
 before update on public.marketing_settings
 for each row execute function public.set_updated_at();

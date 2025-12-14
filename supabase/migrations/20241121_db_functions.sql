@@ -84,6 +84,7 @@ begin
 end;
 $$;
 
+drop trigger if exists trg_betting_tips_loss_free_month on public.betting_tips;
 create trigger trg_betting_tips_loss_free_month
 after update on public.betting_tips
 for each row

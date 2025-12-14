@@ -12,4 +12,5 @@ Playwright Integration: Automatically generates step definitions using Playwrigh
 Reqnroll Support: Full compatibility with Reqnroll for .NET-based BDD testing
 Intelligent Step Generation: Creates reusable step definitions with best practices
 Page Object Model: Automatically suggests and implements POM patterns
-Smart Selectors: Generates reliable, maintainable locator strategies.
+Smart Selectors: Generates reliable, maintainable 
+locator strategies.

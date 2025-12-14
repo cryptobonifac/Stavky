@@ -17,6 +17,7 @@ create table if not exists public.betting_tip_items (
 );
 
 -- Create trigger for updated_at
+drop trigger if exists set_betting_tip_items_updated_at on public.betting_tip_items;
 create trigger set_betting_tip_items_updated_at
 before update on public.betting_tip_items
 for each row execute function public.set_updated_at();
@@ -51,6 +52,9 @@ alter table public.betting_tips
 
 -- Add a check constraint to ensure either old structure (for backward compatibility) or new structure
 alter table public.betting_tips
+  drop constraint if exists betting_tips_structure_check;
+
+alter table public.betting_tips
   add constraint betting_tips_structure_check
   check (
     -- Old structure: all fields required
@@ -64,6 +68,7 @@ alter table public.betting_tips
 alter table public.betting_tip_items enable row level security;
 
 -- Policy: Betting admins can do everything
+drop policy if exists "Betting admins can manage betting_tip_items" on public.betting_tip_items;
 create policy "Betting admins can manage betting_tip_items"
   on public.betting_tip_items
   for all
@@ -76,6 +81,7 @@ create policy "Betting admins can manage betting_tip_items"
   );
 
 -- Policy: Customers can view items of active bets
+drop policy if exists "Customers can view betting_tip_items of active bets" on public.betting_tip_items;
 create policy "Customers can view betting_tip_items of active bets"
   on public.betting_tip_items
   for select
