@@ -49,17 +49,9 @@ BEGIN
 EXCEPTION WHEN OTHERS THEN NULL;
 END $$;
 
--- Drop constraint if it exists, then recreate
+-- Drop old constraint (referenced deleted columns)
 ALTER TABLE public.betting_tips
   DROP CONSTRAINT IF EXISTS betting_tips_structure_check;
-
-ALTER TABLE public.betting_tips
-  ADD CONSTRAINT betting_tips_structure_check
-  CHECK (
-    (betting_company_id IS NOT NULL AND sport_id IS NOT NULL AND match IS NOT NULL AND match_date IS NOT NULL)
-    OR
-    (description IS NOT NULL)
-  );
 
 -- Enable RLS
 ALTER TABLE public.betting_tip_items ENABLE ROW LEVEL SECURITY;
