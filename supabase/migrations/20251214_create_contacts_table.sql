@@ -23,18 +23,21 @@ alter table public.contacts enable row level security;
 alter table public.contacts force row level security;
 
 -- Policy: Only betting role can view all contacts
+drop policy if exists "betting role can view all contacts" on public.contacts;
 create policy "betting role can view all contacts"
   on public.contacts
   for select
   using (public.has_role('betting'));
 
 -- Policy: Anyone can insert contacts (for contact form submissions)
+drop policy if exists "public can insert contacts" on public.contacts;
 create policy "public can insert contacts"
   on public.contacts
   for insert
   with check (true);
 
 -- Policy: Only betting role can delete contacts
+drop policy if exists "betting role can delete contacts" on public.contacts;
 create policy "betting role can delete contacts"
   on public.contacts
   for delete
