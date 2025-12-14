@@ -31,16 +31,19 @@ $$;
 alter table public.users enable row level security;
 alter table public.users force row level security;
 
+drop policy if exists "users can view own profile" on public.users;
 create policy "users can view own profile"
   on public.users
   for select
   using (auth.uid() = id);
 
+drop policy if exists "betting role can view all users" on public.users;
 create policy "betting role can view all users"
   on public.users
   for select
   using (public.has_role('betting'));
 
+drop policy if exists "betting role can manage users" on public.users;
 create policy "betting role can manage users"
   on public.users
   for all
@@ -50,12 +53,13 @@ create policy "betting role can manage users"
 alter table public.betting_companies enable row level security;
 alter table public.betting_companies force row level security;
 
--- Allow public read access to reference data (not sensitive)
+drop policy if exists "public can view betting companies" on public.betting_companies;
 create policy "public can view betting companies"
   on public.betting_companies
   for select
   using (true);
 
+drop policy if exists "betting role can manage betting companies" on public.betting_companies;
 create policy "betting role can manage betting companies"
   on public.betting_companies
   for all
@@ -65,29 +69,15 @@ create policy "betting role can manage betting companies"
 alter table public.sports enable row level security;
 alter table public.sports force row level security;
 
--- Allow public read access to reference data (not sensitive)
+drop policy if exists "public can view sports" on public.sports;
 create policy "public can view sports"
   on public.sports
   for select
   using (true);
 
+drop policy if exists "betting role can manage sports" on public.sports;
 create policy "betting role can manage sports"
   on public.sports
-  for all
-  using (public.has_role('betting'))
-  with check (public.has_role('betting'));
-
-alter table public.leagues enable row level security;
-alter table public.leagues force row level security;
-
--- Allow public read access to reference data (not sensitive)
-create policy "public can view leagues"
-  on public.leagues
-  for select
-  using (true);
-
-create policy "betting role can manage leagues"
-  on public.leagues
   for all
   using (public.has_role('betting'))
   with check (public.has_role('betting'));
@@ -95,12 +85,14 @@ create policy "betting role can manage leagues"
 alter table public.betting_tips enable row level security;
 alter table public.betting_tips force row level security;
 
+drop policy if exists "betting role manage betting tips" on public.betting_tips;
 create policy "betting role manage betting tips"
   on public.betting_tips
   for all
   using (public.has_role('betting'))
   with check (public.has_role('betting'));
 
+drop policy if exists "active customers view pending tips" on public.betting_tips;
 create policy "active customers view pending tips"
   on public.betting_tips
   for select
@@ -109,6 +101,7 @@ create policy "active customers view pending tips"
     and status = 'pending'
   );
 
+drop policy if exists "public homepage tips preview" on public.betting_tips;
 create policy "public homepage tips preview"
   on public.betting_tips
   for select
@@ -152,5 +145,3 @@ create policy "homepage marketing settings"
     or public.is_active_customer()
     or public.has_role('betting')
   );
-
-
