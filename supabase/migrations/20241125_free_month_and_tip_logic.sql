@@ -11,9 +11,14 @@ stable
 as $$
   select exists (
     select 1
-    from public.betting_tips
-    where date_trunc('month', match_date) = date_trunc('month', target_month)
-      and status = 'loss'
+    from public.betting_tips bt
+    where bt.status = 'loss'
+      and date_trunc('month', coalesce(
+        (select min(bti.match_date)
+         from public.betting_tip_items bti
+         where bti.betting_tip_id = bt.id),
+        bt.created_at
+      )) = date_trunc('month', target_month)
   );
 $$;
 
@@ -22,10 +27,15 @@ returns integer
 language sql
 stable
 as $$
-  select count(*)
-  from public.betting_tips
-  where date_trunc('month', match_date) = date_trunc('month', target_month)
-    and status = 'loss';
+  select count(*)::integer
+  from public.betting_tips bt
+  where bt.status = 'loss'
+    and date_trunc('month', coalesce(
+      (select min(bti.match_date)
+       from public.betting_tip_items bti
+       where bti.betting_tip_id = bt.id),
+      bt.created_at
+    )) = date_trunc('month', target_month);
 $$;
 
 create or replace function public.should_grant_free_month(target_month date)
