@@ -1,4 +1,4 @@
-name: .NET Playwright Tests
+name: Main Pipeline (Test → Migrate → Deploy)
 
 on:
   push:
@@ -7,16 +7,16 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
-# Set permissions for GITHUB_TOKEN to allow creating check runs and comments
 permissions:
   contents: read
   checks: write
   pull-requests: write
 
 jobs:
+  # Step 1: Run Playwright Tests
   test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -25,7 +25,6 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '10.0'
-
 
       - name: Restore dependencies
         run: dotnet restore
@@ -75,3 +74,50 @@ jobs:
           check_name: Playwright Test Results
           comment_mode: always
           report_individual_runs: true
+
+  # Step 2: Run Database Migrations (only if tests pass)
+  migrate:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: test
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Supabase CLI
+        uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Link to Supabase project
+        run: |
+          supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_ID }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+
+      - name: Run migrations
+        run: supabase db push --include-all
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+
+  # Step 3: Deploy to Vercel (only if migrations pass)
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: migrate
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          vercel-args: '--prod'
