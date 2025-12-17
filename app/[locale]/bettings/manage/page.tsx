@@ -35,78 +35,49 @@ export default async function ManageBettingTipsPage() {
   }
 
   const { data: tips } = await supabase
-    .from('betting_tips')
+    .from('betting_tip')
     .select(
       `
         id,
-        description,
+        sport,
+        league,
+        match,
         odds,
         status,
+        match_date,
         created_at,
         stake,
         total_win,
-        betting_companies ( name ),
-        betting_tip_items (
-          id,
-          match,
-          odds,
-          match_date,
-          status,
-          sport,
-          league
-        )
+        betting_companies:betting_company_id ( name )
       `
     )
     .eq('status', 'pending')
-    .order('created_at', { ascending: false })
+    .order('match_date', { ascending: false })
 
   // Normalize tips data to match TipRecord type
   const normalizedTips: TipRecord[] = ((tips ?? []) as any[]).map((tip) => {
-    // New structure: has items
-    if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
-      // Use the earliest match_date from items
-      const earliestDate = tip.betting_tip_items.reduce((earliest: string, item: any) => {
-        return !earliest || new Date(item.match_date) < new Date(earliest)
-          ? item.match_date
-          : earliest
-      }, null)
-      
-      return {
-        id: tip.id,
-        match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
-        odds: tip.odds,
-        match_date: earliestDate || tip.match_date || new Date().toISOString(),
-        status: tip.status,
-        betting_companies: tip.betting_companies
-          ? { name: tip.betting_companies.name ?? null }
-          : null,
-        sports: null,
-        leagues: null,
-        items: tip.betting_tip_items.map((item: any) => ({
-          id: item.id,
-          match: item.match,
-          odds: item.odds,
-          match_date: item.match_date,
-          status: item.status,
-          betting_companies: tip.betting_companies
-            ? { name: tip.betting_companies.name ?? null }
-            : null,
-          sports: item.sport ? { name: item.sport } : null,
-          leagues: item.league ? { name: item.league } : null,
-        })),
-      }
-    }
+    // Build match description from sport, league, match
+    const companyName = (tip.betting_companies as any)?.name || ''
+    const sport = tip.sport || ''
+    const league = tip.league || ''
+    const match = tip.match || ''
     
-    // Fallback: use created_at if no items
+    const parts = [companyName, sport, league, match].filter(Boolean)
+    const matchDescription = parts.length > 0 ? parts.join(' ') : 'Unknown'
+    
     return {
       id: tip.id,
-      match: tip.description || 'Unknown',
+      match: matchDescription,
       odds: tip.odds,
-      match_date: tip.created_at || new Date().toISOString(),
+      match_date: tip.match_date || tip.created_at || new Date().toISOString(),
       status: tip.status,
-      betting_companies: null,
-      sports: null,
-      leagues: null,
+      stake: tip.stake ?? null,
+      total_win: tip.total_win ?? null,
+      betting_companies: tip.betting_companies
+        ? { name: tip.betting_companies.name ?? null }
+        : null,
+      sports: tip.sport ? { name: tip.sport } : null,
+      leagues: tip.league ? { name: tip.league } : null,
     }
   })
   

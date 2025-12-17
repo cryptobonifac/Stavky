@@ -163,70 +163,49 @@ export default async function HistoryPage({
 
     const [tipsRes, summaryRes] = await Promise.all([
       supabase
-        .from('betting_tips')
+        .from('betting_tip')
         .select(
           `
           id,
-          description,
+          sport,
+          league,
+          match,
           odds,
           status,
+          match_date,
           created_at,
           stake,
           total_win,
-          betting_tip_items (
-            id,
-            match,
-            odds,
-            match_date,
-            status
-          )
+          betting_companies:betting_company_id (name)
         `
         )
-        .gte('created_at', cutoffIso)
-        .order('created_at', { ascending: false }),
+        .gte('match_date', cutoffIso)
+        .order('match_date', { ascending: false }),
       supabase.rpc('tip_monthly_summary', {
         months_back: HISTORY_MONTHS_LIMIT,
       }),
     ])
 
-    // Normalize tips data - all tips now use betting_tip_items structure
+    // Normalize tips data - each tip is now a single record
     tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
-      // New structure: has items
-      if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
-        // Use the earliest match_date from items for grouping
-        const earliestDate = tip.betting_tip_items.reduce((earliest: string, item: any) => {
-          return !earliest || new Date(item.match_date) < new Date(earliest)
-            ? item.match_date
-            : earliest
-        }, null)
-        
-        return {
-          id: tip.id,
-          match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
-          odds: tip.odds,
-          match_date: earliestDate || tip.created_at || new Date().toISOString(),
-          status: tip.status,
-          stake: tip.stake ?? null,
-          total_win: tip.total_win ?? null,
-        }
-      }
+      // Build match description from sport, league, match
+      const companyName = (tip.betting_companies as any)?.name || ''
+      const sport = tip.sport || ''
+      const league = tip.league || ''
+      const match = tip.match || ''
       
-      // Fallback: use created_at if no items
+      const parts = [companyName, sport, league, match].filter(Boolean)
+      const matchDescription = parts.length > 0 ? parts.join(' ') : 'Unknown'
+      
       return {
         id: tip.id,
-        match: tip.description || 'Unknown',
+        match: matchDescription,
         odds: tip.odds,
-        match_date: tip.created_at || new Date().toISOString(),
+        match_date: tip.match_date || tip.created_at || new Date().toISOString(),
         status: tip.status,
         stake: tip.stake ?? null,
         total_win: tip.total_win ?? null,
       }
-    })
-    // Filter to only show tips for matches within the cutoff period (last 12 months)
-    // This ensures we show matches by their match_date, not by when the tip was created
-    .filter((tip) => {
-      const tipMatchDate = new Date(tip.match_date)
-      return tipMatchDate >= new Date(cutoffIso)
     }) as TipRecord[]
     monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
       (entry) => ({

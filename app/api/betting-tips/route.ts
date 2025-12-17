@@ -71,60 +71,42 @@ export async function POST(request: Request) {
       )
     }
 
-    // Calculate total_win
+    // Calculate total_win per tip (stake * individual odds)
+    // For combined bets, each tip gets its share of the stake
+    const stakePerTip = stake / body.tips.length
     const total_win = body.final_odds * stake
 
     // All tips must be from the same betting company (enforced by UI)
     // Extract betting_company_id from the first tip
     const bettingCompanyId = body.tips[0].betting_company_id
 
-    // Create the main betting_tip record
-    const { data: bettingTip, error: tipError } = await supabase
-      .from('betting_tips')
-      .insert({
-        betting_company_id: bettingCompanyId,
-        description: body.description || `Combined bet with ${body.tips.length} tips`,
-        odds: body.final_odds,
-        stake: stake,
-        total_win: total_win,
-        status: 'pending',
-        created_by: user.id,
-      })
-      .select()
-      .single()
-
-    if (tipError || !bettingTip) {
-      return NextResponse.json(
-        { error: tipError?.message ?? 'Failed to create betting tip' },
-        { status: 400 }
-      )
-    }
-
-    // Create all tip items (without betting_company_id as it's stored in betting_tips)
-    const tipItems = body.tips.map((tip: any) => ({
-      betting_tip_id: bettingTip.id,
+    // Create betting_tip records (one per tip in the array)
+    const tipRecords = body.tips.map((tip: any) => ({
+      betting_company_id: bettingCompanyId,
       sport: tip.sport,
       league: tip.league,
       match: tip.match,
       odds: tip.odds,
       match_date: tip.match_date,
+      stake: stakePerTip,
+      total_win: tip.odds * stakePerTip,
       status: 'pending' as const,
     }))
 
-    const { error: itemsError } = await supabase
-      .from('betting_tip_items')
-      .insert(tipItems)
+    const { data: insertedTips, error: insertError } = await supabase
+      .from('betting_tip')
+      .insert(tipRecords)
+      .select()
 
-    if (itemsError) {
-      // Rollback: delete the betting_tip if items insertion fails
-      await supabase.from('betting_tips').delete().eq('id', bettingTip.id)
+    if (insertError || !insertedTips || insertedTips.length === 0) {
       return NextResponse.json(
-        { error: itemsError.message },
+        { error: insertError?.message ?? 'Failed to create betting tips' },
         { status: 400 }
       )
     }
 
-    return NextResponse.json({ success: true, id: bettingTip.id })
+    // Return the first tip ID (for backward compatibility)
+    return NextResponse.json({ success: true, id: insertedTips[0].id })
   }
 
   // Legacy structure: single tip (for backward compatibility)
@@ -153,16 +135,21 @@ export async function POST(request: Request) {
   const stake = parseFloat(body.stake || '0')
   const total_win = stake > 0 ? (body.odds || 1) * stake : null
 
-  const { error } = await supabase.from('betting_tips').insert({
-    betting_company_id: body.betting_company_id,
-    match: body.match,
-    odds: body.odds,
-    match_date: body.match_date,
-    stake: stake > 0 ? stake : null,
-    total_win: total_win,
-    status: 'pending',
-    created_by: user.id,
-  })
+  const { data: insertedTip, error } = await supabase
+    .from('betting_tip')
+    .insert({
+      betting_company_id: body.betting_company_id,
+      sport: body.sport,
+      league: body.league,
+      match: body.match,
+      odds: body.odds,
+      match_date: body.match_date,
+      stake: stake > 0 ? stake : null,
+      total_win: total_win,
+      status: 'pending',
+    })
+    .select()
+    .single()
 
   if (error) {
     return NextResponse.json(
@@ -171,7 +158,7 @@ export async function POST(request: Request) {
     )
   }
 
-  return NextResponse.json({ success: true })
+  return NextResponse.json({ success: true, id: insertedTip?.id })
 }
 
 

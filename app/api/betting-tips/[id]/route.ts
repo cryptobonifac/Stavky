@@ -45,9 +45,9 @@ export async function PATCH(
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  // Check if this betting_tip has items (new structure)
+  // Check if betting_tip exists
   const { data: bettingTip } = await supabase
-    .from('betting_tips')
+    .from('betting_tip')
     .select('id')
     .eq('id', id)
     .single()
@@ -59,82 +59,17 @@ export async function PATCH(
     )
   }
 
-  // Check if there are items
-  const { data: items } = await supabase
-    .from('betting_tip_items')
-    .select('id, status')
-    .eq('betting_tip_id', id)
+  // Update the betting_tip status directly
+  const { error } = await supabase
+    .from('betting_tip')
+    .update({ status })
+    .eq('id', id)
 
-  if (items && items.length > 0) {
-    // New structure: update all items and the main bet
-    // If status is 'loss', all items become 'loss' and the bet becomes 'loss'
-    // If status is 'win', we need to check if all items are 'win' to mark the bet as 'win'
-    
-    if (status === 'loss') {
-      // If one item fails, the whole bet fails
-      const { error: itemsError } = await supabase
-        .from('betting_tip_items')
-        .update({ status: 'loss' })
-        .eq('betting_tip_id', id)
-
-      if (itemsError) {
-        return NextResponse.json(
-          { error: itemsError.message },
-          { status: 400 }
-        )
-      }
-
-      const { error: betError } = await supabase
-        .from('betting_tips')
-        .update({ status: 'loss' })
-        .eq('id', id)
-
-      if (betError) {
-        return NextResponse.json(
-          { error: betError.message },
-          { status: 400 }
-        )
-      }
-    } else if (status === 'win') {
-      // Mark all items as 'win'
-      const { error: itemsError } = await supabase
-        .from('betting_tip_items')
-        .update({ status: 'win' })
-        .eq('betting_tip_id', id)
-
-      if (itemsError) {
-        return NextResponse.json(
-          { error: itemsError.message },
-          { status: 400 }
-        )
-      }
-
-      // Mark the bet as 'win' only if all items are now 'win'
-      const { error: betError } = await supabase
-        .from('betting_tips')
-        .update({ status: 'win' })
-        .eq('id', id)
-
-      if (betError) {
-        return NextResponse.json(
-          { error: betError.message },
-          { status: 400 }
-        )
-      }
-    }
-  } else {
-    // Legacy structure: single tip, update directly
-    const { error } = await supabase
-      .from('betting_tips')
-      .update({ status })
-      .eq('id', id)
-
-    if (error) {
-      return NextResponse.json(
-        { error: error.message },
-        { status: 400 }
-      )
-    }
+  if (error) {
+    return NextResponse.json(
+      { error: error.message },
+      { status: 400 }
+    )
   }
 
   return NextResponse.json({ success: true })

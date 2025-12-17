@@ -1,0 +1,582 @@
+date,betting_company,sport,league,team,odds,amount
+10.9.2025,Nike,softball,me ženy,Holandsko,1.01,600
+10.9.2025,Nike,softball,me ženy,Taliansko,1.01,600
+10.9.2025,Nike,hádzaná,Dánsko ženy,esbjerg,1.01,600
+10.9.2025,Bet365,volejbal,brasil paulista ženy,osasco,1.04,600
+10.9.2025,Bet365,volejbal,Thajsko ženy,rangsit,1.05,212
+10.9.2025,Bet365,volejbal,Thajsko ženy,dhurakij,1.015,400
+11.9.2025,Bet365,volejbal,Thajsko muži,nakhon,1.02,600
+11.9.2025,Nike,rugby,super League,wigan,1.01,600
+11.9.2025,Bet365,volejbal,Argentína de honor ženy,estudiantes,1.02,700
+11.9.2025,Bet365,volejbal,Kostarika muži,uned,1.02,700
+11.9.2025,Bet365,volejbal,Thajsko ženy,rajamangla,1.03,216
+11.9.2025,Bet365,volejbal,Thajsko ženy,sripatum,1.025,400
+12.9.2025,Nike,tenis,utr skopje,madarasz,1.04,600
+12.9.2025,Nike,tenis,Davis cup,Srbsko,1.02,400
+12.9.2025,Nike,futbal,Španielsko ženy,Barcelona,1.01,600
+12.9.2025,Bet365,volejbal,brasil paulista U19,olimpico,1.015,600
+12.9.2025,Bet365,volejbal,Thajsko,rajapruk,1.012,600
+13.9.2025,Nike,hádzaná,Poľsko muži,plock,1.01,900
+13.9.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,1000
+14.9.2025,Bet365,volejbal,Thajsko muži,sukhothai,1.015,600
+14.9.2025,Nike,hádzaná,mol liga,most,1.01,800
+14.9.2025,Nike,hádzaná,Poľsko ženy,mks lublin,1.01,800
+16.9.2025,Nike,tenis,WTA caldas ženy,kalieva 1.set,1.03,400
+16.9.2025,Nike,tenis,kursumlijska muži,maksimovic,1.01,400
+16.9.2025,Nike,tenis,WTA caldas ženy,nozdrachova vyhra aspoň set,1.09,200
+16.9.2025,Bet365,volejbal,zápasy zen,vtv binh,1.025,620
+16.9.2025,Bet365,volejbal,zápasy zen,supreme,1.05,620
+16.9.2025,Bet365,volejbal,zápasy zen,sisaket,1.04,620
+16.9.2025,Bet365,volejbal,zápasy zen,vtv binh,1.025,440
+17.9.2025,Bet365,volejbal,brasil U19 ženy,barueri,1.025,306
+17.9.2025,Bet365,volejbal,brasil U19 ženy,osasco,1.025,306
+17.9.2025,Bet365,volejbal,ncaa ženy,michigan,1.04,306
+17.9.2025,Bet365,volejbal,brasil U19 ženy,barueri,1.025,400
+17.9.2025,Bet365,volejbal,brasil U19 ženy,osasco,1.025,400
+17.9.2025,Nike,rugby,super league,hull,1.01,600
+17.9.2025,Bet365,volejbal,zápasy zen,khonkaen,1.03,405
+17.9.2025,Bet365,volejbal,zápasy zen,aranmare,1.025,405
+17.9.2025,Bet365,volejbal,zápasy zen,sisaket,1.01,405
+17.9.2025,Bet365,volejbal,brasil paulista U19 ženy,barueri,1.015,405
+17.9.2025,Bet365,volejbal,brasil paulista U19 ženy,osasco,1.015,405
+17.9.2025,Bet365,volejbal,zápasy zen,khonkaen,1.03,560
+17.9.2025,Bet365,volejbal,zápasy zen,aranmare,1.025,560
+17.9.2025,Bet365,volejbal,zápasy zen,sisaket,1.01,560
+19.9.2025,Nike,atletika,ms 400m prekážky ženy,celkovo víťaz bol áno,1.08,150
+19.9.2025,Bet365,volejbal,ncaa ženy,Boston college,1.015,680
+20.9.2025,Bet365,volejbal,zápasy zen,sisaket,1.015,800
+20.9.2025,Bet365,volejbal,zápasy muži,gremio,1.012,405
+20.9.2025,Bet365,volejbal,indonézia ženy,petrokimia,1.04,405
+20.9.2025,Bet365,volejbal,uruguay ženy,cdv,1.03,405
+20.9.2025,Bet365,volejbal,uruguay ženy,cdv,1.03,400
+20.9.2025,Bet365,volejbal,uruguay clausura,cbps,1.01,810
+20.9.2025,Bet365,volejbal,zápasy muži,volei nova,1.012,810
+21.9.2025,Bet365,volejbal,indonézia ženy,gresik,1.02,800
+21.9.2025,Nike,hádzaná,SVK extraliga muži,Prešov,1.01,1200
+21.9.2025,Bet365,volejbal,ncaa ženy,arizona,1.012,600
+23.9.2025,Nike,basketbal,Nórsko muži,kongsberg,1.01,600
+24.9.2025,Nike,basketbal,Nórsko muži,kongsberg,1.01,400
+24.9.2025,Nike,hádzaná,Maďarsko ženy,ftc,1.02,400
+24.9.2025,Nike,hádzaná,Francúzsko ženy,brest,1.01,400
+25.9.2025,Bet365,volejbal,Argentína de honor ženy,san lorenzo,1.02,400
+25.9.2025,Bet365,volejbal,brasil paulista U19 muži,Centro olimpico,1.05,200
+25.9.2025,Bet365,volejbal,uruguay clausura Primera ženy,cdv,1.071,200
+25.9.2025,Nike,hokej,Lotyšsko,kyiv,1.01,600
+26.9.2025,Bet365,volejbal,ncaa ženy,wisconsin,1.03,200
+26.9.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,1200
+27.9.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,600
+27.9.2025,Nike,hádzaná,SVK extraliga muži,Považská,1.01,600
+27.9.2025,Nike,basketbal,Česko ženy,kp Brno,1.05,600
+27.9.2025,Nike,basketbal,SVK ženy,Ružomberok,1.01,37
+27.9.2025,Nike,basketbal,SVK ženy,Piešťany,1.01,37
+27.9.2025,Bet365,volejbal,brasil paulista U19 ženy,louveira,1.015,670
+27.9.2025,Bet365,volejbal,uruguay ženy,nautico,1.05,400
+28.9.2025,Nike,squash,ženy qatar,el hammamy,1.02,630
+28.9.2025,Nike,tenis,antofagasta muži kvali,ambrogi,1.02,630
+28.9.2025,Bet365,volejbal,zápasy zen,nicaragua,1.02,440
+28.9.2025,Bet365,volejbal,zápasy zen,costarica,1.012,440
+29.9.2025,Nike,hokej,Rusko ženy,ufa,1.04,600
+30.9.2025,Nike,hádzaná,super globe,taubate,1.02,1000
+1.10.2025,Nike,hádzaná,Dánsko ženy 1.divizia,holstebro,1.01,600
+2.10.2025,Nike,basketbal,el Salvador muži,metapan,1.01,600
+2.10.2025,Nike,hádzaná,super globe muži,taubate,1.04,600
+3.10.2025,Nike,tenis,utr belehrad ženy,vukovic,1.01,600
+3.10.2025,Nike,politika,Česko voľby,ANO víťaz,1.01,1200
+3.10.2025,Nike,hádzaná,Francúzsko muži,Paris,1.01,400
+4.10.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,500
+4.10.2025,Nike,hádzaná,liga majstrov ženy,metz,1.01,500
+5.10.2025,Nike,volejbal,Dánsko ženy,asv elite,1.02,1000
+7.10.2025,Bet365,volejbal,norceca,Dominikánska,1.015,400
+9.10.2025,Nike,futbal,kvali ms,Rakúsko,1.01,800
+9.10.2025,Nike,hádzaná,SVK muži,Prešov,1.01,800
+9.10.2025,Bet365,volejbal,Maďarsko ženy,bekescaba,1.01,700
+9.10.2025,Bet365,volejbal,Čierna hora ženy,luka bar,1.01,700
+9.10.2025,Bet365,volejbal,Kostarika ženy,san jose,1.05,600
+10.10.2025,Nike,hádzaná,SVK muži,Prešov,1.01,500
+10.10.2025,Nike,futbal,kvali me U17,Maďarsko,1.01,500
+10.10.2025,Bet365,volejbal,Albánsko ženy,skanderbeu,1.02,300
+10.10.2025,Bet365,volejbal,Albánsko muži,partizani,1.02,1000
+10.10.2025,Bet365,volejbal,ncaa ženy,lousville,1.02,400
+10.10.2025,Bet365,volejbal,Albánsko muži,partizani,1.02,400
+11.10.2025,Nike,basketbal,SVK ženy,Ružomberok,1.01,1200
+11.10.2025,Nike,basketbal,SVK ženy,slávia Bystrica,1.05,1200
+11.10.2025,Bet365,volejbal,SVK ženy,Slovan,1.01,610
+11.10.2025,Bet365,volejbal,Srbsko ženy,tent,1.01,610
+11.10.2025,Bet365,volejbal,Švédsko ženy,hylte,1.02,610
+11.10.2025,Bet365,volejbal,Švédsko muži,floby,1.04,610
+11.10.2025,Nike,basketbal,SVK ženy,Ružomberok,1.01,200
+11.10.2025,Nike,basketbal,Česko ženy,zabiny,1.05,200
+11.10.2025,Nike,futbal,kvali me U17,Maďarsko,1.01,200
+11.10.2025,Nike,tenis,WTA tampico ženy,Scott,1.01,400
+11.10.2025,Nike,tenis,WTA tampico ženy,gonzales vyhra aspoň set,1.1,200
+11.10.2025,Bet365,volejbal,Filipíny wncaa,scorpions,1.03,400
+12.10.2025,Bet365,volejbal,Dánsko ženy,holte,1.05,800
+12.10.2025,Nike,florbal,Švédsko muži,storvreta,1.01,600
+12.10.2025,Bet365,volejbal,Švédsko muži,solentuna,1.03,320
+12.10.2025,Bet365,volejbal,čierna hora,Budva,1.03,320
+12.10.2025,Bet365,volejbal,čierna hora,podgorica,1.02,320
+12.10.2025,Bet365,volejbal,čierna hora,podgorica,1.02,300
+12.10.2025,Nike,futbal,kvali ms,Chorvátsko,1.01,600
+13.10.2025,Bet365,volejbal,brasil paulista U21 ženy,osasco,1.03,600
+14.10.2025,Bet365,volejbal,brasil paulista U19 muži,Centro,1.015,400
+14.10.2025,Bet365,volejbal,brasil paulista U21 ženy,osasco,1.01,400
+14.10.2025,Bet365,volejbal,Island ženy,HK,1.01,400
+14.10.2025,Bet365,volejbal,Thajsko pro League muži,muang,1.01,600
+15.10.2025,Bet365,volejbal,Island ženy,ka,1.02,1000
+15.10.2025,Nike,basketbal,euro cup ženy,avenida,1.01,600
+15.10.2025,Bet365,volejbal,Slovinsko ženy,branik,1.03,600
+15.10.2025,Bet365,volejbal,ncaa ženy,coastal,1.03,600
+16.10.2025,Bet365,volejbal,Kazachstan ženy,berel,1.01,630
+16.10.2025,Bet365,volejbal,Kazachstan ženy,kuanysh,1.025,630
+18.10.2025,Bet365,volejbal,Írsko ženy,gardians,1.01,830
+18.10.2025,Bet365,volejbal,Izrael ženy,haoel kfar,1.015,830
+18.10.2025,Bet365,volejbal,Dánsko ženy,asv aarhus,1.025,830
+18.10.2025,Bet365,volejbal,Česko ženy,Liberec,1.015,520
+18.10.2025,Bet365,volejbal,SVK ženy,Žilina,1.03,520
+18.10.2025,Bet365,volejbal,rwanda ženy,police,1.03,520
+18.10.2025,Bet365,volejbal,Filipíny mpva ženy,dasmarinas,1.04,610
+18.10.2025,Bet365,volejbal,Portugalsko ženy,Porto,1.015,610
+19.10.2025,Bet365,volejbal,Srbsko ženy,tent,1.01,560
+19.10.2025,Bet365,volejbal,Portugalsko ženy,Porto,1.015,560
+19.10.2025,Nike,squash,us open muži,asal,1.02,500
+19.10.2025,Nike,squash,us open ženy,el sherbini,1.02,500
+19.10.2025,Bet365,volejbal,montenegro muži,mornar,1.05,600
+19.10.2025,Nike,hádzaná,SVK muži,Prešov,1.01,600
+19.10.2025,Bet365,volejbal,Kazachstan ženy,zhetysu,1.01,620
+19.10.2025,Bet365,volejbal,Kazachstan ženy,turan,1.04,620
+20.10.2025,Nike,tenis,WTA queretaro,garibay vyhra aspoň set,1.03,600
+20.10.2025,Bet365,volejbal,Grécko nc U20 ženy,deka,1.025,800
+20.10.2025,Nike,squash,us open muži,asal,1.02,200
+20.10.2025,Nike,squash,us open muži,el hammamy,1.03,200
+20.10.2025,Bet365,volejbal,Filipíny SSL ženy,bulldogs,1.04,720
+21.10.2025,Bet365,volejbal,Izrael muži,hapoel kfar,1.025,400
+21.10.2025,Nike,squash,us open ženy,el sherbini,1.02,300
+22.10.2025,Nike,hádzaná,Nórsko ženy,storhamar,1.01,600
+22.10.2025,Nike,hádzaná,Dánsko ženy,esbjerg,1.01,600
+22.10.2025,Bet365,volejbal,Slovinsko ženy,calcit,1.04,220
+22.10.2025,Bet365,volejbal,Maďarsko nb I ženy,vesc,1.01,220
+23.10.2025,Bet365,volejbal,brasil paulista U19 ženy,pinheiros,1.05,600
+23.10.2025,Nike,basketbal,Brazília paulista ženy,ourinhos,1.01,800
+23.10.2025,Nike,basketbal,Brazília paulista ženy,sao jose,1.01,800
+23.10.2025,Nike,politika,Írsko prezidentské voľby,connoly,1.05,400
+23.10.2025,Bet365,volejbal,brasil rdj U19 muži,fluminense,1.025,624
+23.10.2025,Bet365,volejbal,Kosovo ženy,kv fer,1.01,624
+23.10.2025,Bet365,volejbal,Bulharsko ženy,cska,1.025,624
+23.10.2025,Bet365,volejbal,Bulharsko ženy,maritza,1.012,624
+24.10.2025,Nike,hádzaná,SVK muži,Považská,1.1,200
+24.10.2025,Nike,hádzaná,Nórsko ženy,larvik,1.01,600
+24.10.2025,Bet365,volejbal,Bulharsko ženy,cska,1.025,586
+24.10.2025,Bet365,volejbal,Bulharsko ženy,maritza,1.012,586
+24.10.2025,Bet365,volejbal,zápasy zen,Dánsko,1.02,586
+24.10.2025,Bet365,volejbal,Bosna muži,napredak,1.05,595
+24.10.2025,Bet365,volejbal,ncaa ženy,nebraska,1.015,590
+24.10.2025,Bet365,volejbal,ncaa ženy,pittsburgh,1.02,590
+24.10.2025,Bet365,volejbal,ncaa ženy,Texas,1.025,590
+25.10.2025,Bet365,volejbal,rwanda ženy,apr,1.015,800
+25.10.2025,Bet365,volejbal,Rakúsko ženy,sokol post,1.012,800
+25.10.2025,Bet365,volejbal,Chorvátsko muži,haok,1.04,402
+25.10.2025,Bet365,volejbal,Nemecko ženy,Stuttgart,1.01,402
+25.10.2025,Bet365,volejbal,rwanda muži,police,1.025,402
+25.10.2025,Bet365,volejbal,Dánsko ženy,gentofte,1.062,402
+25.10.2025,Bet365,volejbal,uganda ženy,sport-s,1.062,402
+25.10.2025,Nike,hádzaná,Portugalsko muži,Porto,1.01,500
+25.10.2025,Nike,hádzaná,mol ženy,most,1.01,500
+25.10.2025,Bet365,volejbal,Cyprus ženy,aek larnaca,1.02,396
+25.10.2025,Bet365,volejbal,čierna hora ženy,luka bar,1.05,396
+25.10.2025,Bet365,volejbal,Portugalsko 2 ženy,Santa Cruz,1.04,610
+25.10.2025,Bet365,volejbal,Portugalsko 2 ženy,praiense,1.015,610
+26.10.2025,Bet365,volejbal,Portugalsko 2 ženy,Santa Cruz,1.012,1000
+26.10.2025,Bet365,volejbal,Rakúsko ženy,Linz,1.03,600
+26.10.2025,Bet365,volejbal,Portugalsko ženy,Vitoria,1.02,600
+26.10.2025,Bet365,volejbal,peru ženy,regatas,1.02,526
+26.10.2025,Bet365,volejbal,brasil paulista U19 ženy,pinheiros,1.05,526
+26.10.2025,Bet365,volejbal,ncaa ženy,Pittsburgh,1.015,526
+26.10.2025,Bet365,volejbal,ncaa ženy,smu,1.025,526
+27.10.2025,Bet365,volejbal,arabské klubové ženy,africain,1.01,790
+27.10.2025,Bet365,volejbal,arabské klubové ženy,carthage,1.03,790
+27.10.2025,Nike,squash,canadian ženy,orfi,1.02,600
+27.10.2025,Bet365,volejbal,Grécko 3.division ženy,papagou,1.04,620
+27.10.2025,Bet365,volejbal,Grécko 3.division ženy,melisiakos,1.03,620
+27.10.2025,Bet365,volejbal,Filipíny mpva ženy,pasay,1.03,490
+27.10.2025,Bet365,volejbal,Filipíny pvl ženy,akari,1.062,490
+28.10.2025,Bet365,volejbal,Vietnam ženy,nguyen,1.025,600
+28.10.2025,Nike,futbal,Malajzia pohár,johor stávka bez remízy,1.01,600
+28.10.2025,Nike,futbal,kvali me sk.10 U17,Švajčiarsko,1.01,600
+28.10.2025,Bet365,volejbal,liga majstrov muži,Dinamo,1.05,394
+28.10.2025,Bet365,volejbal,Slovinsko pohár ženy,gen-i,1.025,394
+28.10.2025,Bet365,volejbal,Slovinsko pohár ženy,calcit,1.015,394
+28.10.2025,Bet365,volejbal,Slovinsko pohár ženy,gen-i,1.025,600
+28.10.2025,Bet365,volejbal,Slovinsko pohár ženy,calcit,1.015,1000
+29.10.2025,Nike,volejbal,Challenge cup ženy,tchalou,1.02,800
+29.10.2025,Nike,volejbal,Nemecko ženy,schwerin,1.01,800
+29.10.2025,Nike,basketbal,fiba cup muži,bilbao,1.01,800
+29.10.2025,Nike,futsal,liga majstrov sk.4,sporting,1.04,200
+29.10.2025,Bet365,volejbal,Maďarsko muži,vegyez,1.04,428
+29.10.2025,Bet365,volejbal,Maďarsko pohár ženy,vesc,1.05,428
+30.10.2025,Bet365,volejbal,Vietnam muži,vinh,1.015,610
+30.10.2025,Bet365,volejbal,Vietnam ženy,bac,1.05,610
+30.10.2025,Bet365,volejbal,arabské klubové,bejaia,1.025,1000
+30.10.2025,Bet365,volejbal,liga majstrov muži,olympiakos,1.02,1000
+30.10.2025,Bet365,volejbal,Dánsko pohár ženy,gentofte,1.01,1000
+30.10.2025,Nike,badminton,Hylo muži štvorhra,astrup/rasmusen,1.01,600
+30.10.2025,Nike,badminton,Hylo muži štvorhra,chia/soh,1.01,600
+30.10.2025,Nike,hádzaná,Rusko ženy,togliatti,1.01,600
+30.10.2025,Nike,basketbal,Dánsko muži,horsens,1.01,600
+30.10.2025,Nike,badminton,Hylo muži štvorhra,astrup/rasmusen,1.01,400
+30.10.2025,Bet365,volejbal,Slovinsko 1B ženy,krim,1.05,400
+31.10.2025,Nike,hádzaná,Poľsko ženy,zaglebie,1.01,800
+31.10.2025,Nike,volejbal,Bulharsko ženy,vk marica,1.02,800
+31.10.2025,Bet365,volejbal,Albánsko cup muži,tirana,1.04,410
+31.10.2025,Bet365,volejbal,Albánsko ženy,tirana,1.025,410
+31.10.2025,Bet365,volejbal,Chorvátsko ženy,nebo,1.03,410
+1.11.2025,Nike,basketbal,SVK ženy,Slovan,1.02,300
+1.11.2025,Nike,basketbal,SVK ženy,y.a.kosice,1.1,300
+1.11.2025,Bet365,volejbal,čierna hora ženy,bar,1.01,840
+1.11.2025,Bet365,volejbal,peru muži,peerles,1.01,840
+1.11.2025,Bet365,volejbal,Chorvátsko muži,haok,1.01,840
+1.11.2025,Bet365,volejbal,Izrael ženy,hapoel kfar,1.01,840
+1.11.2025,Bet365,volejbal,arabské klubové ženy nc,bejaia,1.01,394
+1.11.2025,Bet365,volejbal,Francúzsko ženy,levallois,1.015,394
+1.11.2025,Bet365,volejbal,Estónsko pohár,barrus,1.025,394
+1.11.2025,Nike,volejbal,Rumunsko ženy,Dinamo,1.02,800
+1.11.2025,Bet365,volejbal,Portugalsko A2 muži,ginastica,1.02,790
+1.11.2025,Bet365,volejbal,Cyprus ženy,lemesos,1.02,790
+1.11.2025,Bet365,volejbal,Cyprus ženy,lemesos,1.44,400
+1.11.2025,Bet365,volejbal,Cyprus ženy,lemesos,1.2,392
+1.11.2025,Bet365,volejbal,peru ženy,alianza,1.03,620
+1.11.2025,Bet365,volejbal,Thajsko ženy,rattana,1.015,620
+1.11.2025,Bet365,volejbal,Thajsko ženy,rattana,1.015,530
+2.11.2025,Bet365,volejbal,Estónsko pohár muži,bigbank,1.015,705
+2.11.2025,Bet365,volejbal,Švajčiarsko ženy,neuchatel,1.02,705
+2.11.2025,Bet365,volejbal,Island ženy,HK,1.015,705
+2.11.2025,Bet365,volejbal,Island muži,ka,1.03,705
+2.11.2025,Bet365,volejbal,Island ženy,HK,1.015,700
+2.11.2025,Bet365,volejbal,Island muži,ka,1.03,700
+2.11.2025,Bet365,volejbal,Chorvátsko ženy,haok mladost,1.05,400
+2.11.2025,Bet365,volejbal,čierna hora ženy,buducnost,1.071,400
+3.11.2025,Bet365,volejbal,Rakúsko pohár ženy,bad radkersburg,1.02,1200
+3.11.2025,Bet365,volejbal,ncaa 2 ženy,fayetevile,1.04,200
+3.11.2025,Nike,basketbal,Brazília muži,corinthians,1.01,600
+4.11.2025,Nike,volejbal,Kazachstan ženy,zhetysu,1.01,800
+4.11.2025,Bet365,volejbal,Izrael muži,maccabi aviv,1.11,346
+4.11.2025,Bet365,volejbal,Izrael muži,hapoel asher,1.14,300
+4.11.2025,Bet365,volejbal,Egypt muži,ak ahly,1.02,800
+4.11.2025,Bet365,volejbal,Egypt muži,zamalek,1.01,800
+4.11.2025,Bet365,volejbal,liga majstrov ženy,le cannet,1.01,1000
+5.11.2025,Nike,vodné pólo,rwp,novi beograd,1.01,600
+5.11.2025,Nike,hádzaná,Česko pohár muži,Karviná,1.02,600
+5.11.2025,Bet365,volejbal,Dánsko ženy,aarhus,1.04,800
+5.11.2025,Bet365,volejbal,Kazachstan ženy,kuanysh,1.01,800
+5.11.2025,Bet365,volejbal,Kazachstan ženy,aktobe,1.04,400
+5.11.2025,Bet365,volejbal,Maďarsko pohár muži,vegyez,1.02,400
+5.11.2025,Bet365,volejbal,Tunis muži,bousaid,1.025,400
+5.11.2025,Bet365,volejbal,Lotyšsko pohár muži,jekabpils,1.025,400
+5.11.2025,Bet365,volejbal,Challenge cup ženy,Ostrava,1.015,310
+5.11.2025,Bet365,volejbal,Challenge cup ženy,neapolis,1.03,310
+5.11.2025,Bet365,volejbal,Kazachstan ženy,kuanysh,1.015,1190
+5.11.2025,Bet365,volejbal,Kazachstan ženy,berel,1.025,1190
+5.11.2025,Bet365,volejbal,Kazachstan ženy,zhetysu,1.03,410
+5.11.2025,Bet365,volejbal,Kazachstan ženy,karaganda,1.04,410
+5.11.2025,Bet365,volejbal,ncaa ženy,arizona,1.04,410
+5.11.2025,Bet365,volejbal,peru muži,mb volley,1.015,410
+5.11.2025,Bet365,volejbal,international U19 ženy,nepal,1.01,410
+5.11.2025,Nike,vodné pólo,rwp,novi beograd,1.01,600
+6.11.2025,Bet365,volejbal,ncaa ženy,nebraska,1.02,1000
+6.11.2025,Bet365,volejbal,kenya muži,kdf,1.02,610
+6.11.2025,Bet365,volejbal,SVK muži,Komárno,1.01,610
+6.11.2025,Bet365,volejbal,Izrael muži,maccabi,1.05,610
+7.11.2025,Nike,badminton,Nórsko štvorhra muži,klingard/rasmusen,1.01,600
+7.11.2025,Nike,badminton,Nórsko štvorhra ženy,Norman/sjoo,1.01,600
+7.11.2025,Nike,badminton,Nórsko dvojhra ženy,podedworny,1.01,600
+7.11.2025,Nike,rugby,medzištátne,Írsko,1.01,600
+7.11.2025,Bet365,volejbal,Izrael ženy,maccabi,1.012,284
+7.11.2025,Bet365,volejbal,Srbsko ženy,jedinstvo,1.02,284
+7.11.2025,Bet365,volejbal,Keňa muži,kenya prisons,1.03,284
+7.11.2025,Bet365,volejbal,Rumunsko A2 muži,timisoara,1.01,392
+7.11.2025,Bet365,volejbal,Srbsko ženy,jedinstvo,1.02,392
+7.11.2025,Bet365,volejbal,Maďarsko muži,kaposvar,1.05,392
+7.11.2025,Bet365,volejbal,ncaa ženy,Pittsburgh,1.015,1200
+8.11.2025,Bet365,volejbal,Dánsko ženy,holte,1.01,1216
+8.11.2025,Bet365,volejbal,Švédsko ženy,hylte,1.012,1216
+8.11.2025,Bet365,volejbal,Švédsko ženy,linkopings,1.02,1216
+8.11.2025,Bet365,volejbal,Nórsko ženy 1.div.,finstad,1.005,1216
+8.11.2025,Bet365,volejbal,Chorvátsko ženy,haok,1.025,510
+8.11.2025,Bet365,volejbal,Gruzínsko ženy,dziko,1.05,510
+8.11.2025,Bet365,volejbal,Keňa muži,kpa,1.03,510
+8.11.2025,Bet365,volejbal,rwanda ženy,east african,1.04,510
+8.11.2025,Nike,volejbal,Rumunsko ženy,Alba blaj,1.01,600
+8.11.2025,Nike,volejbal,Nemecko ženy pohár,Stuttgart,1.01,600
+8.11.2025,Nike,volejbal,Nemecko ženy pohár,suhl,1.01,600
+8.11.2025,Bet365,volejbal,Švajčiarsko ženy,schafhausen,1.015,1200
+8.11.2025,Nike,futsal,SVK muži,Lučenec,1.2,50
+8.11.2025,Bet365,volejbal,zápasy zen,cbr,1.05,800
+9.11.2025,Bet365,volejbal,Rakúsko ženy pohár,ti-volley,1.01,790
+9.11.2025,Bet365,volejbal,Island ženy,ka,1.01,790
+9.11.2025,Bet365,volejbal,malta ženy,swieqi,1.04,790
+9.11.2025,Bet365,volejbal,islamské hry muži,Turecko,1.015,790
+9.11.2025,Bet365,volejbal,Nórsko 1.div. ženy,osi,1.03,790
+9.11.2025,Bet365,volejbal,Rakúsko ženy pohár,ti-volley,1.01,400
+9.11.2025,Bet365,volejbal,ncaa ženy,Pittsburgh,1.025,1180
+9.11.2025,Bet365,volejbal,ncaa ženy,creighton,1.015,1180
+9.11.2025,Bet365,volejbal,faerske ženy,kif,1.02,1180
+9.11.2025,Bet365,volejbal,ncaa ženy,smu,1.02,710
+9.11.2025,Bet365,volejbal,peru muži,peerles,1.03,710
+10.11.2025,Bet365,volejbal,Macedónsko ženy,rabotnicki,1.03,400
+10.11.2025,Bet365,volejbal,islamské hry,Irán,1.015,660
+10.11.2025,Bet365,volejbal,greece 3.div. ženy,melisiakos,1.025,1010
+10.11.2025,Bet365,volejbal,greece nc U20 ženy,euosmou,1.02,1010
+11.11.2025,Nike,squash,muži,marche,1.02,400
+11.11.2025,Nike,squash,ženy,Lee,1.02,400
+11.11.2025,Bet365,volejbal,Maďarsko pohár ženy,bekescaba,1.05,350
+11.11.2025,Bet365,volejbal,Izrael muži,mate asher,1.04,350
+11.11.2025,Bet365,volejbal,ncaa ženy,lipscomb,1.05,200
+11.11.2025,Bet365,volejbal,Filipíny mpva ženy,quezon,1.04,500
+12.11.2025,Nike,padel,,Manso/tapia,1.03,514
+12.11.2025,Nike,hádzaná,Francúzsko ženy,metz,1.01,514
+12.11.2025,Nike,hádzaná,Poľsko ženy,zaglebie,1.01,514
+12.11.2025,Nike,basketbal,kvali me ženy,Bulharsko,1.02,514
+12.11.2025,Nike,basketbal,kvali me ženy,Bulharsko,1.02,800
+12.11.2025,Bet365,volejbal,Turecko 2 ženy,buyuksehir,1.02,596
+12.11.2025,Bet365,volejbal,Challenge cup,sliedrecht,1.02,596
+12.11.2025,Bet365,volejbal,Bosna ženy,gacko,1.05,596
+12.11.2025,Bet365,volejbal,liga majstrov ženy,maritza,1.02,596
+12.11.2025,Bet365,volejbal,cev muži,Budejovice,1.02,822
+12.11.2025,Bet365,volejbal,Kosovo ženy,fer,1.03,822
+12.11.2025,Bet365,volejbal,Turecko 2 ženy,kocaeli,1.012,822
+12.11.2025,Bet365,volejbal,peru ženy,alianza Lima,1.03,400
+12.11.2025,Bet365,volejbal,Thajsko ženy,naresuan,1.015,740
+13.11.2025,Bet365,volejbal,Dánsko ženy,holte,1.03,1400
+13.11.2025,Bet365,volejbal,čierna hora ženy pohár,moraca,1.015,1400
+13.11.2025,Bet365,volejbal,čierna hora ženy pohár,buducnost,1.025,1400
+13.11.2025,Bet365,volejbal,zápasy zen,nogueira,1.015,800
+14.11.2025,Nike,basketbal,Dánsko muži,bakken,1.01,500
+14.11.2025,Nike,hádzaná,Fínsko muži,HIFK,1.02,500
+14.11.2025,Nike,volejbal,Srbsko ženy,zeleznicar,1.01,500
+14.11.2025,Nike,badminton,Írsko štvorhra ženy,cheng/sun,1.01,500
+14.11.2025,Nike,plážový volejbal,muži,perusic/schweiner,1.02,500
+14.11.2025,Nike,plážový volejbal,muži,perusic/schweiner,1.02,600
+14.11.2025,Bet365,volejbal,Dánsko ženy,aarhus,1.04,600
+14.11.2025,Bet365,volejbal,ncaa ženy,creighton,1.02,624
+14.11.2025,Bet365,volejbal,peru muži,regatas,1.015,624
+15.11.2025,Nike,volejbal,Nemecko ženy,Stuttgart,1.01,400
+15.11.2025,Nike,volejbal,Nemecko ženy,dresdner,1.02,400
+15.11.2025,Nike,rugby,medzištátne,Gruzínsko,1.01,400
+15.11.2025,Nike,volejbal,Nemecko ženy,Stuttgart,1.01,1000
+15.11.2025,Bet365,volejbal,Rakúsko muži,aich/dob,1.04,400
+15.11.2025,Bet365,volejbal,Švédsko ženy,orebro,1.02,400
+15.11.2025,Bet365,volejbal,Švédsko muži,hylte,1.04,400
+15.11.2025,Bet365,volejbal,Chorvátsko ženy pohár,brda,1.04,400
+15.11.2025,Bet365,volejbal,rwanda muži,gisagara,1.015,400
+15.11.2025,Bet365,volejbal,Portugalsko A2 ženy,Santa Cruz,1.04,390
+15.11.2025,Bet365,volejbal,Švajčiarsko ženy,dudingen,1.025,390
+15.11.2025,Bet365,volejbal,peru ženy,atenea,1.03,390
+15.11.2025,Nike,plážový volejbal,muži,fokerots/plavins,1.01,1000
+16.11.2025,Bet365,volejbal,Rakúsko ženy,sokol post,1.025,820
+16.11.2025,Bet365,volejbal,Chorvátsko ženy pohár,dubrovnik,1.01,820
+16.11.2025,Bet365,volejbal,Chorvátsko ženy pohár,kastela,1.01,820
+16.11.2025,Bet365,volejbal,Portugalsko ženy,leixoes,1.01,820
+16.11.2025,Bet365,volejbal,Portugalsko ženy,fc Porto,1.03,410
+16.11.2025,Bet365,volejbal,Portugalsko ženy,sporting,1.025,410
+16.11.2025,Bet365,volejbal,Portugalsko A2 ženy,Santa Cruz,1.04,410
+16.11.2025,Bet365,volejbal,ncaa ženy,prairie view,1.025,560
+16.11.2025,Bet365,volejbal,Thajsko ženy,rajapruk,1.015,1460
+16.11.2025,Bet365,volejbal,Thajsko muži,kanchanaburi,1.025,400
+16.11.2025,Bet365,volejbal,Thajsko muži,rmut,1.025,400
+17.11.2025,Bet365,volejbal,Challenge cup muži,Pafos,1.03,620
+17.11.2025,Bet365,volejbal,Filipíny mpva ženy,dasmarinas,1.04,620
+17.11.2025,Bet365,tenis,ženy utr Malibu,miroshnicenko,1.14,660
+17.11.2025,Bet365,volejbal,Grécko 3.div. ženy,Apollon,1.02,669
+18.11.2025,Nike,hádzaná,európska liga muži,flensburg,1.01,600
+18.11.2025,Nike,futbal,kvali ms,Belgicko,1.01,600
+18.11.2025,Nike,vodné pólo,liga majstrov,ftc,1.01,600
+18.11.2025,Bet365,volejbal,Izrael muži,mate asher,1.01,630
+18.11.2025,Bet365,volejbal,Challenge cup muži,Pafos,1.02,630
+18.11.2025,Bet365,volejbal,Kazachstan ženy,kuanysh,1.012,1190
+18.11.2025,Bet365,volejbal,Kazachstan ženy,berel,1.02,1190
+18.11.2025,Bet365,volejbal,Maďarsko pohár ženy,vasus,1.012,1190
+18.11.2025,Bet365,volejbal,Slovinsko ženy,branik,1.025,1190
+18.11.2025,Bet365,volejbal,Maďarsko pohár ženy,vasus,1.012,400
+18.11.2025,Bet365,volejbal,Kazachstan ženy,kuanysh,1.012,400
+18.11.2025,Nike,badminton,ženy,ongbanrungpham,1.01,800
+18.11.2025,Nike,badminton,ženy,an se young,1.01,800
+18.11.2025,Nike,badminton,ženy štvorhra,mayasari/pratiwi,1.01,800
+19.11.2025,Nike,basketbal,Česko muži,nymburk,1.02,300
+19.11.2025,Bet365,volejbal,Portugalsko U21 ženy,Porto volei,1.015,720
+19.11.2025,Bet365,volejbal,Litva ženy,bellona,1.01,720
+19.11.2025,Bet365,volejbal,Challenge cup muži,benfica,1.02,720
+19.11.2025,Bet365,volejbal,Maďarsko pohár ženy,vasus,1.012,720
+19.11.2025,Bet365,volejbal,Portugalsko U21 ženy,Porto volei,1.015,600
+19.11.2025,Bet365,volejbal,Kazachstan ženy,turan,1.02,690
+19.11.2025,Bet365,volejbal,peru ženy,alianza Lima,1.015,690
+19.11.2025,Nike,badminton,ženy Austrália,intanon,1.01,1000
+19.11.2025,Nike,badminton,muži,Chou tien,1.01,1000
+20.11.2025,Bet365,volejbal,faroe muži,sorvagur,1.025,800
+20.11.2025,Bet365,volejbal,Litva ženy,ktu kaunas,1.04,380
+20.11.2025,Bet365,volejbal,Maďarsko pohár ženy,knrc,1.012,380
+21.11.2025,Bet365,volejbal,Egypt ženy,mokawloon,1.05,306
+21.11.2025,Bet365,volejbal,Egypt ženy,zamalek,1.03,306
+21.11.2025,Bet365,volejbal,iraq muži,al masafee,1.03,306
+21.11.2025,Bet365,volejbal,Cyprus muži,pafiakos,1.015,306
+21.11.2025,Bet365,volejbal,Cyprus muži,pafiakos,1.015,930
+21.11.2025,Nike,basketbal,SVK ženy,Ružomberok,1.01,1200
+21.11.2025,Nike,basketbal,SVK ženy,y.a. Košice,1.02,1200
+21.11.2025,Bet365,volejbal,Filipíny muži,savouge,1.012,400
+21.11.2025,Bet365,volejbal,ncaa ženy,smu,1.025,400
+21.11.2025,Bet365,volejbal,Kazachstan ženy,zhetysu,1.012,400
+22.11.2025,Nike,basketbal,SVK ženy,Ružomberok,1.01,300
+22.11.2025,Nike,volejbal,SVK ženy,Slavia,1.01,300
+22.11.2025,Bet365,volejbal,SVK juniorská liga,Žilina-Bystrica 2,1.02,1030
+22.11.2025,Bet365,volejbal,Kazachstan ženy,zhetysu,1.012,1030
+22.11.2025,Bet365,volejbal,Chorvátsko muži,haok,1.01,1030
+22.11.2025,Bet365,volejbal,Srbsko ženy,radnicki,1.01,620
+22.11.2025,Bet365,volejbal,SVK ženy,Slovan,1.025,620
+22.11.2025,Bet365,volejbal,SVK ženy,slávia,1.01,620
+22.11.2025,Bet365,volejbal,Rumunsko ženy,Alba blaj,1.012,620
+22.11.2025,Bet365,volejbal,Portugalsko A2 ženy,vilacondense,1.012,820
+22.11.2025,Bet365,volejbal,Portugalsko A2 muži,vilacondense,1.04,500
+23.11.2025,Nike,hádzaná,Poľsko muži,kielce,1.03,1200
+23.11.2025,Bet365,volejbal,Rakúsko ženy,Graz,1.015,1020
+23.11.2025,Bet365,volejbal,Portugalsko ženy,Porto,1.015,1020
+23.11.2025,Bet365,volejbal,Portugalsko ženy,benfica,1.012,1020
+23.11.2025,Bet365,volejbal,Švédsko ženy,linkopings,1.025,1020
+23.11.2025,Bet365,volejbal,Rakúsko ženy,Graz,1.015,590
+23.11.2025,Bet365,volejbal,Portugalsko ženy,benfica,1.012,590
+23.11.2025,Bet365,volejbal,faerske ženy,mjolnir,1.04,350
+23.11.2025,Bet365,volejbal,faerske muži,fleyr,1.04,350
+23.11.2025,Bet365,volejbal,Švédsko muži,Orkelljunga,1.03,350
+23.11.2025,Bet365,volejbal,Portugalsko A2 ženy,Santa Cruz,1.015,800
+23.11.2025,Bet365,volejbal,Portugalsko A2 ženy,vilacondense,1.015,420
+23.11.2025,Bet365,volejbal,peru ženy,universitario,1.02,420
+23.11.2025,Bet365,volejbal,ncaa ženy,Pittsburgh,1.03,420
+23.11.2025,Bet365,volejbal,Portugalsko A2 ženy,vilacondense,1.015,800
+24.11.2025,Bet365,volejbal,Grécko 3.div. ženy,papagou,1.02,1200
+24.11.2025,Bet365,volejbal,Filipíny muži,ust golden,1.015,600
+25.11.2025,Nike,badminton,India ženy štvorhra,lin/Wang,1.01,600
+25.11.2025,Bet365,volejbal,qatar muži,al rayan,1.025,480
+25.11.2025,Bet365,volejbal,taipei ženy,national tsing hua,1.012,660
+25.11.2025,Bet365,volejbal,peru muži,regatas,1.012,660
+25.11.2025,Nike,badminton,India mix,ferdinansyah/wardana,1.01,600
+25.11.2025,Bet365,volejbal,zápasy zen,armada,1.015,600
+25.11.2025,Bet365,volejbal,zápasy zen,kharisma,1.025,600
+25.11.2025,Bet365,volejbal,zápasy zen,armada,1.015,400
+26.11.2025,Bet365,volejbal,Challenge cup ženy,niyregihaza,1.012,710
+26.11.2025,Bet365,volejbal,Maďarsko pohár muži,kaposvar,1.01,710
+26.11.2025,Bet365,tenis,utr Buenos Aires ženy,bonardi,1.01,710
+26.11.2025,Bet365,tenis,utr Buenos Aires ženy,taborda,1.012,710
+26.11.2025,Bet365,volejbal,Maďarsko muži,szegedi,1.04,320
+26.11.2025,Bet365,volejbal,Nemecko pohár ženy,Stuttgart,1.01,320
+26.11.2025,Bet365,volejbal,cev ženy,haok mladost,1.03,320
+26.11.2025,Nike,hádzaná,Grécko muži,paok,1.01,600
+26.11.2025,Bet365,volejbal,Filipíny spikers muži,cignal,1.025,1020
+26.11.2025,Bet365,volejbal,taipei ženy,Taiwan normal university,1.012,1020
+27.11.2025,Nike,basketbal,euro cup ženy,keltern,1.01,500
+27.11.2025,Nike,basketbal,euro cup ženy,montpelier,1.01,500
+27.11.2025,Nike,hádzaná,ms ženy,Nórsko,1.01,500
+27.11.2025,Nike,badminton,welsh ženy,andersen,1.01,500
+27.11.2025,Nike,badminton,welsh muži,Coelho,1.01,500
+27.11.2025,Nike,badminton,welsh ženy štvorhra,cheng/sun,1.01,500
+27.11.2025,Nike,badminton,welsh ženy štvorhra,curtin/Kelly,1.01,500
+27.11.2025,Nike,badminton,welsh mix,begga/jacob,1.01,500
+27.11.2025,Nike,basketbal,euro cup ženy,montpelier,1.01,500
+27.11.2025,Nike,basketbal,euro cup ženy,keltern,1.01,500
+27.11.2025,Nike,hádzaná,ms ženy,Nórsko,1.01,500
+27.11.2025,Nike,badminton,welsh ženy,andersen,1.01,500
+27.11.2025,Nike,badminton,welsh ženy štvorhra,curtin/Kelly,1.01,500
+27.11.2025,Nike,badminton,welsh mix,begga/jacob,1.01,500
+27.11.2025,Nike,basketbal,euro cup ženy,montpelier,1.01,600
+27.11.2025,Nike,badminton,welsh ženy štvorhra,curtin/Kelly,1.01,600
+28.11.2025,Nike,hádzaná,ms ženy,Nemecko,1.01,1300
+28.11.2025,Nike,hádzaná,ms ženy,Nemecko,1.01,400
+28.11.2025,Nike,badminton,welsh ženy štvorhra,Jacob/vallet,1.01,400
+28.11.2025,Nike,rugby,medzištátny,jar,1.01,400
+28.11.2025,Nike,futbal,medzištátny ženy,Singapur,1.01,400
+28.11.2025,Bet365,volejbal,Izrael muži,maccabi tel aviv,1.03,800
+29.11.2025,Bet365,volejbal,Rakúsko muži,aich dob,1.03,1010
+29.11.2025,Bet365,volejbal,Rakúsko ženy,Linz,1.02,1010
+29.11.2025,Bet365,volejbal,Švédsko muži,hylte,1.02,1010
+29.11.2025,Bet365,volejbal,Švédsko ženy,orebro,1.02,1010
+29.11.2025,Bet365,volejbal,Rakúsko ženy,trofaiach,1.04,500
+29.11.2025,Bet365,volejbal,Rakúsko ženy,Graz,1.03,500
+29.11.2025,Bet365,volejbal,Dánsko ženy,holte,1.01,500
+29.11.2025,Bet365,volejbal,Chorvátsko 1 ženy,haok mladost 2,1.01,500
+29.11.2025,Bet365,volejbal,international U21 muži,Venezuela,1.025,500
+29.11.2025,Nike,rugby,medzištátny,jar,1.01,800
+29.11.2025,Nike,volejbal,Turecko ženy vvsl,vakifbank,1.01,800
+29.11.2025,Nike,hádzaná,ms ženy,Francúzsko,1.01,800
+29.11.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,800
+29.11.2025,Nike,basketbal,SVK ženy,y.a.kosice,1.02,800
+29.11.2025,Nike,hádzaná,Poľsko muži,kielce,1.01,400
+29.11.2025,Bet365,volejbal,Cyprus ženy,anorthosis,1.01,1000
+29.11.2025,Bet365,volejbal,Portugalsko A2 muži,viana,1.015,1000
+29.11.2025,Bet365,volejbal,ncaa ženy,arizona,1.025,1050
+29.11.2025,Nike,hádzaná,ms ženy,Poľsko,1.01,600
+29.11.2025,Bet365,volejbal,Filipíny ženy wncaa,Scorpions,1.02,1000
+29.11.2025,Bet365,volejbal,ncaa ženy,nebraska,1.012,1000
+30.11.2025,Bet365,volejbal,Dánsko 1 ženy,vli,1.012,1440
+30.11.2025,Bet365,volejbal,Portugalsko ženy,sporting,1.01,1440
+30.11.2025,Bet365,volejbal,Rumunsko 2 muži,timisoara,1.012,640
+30.11.2025,Bet365,volejbal,Malta ženy,Flyers,1.01,640
+30.11.2025,Bet365,volejbal,Portugalsko A2 muži,marienses,1.01,640
+30.11.2025,Bet365,volejbal,Portugalsko A2 ženy,praiense,1.05,640
+30.11.2025,Bet365,volejbal,Estónsko muži,tallina,1.015,296
+30.11.2025,Bet365,volejbal,Portugalsko ženy,sporting,1.01,296
+30.11.2025,Bet365,volejbal,Dánsko muži,asv aarhus,1.05,296
+30.11.2025,Bet365,volejbal,SVK ženy,Nitra,1.03,296
+30.11.2025,Nike,basketbal,kvalifikácia ms oceania asia muži,Filipíny,1.01,600
+30.11.2025,Nike,basketbal,Taliansko ženy,Venezia,1.01,600
+30.11.2025,Nike,squash,muži,asal,1.02,400
+1.12.2025,Nike,hádzaná,ms ženy,Nórsko,1.02,400
+1.12.2025,Bet365,volejbal,Filipíny mpva ženy,dasmarinas,1.04,600
+2.12.2025,Nike,squash,ženy,orfi,1.1,800
+2.12.2025,Nike,futsal,ms ženy,Brazília,1.04,200
+2.12.2025,Bet365,volejbal,Izrael muži,mate asher,1.01,540
+2.12.2025,Bet365,volejbal,Challenge cup ženy,niyregihaza,1.025,540
+2.12.2025,Bet365,volejbal,uruguay ženy,cbr,1.04,1000
+3.12.2025,Nike,volejbal,cev cup ženy,chieri,1.01,600
+3.12.2025,Bet365,volejbal,Katar muži,al rayyan,1.03,600
+3.12.2025,Bet365,volejbal,Slovinsko 1b muži,Brezovica,1.025,600
+3.12.2025,Bet365,volejbal,cev cup ženy,neuchatel,1.01,600
+3.12.2025,Bet365,volejbal,Bosna muži,kakanj,1.05,1200
+3.12.2025,Bet365,volejbal,Macedónsko muži,rabotnicki,1.05,400
+4.12.2025,Nike,Badminton,muži štvorhra,Krishnamurty/pratheek,1.01,600
+4.12.2025,Bet365,volejbal,Maďarsko muži,dag,1.015,400
+4.12.2025,Bet365,volejbal,Bulharsko ženy,maritza,1.02,1000
+5.12.2025,Bet365,volejbal,Bosna ženy,gacko,1.03,1230
+5.12.2025,Bet365,volejbal,čierna hora muži,podgorica,1.01,1230
+5.12.2025,Bet365,volejbal,čierna hora muži,Budva,1.01,1230
+5.12.2025,Bet365,volejbal,Bosna muži,napredak,1.04,1230
+5.12.2025,Bet365,volejbal,Bosna muži,napredak,1.04,604
+5.12.2025,Bet365,volejbal,Bulharsko ženy,maritza,1.015,604
+5.12.2025,Bet365,volejbal,čierna hora muži,podgorica,1.01,604
+5.12.2025,Bet365,volejbal,čierna hora muži,Budva,1.01,604
+5.12.2025,Bet365,volejbal,Maďarsko muži,kaposvar,1.01,604
+5.12.2025,Bet365,volejbal,ncaa ženy,stanford,1.02,604
+5.12.2025,Bet365,volejbal,ncaa ženy,lousville,1.015,520
+6.12.2025,Bet365,volejbal,Rakúsko ženy,Graz,1.02,1200
+6.12.2025,Bet365,volejbal,čierna hora ženy,moraca,1.01,1200
+6.12.2025,Bet365,volejbal,Švédsko ženy,engelholm,1.012,1200
+6.12.2025,Bet365,volejbal,faerske muži,mjolnir,1.012,1200
+6.12.2025,Bet365,volejbal,Lotyšsko ženy,marupes,1.05,300
+6.12.2025,Bet365,volejbal,Katar muži,al rayyan,1.025,300
+6.12.2025,Bet365,volejbal,Chorvátsko ženy pohár,haok,1.05,300
+6.12.2025,Bet365,volejbal,Švajčiarsko ženy,pfefingen,1.03,300
+6.12.2025,Bet365,volejbal,rwanda ženy,police,1.01,300
+6.12.2025,Bet365,volejbal,Portugalsko 2 ženy,praiense,1.01,300
+6.12.2025,Bet365,volejbal,Portugalsko A2 ženy,praiense,1.01,300
+6.12.2025,Bet365,volejbal,Chorvátsko ženy pohár,kastela,1.05,300
+6.12.2025,Bet365,volejbal,Rumunsko A2 ženy,galati,1.04,300
+6.12.2025,Bet365,volejbal,Izrael ženy,ashdod,1.062,300
+6.12.2025,Nike,hádzaná,SVK muži,Prešov,1.01,1600
+6.12.2025,Nike,hokej,Poľsko muži,Katovice,1.03,260
+7.12.2025,Bet365,volejbal,Dánsko muži,nordeskov,1.04,330
+7.12.2025,Bet365,volejbal,Dánsko 1 muži,fredriksberg,1.03,330
+7.12.2025,Bet365,volejbal,Dánsko ženy,asv aarhus,1.01,330
+7.12.2025,Bet365,volejbal,Chorvátsko pohár muži,haok,1.025,330
+7.12.2025,Bet365,volejbal,SVK ženy,Žilina,1.025,1200
+7.12.2025,Bet365,volejbal,faerske ženy,mjolnir,1.005,1200
+7.12.2025,Bet365,volejbal,Portugalsko ženy,braga,1.005,1200
+7.12.2025,Bet365,volejbal,čierna hora muži,jedinstvo,1.025,620
+7.12.2025,Bet365,volejbal,international U19 ženy,Columbia,1.04,620
+7.12.2025,Bet365,volejbal,Malta ženy,swieqi,1.04,620
+8.12.2025,Bet365,volejbal,Maďarsko ženy,Nyíregyháza,1.02,620
+8.12.2025,Bet365,volejbal,Portugalsko pohár muži,esmoriz,1.025,620

@@ -45,17 +45,17 @@ export default async function BettingTipsPage() {
 
   const { data: tips } = activeAccount
     ? await supabase
-        .from('betting_tips')
+        .from('betting_tip')
         .select(
           `
             id,
+            sport,
+            league,
             match,
             odds,
             match_date,
             status,
-            betting_companies ( name ),
-            sports ( name ),
-            leagues ( name )
+            betting_companies:betting_company_id ( name )
           `
         )
         .eq('status', 'pending')
@@ -63,18 +63,29 @@ export default async function BettingTipsPage() {
         .order('match_date', { ascending: true })
     : { data: [] }
 
-  const normalizedTips: TipRecord[] = ((tips ?? []) as any[]).map((tip) => ({
-    id: tip.id,
-    match: tip.match,
-    odds: tip.odds,
-    match_date: tip.match_date,
-    status: tip.status,
-    betting_companies: tip.betting_companies
-      ? { name: tip.betting_companies.name ?? null }
-      : null,
-    sports: tip.sports ? { name: tip.sports.name ?? null } : null,
-    leagues: tip.leagues ? { name: tip.leagues.name ?? null } : null,
-  }))
+  const normalizedTips: TipRecord[] = ((tips ?? []) as any[]).map((tip) => {
+    // Build match description from sport, league, match
+    const companyName = (tip.betting_companies as any)?.name || ''
+    const sport = tip.sport || ''
+    const league = tip.league || ''
+    const match = tip.match || ''
+    
+    const parts = [companyName, sport, league, match].filter(Boolean)
+    const matchDescription = parts.length > 0 ? parts.join(' ') : 'Unknown'
+    
+    return {
+      id: tip.id,
+      match: matchDescription,
+      odds: tip.odds,
+      match_date: tip.match_date,
+      status: tip.status,
+      betting_companies: tip.betting_companies
+        ? { name: tip.betting_companies.name ?? null }
+        : null,
+      sports: tip.sport ? { name: tip.sport } : null,
+      leagues: tip.league ? { name: tip.league } : null,
+    }
+  })
 
   const subtitle = activeAccount
     ? 'Browse your live pending picks. This feed refreshes automatically as new bets are published.'

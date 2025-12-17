@@ -24,29 +24,15 @@ export async function DELETE() {
   }
 
   try {
-    // Delete all betting_tip_items first (due to foreign key constraint)
+    // Delete all betting_tip records
     // Using a condition that's always true to delete all records
-    const { error: itemsError } = await supabase
-      .from('betting_tip_items')
-      .delete()
-      .gte('created_at', '1970-01-01') // This condition is always true for valid timestamps
-
-    if (itemsError) {
-      console.error('[DeleteAllTips] Error deleting betting_tip_items:', itemsError)
-      return NextResponse.json(
-        { error: 'Failed to delete betting tip items' },
-        { status: 500 }
-      )
-    }
-
-    // Delete all betting_tips
     const { error: tipsError } = await supabase
-      .from('betting_tips')
+      .from('betting_tip')
       .delete()
       .gte('created_at', '1970-01-01') // This condition is always true for valid timestamps
 
     if (tipsError) {
-      console.error('[DeleteAllTips] Error deleting betting_tips:', tipsError)
+      console.error('[DeleteAllTips] Error deleting betting_tip:', tipsError)
       return NextResponse.json(
         { error: 'Failed to delete betting tips' },
         { status: 500 }

@@ -110,26 +110,29 @@ export default async function StatisticsPage({
     profile = profileData
   }
 
-  // Fetch all tips and items using admin client (public statistics)
+  // Fetch all tips using admin client (public statistics)
   // Admin client uses service role key which bypasses RLS
   const adminSupabase = createAdminClient()
 
-  // Fetch all betting_tips - NO FILTERING, admin client bypasses RLS
+  // Fetch all betting_tip records - NO FILTERING, admin client bypasses RLS
   // Include betting_company_id and join with betting_companies to get company name
   const { data: allTips, error: tipsError } = await adminSupabase
-    .from('betting_tips')
+    .from('betting_tip')
     .select(`
       id, 
-      description, 
+      sport,
+      league,
+      match, 
       odds, 
       status, 
+      match_date,
       created_at, 
       stake, 
       total_win,
       betting_company_id,
       betting_companies:betting_company_id (name)
     `)
-    .order('created_at', { ascending: false })
+    .order('match_date', { ascending: false })
 
   if (tipsError) {
     console.error('❌ Error fetching tips:', tipsError)
@@ -146,76 +149,26 @@ export default async function StatisticsPage({
   console.log('📊 Sample win tips:', (allTips || []).filter((t: any) => t.status === 'win').slice(0, 3))
   console.log('📊 Sample loss tips:', (allTips || []).filter((t: any) => t.status === 'loss').slice(0, 3))
 
-  // Fetch all betting_tip_items - NO FILTERING
-  // Include sport, league, and odds for full format display
-  const { data: allItems, error: itemsError } = await adminSupabase
-    .from('betting_tip_items')
-    .select('id, betting_tip_id, match, match_date, sport, league, odds')
-    .order('match_date', { ascending: false })
-
-  if (itemsError) {
-    console.error('❌ Error fetching tip items:', itemsError)
-  }
-
-  console.log('📊 Fetched items from database:', (allItems || []).length)
-
-  // Create map of tip_id -> items
-  const itemsByTipId = new Map<string, any[]>()
-  ;(allItems || []).forEach((item: any) => {
-    const tipId = item.betting_tip_id
-    if (!itemsByTipId.has(tipId)) {
-      itemsByTipId.set(tipId, [])
-    }
-    itemsByTipId.get(tipId)!.push(item)
-  })
-
   // Build tips array - include ALL tips regardless of status
+  // Each tip is now a single record with all fields
   const tips: TipRecord[] = (allTips || []).map((tip: any) => {
-    const tipItems = itemsByTipId.get(tip.id) || []
+    // Build match description - construct full format: [company] [sport] [league] [match] [odds]
+    const companyName = (tip.betting_companies as any)?.name || ''
+    const sport = tip.sport || ''
+    const league = tip.league || ''
+    const match = tip.match || ''
+    // Format odds with comma as decimal separator (European format)
+    const odds = tip.odds ? tip.odds.toFixed(2).replace('.', ',') : ''
     
-    // Get earliest match_date from items, or fallback to created_at
-    let matchDate: string
-    if (tipItems.length > 0) {
-      const dates = tipItems.map((item: any) => item.match_date).filter(Boolean)
-      if (dates.length > 0) {
-        matchDate = dates.sort((a: string, b: string) => 
-          new Date(a).getTime() - new Date(b).getTime()
-        )[0]
-      } else {
-        matchDate = tip.created_at
-      }
-    } else {
-      matchDate = tip.created_at
-    }
-    
-    // Build match description
-    let matchDescription = tip.description
-    if (tipItems.length === 1) {
-      // Single tip item - construct full format: [company] [sport] [league] [match] [odds]
-      const item = tipItems[0]
-      const companyName = (tip.betting_companies as any)?.name || ''
-      const sport = item.sport || ''
-      const league = item.league || ''
-      const match = item.match || ''
-      // Format odds with comma as decimal separator (European format)
-      const odds = item.odds ? item.odds.toFixed(2).replace('.', ',') : ''
-      
-      // Build full format string, filtering out empty parts
-      const parts = [companyName, sport, league, match, odds].filter(Boolean)
-      matchDescription = parts.join(' ')
-    } else if (tipItems.length > 1) {
-      // Multiple items - use description or generic message
-      matchDescription = tip.description || `Combined bet with ${tipItems.length} tips`
-    } else if (!matchDescription) {
-      // No items and no description
-      matchDescription = 'Unknown'
-    }
+    // Build full format string, filtering out empty parts
+    const parts = [companyName, sport, league, match, odds].filter(Boolean)
+    const matchDescription = parts.join(' ')
     
     return {
       id: tip.id,
       match: matchDescription,
       odds: tip.odds,
-      match_date: matchDate,
+      match_date: tip.match_date || tip.created_at,
       status: tip.status, // CRITICAL: Preserve original status from database
       stake: tip.stake ?? null,
       total_win: tip.total_win ?? null,

@@ -30,7 +30,7 @@ const DateTimePickerInternal = ({
     slotProps={{
       textField: {
         fullWidth: true,
-        size: 'medium',
+        size: 'small',
         error,
         helperText,
         ...slotProps?.textField,
@@ -62,7 +62,7 @@ const DateTimePickerField = ({
     return (
       <TextField
         fullWidth
-        size="medium"
+        size="small"
         label={label}
         value={value ? (value as any).format?.(format) || '' : ''}
         disabled
