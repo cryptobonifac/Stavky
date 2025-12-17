@@ -16,8 +16,6 @@ export const metadata = {
   title: 'Statistics | Stavky',
 }
 
-const STATISTICS_MONTHS_LIMIT = 12
-
 type TipMonthSummary = {
   month_start: string
   wins: number
@@ -27,36 +25,19 @@ type TipMonthSummary = {
   success_rate: number
 }
 
-const isAccountActive = (accountActiveUntil: string | null) => {
-  if (!accountActiveUntil) {
-    return false
-  }
-  return new Date(accountActiveUntil) >= new Date()
-}
-
 const toMonthKey = (date: Date) =>
-  `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(
-    2,
-    '0'
-  )}`
+  `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}`
 
 const aggregateMonths = (
   tips: TipRecord[],
-  summaries: TipMonthSummary[],
   locale: string
 ): HistoryMonth[] => {
-  const summaryMap = new Map(
-    summaries.map((summary) => [
-      toMonthKey(new Date(summary.month_start)),
-      summary,
-    ])
-  )
-
   const groupMap = new Map<
     string,
     { label: string; tips: TipRecord[]; wins: number; losses: number; pending: number }
   >()
 
+  // Group tips by month
   tips.forEach((tip) => {
     const date = new Date(tip.match_date)
     const key = toMonthKey(date)
@@ -64,6 +45,7 @@ const aggregateMonths = (
       month: 'long',
       year: 'numeric',
     })
+    
     if (!groupMap.has(key)) {
       groupMap.set(key, {
         label,
@@ -73,55 +55,36 @@ const aggregateMonths = (
         pending: 0,
       })
     }
+    
     const entry = groupMap.get(key)!
     entry.tips.push(tip)
+    
     if (tip.status === 'win') entry.wins += 1
     else if (tip.status === 'loss') entry.losses += 1
     else entry.pending += 1
   })
 
-  const allKeys = Array.from(
-    new Set([
-      ...Array.from(groupMap.keys()),
-      ...Array.from(summaryMap.keys()),
-    ])
-  )
-
-  return allKeys
-    .sort((a, b) => (a > b ? -1 : 1))
-    .map((key) => {
-      const tipGroup = groupMap.get(key)
-      const summary = summaryMap.get(key)
-      const wins = summary?.wins ?? tipGroup?.wins ?? 0
-      const losses = summary?.losses ?? tipGroup?.losses ?? 0
-      const pending = summary?.pending ?? tipGroup?.pending ?? 0
-      const total = summary?.total ?? tipGroup?.tips.length ?? 0
-      const decided = wins + losses
-      const successRate =
-        summary?.success_rate ??
-        (decided === 0 ? 0 : (wins / decided) * 100)
-
-      const label =
-        tipGroup?.label ??
-        new Date(`${key}-01T00:00:00Z`).toLocaleString(locale, {
-          month: 'long',
-          year: 'numeric',
-        })
+  // Convert to array and calculate success rates
+  return Array.from(groupMap.entries())
+    .map(([key, group]) => {
+      const decided = group.wins + group.losses
+      const successRate = decided === 0 ? 0 : (group.wins / decided) * 100
 
       return {
         key,
-        label,
-        wins,
-        losses,
-        pending,
-        total,
+        label: group.label,
+        wins: group.wins,
+        losses: group.losses,
+        pending: group.pending,
+        total: group.tips.length,
         successRate,
-        tips: (tipGroup?.tips ?? []).sort((a, b) =>
+        tips: group.tips.sort((a, b) =>
           a.match_date > b.match_date ? -1 : 1
         ),
       }
     })
-    .filter((entry) => entry.total > 0 || entry.tips.length > 0)
+    .sort((a, b) => (a.key > b.key ? -1 : 1)) // Sort by month key (newest first)
+    .filter((entry) => entry.total > 0) // Only show months with tips
 }
 
 export default async function StatisticsPage({
@@ -135,110 +98,127 @@ export default async function StatisticsPage({
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Allow statistics access for all users (logged in or not)
+  // Get user profile for role check
   let profile = null
-  let activeAccount = false
-  let isBettingAdmin = false
-
   if (user) {
     const { data: profileData } = await supabase
       .from('users')
-      .select('account_active_until,role')
+      .select('role')
       .eq('id', user.id)
       .single()
     
     profile = profileData
-    activeAccount = profile
-      ? isAccountActive(profile.account_active_until)
-      : false
-    isBettingAdmin = profile?.role === 'betting'
   }
 
-  let tips: TipRecord[] = []
-  let monthlySummaries: TipMonthSummary[] = []
-
-  // Fetch statistics for all users (public access)
+  // Fetch all tips and items using admin client (public statistics)
+  // Admin client uses service role key which bypasses RLS
   const adminSupabase = createAdminClient()
-  const cutoff = new Date()
-  cutoff.setUTCDate(1)
-  cutoff.setUTCHours(0, 0, 0, 0)
-  cutoff.setUTCMonth(cutoff.getUTCMonth() - (STATISTICS_MONTHS_LIMIT - 1))
-  const cutoffIso = cutoff.toISOString()
 
-  const [tipsRes, summaryRes] = await Promise.all([
-    adminSupabase
-      .from('betting_tips')
-      .select(
-        `
-        id,
-        description,
-        odds,
-        status,
-        created_at,
-        stake,
-        total_win,
-        betting_tip_items (
-          id,
-          match,
-          odds,
-          match_date,
-          status
-        )
-      `
-      )
-      .gte('created_at', cutoffIso)
-      .order('created_at', { ascending: false }),
-    adminSupabase.rpc('tip_monthly_summary', {
-      months_back: STATISTICS_MONTHS_LIMIT,
-    }),
-  ])
+  // Fetch all betting_tips - NO FILTERING, admin client bypasses RLS
+  const { data: allTips, error: tipsError } = await adminSupabase
+    .from('betting_tips')
+    .select('id, description, odds, status, created_at, stake, total_win')
+    .order('created_at', { ascending: false })
 
-  // Normalize tips data - all tips now use betting_tip_items structure
-  tips = ((tipsRes.data ?? []) as any[]).map((tip) => {
-      // New structure: has items
-      if (tip.betting_tip_items && tip.betting_tip_items.length > 0) {
-        // Use the earliest match_date from items for grouping
-        const earliestDate = tip.betting_tip_items.reduce((earliest: string, item: any) => {
-          return !earliest || new Date(item.match_date) < new Date(earliest)
-            ? item.match_date
-            : earliest
-        }, null)
-        
-        return {
-          id: tip.id,
-          match: tip.description || `Combined bet with ${tip.betting_tip_items.length} tips`,
-          odds: tip.odds,
-          match_date: earliestDate || tip.created_at || new Date().toISOString(),
-          status: tip.status,
-          stake: tip.stake ?? null,
-          total_win: tip.total_win ?? null,
-        }
+  if (tipsError) {
+    console.error('❌ Error fetching tips:', tipsError)
+  }
+
+  // Debug: Log what we're actually fetching
+  const tipsByStatus = {
+    win: (allTips || []).filter((t: any) => t.status === 'win').length,
+    loss: (allTips || []).filter((t: any) => t.status === 'loss').length,
+    pending: (allTips || []).filter((t: any) => t.status === 'pending').length,
+    total: (allTips || []).length,
+  }
+  console.log('📊 Fetched tips from database:', tipsByStatus)
+  console.log('📊 Sample win tips:', (allTips || []).filter((t: any) => t.status === 'win').slice(0, 3))
+  console.log('📊 Sample loss tips:', (allTips || []).filter((t: any) => t.status === 'loss').slice(0, 3))
+
+  // Fetch all betting_tip_items - NO FILTERING
+  const { data: allItems, error: itemsError } = await adminSupabase
+    .from('betting_tip_items')
+    .select('id, betting_tip_id, match, match_date')
+    .order('match_date', { ascending: false })
+
+  if (itemsError) {
+    console.error('❌ Error fetching tip items:', itemsError)
+  }
+
+  console.log('📊 Fetched items from database:', (allItems || []).length)
+
+  // Create map of tip_id -> items
+  const itemsByTipId = new Map<string, any[]>()
+  ;(allItems || []).forEach((item: any) => {
+    const tipId = item.betting_tip_id
+    if (!itemsByTipId.has(tipId)) {
+      itemsByTipId.set(tipId, [])
+    }
+    itemsByTipId.get(tipId)!.push(item)
+  })
+
+  // Build tips array - include ALL tips regardless of status
+  const tips: TipRecord[] = (allTips || []).map((tip: any) => {
+    const tipItems = itemsByTipId.get(tip.id) || []
+    
+    // Get earliest match_date from items, or fallback to created_at
+    let matchDate: string
+    if (tipItems.length > 0) {
+      const dates = tipItems.map((item: any) => item.match_date).filter(Boolean)
+      if (dates.length > 0) {
+        matchDate = dates.sort((a: string, b: string) => 
+          new Date(a).getTime() - new Date(b).getTime()
+        )[0]
+      } else {
+        matchDate = tip.created_at
       }
-      
-      // Fallback: use created_at if no items
-      return {
-        id: tip.id,
-        match: tip.description || 'Unknown',
-        odds: tip.odds,
-        match_date: tip.created_at || new Date().toISOString(),
-        status: tip.status,
-        stake: tip.stake ?? null,
-        total_win: tip.total_win ?? null,
+    } else {
+      matchDate = tip.created_at
+    }
+    
+    // Build match description
+    let matchDescription = tip.description
+    if (!matchDescription && tipItems.length > 0) {
+      if (tipItems.length === 1) {
+        matchDescription = tipItems[0].match
+      } else {
+        matchDescription = `Combined bet with ${tipItems.length} tips`
       }
-    }) as TipRecord[]
-  monthlySummaries = ((summaryRes.data ?? []) as TipMonthSummary[]).map(
-    (entry) => ({
-      ...entry,
-      success_rate:
-        typeof entry.success_rate === 'string'
-          ? Number(entry.success_rate)
-          : entry.success_rate ?? 0,
-    })
-  )
+    }
+    if (!matchDescription) {
+      matchDescription = 'Unknown'
+    }
+    
+    return {
+      id: tip.id,
+      match: matchDescription,
+      odds: tip.odds,
+      match_date: matchDate,
+      status: tip.status, // CRITICAL: Preserve original status from database
+      stake: tip.stake ?? null,
+      total_win: tip.total_win ?? null,
+    }
+  })
 
-  const months = aggregateMonths(tips, monthlySummaries, locale)
+  // Debug: Log processed tips
+  const processedByStatus = {
+    win: tips.filter((t) => t.status === 'win').length,
+    loss: tips.filter((t) => t.status === 'loss').length,
+    pending: tips.filter((t) => t.status === 'pending').length,
+    total: tips.length,
+  }
+  console.log('📊 Processed tips array:', processedByStatus)
+  console.log('📊 Sample processed win tips:', tips.filter((t) => t.status === 'win').slice(0, 3))
+
+  // Group by month
+  const months = aggregateMonths(tips, locale)
   
-  // Use getTranslations for proper translation handling
+  // Debug: Log final months
+  console.log('📊 Final months:', months.length)
+  months.forEach((month) => {
+    console.log(`📊 Month ${month.label}: ${month.wins} wins, ${month.losses} losses, ${month.pending} pending`)
+  })
+  
   const t = await getTranslations('statistics')
 
   return (
@@ -258,6 +238,3 @@ export default async function StatisticsPage({
     </MainLayout>
   )
 }
-
-
-

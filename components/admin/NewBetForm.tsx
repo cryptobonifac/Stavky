@@ -82,6 +82,8 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
   const [tips, setTips] = useState<TipForm[]>(() => [createDefaultTip()])
   const [stake, setStake] = useState<string>('')
   const [error, setError] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<Map<string, Record<string, string>>>(new Map())
+  const [openSportAutocomplete, setOpenSportAutocomplete] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
 
   // Open modal automatically on mount
@@ -90,26 +92,46 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  // Track when a new tip is added to open sport autocomplete
+  const [newTipIdToOpen, setNewTipIdToOpen] = useState<string | null>(null)
+  
+  useEffect(() => {
+    if (newTipIdToOpen) {
+      const tipIndex = tips.findIndex(t => t.id === newTipIdToOpen)
+      if (tipIndex >= 0) {
+        setActiveTipIndex(tipIndex)
+        setOpenSportAutocomplete(newTipIdToOpen)
+        setNewTipIdToOpen(null) // Reset after opening
+      }
+    }
+  }, [newTipIdToOpen, tips])
+
   const handleAddTip = () => {
     const firstTipCompanyId = tips[0]?.betting_company_id || ''
     const newTip = createDefaultTip()
+    // Only copy betting company, NOT sport
     if (firstTipCompanyId) {
       newTip.betting_company_id = firstTipCompanyId
     }
+    // Explicitly ensure sport fields are empty (not copied from previous tips)
+    newTip.sport = ''
+    newTip.sport_id = ''
     setTips((prev) => [...prev, newTip])
-    // Switch to the newly added tip
-    setActiveTipIndex(tips.length)
+    // Mark this tip to have its sport autocomplete opened
+    setNewTipIdToOpen(newTip.id)
   }
 
   const handleNextTip = () => {
     if (activeTipIndex < tips.length - 1) {
       setActiveTipIndex(activeTipIndex + 1)
+      setOpenSportAutocomplete(null) // Close autocomplete when switching tips
     }
   }
 
   const handlePreviousTip = () => {
     if (activeTipIndex > 0) {
       setActiveTipIndex(activeTipIndex - 1)
+      setOpenSportAutocomplete(null) // Close autocomplete when switching tips
     }
   }
 
@@ -181,31 +203,105 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     return finalOdds * stakeValue
   }, [finalOdds, stake])
 
-  const validateTips = (): boolean => {
-    for (const tip of tips) {
-      const oddsValue = parseFloat(tip.odds)
-      if (
-        isNaN(oddsValue) ||
-        oddsValue < 1.001 ||
-        oddsValue > 2.0 ||
-        !tip.betting_company_id ||
-        !tip.sport.trim() ||
-        !tip.league.trim() ||
-        !tip.match.trim()
-      ) {
-        return false
+  type ValidationErrors = {
+    betting_company_id?: string
+    sport?: string
+    league?: string
+    match?: string
+    odds?: string
+    match_date?: string
+  }
+
+  const validateTips = (): { isValid: boolean; errors: Map<string, ValidationErrors> } => {
+    const errors = new Map<string, ValidationErrors>()
+    let isValid = true
+
+    tips.forEach((tip, index) => {
+      const tipErrors: ValidationErrors = {}
+
+      // Validate betting company
+      if (!tip.betting_company_id) {
+        tipErrors.betting_company_id = t('validationErrors.bettingCompanyRequired')
+        isValid = false
       }
-    }
-    return true
+
+      // Validate sport - must be selected from list (sport_id required)
+      if (!tip.sport_id || !tip.sport_id.trim()) {
+        tipErrors.sport = t('validationErrors.sportRequired')
+        isValid = false
+      }
+
+      // Validate league
+      if (!tip.league.trim()) {
+        tipErrors.league = t('validationErrors.leagueRequired')
+        isValid = false
+      }
+
+      // Validate match
+      if (!tip.match.trim()) {
+        tipErrors.match = t('validationErrors.matchRequired')
+        isValid = false
+      }
+
+      // Validate odds
+      const oddsValue = parseFloat(tip.odds)
+      if (isNaN(oddsValue)) {
+        tipErrors.odds = t('validationErrors.oddsRequired')
+        isValid = false
+      } else if (oddsValue < 1.001 || oddsValue > 2.0) {
+        tipErrors.odds = t('validationErrors.oddsInvalid')
+        isValid = false
+      }
+
+      // Validate match date
+      if (!tip.match_date || !tip.match_date.isValid()) {
+        tipErrors.match_date = t('validationErrors.matchDateRequired')
+        isValid = false
+      }
+
+      if (Object.keys(tipErrors).length > 0) {
+        errors.set(tip.id, tipErrors)
+      }
+    })
+
+    return { isValid, errors }
   }
 
   const handleNext = () => {
     setError(null)
+    setFieldErrors(new Map())
     
     if (activeStep === 0) {
       // Validate tips
-      if (!validateTips()) {
-        setError(t('validationError'))
+      const validation = validateTips()
+      if (!validation.isValid) {
+        setFieldErrors(validation.errors)
+        // Create a summary error message
+        const errorMessages: string[] = []
+        validation.errors.forEach((errors, tipId) => {
+          const tipIndex = tips.findIndex(t => t.id === tipId)
+          if (tipIndex >= 0) {
+            const fieldNames = Object.keys(errors).map(field => {
+              switch (field) {
+                case 'betting_company_id': return t('bettingCompany')
+                case 'sport': return t('sport')
+                case 'league': return t('league')
+                case 'match': return t('match')
+                case 'odds': return t('odds')
+                case 'match_date': return t('matchKickoff')
+                default: return field
+              }
+            }).join(', ')
+            errorMessages.push(`${t('tip')} ${tipIndex + 1}: ${fieldNames}`)
+          }
+        })
+        setError(errorMessages.join(' '))
+        // Navigate to the first tip with errors
+        const firstErrorTipId = Array.from(validation.errors.keys())[0]
+        const firstErrorTipIndex = tips.findIndex(t => t.id === firstErrorTipId)
+        if (firstErrorTipIndex >= 0) {
+          setActiveTipIndex(firstErrorTipIndex)
+        }
         return
       }
       if (finalOdds > 2.0) {
@@ -226,6 +322,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
 
   const handleBack = () => {
     setError(null)
+    setFieldErrors(new Map())
     setActiveStep((prev) => prev - 1)
   }
 
@@ -234,6 +331,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     if (step <= activeStep) {
       setActiveStep(step)
       setError(null)
+      setFieldErrors(new Map())
     }
   }
 
@@ -279,6 +377,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
       setActiveStep(0)
       setActiveTipIndex(0)
       setError(null)
+      setFieldErrors(new Map())
     })
   }
 
@@ -289,6 +388,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     setActiveStep(0)
     setActiveTipIndex(0)
     setError(null)
+    setFieldErrors(new Map())
     // Reset form data
     setTips([createDefaultTip()])
     setStake('')
@@ -302,6 +402,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     const currentOddsValue = parseFloat(tipToShow.odds) || 1.01
     const isAtMin = currentOddsValue <= 1.001
     const isAtMax = currentOddsValue >= 2.0
+    const tipErrors = fieldErrors.get(tipToShow.id) || {}
 
     return (
       <Stack spacing={3}>
@@ -319,9 +420,19 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
             >
               {tCommon('back')}
             </Button>
-            <Typography variant="body2" color="text.secondary">
-              {t('tip')} {activeTipIndex + 1} {t('of') || 'of'} {tips.length}
-            </Typography>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <Typography variant="body2" color="text.secondary">
+                {t('tip')} {activeTipIndex + 1} {t('of') || 'of'} {tips.length}
+              </Typography>
+              {fieldErrors.has(tipToShow.id) && (
+                <Chip 
+                  label="!" 
+                  color="error" 
+                  size="small" 
+                  sx={{ minWidth: 24, height: 24, fontSize: '0.75rem' }}
+                />
+              )}
+            </Stack>
             <Button
               variant="outlined"
               onClick={handleNextTip}
@@ -331,6 +442,37 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
               {tCommon('next')}
             </Button>
           </Stack>
+        )}
+        
+        {/* Show summary of tips with errors */}
+        {fieldErrors.size > 0 && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            <Typography variant="body2" fontWeight="bold" gutterBottom>
+              {t('validationError')}
+            </Typography>
+            <Stack spacing={0.5}>
+              {Array.from(fieldErrors.entries()).map(([tipId, errors]) => {
+                const tipIndex = tips.findIndex(t => t.id === tipId)
+                if (tipIndex < 0) return null
+                const fieldNames = Object.keys(errors).map(field => {
+                  switch (field) {
+                    case 'betting_company_id': return t('bettingCompany')
+                    case 'sport': return t('sport')
+                    case 'league': return t('league')
+                    case 'match': return t('match')
+                    case 'odds': return t('odds')
+                    case 'match_date': return t('matchKickoff')
+                    default: return field
+                  }
+                }).join(', ')
+                return (
+                  <Typography key={tipId} variant="body2" component="div">
+                    • {t('tip')} {tipIndex + 1}: <strong>{fieldNames}</strong>
+                  </Typography>
+                )
+              })}
+            </Stack>
+          </Alert>
         )}
         
         <Card variant="outlined">
@@ -364,6 +506,8 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                       fullWidth
                       required
                       value={tipToShow.betting_company_id}
+                      error={!!tipErrors.betting_company_id}
+                      helperText={tipErrors.betting_company_id}
                       onChange={(event) => {
                         const newCompanyId = event.target.value
                         handleTipChange(tipToShow.id, 'betting_company_id', newCompanyId)
@@ -374,6 +518,18 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                               : t
                           )
                         )
+                        // Clear error when field is filled
+                        if (newCompanyId && tipErrors.betting_company_id) {
+                          const newErrors = new Map(fieldErrors)
+                          const tipError = { ...tipErrors }
+                          delete tipError.betting_company_id
+                          if (Object.keys(tipError).length === 0) {
+                            newErrors.delete(tipToShow.id)
+                          } else {
+                            newErrors.set(tipToShow.id, tipError)
+                          }
+                          setFieldErrors(newErrors)
+                        }
                       }}
                     >
                       {bettingCompanies.map((company) => (
@@ -399,53 +555,49 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                 </Box>
                 <Box sx={{ width: { xs: '100%', md: '70%' }, flexGrow: 1 }}>
                   <Autocomplete
-                    freeSolo
+                    open={openSportAutocomplete === tipToShow.id}
+                    onOpen={() => setOpenSportAutocomplete(tipToShow.id)}
+                    onClose={() => setOpenSportAutocomplete(null)}
                     options={sports}
-                    getOptionLabel={(option) => {
-                      if (typeof option === 'string') {
-                        return option
-                      }
-                      return option.name
-                    }}
-                    isOptionEqualToValue={(option, value) => {
-                      if (typeof option === 'string' || typeof value === 'string') {
-                        return option === value
-                      }
-                      return option.id === value.id
-                    }}
+                    getOptionLabel={(option) => option.name}
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
                     value={
-                      tipToShow.sport_id
+                      tipToShow.sport_id && tipToShow.sport_id.trim()
                         ? sports.find((s) => s.id === tipToShow.sport_id) || null
-                        : tipToShow.sport
-                          ? tipToShow.sport
-                          : null
+                        : null
                     }
                     onChange={(event, newValue) => {
-                      if (typeof newValue === 'string') {
-                        // User typed a new sport name (not in the list)
-                        handleTipChange(tipToShow.id, 'sport', newValue)
-                        handleTipChange(tipToShow.id, 'sport_id', '')
-                      } else if (newValue && 'id' in newValue && newValue.id) {
-                        // User selected from dropdown
+                      if (newValue && 'id' in newValue && newValue.id) {
+                        // User selected from dropdown - only allow selection from list
                         handleTipChange(tipToShow.id, 'sport_id', newValue.id)
                         handleTipChange(tipToShow.id, 'sport', newValue.name)
+                        // Close dropdown after selection
+                        setOpenSportAutocomplete(null)
+                        // Clear error when field is filled
+                        if (tipErrors.sport) {
+                          const newErrors = new Map(fieldErrors)
+                          const tipError = { ...tipErrors }
+                          delete tipError.sport
+                          if (Object.keys(tipError).length === 0) {
+                            newErrors.delete(tipToShow.id)
+                          } else {
+                            newErrors.set(tipToShow.id, tipError)
+                          }
+                          setFieldErrors(newErrors)
+                        }
                       } else {
-                        // Cleared or null
+                        // Cleared or null - reset both fields
                         handleTipChange(tipToShow.id, 'sport', '')
                         handleTipChange(tipToShow.id, 'sport_id', '')
                       }
                     }}
                     onInputChange={(event, newInputValue, reason) => {
-                      // Only update on user input, not when selecting from dropdown
-                      if (reason === 'input') {
-                        handleTipChange(tipToShow.id, 'sport', newInputValue)
-                        // Check if the typed value matches an existing sport
-                        const matchingSport = sports.find((s) => s.name.toLowerCase() === newInputValue.toLowerCase())
-                        if (matchingSport) {
-                          handleTipChange(tipToShow.id, 'sport_id', matchingSport.id)
-                        } else {
-                          handleTipChange(tipToShow.id, 'sport_id', '')
-                        }
+                      // Only allow filtering/searching, not custom values
+                      // Don't update sport/sport_id on input - only on selection
+                      if (reason === 'reset' && !tipToShow.sport_id) {
+                        // When dropdown is closed/reset and field is empty, ensure it stays empty
+                        handleTipChange(tipToShow.id, 'sport', '')
+                        handleTipChange(tipToShow.id, 'sport_id', '')
                       }
                     }}
                     ListboxProps={{
@@ -467,6 +619,8 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                         label={t('sport')}
                         required
                         fullWidth
+                        error={!!tipErrors.sport}
+                        helperText={tipErrors.sport}
                         inputProps={{
                           ...params.inputProps,
                           autoComplete: 'new-password', // disable browser autocomplete
@@ -475,7 +629,6 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                     )}
                     renderOption={(props, option) => {
                       const { key, ...otherProps } = props
-                      const sportName = typeof option === 'string' ? option : option.name
                       return (
                         <li
                           key={key}
@@ -487,7 +640,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                             paddingBottom: '8px',
                           }}
                         >
-                          {sportName}
+                          {option.name}
                         </li>
                       )
                     }}
@@ -498,9 +651,23 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                   fullWidth
                   required
                   value={tipToShow.league}
-                  onChange={(event) =>
+                  error={!!tipErrors.league}
+                  helperText={tipErrors.league}
+                  onChange={(event) => {
                     handleTipChange(tipToShow.id, 'league', event.target.value)
-                  }
+                    // Clear error when field is filled
+                    if (event.target.value.trim() && tipErrors.league) {
+                      const newErrors = new Map(fieldErrors)
+                      const tipError = { ...tipErrors }
+                      delete tipError.league
+                      if (Object.keys(tipError).length === 0) {
+                        newErrors.delete(tipToShow.id)
+                      } else {
+                        newErrors.set(tipToShow.id, tipError)
+                      }
+                      setFieldErrors(newErrors)
+                    }
+                  }}
                 />
               </Stack>
               
@@ -508,7 +675,23 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                 label={t('match')}
                 placeholder={t('matchPlaceholder')}
                 value={tipToShow.match}
-                onChange={(event) => handleTipChange(tipToShow.id, 'match', event.target.value)}
+                error={!!tipErrors.match}
+                helperText={tipErrors.match}
+                onChange={(event) => {
+                  handleTipChange(tipToShow.id, 'match', event.target.value)
+                  // Clear error when field is filled
+                  if (event.target.value.trim() && tipErrors.match) {
+                    const newErrors = new Map(fieldErrors)
+                    const tipError = { ...tipErrors }
+                    delete tipError.match
+                    if (Object.keys(tipError).length === 0) {
+                      newErrors.delete(tipToShow.id)
+                    } else {
+                      newErrors.set(tipToShow.id, tipError)
+                    }
+                    setFieldErrors(newErrors)
+                  }
+                }}
                 required
                 fullWidth
               />
@@ -518,7 +701,22 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                   label={t('odds')}
                   type="number"
                   value={tipToShow.odds}
-                  onChange={(event) => handleOddsChange(tipToShow.id, event.target.value)}
+                  onChange={(event) => {
+                    handleOddsChange(tipToShow.id, event.target.value)
+                    // Clear error when field is valid
+                    const newValue = parseFloat(event.target.value)
+                    if (!isNaN(newValue) && newValue >= 1.001 && newValue <= 2.0 && tipErrors.odds) {
+                      const newErrors = new Map(fieldErrors)
+                      const tipError = { ...tipErrors }
+                      delete tipError.odds
+                      if (Object.keys(tipError).length === 0) {
+                        newErrors.delete(tipToShow.id)
+                      } else {
+                        newErrors.set(tipToShow.id, tipError)
+                      }
+                      setFieldErrors(newErrors)
+                    }
+                  }}
                   onBlur={(event) => {
                     const value = parseFloat(event.target.value)
                     if (isNaN(value) || value < 1.001) {
@@ -536,11 +734,11 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                     min: 1.001,
                     max: 2.0,
                   }}
-                  error={currentOddsValue < 1.001 || currentOddsValue > 2.0}
+                  error={currentOddsValue < 1.001 || currentOddsValue > 2.0 || !!tipErrors.odds}
                   helperText={
-                    currentOddsValue < 1.001 || currentOddsValue > 2.0
+                    tipErrors.odds || (currentOddsValue < 1.001 || currentOddsValue > 2.0
                       ? t('oddsValidationError')
-                      : t('oddsHelper')
+                      : t('oddsHelper'))
                   }
                   InputProps={{
                     endAdornment: (
@@ -568,10 +766,24 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                 <DateTimePickerField
                   label={t('matchKickoff')}
                   value={tipToShow.match_date}
-                  onChange={(value: Dayjs | null) =>
+                  onChange={(value: Dayjs | null) => {
                     handleTipChange(tipToShow.id, 'match_date', value ?? dayjs())
-                  }
+                    // Clear error when field is filled
+                    if (value && value.isValid() && tipErrors.match_date) {
+                      const newErrors = new Map(fieldErrors)
+                      const tipError = { ...tipErrors }
+                      delete tipError.match_date
+                      if (Object.keys(tipError).length === 0) {
+                        newErrors.delete(tipToShow.id)
+                      } else {
+                        newErrors.set(tipToShow.id, tipError)
+                      }
+                      setFieldErrors(newErrors)
+                    }
+                  }}
                   minDateTime={dayjs()}
+                  error={!!tipErrors.match_date}
+                  helperText={tipErrors.match_date}
                 />
               </Stack>
             </Stack>

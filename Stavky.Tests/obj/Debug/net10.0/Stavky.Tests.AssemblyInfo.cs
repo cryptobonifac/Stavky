@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Stavky.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+faf7f5d2a7b6b2d6e8712fe67d58676e5d55aab1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3bb13ae2bac0a35d03250301104b4b11ce244aa3")]
 [assembly: System.Reflection.AssemblyProductAttribute("Stavky.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Stavky.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

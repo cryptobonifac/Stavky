@@ -225,6 +225,15 @@ See `docs/DEV_VS_BUILD_DIFFERENCES.md` for detailed explanation of why these rul
 
 **Remember**: If code works in `npm run dev` but fails in `npm run build`, it's broken code. Fix it immediately, don't assume it will be caught later.
 
+**Remember**
+By running `npm run dev` ensure that Podman is also running as its a supabase dependency, use command  `podman machine list` if there is no running machine, run it with `podman machine start podman-machine-default`
+
+**For Future Reference**
+When using Podman with Supabase:
+Ensure Podman machine is running: `podman machine start podman-machine-default`
+Podman automatically exposes a Docker-compatible API, so Supabase CLI works without extra configuration
+Start Supabase: `npm run db:local` or `supabase start`
+Your Supabase instance is now running at http://127.0.0.1:54321
 
 
 

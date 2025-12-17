@@ -1,52 +1,49 @@
 /**
- * Helper functions to translate sports and leagues based on locale
- * Sports and leagues are stored in English in the database
- * Translations from English to Slovak/Czech are provided via message files
+ * Helper functions for sports and leagues
+ * Sports and leagues are no longer translated - they are displayed as stored in the database
  */
-
-import { useTranslations } from 'next-intl'
 
 /**
- * Hook to get translation functions for sports and leagues
+ * Hook to get functions for sports and leagues (kept for backward compatibility)
  * Use this in client components
+ * Note: Sport translations have been removed - functions now just return the name
  */
 export function useSportLeagueTranslations() {
-  const tSport = useTranslations('sports')
-  const tLeague = useTranslations('leagues')
-
   return {
     translateSport: (sportName: string | null | undefined): string => {
       if (!sportName) return ''
-      return tSport(sportName) || sportName
+      return sportName
     },
     translateLeague: (leagueName: string | null | undefined): string => {
       if (!leagueName) return ''
-      return tLeague(leagueName) || leagueName
+      return leagueName
     },
   }
 }
 
 /**
- * Server-side translation function for sports
+ * Server-side function for sports (kept for backward compatibility)
  * Use this in server components
+ * Note: Sport translations have been removed - function now just returns the name
  */
 export function translateSport(
   sportName: string | null | undefined,
-  messages: Record<string, any>
+  messages?: Record<string, any>
 ): string {
   if (!sportName) return ''
-  return messages?.sports?.[sportName] || sportName
+  return sportName
 }
 
 /**
- * Server-side translation function for leagues
+ * Server-side function for leagues (kept for backward compatibility)
  * Use this in server components
+ * Note: League translations have been removed - function now just returns the name
  */
 export function translateLeague(
   leagueName: string | null | undefined,
-  messages: Record<string, any>
+  messages?: Record<string, any>
 ): string {
   if (!leagueName) return ''
-  return messages?.leagues?.[leagueName] || leagueName
+  return leagueName
 }
 

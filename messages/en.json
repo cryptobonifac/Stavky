@@ -209,6 +209,16 @@
     "success": "Betting tip created successfully.",
     "error": "Failed to save betting tip.",
     "validationError": "Please fill in all required fields for each tip.",
+    "validationErrors": {
+      "bettingCompanyRequired": "Betting company is required",
+      "sportRequired": "Sport is required",
+      "leagueRequired": "League is required",
+      "matchRequired": "Match is required",
+      "oddsRequired": "Odds is required",
+      "oddsInvalid": "Odds must be between 1.001 and 2.000",
+      "matchDateRequired": "Match date is required"
+    },
+    "tipHasErrors": "Tip {number} has errors:",
     "finalOddsExceedsMax": "Final odds exceeds maximum value of 2.000",
     "stepTips": "Add Tips",
     "stepStake": "Set Stake",

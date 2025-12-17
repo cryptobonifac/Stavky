@@ -209,6 +209,16 @@
     "success": "Sázkový tip byl úspěšně vytvořen.",
     "error": "Nepodařilo se uložit sázkový tip.",
     "validationError": "Prosím vyplňte všechna povinná pole pro každý tip.",
+    "validationErrors": {
+      "bettingCompanyRequired": "Sázková kancelář je povinná",
+      "sportRequired": "Sport je povinný",
+      "leagueRequired": "Liga je povinná",
+      "matchRequired": "Zápas je povinný",
+      "oddsRequired": "Kurz je povinný",
+      "oddsInvalid": "Kurz musí být mezi 1,001 a 2,000",
+      "matchDateRequired": "Datum zápasu je povinný"
+    },
+    "tipHasErrors": "Tip {number} má chyby:",
     "finalOddsExceedsMax": "Finální kurz překračuje maximální hodnotu 2,000",
     "stepTips": "Přidat tipy",
     "stepStake": "Nastavit sázku",

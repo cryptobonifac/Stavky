@@ -18,7 +18,6 @@ import {
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useTranslations } from 'next-intl'
-import { useSportLeagueTranslations } from '@/lib/i18n/translate-sports-leagues'
 
 type Sport = {
   id: string
@@ -34,7 +33,6 @@ const SportsSection = ({
 }: SportsSectionProps) => {
   const t = useTranslations('settings.sports')
   const tCommon = useTranslations('common')
-  const { translateSport } = useSportLeagueTranslations()
   const [sports, setSports] = useState(initialSports)
   const [name, setName] = useState('')
   const [feedback, setFeedback] = useState<string | null>(null)
@@ -184,7 +182,7 @@ const SportsSection = ({
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            {sportToDelete && t('confirmDelete', { name: translateSport(sportToDelete.name) })}
+            {sportToDelete && t('confirmDelete', { name: sportToDelete.name })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -207,6 +205,7 @@ const SportsSection = ({
 }
 
 export default SportsSection
+
 
 
 

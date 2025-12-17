@@ -15,7 +15,17 @@
       "Bash(supabase db pull:*)",
       "Bash(set:*)",
       "Bash(dir /B /O:N *.sql)",
-      "Bash(gh run list:*)"
+      "Bash(gh run list:*)",
+      "Bash(gh secret:*)",
+      "Bash(where:*)",
+      "Bash(winget:*)",
+      "Bash(powershell.exe -Command \"gh auth status\")",
+      "Bash(dir /B /O:N C:UsersmrohoCodeProjectsStavkysupabasemigrations*.sql)",
+      "Bash(Get-ChildItem \"C:\\Users\\mroho\\Code\\Projects\\Stavky\\supabase\\migrations\" -Filter \"*.sql\")",
+      "Bash(Sort-Object Name)",
+      "Bash(Select-Object -ExpandProperty Name)",
+      "Bash(git show:*)",
+      "Bash(gh run view:*)"
     ]
   }
 }
