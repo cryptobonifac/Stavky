@@ -951,118 +951,62 @@
 1. 12. 2025, 12:37 - Marek Rohon: Na ten web potrebujem dať históriu tipov
 1. 12. 2025, 12:37 - Marek Rohon: Máš niečo v exceli že by si mi poslal na email?
 1. 12. 2025, 12:46 - Igor Stavky: Nie iba si píšem zápasy do poznámok môžem ti poslať a pohraj sa s tým a nahoď. Potom to pozriem
-1. 12. 2025, 12:48 - Igor Stavky: 12.11. ITF Sharm el Sheik Biryukov - Kaufman 1,04. Masters Sinner - Zverev 1,11  13.11. ITF Azul Ambrogi - Dreer 1,04 Futbal Moldavsko - Taliansko 2 1,1. 14.11. UTR Boca Sahnis - Jackson 2 1,083 Beachvolleyball Capogroso/Capogroso - Mondlane/Mungoi 1 1,05 Hokej Sanok - Jastrzbie 2 1,03. Futsal  Plzeň - Ústí 1 1,12.   15.11. Masters Sinner - DeMinaur 1,08 Hádzaná Metz - DVSC 1,05 Futsal Vyškov - Chrudim 2 1,1 Futbal Dánsko - Bielorusko 1,08 xxx 16.11. Masters Sinner - Alcaraz 1,6 17.11. ITF Trnava Havlickova - Kovacicova 1 1,03 UTR Malibu Miroshnicenko - Lee 1 1,14 vrat.  18.11. ITF Austin Choi - Grumet 2 1,083  19.11. Davis cup Taliansko - Rakúsko 1 1,083 Basketbal USK - KP Brno 1.polcas 1 1,05 Volejbal CEV Strumica - Budejovice 2 1,11 21.11. UTR Ithaca Kilmer - Fernandes 2 1,04 Sachdev - Kumar 2 1,05 Hokej Torun - Sanok 1,03 Futsal Plzeň - Brno 1 1,1 23.11. Tenis Atény Schinas - Casanova 2 1,03 Hádzaná Legionowo - Kielce 2 1,03 Volejbal Orkelljunga - Hasthagen 1 1,04 25.11. WTA Buenos Aires Vazqez - Dolehide 2 1,04 Olyinikova - Nahimana 1 1,04 Volejbal Al rayyan - Al shamal 1 1,04 26.11. Volejbal CEV Janta - Mladost 2 1,03 27.11. ITF Hradec Recek/Siniakov - Blazka/Homola 1 1,04 29.11. Volejbal Aich - Bisamberg 1 1,03 30.11. UTR Oxford Pires - Whitwell 1 1,04 Volejbal Aarhus - Amager 1 1,05 Praiense - Topo 1 1,05
-1. 12. 2025, 12:49 - Igor Stavky: Toto sú zápasy ktoré som si popredu napísal a nevyšiel iba futbal Dánsko
-1. 12. 2025, 13:30 - Marek Rohon: ok a môžeš to od dnes písať do excelu?
-1. 12. 2025, 13:34 - Igor Stavky: Som myslel že AI to spracuje. To tam chces mať ako excelovy súbor?
-1. 12. 2025, 14:04 - Marek Rohon: lebo excel je jeden súbor kde je všetko, takto to musím kopírovat je s tým robota
-1. 12. 2025, 14:20 - Igor Stavky: Ok a máš aj nejakú predstavu ako by to malo vyzerať v exceli? Pošli vzor alebo je ti to jedno a potom si to upravia?
-1. 12. 2025, 14:20 - Igor Stavky: Upravis
-1. 12. 2025, 14:22 - Marek Rohon: <Médiá vynechané>
-1. 12. 2025, 14:22 - Marek Rohon: Každý údaj jeden stlpec
-1. 12. 2025, 14:23 - Marek Rohon: A ešte stĺpec na výhra prehra
-1. 12. 2025, 14:24 - Igor Stavky: Plus jeden v ktorej stávkovej. Ok v pohode
-1. 12. 2025, 14:27 - Marek Rohon: Áno tak
-1. 12. 2025, 19:08 - Igor Stavky: Bet365 volejbal Filipíny mpva ženy dasmarinas 1,04 za 600
-1. 12. 2025, 19:15 - Marek Rohon: 624
-2. 12. 2025, 8:02 - Igor Stavky: Nike squash ženy orfi 1,1 za 800
-2. 12. 2025, 8:17 - Marek Rohon: 880
-2. 12. 2025, 10:15 - Igor Stavky: Nike futsal ms ženy Brazília 1,04 za 200
-2. 12. 2025, 10:16 - Marek Rohon: 208
-2. 12. 2025, 10:49 - Igor Stavky: Bet365 volejbal Izrael muži mate asher 1,01 Challenge cup ženy niyregihaza 1,025 za 540
-2. 12. 2025, 10:51 - Marek Rohon: 560
-2. 12. 2025, 14:37 - Igor Stavky: Bet365 volejbal uruguay ženy cbr 1,04 za 1000
-2. 12. 2025, 14:39 - Marek Rohon: 1040
-2. 12. 2025, 17:01 - Igor Stavky: WPS Office: Kompletný kancelársky balík s editorom PDF
-
-
-Tu je odkaz na súbor:
-https://eu.docworkspace.com/d/sIPWIiaPOAf-2u8kG
-
-Zdieľané z WPS Office:
-https://kso.page.link/wps
-2. 12. 2025, 18:31 - Igor Stavky: https://eu.docworkspace.com/d/sIPWIiaPOAf-2u8kG?lg=sk-SK&sa=601.1074&ps=1&fn=stavky.xlsx
-
-Open in APP:
-https://go.wps.com/e8M6WhMo3aLL
-2. 12. 2025, 18:32 - Igor Stavky: Vieš si to otvoriť?
-2. 12. 2025, 18:47 - Marek Rohon: Ano
-2. 12. 2025, 18:48 - Marek Rohon: Už som tak v polke tento mesiac to snáď dokončím zoberiem si pár dní voľna a dáme to dokopy
-3. 12. 2025, 9:50 - Igor Stavky: Nike volejbal cev cup ženy chieri 1,01 za 600
-3. 12. 2025, 9:55 - Igor Stavky: Bet365 volejbal Katar muži al rayyan 1,03 Slovinsko 1b muži Brezovica 1,025 cev cup ženy neuchatel 1,01 za 600
-3. 12. 2025, 9:56 - Igor Stavky: Bet365 Bosna muži kakanj 1,05 za 1200
-3. 12. 2025, 9:57 - Marek Rohon: 606
-3. 12. 2025, 10:01 - Marek Rohon: 639
-3. 12. 2025, 10:02 - Marek Rohon: 1260
-3. 12. 2025, 18:02 - Igor Stavky: Bet365 volejbal Macedónsko muži rabotnicki 1,05 za 400
-3. 12. 2025, 18:04 - Marek Rohon: 420
-4. 12. 2025, 9:48 - Igor Stavky: Nike Badminton muži štvorhra Krishnamurty/pratheek 1,01 za 600
-4. 12. 2025, 10:02 - Marek Rohon: Už je 1.005
-4. 12. 2025, 10:04 - Igor Stavky: Nike
-4. 12. 2025, 10:10 - Marek Rohon: 606
-4. 12. 2025, 10:32 - Igor Stavky: Bet365 volejbal Maďarsko muži dag 1,015 za 400
-4. 12. 2025, 10:38 - Marek Rohon: 406
-4. 12. 2025, 18:16 - Igor Stavky: Bet365 volejbal Bulharsko ženy maritza 1,02 za 1000
-4. 12. 2025, 18:18 - Marek Rohon: 1020
-5. 12. 2025, 8:24 - Igor Stavky: Bet365 volejbal Bosna ženy gacko 1,03 čierna hora muži podgorica 1,01 Budva 1,01 Bosna muži napredak 1,04 za 1230
-5. 12. 2025, 8:39 - Marek Rohon: <Médiá vynechané>
-5. 12. 2025, 8:40 - Marek Rohon: Podane ale dovolilo mi to podať za menej
-5. 12. 2025, 8:45 - Marek Rohon: Môžem skúsiť podať to isté ešte raz
-5. 12. 2025, 8:46 - Igor Stavky: Nie nevadi
-5. 12. 2025, 8:46 - Igor Stavky: Dáme to ešte v inej kombinácii
-5. 12. 2025, 8:56 - Marek Rohon: https://www.favbet.ua/uk/
-5. 12. 2025, 8:56 - Marek Rohon: Ukrajinska stavkova
-5. 12. 2025, 8:57 - Marek Rohon: Možno sú tam dobre kurzy Mária tam má ucet
-5. 12. 2025, 8:57 - Marek Rohon: https://www.vbet.ua/uk/
-5. 12. 2025, 9:11 - Igor Stavky: Nenašiel som tam nič zaujímavé zatiaľ
-5. 12. 2025, 9:39 - Igor Stavky: Ideš večer?
-5. 12. 2025, 9:40 - Marek Rohon: Dnes Geňo oslavuje či buď týždeň?
-5. 12. 2025, 9:43 - Igor Stavky: Budúci
-5. 12. 2025, 9:43 - Marek Rohon: tak potom dôjdem
-5. 12. 2025, 10:20 - Marek Rohon: <Médiá vynechané>
-5. 12. 2025, 10:22 - Igor Stavky: 17:25 komin
-5. 12. 2025, 11:50 - Igor Stavky: Bet365 volejbal Bosna muži napredak 1,04 Bulharsko ženy maritza 1,015 čierna hora muži podgorica 1,01 Budva 1,01 Maďarsko muži kaposvar 1,01 ncaa ženy stanford 1,02 za 604
-5. 12. 2025, 12:01 - Marek Rohon: 670
-5. 12. 2025, 17:46 - Igor Stavky: Volejbal ncaa ženy lousville 1,015 za 520
-5. 12. 2025, 17:46 - Igor Stavky: Kde si?
-5. 12. 2025, 17:46 - Marek Rohon: Nedojdem dnes
-5. 12. 2025, 17:46 - Marek Rohon: Nabuduce
-5. 12. 2025, 17:48 - Marek Rohon: 594 dal som za vsetko
-6. 12. 2025, 9:39 - Igor Stavky: Bet365 volejbal Rakúsko ženy Graz 1,02 čierna hora ženy moraca 1,01 Švédsko ženy engelholm 1,012 faerske muži mjolnir 1,012 za 1200
-6. 12. 2025, 9:44 - Marek Rohon: 1267
-6. 12. 2025, 10:30 - Igor Stavky: Bet365 volejbal Lotyšsko ženy marupes 1,05 Katar muži al rayyan 1,025 Chorvátsko ženy pohár haok 1,05 Švajčiarsko ženy pfefingen 1,03 rwanda ženy  police 1,01 Portugalsko 2 ženy praiense 1,01 za 300
-6. 12. 2025, 10:36 - Igor Stavky: Bet365 volejbal Portugalsko A2 ženy praiense 1,01 Chorvátsko ženy pohár kastela 1,05 Rumunsko A2 ženy galati 1,04 Izrael ženy ashdod 1,062 za 300
-6. 12. 2025, 10:38 - Marek Rohon: 351
-6. 12. 2025, 10:40 - Marek Rohon: 351
-6. 12. 2025, 11:36 - Igor Stavky: Nike hádzaná SVK muži Prešov 1,01 za 1600
-6. 12. 2025, 11:40 - Marek Rohon: 1616
-6. 12. 2025, 19:42 - Igor Stavky: Nike hokej Poľsko muži Katovice 1,03 za 260
-6. 12. 2025, 19:44 - Marek Rohon: 267
-7. 12. 2025, 8:49 - Igor Stavky: Bet365 volejbal Dánsko muži nordeskov 1,04 Dánsko 1 muži fredriksberg  1,03 Dánsko ženy asv aarhus 1,01 Chorvátsko pohár muži haok 1,025 za 330
-7. 12. 2025, 8:51 - Marek Rohon: 366
-7. 12. 2025, 13:25 - Igor Stavky: Bet365 volejbal SVK ženy Žilina 1,025 faerske ženy mjolnir 1,005 Portugalsko ženy braga 1,005 za 1200
-7. 12. 2025, 13:29 - Igor Stavky: Bet365 volejbal čierna hora muži jedinstvo 1,025 international U19 ženy Columbia 1,04 Malta ženy swieqi 1,04 za 620
-7. 12. 2025, 13:32 - Marek Rohon: 1243
-7. 12. 2025, 13:35 - Marek Rohon: 687
-7. 12. 2025, 18:19 - Igor Stavky: Nike hádzaná ms ženy uruguay 1,01 za 600
-7. 12. 2025, 18:37 - Marek Rohon: 606
-7. 12. 2025, 20:58 - Marek Rohon: https://stavky.vercel.app/
-7. 12. 2025, 20:58 - Marek Rohon: Ide ti to otvoriť?
-7. 12. 2025, 21:31 - Igor Stavky: Otvoriť áno účet nemám aktívny zajtra poriešime
-7. 12. 2025, 21:31 - Marek Rohon: Áno to ti musím ručne aktivovat
-7. 12. 2025, 21:36 - Marek Rohon: Už si aktivny
-7. 12. 2025, 21:37 - Igor Stavky: Inak všetko čo si píšem mi vychádza to nie je dobre lebo už bude musieť prísť chyba
-7. 12. 2025, 21:37 - Marek Rohon: No však keď to príde tak to príde
-7. 12. 2025, 21:38 - Igor Stavky: Som aktívny
-8. 12. 2025, 6:26 - Igor Stavky: Koľko máme na kontach?
-8. 12. 2025, 6:41 - Igor Stavky: Bet365 volejbal Maďarsko ženy Nyíregyháza 1,02 Portugalsko pohár muži esmoriz 1,025 za 620
-8. 12. 2025, 6:41 - Igor Stavky: A Nyíregyháza 1,02 ešte raz za 600
-8. 12. 2025, 7:10 - Marek Rohon: 3625
-8. 12. 2025, 7:11 - Marek Rohon: 1348 voľné
-8. 12. 2025, 7:13 - Marek Rohon: 648
-8. 12. 2025, 7:13 - Marek Rohon: 612
-8. 12. 2025, 9:29 - Marek Rohon: Opravil som tam pár chýb už by to malo byť funkčné
-8. 12. 2025, 9:29 - Marek Rohon: Nás web
-8. 12. 2025, 9:34 - Igor Stavky: Je to v pohode
-8. 12. 2025, 14:34 - Marek Rohon: máš už predstavu čo tam pridať s vylepšiť to?
-8. 12. 2025, 14:36 - Igor Stavky: Veď určite už tie tipy a potom aj nejaké štatistiky úspešnosti.
+1. 12. 2025, 12:48 12.11. ITF Sharm el Sheik Biryukov - Kaufman 1,04
+ Masters Sinner - Zverev 1,11
+13.11. ITF Azul Ambrogi - Dreer 1,04
+13.11 Futbal Moldavsko - Taliansko 2 1,1.
+14.11. UTR Boca Sahnis - Jackson 2 1,083 
+14.11  beachvolleyball Capogroso/Capogroso - Mondlane/Mungoi 1 1,05
+14.11  Hokej Sanok - Jastrzbie 2 1,03. 
+14.11 Futsal  Plzeň - Ústí 1 1,12.   
+15.11. Masters Sinner - DeMinaur 1,08 
+15.11 Hádzaná Metz - DVSC 1,05
+15.11  Futsal Vyškov - Chrudim 2 1,1 
+15.11 Futbal Dánsko - Bielorusko 1,08 
+16.11. Masters Sinner - Alcaraz 1,6 
+17.11. ITF Trnava Havlickova - Kovacicova 1 1,03
+17.11  UTR Malibu Miroshnicenko - Lee 1 1,14 
+18.11. ITF Austin Choi - Grumet 2 1,083 
+19.11. Davis cup Taliansko - Rakúsko 1 1,083
+19.11  Basketbal USK - KP Brno 1.polcas 1
+19.11 1,05 Volejbal CEV Strumica - Budejovice 2 1,11
+21.11. UTR Ithaca Kilmer - Fernandes 2
+21.11 1,04 Sachdev - Kumar 2 1,05
+21.11  Hokej Torun - Sanok 1,03 
+21.11 Futsal Plzeň - Brno 1 1,1 
+23.11. Tenis Atény Schinas - Casanova 2 1,03
+23.11 Hádzaná Legionowo - Kielce 2 1,03
+23.11  Volejbal Orkelljunga - Hasthagen 1 1,04
+25.11. WTA Buenos Aires Vazqez - Dolehide 2 1,04 
+25.11 Olyinikova - Nahimana 1 1,04 
+25.11 Volejbal Al rayyan - Al shamal 1 1,04
+26.11. Volejbal CEV Janta - Mladost 2 1,03
+27.11. ITF Hradec Recek/Siniakov - Blazka/Homola 1 1,04
+29.11. Volejbal Aich - Bisamberg 1 1,03
+30.11. UTR Oxford Pires - Whitwell 1 1,04 
+30.11 Volejbal Aarhus - Amager 1
+30.11 1,05 Praiense - Topo 1 1,05
+1. 12. 2025, 19:08 Bet365 volejbal Filipíny mpva ženy dasmarinas 1,04 za 600
+2. 12. 2025, 8:02  Nike squash ženy orfi 1,1 za 800
+2. 12. 2025, 10:15 Nike futsal ms ženy Brazília 1,04 za 200
+2. 12. 2025, 10:49 Bet365 volejbal Izrael muži mate asher 1,01 Challenge cup ženy niyregihaza 1,025 za 540
+2. 12. 2025, 14:37 Bet365 volejbal uruguay ženy cbr 1,04 za 1000
+3. 12. 2025, 9:50  Nike volejbal cev cup ženy chieri 1,01 za 600
+3. 12. 2025, 9:55  Bet365 volejbal Katar muži al rayyan 1,03 Slovinsko 1b muži Brezovica 1,025 cev cup ženy neuchatel 1,01 za 600
+3. 12. 2025, 9:56  Bet365 Bosna muži kakanj 1,05 za 1200
+3. 12. 2025, 18:02 Bet365 volejbal Macedónsko muži rabotnicki 1,05 za 400
+4. 12. 2025, 9:48  Nike Badminton muži štvorhra Krishnamurty/pratheek 1,01 za 600
+4. 12. 2025, 10:32 Bet365 volejbal Maďarsko muži dag 1,015 za 400
+4. 12. 2025, 18:16 Bet365 volejbal Bulharsko ženy maritza 1,02 za 1000
+5. 12. 2025, 8:24  Bet365 volejbal Bosna ženy gacko 1,03 čierna hora muži podgorica 1,01 Budva 1,01 Bosna muži napredak 1,04 za 1230
+5. 12. 2025, 11:50 Bet365 volejbal Bosna muži napredak 1,04 Bulharsko ženy maritza 1,015 čierna hora muži podgorica 1,01 Budva 1,01 Maďarsko muži kaposvar 1,01 ncaa ženy stanford 1,02 za 604
+5. 12. 2025, 17:46 Bet365 Volejbal ncaa ženy lousville 1,015 za 520
+6. 12. 2025, 9:39  Bet365 volejbal Rakúsko ženy Graz 1,02 čierna hora ženy moraca 1,01 Švédsko ženy engelholm 1,012 faerske muži mjolnir 1,012 za 1200
+6. 12. 2025, 10:30 Bet365 volejbal Lotyšsko ženy marupes 1,05 Katar muži al rayyan 1,025 Chorvátsko ženy pohár haok 1,05 Švajčiarsko ženy pfefingen 1,03 rwanda ženy  police 1,01 Portugalsko 2 ženy praiense 1,01 za 300
+6. 12. 2025, 10:36 Bet365 volejbal Portugalsko A2 ženy praiense 1,01 Chorvátsko ženy pohár kastela 1,05 Rumunsko A2 ženy galati 1,04 Izrael ženy ashdod 1,062 za 300
+6. 12. 2025, 11:36 Nike hádzaná SVK muži Prešov 1,01 za 1600
+6. 12. 2025, 19:42 Nike hokej Poľsko muži Katovice 1,03 za 260
+7. 12. 2025, 8:49  Bet365 volejbal Dánsko muži nordeskov 1,04 Dánsko 1 muži fredriksberg  1,03 Dánsko ženy asv aarhus 1,01 Chorvátsko pohár muži haok 1,025 za 330
+7. 12. 2025, 8:51  Bet365 volejbal SVK ženy Žilina 1,025 faerske ženy mjolnir 1,005 Portugalsko ženy braga 1,005 za 1200
+7. 12. 2025, 13:29 Bet365 volejbal čierna hora muži jedinstvo 1,025 international U19 ženy Columbia 1,04 Malta ženy swieqi 1,04 za 620
+8. 12. 2025, 6:41  Bet365 volejbal Maďarsko ženy Nyíregyháza 1,02 Portugalsko pohár muži esmoriz 1,025 za 620

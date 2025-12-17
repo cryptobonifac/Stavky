@@ -1,0 +1,100 @@
+﻿-- Seed production database with betting tips from CSV
+-- Generated from: betting_tips.csv
+-- Total records: 581
+-- Date: 2025-12-17T14:26:03.796Z
+
+-- Ensure betting companies exist
+DO $$
+BEGIN
+  INSERT INTO public.betting_companies (name)
+  SELECT name FROM (VALUES ('Nike'), ('Bet365')) AS v(name)
+  WHERE NOT EXISTS (
+    SELECT 1 FROM public.betting_companies WHERE public.betting_companies.name = v.name
+  );
+END $$;
+
+-- Insert betting tips and tip items
+DO $$
+DECLARE
+  tip_id uuid;
+  company_id uuid;
+  tip_count integer := 0;
+  row_data record;
+BEGIN
+
+  -- Row 1: Holandsko
+  SELECT id INTO company_id FROM public.betting_companies WHERE name = 'Nike';
+  
+  IF company_id IS NOT NULL THEN
+    INSERT INTO public.betting_tips (
+      betting_company_id,
+      odds,
+      stake,
+      status,
+      description,
+      created_at
+    ) VALUES (
+      company_id,
+      1.01::numeric(5,3),
+      600::numeric,
+      'pending'::public.tip_status,
+      'Holandsko',
+      '2025-09-10'::timestamptz
+    ) RETURNING id INTO tip_id;
+    
+    INSERT INTO public.betting_tip_items (
+      betting_tip_id,
+      sport,
+      league,
+      match,
+      odds,
+      match_date,
+      status
+    ) VALUES (
+      tip_id,
+      'softball',
+      'me Å¾eny',
+      'Holandsko',
+      1.01::numeric(5,3),
+      '2025-09-10'::timestamptz,
+      'pending'::public.tip_status
+    );
+    
+    tip_count := tip_count + 1;
+  END IF;
+
+  -- Row 2: Taliansko
+  SELECT id INTO company_id FROM public.betting_companies WHERE name = 'Nike';
+  
+  IF company_id IS NOT NULL THEN
+    INSERT INTO public.betting_tips (
+      betting_company_id,
+      odds,
+      stake,
+      status,
+      description,
+      created_at
+    ) VALUES (
+      company_id,
+      1.01::numeric(5,3),
+      600::numeric,
+      'pending'::public.tip_status,
+      'Taliansko',
+      '2025-09-10'::timestamptz
+    ) RETURNING id INTO tip_id;
+    
+    INSERT INTO public.betting_tip_items (
+      betting_tip_id,
+      sport,
+      league,
+      match,
+      odds,
+      match_date,
+      status
+    ) VALUES (
+      tip_id,
+      'softball',
+      'me Å¾eny',
+      'Taliansko',
+      1.01::numeric(5,3),
+      '2025-09-10'::timestamptz,
