@@ -11,7 +11,7 @@ if "%1"=="" (
 )
 
 set EMAIL=%1
-set URL=http://localhost:3000/api/users/set-betting-role
+set URL=https://stavky.vercel.app//api/users/set-betting-role
 
 echo Setting betting role for: %EMAIL%
 echo.

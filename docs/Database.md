@@ -189,7 +189,20 @@ supabase status                   # Check Supabase status
 supabase link --project-ref <ref> # Link to production project
 supabase db push                  # Push migrations to production
 ```
-
+Important notes:
+supabase db push will fail — this command requires a linked remote project. Use local commands instead.
+Local commands work:
+supabase migration up — applies pending migrations to local
+supabase db reset — resets local database and applies all migrations
+supabase start — starts local Supabase
+supabase status — shows local Supabase status
+If you need to push to remote later:
+If you need to deploy migrations to production later, you can:
+Link again (when needed):
+   supabase link --project-ref ezhcfemzrbfsfkafqsav
+Use GitHub Actions (recommended):
+Push migrations to the main branch
+GitHub Actions will automatically deploy the
 
 
 
