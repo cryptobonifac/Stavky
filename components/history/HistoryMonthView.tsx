@@ -113,17 +113,17 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                     <Stack direction="row" spacing={2}>
                       {tip.stake && (
                         <Typography variant="caption" color="text.secondary">
-                          {tBettings('stake')}: {tip.stake.toFixed(2)}
+                          {tBettings('stake')}: {Number(tip.stake).toFixed(2)}
                         </Typography>
                       )}
                       {tip.total_win && tip.status === 'win' && (
                         <Typography variant="caption" color="success.main" fontWeight={600}>
-                          {tBettings('totalWin')}: {tip.total_win.toFixed(2)}
+                          {tBettings('totalWin')}: {Number(tip.total_win).toFixed(2)}
                         </Typography>
                       )}
                       {tip.status === 'loss' && tip.stake && (
                         <Typography variant="caption" color="error.main" fontWeight={600}>
-                          {tBettings('loss')}: {tip.stake.toFixed(2)}
+                          {tBettings('loss')}: {Number(tip.stake).toFixed(2)}
                         </Typography>
                       )}
                     </Stack>

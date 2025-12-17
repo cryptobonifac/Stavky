@@ -684,8 +684,8 @@ BEGIN
   league_val := 'UTR Newport ž';
   match_val := 'Grechkina-Maunupau 1';
   odds_val := 1.07::numeric(5,3);
-  stake_val := 200::numeric;
-  total_win_val := 0::numeric;
+  stake_val := 200.00::numeric;
+  total_win_val := 0.00::numeric;
   status_val := 'loss'::public.tip_status;
   
   INSERT INTO public.betting_tip (
