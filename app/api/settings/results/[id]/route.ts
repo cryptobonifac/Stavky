@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
-import { createClient as createServerClient } from '@/lib/supabase/server'
 
-export const runtime = 'nodejs'
+import { createClient as createServerClient } from '@/lib/supabase/server'
 
 export async function DELETE(
   request: Request,
@@ -17,42 +16,29 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  // Check if user has betting role
-  const { data: profile } = await supabase
+  const { data: acting } = await supabase
     .from('users')
     .select('role')
     .eq('id', user.id)
     .single()
 
-  if (profile?.role !== 'betting') {
+  if (acting?.role !== 'betting') {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  // Delete the contact
+  if (!id) {
+    return NextResponse.json({ error: 'Result ID is required' }, { status: 400 })
+  }
+
   const { error } = await supabase
-    .from('contacts')
+    .from('results')
     .delete()
     .eq('id', id)
 
   if (error) {
-    console.error('Error deleting contact:', error)
-    return NextResponse.json(
-      { error: 'Failed to delete contact' },
-      { status: 500 }
-    )
+    return NextResponse.json({ error: error.message }, { status: 400 })
   }
 
   return NextResponse.json({ success: true })
 }
-
-
-
-
-
-
-
-
-
-
-
 

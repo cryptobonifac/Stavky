@@ -71,3 +71,4 @@ execute function public.handle_new_auth_user();
 -- Grant necessary permissions
 grant execute on function public.handle_new_auth_user() to postgres, anon, authenticated, service_role;
 grant execute on function public.is_betting_account_email(text) to postgres, anon, authenticated, service_role;
+

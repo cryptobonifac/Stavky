@@ -140,7 +140,13 @@
     "total": "Total",
     "noHistory": "No statistics available",
     "noHistoryYet": "No statistics available yet.",
-    "selectMonth": "Select Month"
+    "selectMonth": "Select Month",
+    "showing": "Showing",
+    "of": "of",
+    "tips": "tips",
+    "date": "Date",
+    "match": "Match",
+    "odds": "Odds"
   },
   "profile": {
     "title": "Profile",
@@ -188,6 +194,7 @@
     "selectLeague": "Select league",
     "match": "Match",
     "matchPlaceholder": "Team A vs Team B",
+    "result": "Result",
     "odds": "Odds",
     "oddsPlaceholder": "1.001 - 2.00",
     "oddsHelper": "Value between 1.001 and 2.000",
@@ -214,6 +221,7 @@
       "sportRequired": "Sport is required",
       "leagueRequired": "League is required",
       "matchRequired": "Match is required",
+      "resultRequired": "Result is required",
       "oddsRequired": "Odds is required",
       "oddsInvalid": "Odds must be between 1.001 and 2.000",
       "matchDateRequired": "Match date is required"
@@ -290,6 +298,21 @@
       "sportDeleted": "Sport deleted",
       "createFailed": "Failed to add sport",
       "deleteFailed": "Failed to delete sport"
+    },
+    "results": {
+      "title": "Results",
+      "name": "Name",
+      "newResultName": "New result name",
+      "add": "Add",
+      "addResult": "Add Result",
+      "edit": "Edit Result",
+      "delete": "Delete Result",
+      "confirmDelete": "Are you sure you want to delete result {name}?",
+      "noResults": "No results yet.",
+      "resultCreated": "Result created successfully",
+      "resultDeleted": "Result deleted",
+      "createFailed": "Failed to create result",
+      "deleteFailed": "Failed to delete result"
     },
     "marketing": {
       "title": "Marketing & free month logic",

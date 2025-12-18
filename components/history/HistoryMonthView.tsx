@@ -1,23 +1,23 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import {
-  Card,
-  CardContent,
-  Chip,
-  Divider,
   MenuItem,
+  Pagination,
   Select,
   Stack,
   Typography,
+  Box,
 } from '@mui/material'
 import { useTranslations, useLocale } from 'next-intl'
 
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 
 dayjs.extend(localizedFormat)
+
+const TIPS_PER_PAGE = 15
 
 export type HistoryMonth = {
   key: string
@@ -34,118 +34,512 @@ type HistoryMonthViewProps = {
   months: HistoryMonth[]
 }
 
+// Company chip styles
+const getCompanyChipStyles = (companyName: string) => {
+  const normalized = companyName.toLowerCase()
+  if (normalized.includes('bet365')) {
+    return {
+      background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
+      color: '#0369a1',
+      border: '1px solid #bae6fd',
+    }
+  } else if (normalized.includes('nike')) {
+    return {
+      background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+      color: '#92400e',
+      border: '1px solid #fcd34d',
+    }
+  } else if (normalized.includes('tipsport')) {
+    return {
+      background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
+      color: '#6b21a8',
+      border: '1px solid #c4b5fd',
+    }
+  }
+  // Default fallback
+  return {
+    background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+    color: '#374151',
+    border: '1px solid #d1d5db',
+  }
+}
+
 const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
   const t = useTranslations('statistics')
-  const tBettings = useTranslations('bettings')
   const locale = useLocale()
   const [selectedKey, setSelectedKey] = useState(months[0]?.key ?? '')
+  const [currentPage, setCurrentPage] = useState(1)
+  
   const selectedMonth = useMemo(
     () => months.find((month) => month.key === selectedKey) ?? months[0],
     [months, selectedKey]
   )
 
+  // Reset to page 1 when month changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [selectedKey])
+
+  // Calculate pagination
+  const totalTips = selectedMonth?.tips.length ?? 0
+  const totalPages = Math.ceil(totalTips / TIPS_PER_PAGE)
+  const startIndex = (currentPage - 1) * TIPS_PER_PAGE
+  const endIndex = startIndex + TIPS_PER_PAGE
+  const paginatedTips = selectedMonth?.tips.slice(startIndex, endIndex) ?? []
+
   if (!selectedMonth) {
     return (
-      <Card variant="outlined">
-        <CardContent>
-          <Typography>{t('noHistoryYet')}</Typography>
-        </CardContent>
-      </Card>
+      <Box
+        sx={{
+          p: 3,
+          textAlign: 'center',
+          color: '#666',
+          fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        }}
+      >
+        <Typography sx={{ fontSize: '0.95rem' }}>{t('noHistoryYet')}</Typography>
+      </Box>
     )
   }
 
   return (
-    <Stack spacing={3}>
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        spacing={2}
-        justifyContent="space-between"
-        alignItems={{ xs: 'flex-start', md: 'center' }}
-      >
-        <Typography variant="h5">{t('monthlyPerformance')}</Typography>
-        <Select
-          value={selectedMonth.key}
-          onChange={(event) => setSelectedKey(event.target.value)}
-          size="small"
+    <Box
+      sx={{
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        backgroundColor: '#fafafa',
+        minHeight: '100vh',
+      }}
+    >
+      <Stack spacing={3}>
+        {/* Month Selector */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 2,
+          }}
         >
-          {months.map((month) => (
-            <MenuItem value={month.key} key={month.key}>
-              {month.label}
-            </MenuItem>
-          ))}
-        </Select>
-      </Stack>
-      <Card variant="outlined">
-        <CardContent>
+          <Typography
+            variant="h5"
+            sx={{
+              fontSize: '1.5rem',
+              fontWeight: 500,
+              color: '#1a1a1a',
+            }}
+          >
+            {t('monthlyPerformance')}
+          </Typography>
+          <Select
+            value={selectedMonth.key}
+            onChange={(event) => setSelectedKey(event.target.value)}
+            size="small"
+            sx={{
+              minWidth: 200,
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: '#e0e0e0',
+              },
+            }}
+          >
+            {months.map((month) => (
+              <MenuItem value={month.key} key={month.key}>
+                {month.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </Box>
+
+        {/* Statistics Section */}
+        <Box
+          sx={{
+            backgroundColor: '#f8f9fa',
+            borderRadius: '8px',
+            p: 3,
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+          }}
+        >
           <Stack
             direction={{ xs: 'column', md: 'row' }}
-            spacing={3}
+            spacing={4}
             justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', md: 'center' }}
           >
-            <Stack spacing={1}>
-              <Typography variant="body2" color="text.secondary">
+            <Box>
+              <Typography
+                sx={{
+                  fontSize: '0.875rem',
+                  color: '#666',
+                  mb: 0.5,
+                  fontWeight: 500,
+                }}
+              >
                 {t('successRate')}
               </Typography>
-              <Typography variant="h3">
+              <Typography
+                sx={{
+                  fontSize: '1.75rem',
+                  fontWeight: 600,
+                  color: '#16a34a',
+                }}
+              >
                 {selectedMonth.successRate.toFixed(1)}%
               </Typography>
-            </Stack>
-            <Stack direction="row" spacing={2}>
-              <Chip label={`${t('wins')} ${selectedMonth.wins}`} color="success" />
-              <Chip label={`${t('losses')} ${selectedMonth.losses}`} color="error" />
-              <Chip label={`${t('pending')} ${selectedMonth.pending}`} />
+            </Box>
+            <Stack direction="row" spacing={3} flexWrap="wrap" gap={2}>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: '0.875rem',
+                    color: '#666',
+                    mb: 0.5,
+                    fontWeight: 500,
+                  }}
+                >
+                  {t('wins')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '1.75rem',
+                    fontWeight: 600,
+                    color: '#16a34a',
+                  }}
+                >
+                  {selectedMonth.wins}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: '0.875rem',
+                    color: '#666',
+                    mb: 0.5,
+                    fontWeight: 500,
+                  }}
+                >
+                  {t('losses')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '1.75rem',
+                    fontWeight: 600,
+                    color: '#dc2626',
+                  }}
+                >
+                  {selectedMonth.losses}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography
+                  sx={{
+                    fontSize: '0.875rem',
+                    color: '#666',
+                    mb: 0.5,
+                    fontWeight: 500,
+                  }}
+                >
+                  {t('pending')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '1.75rem',
+                    fontWeight: 600,
+                    color: '#666',
+                  }}
+                >
+                  {selectedMonth.pending}
+                </Typography>
+              </Box>
             </Stack>
           </Stack>
-          <Divider sx={{ my: 3 }} />
-          <Stack spacing={1}>
-            {selectedMonth.tips.map((tip) => (
-              <Stack
-                key={tip.id}
-                direction={{ xs: 'column', md: 'row' }}
-                spacing={1}
-                justifyContent="space-between"
+        </Box>
+
+        {/* Tips List */}
+        <Box
+          sx={{
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            overflow: 'hidden',
+          }}
+        >
+          {paginatedTips.length === 0 ? (
+            <Box sx={{ p: 3, textAlign: 'center', color: '#666' }}>
+              <Typography sx={{ fontSize: '0.95rem' }}>
+                {t('noHistoryYet')}
+              </Typography>
+            </Box>
+          ) : (
+            <>
+              {/* Grid Header (hidden on mobile) */}
+              <Box
+                sx={{
+                  display: { xs: 'none', md: 'grid' },
+                  gridTemplateColumns: '70px 1fr 90px 24px',
+                  gap: 2,
+                  p: 2,
+                  borderBottom: '1px solid #f0f0f0',
+                  backgroundColor: '#fafafa',
+                  alignItems: 'center',
+                }}
               >
-                <Stack spacing={0.5} flex={1}>
-                  <Typography fontWeight={600}>{tip.match}</Typography>
-                </Stack>
-                <Stack direction="row" spacing={2} alignItems="center">
-                  {(tip.stake || tip.total_win) && (
-                    <Stack direction="row" spacing={2}>
-                      {tip.stake && (
-                        <Typography variant="caption" color="text.secondary">
-                          {tBettings('stake')}: {Number(tip.stake).toFixed(2)}
+                <Typography
+                  sx={{
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  {t('date')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  {t('match')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    textAlign: 'right',
+                  }}
+                >
+                  {t('odds')}
+                </Typography>
+                <Box />
+              </Box>
+
+              {/* Tips Grid */}
+              <Stack spacing={0}>
+                {paginatedTips.map((tip, index) => {
+                  const tipWithExtras = tip as TipRecord & {
+                    companyName?: string
+                    resultName?: string
+                  }
+                  const companyName = tipWithExtras.companyName || ''
+                  const resultName = tipWithExtras.resultName || ''
+                  const odds = tip.odds || 0
+                  const formattedOdds = odds.toFixed(2).replace('.', ',')
+                  
+                  // Get status color
+                  const statusColor =
+                    tip.status === 'win'
+                      ? '#16a34a'
+                      : tip.status === 'loss'
+                      ? '#dc2626'
+                      : '#9ca3af'
+
+                  const companyStyles = getCompanyChipStyles(companyName)
+
+                  return (
+                    <Box
+                      key={tip.id}
+                      sx={{
+                        display: 'grid',
+                        gridTemplateColumns: {
+                          xs: '50px minmax(0, 1fr) 70px 20px',
+                          md: '70px 1fr 90px 24px',
+                        },
+                        gap: { xs: 0.4, md: 1.13 },
+                        p: { xs: '0.42rem', md: '0.56rem' },
+                        borderBottom:
+                          index < paginatedTips.length - 1
+                            ? '1px solid #f0f0f0'
+                            : 'none',
+                        '&:hover': {
+                          backgroundColor: '#fafafa',
+                        },
+                        transition: 'background-color 0.2s',
+                        alignItems: 'center',
+                      }}
+                    >
+                      {/* Date */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '0.75rem', md: '0.9rem' },
+                            color: '#666',
+                            fontWeight: 500,
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {dayjs(tip.match_date).format('DD.MM')}
                         </Typography>
-                      )}
-                      {tip.total_win && tip.status === 'win' && (
-                        <Typography variant="caption" color="success.main" fontWeight={600}>
-                          {tBettings('totalWin')}: {Number(tip.total_win).toFixed(2)}
+                      </Box>
+
+                      {/* Match Info */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: { xs: 0.75, md: 1.5 },
+                          minWidth: 0, // Allow text truncation
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {/* Company Chip */}
+                        {companyName && (
+                          <Box
+                            sx={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              px: { xs: 0.75, md: 1.5 },
+                              py: { xs: 0.25, md: 0.5 },
+                              borderRadius: '16px',
+                              fontSize: { xs: '0.65rem', md: '0.8rem' },
+                              fontWeight: 600,
+                              textTransform: 'uppercase',
+                              letterSpacing: { xs: '0.1px', md: '0.3px' },
+                              whiteSpace: 'nowrap',
+                              flexShrink: 0,
+                              ...companyStyles,
+                            }}
+                          >
+                            {companyName}
+                          </Box>
+                        )}
+
+                        {/* Match Description */}
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '0.8rem', md: '0.95rem' },
+                            color: '#1a1a1a',
+                            fontWeight: 400,
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            minWidth: 0,
+                          }}
+                        >
+                          {tip.match}
                         </Typography>
-                      )}
-                      {tip.status === 'loss' && tip.stake && (
-                        <Typography variant="caption" color="error.main" fontWeight={600}>
-                          {tBettings('loss')}: {Number(tip.stake).toFixed(2)}
+                      </Box>
+
+                      {/* Odds + Team Indicator */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: { xs: 'flex-end', md: 'flex-end' },
+                          gap: { xs: 0.5, md: 0.75 },
+                          flexShrink: 0,
+                        }}
+                      >
+                        {/* Team Indicator Box */}
+                        {resultName && (resultName === '1' || resultName === '2') && (
+                          <Box
+                            sx={{
+                              width: { xs: '18px', md: '22px' },
+                              height: { xs: '18px', md: '22px' },
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              backgroundColor: '#f0f0f0',
+                              color: '#666',
+                              borderRadius: '4px',
+                              fontSize: { xs: '0.65rem', md: '0.75rem' },
+                              fontWeight: 600,
+                              flexShrink: 0,
+                            }}
+                          >
+                            {resultName}
+                          </Box>
+                        )}
+                        
+                        {/* Odds */}
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '0.85rem', md: '1rem' },
+                            fontWeight: 600,
+                            color: '#1a1a1a',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {formattedOdds}
                         </Typography>
-                      )}
-                    </Stack>
-                  )}
-                  <Chip 
-                    label={tip.status === 'win' ? tBettings('win') : tip.status === 'loss' ? tBettings('loss') : tBettings('pending')} 
-                    size="small"
-                    color={tip.status === 'win' ? 'success' : tip.status === 'loss' ? 'error' : 'default'}
-                  />
-                  <Typography color="text.secondary" variant="body2">
-                    {dayjs(tip.match_date).format('DD.MM.YYYY')}
-                  </Typography>
-                </Stack>
+                      </Box>
+
+                      {/* Status Indicator Circle */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: { xs: 'flex-end', md: 'flex-end' },
+                        }}
+                      >
+                        {tip.status !== 'pending' && (
+                          <Box
+                            sx={{
+                              width: { xs: '10px', md: '12px' },
+                              height: { xs: '10px', md: '12px' },
+                              borderRadius: '50%',
+                              backgroundColor: statusColor,
+                              flexShrink: 0,
+                            }}
+                          />
+                        )}
+                      </Box>
+                    </Box>
+                  )
+                })}
               </Stack>
-            ))}
-          </Stack>
-        </CardContent>
-      </Card>
-    </Stack>
+
+              {/* Pagination */}
+              {totalTips > 0 && (
+                <Box
+                  sx={{
+                    p: 3,
+                    borderTop: '1px solid #f0f0f0',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    gap: 2,
+                  }}
+                >
+                  {totalPages > 1 && (
+                    <Pagination
+                      count={totalPages}
+                      page={currentPage}
+                      onChange={(_, page) => setCurrentPage(page)}
+                      color="primary"
+                      size="large"
+                      showFirstButton
+                      showLastButton
+                    />
+                  )}
+                  <Typography
+                    sx={{
+                      fontSize: '0.875rem',
+                      color: '#666',
+                    }}
+                  >
+                    {t('showing')} {startIndex + 1}–{Math.min(endIndex, totalTips)}{' '}
+                    {t('of')} {totalTips} {t('tips')}
+                  </Typography>
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
+      </Stack>
+    </Box>
   )
 }
 
 export default HistoryMonthView
-
-

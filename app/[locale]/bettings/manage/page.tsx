@@ -48,7 +48,9 @@ export default async function ManageBettingTipsPage() {
         created_at,
         stake,
         total_win,
-        betting_companies:betting_company_id ( name )
+        result_id,
+        betting_companies:betting_company_id ( name ),
+        results:result_id ( name )
       `
     )
     .eq('status', 'pending')
@@ -56,13 +58,15 @@ export default async function ManageBettingTipsPage() {
 
   // Normalize tips data to match TipRecord type
   const normalizedTips: TipRecord[] = ((tips ?? []) as any[]).map((tip) => {
-    // Build match description from sport, league, match
+    // Build match description from sport, league, match, result
     const companyName = (tip.betting_companies as any)?.name || ''
     const sport = tip.sport || ''
     const league = tip.league || ''
     const match = tip.match || ''
+    // Result name is displayed as-is from database (not translated: 1, 2, X)
+    const resultName = (tip.results as any)?.name || ''
     
-    const parts = [companyName, sport, league, match].filter(Boolean)
+    const parts = [companyName, sport, league, match, resultName].filter(Boolean)
     const matchDescription = parts.length > 0 ? parts.join(' ') : 'Unknown'
     
     return {

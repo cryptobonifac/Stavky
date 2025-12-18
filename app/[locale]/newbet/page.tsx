@@ -64,6 +64,18 @@ export default async function NewBetPage({
 
   const sports = sportsRes.data ?? []
 
+  // Fetch results
+  const resultsRes = await supabase
+    .from('results')
+    .select('id,name')
+    .order('name')
+
+  if (resultsRes.error) {
+    console.error('[NewBetPage] Error fetching results:', resultsRes.error)
+  }
+
+  const results = resultsRes.data ?? []
+
   // Load translations
   const messages = (await import(`../../../messages/${locale}.json`)).default
   const newbetMessages = messages.newbet as Record<string, string>
@@ -89,6 +101,10 @@ export default async function NewBetPage({
           sports={sports.map((sport) => ({
             id: sport.id,
             name: sport.name,
+          }))}
+          results={results.map((result) => ({
+            id: result.id,
+            name: result.name,
           }))}
         />
       </PageSection>

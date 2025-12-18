@@ -126,11 +126,11 @@ export default async function StatisticsPage({
       odds, 
       status, 
       match_date,
-      created_at, 
-      stake, 
-      total_win,
+      created_at,
       betting_company_id,
-      betting_companies:betting_company_id (name)
+      result_id,
+      betting_companies:betting_company_id (name),
+      results:result_id (name)
     `)
     .order('match_date', { ascending: false })
 
@@ -152,27 +152,26 @@ export default async function StatisticsPage({
   // Build tips array - include ALL tips regardless of status
   // Each tip is now a single record with all fields
   const tips: TipRecord[] = (allTips || []).map((tip: any) => {
-    // Build match description - construct full format: [company] [sport] [league] [match] [odds]
     const companyName = (tip.betting_companies as any)?.name || ''
     const sport = tip.sport || ''
     const league = tip.league || ''
     const match = tip.match || ''
-    // Format odds with comma as decimal separator (European format)
-    const odds = tip.odds ? tip.odds.toFixed(2).replace('.', ',') : ''
+    const resultName = (tip.results as any)?.name || ''
     
-    // Build full format string, filtering out empty parts
-    const parts = [companyName, sport, league, match, odds].filter(Boolean)
-    const matchDescription = parts.join(' ')
+    // Build match description for display (sport, league, match)
+    const matchParts = [sport, league, match].filter(Boolean)
+    const matchDescription = matchParts.join(' ')
     
     return {
       id: tip.id,
       match: matchDescription,
       odds: tip.odds,
       match_date: tip.match_date || tip.created_at,
-      status: tip.status, // CRITICAL: Preserve original status from database
-      stake: tip.stake ?? null,
-      total_win: tip.total_win ?? null,
-    }
+      status: tip.status,
+      // Add structured data for new design
+      companyName,
+      resultName,
+    } as TipRecord & { companyName: string; resultName: string }
   })
 
   // Debug: Log processed tips
@@ -213,3 +212,4 @@ export default async function StatisticsPage({
     </MainLayout>
   )
 }
+

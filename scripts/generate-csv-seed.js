@@ -140,3 +140,4 @@ fs.writeFileSync(outputPath, sql, 'utf-8');
 console.log(`✅ Generated ${outputPath}`);
 console.log(`   Total records: ${dataLines.length}`);
 console.log(`   File size: ${(sql.length / 1024).toFixed(2)} KB`);
+

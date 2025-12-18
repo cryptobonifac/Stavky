@@ -33,6 +33,7 @@ type Option = {
 type NewBetFormProps = {
   bettingCompanies: Option[]
   sports: Option[]
+  results: Option[]
 }
 
 type TipForm = {
@@ -41,12 +42,12 @@ type TipForm = {
   sport: string
   league: string
   match: string
+  result_id: string
   odds: string
   match_date: Dayjs
-  stake: string
 }
 
-const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
+const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
   const t = useTranslations('newbet')
   const tCommon = useTranslations('common')
   const router = useRouter()
@@ -58,9 +59,9 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     sport: '',
     league: '',
     match: '',
+    result_id: '',
     odds: '1.01',
     match_date: dayjs().add(1, 'hour'),
-    stake: '',
   })
 
   const [error, setError] = useState<string | null>(null)
@@ -72,19 +73,13 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
   const sportId = useId()
   const leagueId = useId()
   const matchId = useId()
+  const resultId = useId()
   const oddsId = useId()
   const matchDateId = useId()
-  const stakeId = useId()
 
   const currentOddsValue = parseFloat(formData.odds) || 1.01
   const isAtMin = currentOddsValue <= 1.001
   const isAtMax = currentOddsValue >= 2.0
-
-  const totalWin = useMemo(() => {
-    const stakeValue = parseFloat(formData.stake) || 0
-    if (stakeValue <= 0) return 0
-    return currentOddsValue * stakeValue
-  }, [currentOddsValue, formData.stake])
 
   const handleFieldChange = (field: keyof TipForm, value: string | Dayjs) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -119,6 +114,22 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     handleFieldChange('odds', newValue.toFixed(3))
   }
 
+  const handleReset = () => {
+    setFormData({
+      betting_company_id: '',
+      sport_id: '',
+      sport: '',
+      league: '',
+      match: '',
+      result_id: '',
+      odds: '1.01',
+      match_date: dayjs().add(1, 'hour'),
+    })
+    setError(null)
+    setFieldErrors({})
+    setOpenSportAutocomplete(false)
+  }
+
   const validateForm = (): boolean => {
     const errors: Record<string, string> = {}
 
@@ -138,6 +149,10 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
       errors.match = t('validationErrors.matchRequired')
     }
 
+    if (!formData.result_id || formData.result_id.trim() === '') {
+      errors.result_id = t('validationErrors.resultRequired') || 'Result is required'
+    }
+
     const oddsValue = parseFloat(formData.odds)
     if (isNaN(oddsValue)) {
       errors.odds = t('validationErrors.oddsRequired')
@@ -147,11 +162,6 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
 
     if (!formData.match_date || !formData.match_date.isValid()) {
       errors.match_date = t('validationErrors.matchDateRequired')
-    }
-
-    const stakeValue = parseFloat(formData.stake)
-    if (!formData.stake || isNaN(stakeValue) || stakeValue <= 0) {
-      errors.stake = t('stakeRequired') || 'Stake is required'
     }
 
     setFieldErrors(errors)
@@ -168,7 +178,6 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
     }
 
     startTransition(async () => {
-      const stakeValue = parseFloat(formData.stake)
       const oddsValue = parseFloat(formData.odds)
 
       const response = await fetch('/api/betting-tips', {
@@ -183,12 +192,12 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
               sport: formData.sport.trim(),
               league: formData.league.trim(),
               match: formData.match.trim(),
+              result_id: formData.result_id,
               odds: oddsValue,
               match_date: formData.match_date.toISOString(),
             },
           ],
           final_odds: oddsValue,
-          stake: stakeValue,
           description: formData.match.trim(),
         }),
       })
@@ -344,6 +353,30 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                 />
               </Box>
 
+              {/* Result */}
+              <Box sx={{ minWidth: { xs: '100%', md: 100 }, flex: { xs: '1 1 100%', md: '0 0 100px' } }}>
+                <TextField
+                  id={resultId}
+                  select
+                  label={t('result') || 'Result'}
+                  fullWidth
+                  required
+                  size="small"
+                  value={formData.result_id}
+                  error={!!fieldErrors.result_id}
+                  helperText={fieldErrors.result_id}
+                  onChange={(event) =>
+                    handleFieldChange('result_id', event.target.value)
+                  }
+                >
+                  {results.map((result) => (
+                    <MenuItem key={result.id} value={result.id}>
+                      {result.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Box>
+
               {/* Odds */}
               <Box sx={{ minWidth: { xs: '100%', md: 140 }, flex: { xs: '1 1 100%', md: '0 0 140px' } }}>
                 <TextField
@@ -429,57 +462,6 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
                   }}
                 />
               </Box>
-
-              {/* Stake - Aligned to the right */}
-              <Box sx={{ 
-                minWidth: { xs: '100%', md: 120 }, 
-                flex: { xs: '1 1 100%', md: '0 0 120px' },
-                ml: { xs: 0, md: 'auto' }
-              }}>
-                <TextField
-                  id={stakeId}
-                  label={t('stake') || 'Stake'}
-                  type="number"
-                  value={formData.stake}
-                  onChange={(event) =>
-                    handleFieldChange('stake', event.target.value)
-                  }
-                  required
-                  fullWidth
-                  size="small"
-                  inputProps={{
-                    step: 0.01,
-                    min: 0.01,
-                  }}
-                  error={!!fieldErrors.stake}
-                  helperText={fieldErrors.stake}
-                />
-              </Box>
-
-              {/* Total Win Preview - Inline */}
-              {formData.stake && parseFloat(formData.stake) > 0 && (
-                <Box
-                  sx={{
-                    minWidth: { xs: '100%', md: 100 },
-                    flex: { xs: '1 1 100%', md: '0 0 100px' },
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    pt: { xs: 0, md: 1 },
-                  }}
-                >
-                  <Typography variant="caption" color="text.secondary">
-                    {t('totalWin') || 'Total Win'}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    color="success.main"
-                    fontWeight="bold"
-                  >
-                    {totalWin.toFixed(2)}
-                  </Typography>
-                </Box>
-              )}
             </Box>
 
             <Divider />
@@ -488,7 +470,7 @@ const NewBetForm = ({ bettingCompanies, sports }: NewBetFormProps) => {
             <Stack direction="row" spacing={2} justifyContent="flex-end">
               <Button
                 variant="outlined"
-                onClick={() => router.back()}
+                onClick={handleReset}
                 disabled={isPending}
               >
                 {tCommon('cancel') || 'Cancel'}

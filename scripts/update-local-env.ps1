@@ -49,3 +49,4 @@ Write-Host "   NEXT_PUBLIC_SUPABASE_ANON_KEY=$($status.ANON_KEY.Substring(0, 50)
 Write-Host "   SUPABASE_SERVICE_ROLE_KEY=$($status.SERVICE_ROLE_KEY.Substring(0, 50))..." -ForegroundColor Gray
 Write-Host ""
 Write-Host "IMPORTANT: Restart your Next.js dev server for changes to take effect!" -ForegroundColor Yellow
+

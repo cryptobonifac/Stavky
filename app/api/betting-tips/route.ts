@@ -40,6 +40,7 @@ export async function POST(request: Request) {
         'sport',
         'league',
         'match',
+        'result_id',
         'odds',
         'match_date',
       ]
@@ -62,20 +63,6 @@ export async function POST(request: Request) {
       )
     }
 
-    // Validate stake
-    const stake = parseFloat(body.stake)
-    if (!stake || stake <= 0) {
-      return NextResponse.json(
-        { error: 'Stake must be a positive number' },
-        { status: 400 }
-      )
-    }
-
-    // Calculate total_win per tip (stake * individual odds)
-    // For combined bets, each tip gets its share of the stake
-    const stakePerTip = stake / body.tips.length
-    const total_win = body.final_odds * stake
-
     // All tips must be from the same betting company (enforced by UI)
     // Extract betting_company_id from the first tip
     const bettingCompanyId = body.tips[0].betting_company_id
@@ -86,10 +73,11 @@ export async function POST(request: Request) {
       sport: tip.sport,
       league: tip.league,
       match: tip.match,
+      result_id: tip.result_id,
       odds: tip.odds,
       match_date: tip.match_date,
-      stake: stakePerTip,
-      total_win: tip.odds * stakePerTip,
+      stake: null,
+      total_win: null,
       status: 'pending' as const,
     }))
 
@@ -131,10 +119,6 @@ export async function POST(request: Request) {
     )
   }
 
-  // Validate stake for legacy structure
-  const stake = parseFloat(body.stake || '0')
-  const total_win = stake > 0 ? (body.odds || 1) * stake : null
-
   const { data: insertedTip, error } = await supabase
     .from('betting_tip')
     .insert({
@@ -144,8 +128,8 @@ export async function POST(request: Request) {
       match: body.match,
       odds: body.odds,
       match_date: body.match_date,
-      stake: stake > 0 ? stake : null,
-      total_win: total_win,
+      stake: null,
+      total_win: null,
       status: 'pending',
     })
     .select()

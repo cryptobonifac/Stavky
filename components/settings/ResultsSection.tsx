@@ -19,36 +19,36 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useTranslations } from 'next-intl'
 
-type Sport = {
+type Result = {
   id: string
   name: string
 }
 
-type SportsSectionProps = {
-  sports: Sport[]
+type ResultsSectionProps = {
+  results: Result[]
 }
 
-const SportsSection = ({
-  sports: initialSports,
-}: SportsSectionProps) => {
-  const t = useTranslations('settings.sports')
+const ResultsSection = ({
+  results: initialResults,
+}: ResultsSectionProps) => {
+  const t = useTranslations('settings.results')
   const tCommon = useTranslations('common')
-  const [sports, setSports] = useState(initialSports)
+  const [results, setResults] = useState(initialResults)
   const [name, setName] = useState('')
   const [feedback, setFeedback] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [sportToDelete, setSportToDelete] = useState<{ id: string; name: string } | null>(null)
+  const [resultToDelete, setResultToDelete] = useState<{ id: string; name: string } | null>(null)
 
   // Sync local state with prop changes (e.g., after router.refresh())
   useEffect(() => {
-    setSports(initialSports)
-  }, [initialSports])
+    setResults(initialResults)
+  }, [initialResults])
 
   const handleCreate = () => {
     startTransition(async () => {
       setFeedback(null)
-      const response = await fetch('/api/settings/sports', {
+      const response = await fetch('/api/settings/results', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name }),
@@ -58,26 +58,26 @@ const SportsSection = ({
         setFeedback(payload.error ?? t('createFailed'))
         return
       }
-      const newSport = await response.json()
-      setSports((prev) => [...prev, newSport].sort((a, b) => a.name.localeCompare(b.name)))
-      setFeedback(t('sportCreated'))
+      const newResult = await response.json()
+      setResults((prev) => [...prev, newResult].sort((a, b) => a.name.localeCompare(b.name)))
+      setFeedback(t('resultCreated'))
       setName('')
     })
   }
 
-  const handleDeleteClick = (id: string, sportName: string) => {
+  const handleDeleteClick = (id: string, resultName: string) => {
     // Store English name for deletion, but display localized name in dialog
-    setSportToDelete({ id, name: sportName })
+    setResultToDelete({ id, name: resultName })
     setDeleteDialogOpen(true)
   }
 
   const handleDeleteConfirm = () => {
-    if (!sportToDelete) return
+    if (!resultToDelete) return
     setDeleteDialogOpen(false)
     startTransition(async () => {
       setFeedback(null)
       const response = await fetch(
-        `/api/settings/sports/${sportToDelete.id}`,
+        `/api/settings/results/${resultToDelete.id}`,
         { method: 'DELETE' }
       )
       if (!response.ok) {
@@ -85,15 +85,15 @@ const SportsSection = ({
         setFeedback(payload.error ?? t('deleteFailed'))
         return
       }
-      setSports((prev) => prev.filter((sport) => sport.id !== sportToDelete.id))
-      setFeedback(t('sportDeleted'))
-      setSportToDelete(null)
+      setResults((prev) => prev.filter((result) => result.id !== resultToDelete.id))
+      setFeedback(t('resultDeleted'))
+      setResultToDelete(null)
     })
   }
 
   const handleDeleteCancel = () => {
     setDeleteDialogOpen(false)
-    setSportToDelete(null)
+    setResultToDelete(null)
   }
 
   return (
@@ -101,27 +101,27 @@ const SportsSection = ({
       {feedback && <Alert onClose={() => setFeedback(null)}>{feedback}</Alert>}
       <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
         <TextField
-          label={t('newSportName')}
+          label={t('newResultName')}
           value={name}
           onChange={(event) => setName(event.target.value)}
           fullWidth
           size="small"
-          inputProps={{ 'data-testid': 'settings-sport-name-input' }}
+          inputProps={{ 'data-testid': 'settings-result-name-input' }}
         />
         <Button
           variant="contained"
           onClick={handleCreate}
           disabled={isPending || !name.trim()}
           sx={{ minWidth: 100 }}
-          data-testid="settings-sport-add-button"
+          data-testid="settings-result-add-button"
         >
           {t('add')}
         </Button>
       </Stack>
       <Stack spacing={1.5}>
-        {sports.map((sport) => (
+        {results.map((result) => (
           <Card
-            key={sport.id}
+            key={result.id}
             variant="outlined"
             sx={{
               border: '1px solid',
@@ -144,13 +144,13 @@ const SportsSection = ({
               }}
             >
               <Typography variant="body1" fontWeight={500}>
-                {sport.name}
+                {result.name}
               </Typography>
               <IconButton
                 aria-label={tCommon('delete')}
-                onClick={() => handleDeleteClick(sport.id, sport.name)}
+                onClick={() => handleDeleteClick(result.id, result.name)}
                 size="small"
-                data-testid={`settings-sport-delete-${sport.id}`}
+                data-testid={`settings-result-delete-${result.id}`}
                 sx={{
                   color: 'error.main',
                   '&:hover': {
@@ -164,9 +164,9 @@ const SportsSection = ({
             </CardContent>
           </Card>
         ))}
-        {sports.length === 0 && (
+        {results.length === 0 && (
           <Typography color="text.secondary" variant="body2" sx={{ py: 2 }}>
-            {t('noSports')}
+            {t('noResults')}
           </Typography>
         )}
       </Stack>
@@ -175,18 +175,18 @@ const SportsSection = ({
         onClose={handleDeleteCancel}
         aria-labelledby="delete-dialog-title"
         aria-describedby="delete-dialog-description"
-        data-testid="settings-sport-delete-dialog"
+        data-testid="settings-result-delete-dialog"
       >
         <DialogTitle id="delete-dialog-title">
           {t('delete')}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="delete-dialog-description">
-            {sportToDelete && t('confirmDelete', { name: sportToDelete.name })}
+            {resultToDelete && t('confirmDelete', { name: resultToDelete.name })}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDeleteCancel} data-testid="settings-sport-delete-cancel">
+          <Button onClick={handleDeleteCancel} data-testid="settings-result-delete-cancel">
             {tCommon('cancel')}
           </Button>
           <Button
@@ -194,7 +194,7 @@ const SportsSection = ({
             color="error"
             variant="contained"
             autoFocus
-            data-testid="settings-sport-delete-confirm"
+            data-testid="settings-result-delete-confirm"
           >
             {tCommon('delete')}
           </Button>
@@ -204,10 +204,5 @@ const SportsSection = ({
   )
 }
 
-export default SportsSection
-
-
-
-
-
+export default ResultsSection
 

@@ -22,3 +22,4 @@ CREATE POLICY "public can view all tip items for statistics"
 ON public.betting_tip_items
 FOR SELECT
 USING (true);
+

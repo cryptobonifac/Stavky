@@ -2,7 +2,12 @@
 
 
 
-## Local supabase
+## File generation
+- if cursor needs to generate one time scripts always save them in root directory of the project directory tmp 
+
+`
+
+## Remote supabase
  - run migration: supabase migration up --include-all
 
 ## Core Principle
@@ -234,6 +239,7 @@ Ensure Podman machine is running: `podman machine start podman-machine-default`
 Podman automatically exposes a Docker-compatible API, so Supabase CLI works without extra configuration
 Start Supabase: `npm run db:local` or `supabase start`
 Your Supabase instance is now running at http://127.0.0.1:54321
+
 
 
 

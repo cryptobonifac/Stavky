@@ -140,7 +140,13 @@
     "total": "Celkom",
     "noHistory": "Žiadne štatistiky k dispozícii",
     "noHistoryYet": "Zatiaľ žiadne štatistiky k dispozícii.",
-    "selectMonth": "Vybrať mesiac"
+    "selectMonth": "Vybrať mesiac",
+    "showing": "Zobrazuje sa",
+    "of": "z",
+    "tips": "tipov",
+    "date": "Datum",
+    "match": "Zapas",
+    "odds": "Kurz"
   },
   "profile": {
     "title": "Profil",
@@ -188,6 +194,7 @@
     "selectLeague": "Vyberte ligu",
     "match": "Zápas",
     "matchPlaceholder": "Tím A vs Tím B",
+    "result": "Výsledok",
     "odds": "Kurz",
     "oddsPlaceholder": "1,001 - 2,00",
     "oddsHelper": "Hodnota medzi 1,001 a 2,000",
@@ -214,6 +221,7 @@
       "sportRequired": "Šport je povinný",
       "leagueRequired": "Liga je povinná",
       "matchRequired": "Zápas je povinný",
+      "resultRequired": "Výsledok je povinný",
       "oddsRequired": "Kurz je povinný",
       "oddsInvalid": "Kurz musí byť medzi 1,001 a 2,000",
       "matchDateRequired": "Dátum zápasu je povinný"
@@ -290,6 +298,21 @@
       "sportDeleted": "Šport bol vymazaný",
       "createFailed": "Nepodarilo sa pridať šport",
       "deleteFailed": "Nepodarilo sa vymazať šport"
+    },
+    "results": {
+      "title": "Výsledky",
+      "name": "Názov",
+      "newResultName": "Názov nového výsledku",
+      "add": "Pridať",
+      "addResult": "Pridať výsledok",
+      "edit": "Upraviť výsledok",
+      "delete": "Vymazať výsledok",
+      "confirmDelete": "Naozaj chcete vymazať výsledok {name}?",
+      "noResults": "Zatiaľ žiadne výsledky.",
+      "resultCreated": "Výsledok bol úspešne vytvorený",
+      "resultDeleted": "Výsledok bol vymazaný",
+      "createFailed": "Nepodarilo sa vytvoriť výsledok",
+      "deleteFailed": "Nepodarilo sa vymazať výsledok"
     },
     "marketing": {
       "title": "Marketing a logika zdarma mesiaca",

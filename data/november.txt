@@ -1,0 +1,41 @@
+Date, Sport, League, Match, Result, Odds, Betting company, stake, win
+1.11, Tenis,UTR Newport, Gasanova A. - Boyer L., 1, 1.04, bet365, 300, 312
+4.11,  Tenis, W75, Trnava, SR R. Šramková - A. L. Nita 1 1.25 Nike, 100, 125
+5.11,  hadzana, mol liga, Most - Michalovce, 1, 1.6, Nike, 100, 160
+6.11,  Tenis,W35 Pune, India P. Honova - M. Ozeki, 1, 1.08, bet365, 300, 324
+7.11,  Tenis, W50 Helsinki, Fínsko Z. Vancouverová - L. Laboutkova, 1, 1.15, bet365, 200, 230
+9.11,  hadzana, mol liga, Poruba - Slavia, 2, 1.21, Nike, 100, 121
+10.11, Tenis, Challenger Knoxville, USA A. Walton - T. Zink, 1, 1.28, bet365, 100, 128
+11.11, Tenis, Masters Alcaraz - Fritz, 1, 1.21, Tipsport, 100, 121 
+12.11, Tenis, ITF Sharm, el Sheik Biryukov - Kaufman, 1, 1.04 ,bet365, 300, 312
+12.11, Tenis, Masters Sinner - Zverev, 1, 1.11, bet365, 200, 222
+13.11, Tenis, ITF Azul, Ambrogi - Dreer, 1, 1.04, bet365, 300, 312
+13.11, Futbal, Moldavsko - Taliansko, 2, 1.1, Tipsport, 100, 110
+14.11, Tenis, UTR Boca, Sahnis - Jackson, 2, 1.083, bet365, 300, 324
+14.11, Beachvolleyball, Capogroso/Capogroso - Mondlane/Mungoi, 1, 1.05, Tipsport, 600 630
+14.11, Hokej, Sanok - Jastrzbie, 2, 1.03, Nike, 400, 412
+14.11, Futsal, Plzen - Usti, 1, 1.12, Tipsport, 200 224
+15.11, Tenis, Masters, Sinner - DeMinaur, 1.08, Tipsport, 200,216
+15.11, Hadzana, Metz - DVSC, 1.05, Tipsport, 200, 210
+15.11, Futsal, Vyskov - Chrudim, 2, 1.1, Tipsport, 200, 220
+15.11, Futbal, Dansko - Bielorusko, 1, 1.08, Nike, 200, 216
+16.11, Tenis, Masters ,Sinner - Alcaraz, 1, 1.6 ,Nike, 100, 160
+17.11, Tenis, ITF Trnava, Havlickova - Kovacicova, 1, 1.03, bet365, 400,412
+18.11, Tenis, ITF Austin, Choi - Grumet, 2, 1.08, bet365, 200, 216
+19.11, Tenis, Davis cup, Taliansko - Rakúsko, 1, 1.083, bet365, 200, 216
+19.11, Basketbal, USK,  KP Brno 1.polčas, 1, 1.05, bet365, 400, 420
+19.11, Volejbal, CEV, Strumica - Budejovice, 2, 1.11, bet365, 200, 222
+21.11, Tenis, UTR Ithaca, Kilmer - Fernandes, 2, 1.04, bet365, 300, 312
+21.11, Hokej, Torun - Sanok, 1, 1.03, Nike, 400, 412
+21.11, Futsal, Plzeň - Brno 1 1,1 Tipsport 200 220
+23.11, Tenis, Ateny, Schinas - Casanova, 2, 1.03, bet365, 400, 412
+23.11, Hadzana, Legionowo - Kielce, 2, 1.03, Nike, 800 824
+23.11, Volejbal, Orkelljunga - Hasthagen, 1, 1.04, bet365, 800, 832
+25.11, Tenis, WTA Buenos Aires, Vazqez - Dolehide, 2, 1.04, bet365, 400, 416
+25.11, Tenis, Olyinikova - Nahimana, 1, 1.04, bet365, 400, 416
+25.11, Volejbal, Al, rayyan -  shamal, 1, 1.04, bet365, 500, 520
+26.11, Volejbal, CEV, Janta - Mladost, 2, 1.03, bet365, 600, 618
+27.11, Tenis ITF Hradec Recek/Siniakov - Blazka/Homola 1 1,04 bet365 400 416
+29.11, Volejbal, Rakusko ,Aich - Bisamberg, 1, 1.03, bet365, 600, 618
+30.11, Tenis, UTR Oxford ,Pires - Whitwell, 1, 1.04 ,bet365, 400, 416
+30.11, Volejbal, Aarhus - Amager, 1, 1.05, bet365, 600, 630
