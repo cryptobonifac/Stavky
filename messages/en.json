@@ -146,7 +146,26 @@
     "tips": "tips",
     "date": "Date",
     "match": "Match",
-    "odds": "Odds"
+    "odds": "Odds",
+    "edit": "Edit",
+    "delete": "Delete",
+    "editTip": "Edit Tip",
+    "deleteTip": "Delete Tip",
+    "deleteConfirmationTitle": "Delete Tip",
+    "deleteConfirmation": "Are you sure you want to delete this tip?",
+    "tipDeleted": "Tip deleted successfully",
+    "tipUpdated": "Tip updated successfully",
+    "deleteError": "Failed to delete tip",
+    "updateError": "Failed to update tip",
+    "sport": "Sport",
+    "league": "League",
+    "match": "Match",
+    "matchDate": "Match Date",
+    "stake": "Stake",
+    "status": "Status",
+    "pending": "Pending",
+    "win": "Win",
+    "loss": "Loss"
   },
   "profile": {
     "title": "Profile",
@@ -360,6 +379,7 @@
     "settings": "Settings",
     "newbet": "New Bet",
     "manage": "Manage Tips",
+    "customers": "Customers",
     "contacts": "Contacts",
     "admin": "ADMIN"
   },
@@ -425,6 +445,19 @@
     "Softball": "Softball",
     "Politics": "Politics"
   },
-  "leagues": {}
+  "leagues": {},
+  "customers": {
+    "title": "Customers",
+    "subtitle": "Manage customer accounts and subscriptions",
+    "dateOfRegistration": "Date of Registration",
+    "email": "Email",
+    "status": "Status",
+    "validTo": "Valid To",
+    "active": "Active",
+    "inactive": "Inactive",
+    "noCustomers": "No customers found",
+    "showing": "Showing",
+    "of": "of"
+  }
 }
 

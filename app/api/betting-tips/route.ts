@@ -68,18 +68,47 @@ export async function POST(request: Request) {
     const bettingCompanyId = body.tips[0].betting_company_id
 
     // Create betting_tip records (one per tip in the array)
-    const tipRecords = body.tips.map((tip: any) => ({
-      betting_company_id: bettingCompanyId,
-      sport: tip.sport,
-      league: tip.league,
-      match: tip.match,
-      result_id: tip.result_id,
-      odds: tip.odds,
-      match_date: tip.match_date,
-      stake: null,
-      total_win: null,
-      status: 'pending' as const,
-    }))
+    const tipRecords = body.tips.map((tip: any) => {
+      // Validate stake if provided
+      let stake = null
+      if (tip.stake !== undefined && tip.stake !== null && tip.stake !== '') {
+        const stakeValue = parseFloat(tip.stake)
+        if (isNaN(stakeValue) || stakeValue <= 0) {
+          return null // Will be caught by validation below
+        }
+        stake = stakeValue
+      }
+
+      // Calculate total_win if stake is provided
+      let totalWin = null
+      if (tip.total_win !== undefined && tip.total_win !== null && tip.total_win !== '') {
+        totalWin = parseFloat(tip.total_win)
+      } else if (stake !== null && tip.odds) {
+        // Calculate total_win = stake * odds if not provided
+        totalWin = stake * parseFloat(tip.odds)
+      }
+
+      return {
+        betting_company_id: bettingCompanyId,
+        sport: tip.sport,
+        league: tip.league,
+        match: tip.match,
+        result_id: tip.result_id,
+        odds: tip.odds,
+        match_date: tip.match_date,
+        stake,
+        total_win: totalWin,
+        status: 'pending' as const,
+      }
+    })
+
+    // Check if any tip record is null (validation failed)
+    if (tipRecords.some((record: any) => record === null)) {
+      return NextResponse.json(
+        { error: 'Invalid stake value. Stake must be a positive number.' },
+        { status: 400 }
+      )
+    }
 
     const { data: insertedTips, error: insertError } = await supabase
       .from('betting_tip')
@@ -119,6 +148,23 @@ export async function POST(request: Request) {
     )
   }
 
+  // Handle stake and total_win for legacy structure
+  let stake = null
+  if (body.stake !== undefined && body.stake !== null && body.stake !== '') {
+    const stakeValue = parseFloat(body.stake)
+    if (!isNaN(stakeValue) && stakeValue > 0) {
+      stake = stakeValue
+    }
+  }
+
+  let totalWin = null
+  if (body.total_win !== undefined && body.total_win !== null && body.total_win !== '') {
+    totalWin = parseFloat(body.total_win)
+  } else if (stake !== null && body.odds) {
+    // Calculate total_win = stake * odds if not provided
+    totalWin = stake * parseFloat(body.odds)
+  }
+
   const { data: insertedTip, error } = await supabase
     .from('betting_tip')
     .insert({
@@ -128,8 +174,8 @@ export async function POST(request: Request) {
       match: body.match,
       odds: body.odds,
       match_date: body.match_date,
-      stake: null,
-      total_win: null,
+      stake,
+      total_win: totalWin,
       status: 'pending',
     })
     .select()

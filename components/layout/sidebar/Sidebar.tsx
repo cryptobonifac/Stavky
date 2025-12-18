@@ -6,7 +6,7 @@ import HistoryIcon from '@mui/icons-material/History'
 import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
-import ContactMailIcon from '@mui/icons-material/ContactMail'
+import PeopleIcon from '@mui/icons-material/People'
 import { useTranslations } from 'next-intl'
 
 import SidebarItem from './SidebarItem'
@@ -41,7 +41,7 @@ const Sidebar = ({ role }: SidebarProps) => {
             </Typography>
             <SidebarItem href="/newbet" icon={<AdminPanelSettingsIcon />} label={t('newbet')} />
             <SidebarItem href="/bettings/manage" icon={<SportsSoccerIcon />} label={t('manage')} />
-            <SidebarItem href="/contacts" icon={<ContactMailIcon />} label={t('contacts')} />
+            <SidebarItem href="/bettings/customers" icon={<PeopleIcon />} label={t('customers')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}

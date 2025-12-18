@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition, useMemo, useId } from 'react'
+import { useState, useTransition, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import dayjs, { type Dayjs } from 'dayjs'
 import {
@@ -45,6 +45,7 @@ type TipForm = {
   result_id: string
   odds: string
   match_date: Dayjs
+  stake: string
 }
 
 const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
@@ -62,24 +63,22 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
     result_id: '',
     odds: '1.01',
     match_date: dayjs().add(1, 'hour'),
+    stake: '',
   })
 
   const [error, setError] = useState<string | null>(null)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
   const [openSportAutocomplete, setOpenSportAutocomplete] = useState(false)
 
-  // Generate stable IDs for form fields to prevent hydration errors
-  const bettingCompanyId = useId()
-  const sportId = useId()
-  const leagueId = useId()
-  const matchId = useId()
-  const resultId = useId()
-  const oddsId = useId()
-  const matchDateId = useId()
-
   const currentOddsValue = parseFloat(formData.odds) || 1.01
   const isAtMin = currentOddsValue <= 1.001
   const isAtMax = currentOddsValue >= 2.0
+  
+  // Calculate total_win = stake * odds
+  const stakeValue = parseFloat(formData.stake) || 0
+  const totalWinValue = stakeValue > 0 && currentOddsValue > 0 
+    ? (stakeValue * currentOddsValue).toFixed(2) 
+    : ''
 
   const handleFieldChange = (field: keyof TipForm, value: string | Dayjs) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -124,6 +123,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
       result_id: '',
       odds: '1.01',
       match_date: dayjs().add(1, 'hour'),
+      stake: '',
     })
     setError(null)
     setFieldErrors({})
@@ -179,6 +179,10 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
 
     startTransition(async () => {
       const oddsValue = parseFloat(formData.odds)
+      const stakeValue = parseFloat(formData.stake) || null
+      const totalWinValue = stakeValue && oddsValue 
+        ? stakeValue * oddsValue 
+        : null
 
       const response = await fetch('/api/betting-tips', {
         method: 'POST',
@@ -195,6 +199,8 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               result_id: formData.result_id,
               odds: oddsValue,
               match_date: formData.match_date.toISOString(),
+              stake: stakeValue,
+              total_win: totalWinValue,
             },
           ],
           final_odds: oddsValue,
@@ -258,7 +264,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Betting Company - Dropdown with sufficient width */}
               <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '0 0 200px' } }}>
                 <TextField
-                  id={bettingCompanyId}
                   select
                   label={t('bettingCompany') || 'Company'}
                   fullWidth
@@ -302,7 +307,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      id={sportId}
                       label={t('sport') || 'Sport'}
                       required
                       fullWidth
@@ -321,7 +325,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* League */}
               <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '1 1 150px' } }}>
                 <TextField
-                  id={leagueId}
                   label={t('league') || 'League'}
                   fullWidth
                   required
@@ -338,7 +341,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Match */}
               <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '1 1 200px' } }}>
                 <TextField
-                  id={matchId}
                   label={t('match') || 'Match'}
                   placeholder={t('matchPlaceholder') || 'e.g., Team A vs Team B'}
                   value={formData.match}
@@ -356,7 +358,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Result */}
               <Box sx={{ minWidth: { xs: '100%', md: 100 }, flex: { xs: '1 1 100%', md: '0 0 100px' } }}>
                 <TextField
-                  id={resultId}
                   select
                   label={t('result') || 'Result'}
                   fullWidth
@@ -380,7 +381,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Odds */}
               <Box sx={{ minWidth: { xs: '100%', md: 140 }, flex: { xs: '1 1 100%', md: '0 0 140px' } }}>
                 <TextField
-                  id={oddsId}
                   label={t('odds') || 'Odds'}
                   type="number"
                   value={formData.odds}
@@ -456,9 +456,62 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   helperText={fieldErrors.match_date}
                   slotProps={{
                     textField: {
-                      id: matchDateId,
                       size: 'small' as const,
                     },
+                  }}
+                />
+              </Box>
+            </Box>
+
+            {/* Stake and Total Win Row */}
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 2,
+                alignItems: 'flex-start',
+                flexWrap: 'wrap',
+                '& > *': {
+                  flex: { xs: '1 1 100%', md: '1 1 auto' },
+                  minWidth: { xs: '100%', md: 0 },
+                },
+              }}
+            >
+              {/* Stake */}
+              <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
+                <TextField
+                  label={t('stake') || 'Stake'}
+                  type="number"
+                  value={formData.stake}
+                  onChange={(event) => {
+                    const value = event.target.value
+                    handleFieldChange('stake', value)
+                  }}
+                  fullWidth
+                  size="small"
+                  inputProps={{
+                    step: 0.01,
+                    min: 0,
+                  }}
+                  error={!!fieldErrors.stake}
+                  helperText={fieldErrors.stake || t('stakeHelper')}
+                  placeholder={t('stakeHelper')}
+                />
+              </Box>
+
+              {/* Total Win (Read-only, calculated) */}
+              <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
+                <TextField
+                  label={t('totalWin') || 'Total Win'}
+                  type="text"
+                  value={totalWinValue}
+                  fullWidth
+                  size="small"
+                  disabled
+                  helperText={t('finalOdds') || 'Calculated: stake × odds'}
+                  InputProps={{
+                    readOnly: true,
                   }}
                 />
               </Box>

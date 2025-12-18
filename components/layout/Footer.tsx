@@ -34,9 +34,6 @@ const Footer = () => {
           <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
             {t('privacy')}
           </MuiLink>
-          <MuiLink component={Link} href="/contact" color="text.secondary" underline="hover">
-            {t('contact')}
-          </MuiLink>
         </Stack>
       </Stack>
     </Box>

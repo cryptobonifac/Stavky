@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
+import { useRouter } from 'next/navigation'
 import dayjs from 'dayjs'
 import localizedFormat from 'dayjs/plugin/localizedFormat'
 import {
@@ -10,10 +11,22 @@ import {
   Stack,
   Typography,
   Box,
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem as SelectMenuItem,
 } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { useTranslations, useLocale } from 'next-intl'
 
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
+import DateTimePickerField from '@/components/ui/date-time-picker-field'
 
 dayjs.extend(localizedFormat)
 
@@ -32,6 +45,7 @@ export type HistoryMonth = {
 
 type HistoryMonthViewProps = {
   months: HistoryMonth[]
+  userRole?: string
 }
 
 // Company chip styles
@@ -64,11 +78,129 @@ const getCompanyChipStyles = (companyName: string) => {
   }
 }
 
-const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
+const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
   const t = useTranslations('statistics')
+  const tCommon = useTranslations('common')
   const locale = useLocale()
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
   const [selectedKey, setSelectedKey] = useState(months[0]?.key ?? '')
   const [currentPage, setCurrentPage] = useState(1)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
+  const [tipToDelete, setTipToDelete] = useState<TipRecord | null>(null)
+  const [editDialogOpen, setEditDialogOpen] = useState(false)
+  const [tipToEdit, setTipToEdit] = useState<any>(null)
+  const [editFormData, setEditFormData] = useState<any>(null)
+  
+  const isBettingRole = userRole === 'betting'
+  
+  const handleDeleteClick = (tip: TipRecord) => {
+    setTipToDelete(tip)
+    setDeleteDialogOpen(true)
+  }
+
+  const handleDeleteCancel = () => {
+    setDeleteDialogOpen(false)
+    setTipToDelete(null)
+  }
+
+  const handleDeleteConfirm = () => {
+    if (!tipToDelete) return
+
+    startTransition(async () => {
+      const response = await fetch(`/api/betting-tips/${tipToDelete.id}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        console.error('Failed to delete tip:', payload.error)
+        // Could add error notification here
+        return
+      }
+
+      setDeleteDialogOpen(false)
+      setTipToDelete(null)
+      router.refresh()
+    })
+  }
+
+  const handleEditClick = async (tip: TipRecord) => {
+    try {
+      const response = await fetch(`/api/betting-tips/${tip.id}`)
+      if (!response.ok) {
+        console.error('Failed to fetch tip data')
+        return
+      }
+      const data = await response.json()
+      if (data.success && data.tip) {
+        setTipToEdit(data.tip)
+        setEditFormData({
+          sport: data.tip.sport || '',
+          league: data.tip.league || '',
+          match: data.tip.match || '',
+          odds: data.tip.odds?.toString() || '1.01',
+          match_date: dayjs(data.tip.match_date),
+          stake: data.tip.stake?.toString() || '',
+          status: data.tip.status || 'pending',
+        })
+        setEditDialogOpen(true)
+      }
+    } catch (error) {
+      console.error('Error fetching tip data:', error)
+    }
+  }
+
+  const handleEditCancel = () => {
+    setEditDialogOpen(false)
+    setTipToEdit(null)
+    setEditFormData(null)
+  }
+
+  const handleEditSave = () => {
+    if (!tipToEdit || !editFormData) return
+
+    startTransition(async () => {
+      const updateData: any = {
+        sport: editFormData.sport.trim(),
+        league: editFormData.league.trim(),
+        match: editFormData.match.trim(),
+        odds: parseFloat(editFormData.odds),
+        match_date: editFormData.match_date.toISOString(),
+        status: editFormData.status,
+      }
+
+      if (editFormData.stake) {
+        const stakeValue = parseFloat(editFormData.stake)
+        if (!isNaN(stakeValue) && stakeValue > 0) {
+          updateData.stake = stakeValue
+          updateData.total_win = stakeValue * parseFloat(editFormData.odds)
+        }
+      } else {
+        updateData.stake = null
+        updateData.total_win = null
+      }
+
+      const response = await fetch(`/api/betting-tips/${tipToEdit.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData),
+      })
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}))
+        console.error('Failed to update tip:', payload.error)
+        return
+      }
+
+      setEditDialogOpen(false)
+      setTipToEdit(null)
+      setEditFormData(null)
+      router.refresh()
+    })
+  }
   
   const selectedMonth = useMemo(
     () => months.find((month) => month.key === selectedKey) ?? months[0],
@@ -275,7 +407,9 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
               <Box
                 sx={{
                   display: { xs: 'none', md: 'grid' },
-                  gridTemplateColumns: '70px 1fr 90px 24px',
+                  gridTemplateColumns: isBettingRole 
+                    ? '70px 1fr 90px 24px 60px' 
+                    : '70px 1fr 90px 24px',
                   gap: 2,
                   p: 2,
                   borderBottom: '1px solid #f0f0f0',
@@ -318,6 +452,7 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                   {t('odds')}
                 </Typography>
                 <Box />
+                {isBettingRole && <Box />}
               </Box>
 
               {/* Tips Grid */}
@@ -348,8 +483,12 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                       sx={{
                         display: 'grid',
                         gridTemplateColumns: {
-                          xs: '50px minmax(0, 1fr) 70px 20px',
-                          md: '70px 1fr 90px 24px',
+                          xs: isBettingRole 
+                            ? '50px minmax(0, 1fr) 70px 20px 50px'
+                            : '50px minmax(0, 1fr) 70px 20px',
+                          md: isBettingRole
+                            ? '70px 1fr 90px 24px 60px'
+                            : '70px 1fr 90px 24px',
                         },
                         gap: { xs: 0.4, md: 1.13 },
                         p: { xs: '0.42rem', md: '0.56rem' },
@@ -495,10 +634,206 @@ const HistoryMonthView = ({ months }: HistoryMonthViewProps) => {
                           />
                         )}
                       </Box>
+
+                      {/* Action Buttons (Edit/Delete) - Only for betting role */}
+                      {isBettingRole && (
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: { xs: 'flex-end', md: 'flex-end' },
+                            gap: 0.5,
+                          }}
+                        >
+                          <IconButton
+                            size="small"
+                            onClick={() => handleEditClick(tip)}
+                            sx={{
+                              padding: { xs: '4px', md: '6px' },
+                              '&:hover': {
+                                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                              },
+                            }}
+                            aria-label={t('edit')}
+                          >
+                            <EditIcon fontSize="small" />
+                          </IconButton>
+                          <IconButton
+                            size="small"
+                            onClick={() => handleDeleteClick(tip)}
+                            sx={{
+                              padding: { xs: '4px', md: '6px' },
+                              color: 'error.main',
+                              '&:hover': {
+                                backgroundColor: 'error.light',
+                                color: 'error.dark',
+                              },
+                            }}
+                            aria-label={t('delete')}
+                          >
+                            <DeleteIcon fontSize="small" />
+                          </IconButton>
+                        </Box>
+                      )}
                     </Box>
                   )
                 })}
               </Stack>
+
+              {/* Delete Confirmation Dialog */}
+              <Dialog
+                open={deleteDialogOpen}
+                onClose={handleDeleteCancel}
+                aria-labelledby="delete-tip-dialog-title"
+                aria-describedby="delete-tip-dialog-description"
+              >
+                <DialogTitle id="delete-tip-dialog-title">
+                  {t('deleteTip') || t('delete')}
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="delete-tip-dialog-description">
+                    {t('deleteConfirmation') || 'Are you sure you want to delete this tip?'}
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={handleDeleteCancel}
+                    disabled={isPending}
+                  >
+                    {tCommon('cancel')}
+                  </Button>
+                  <Button
+                    onClick={handleDeleteConfirm}
+                    color="error"
+                    variant="contained"
+                    disabled={isPending}
+                    autoFocus
+                  >
+                    {tCommon('delete')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+              {/* Edit Dialog */}
+              <Dialog
+                open={editDialogOpen}
+                onClose={handleEditCancel}
+                aria-labelledby="edit-tip-dialog-title"
+                maxWidth="sm"
+                fullWidth
+              >
+                <DialogTitle id="edit-tip-dialog-title">
+                  {t('editTip')}
+                </DialogTitle>
+                <DialogContent>
+                  {editFormData && (
+                    <Stack spacing={3} sx={{ mt: 1 }}>
+                      <TextField
+                        label={t('sport') || 'Sport'}
+                        value={editFormData.sport}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, sport: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                      />
+                      <TextField
+                        label={t('league') || 'League'}
+                        value={editFormData.league}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, league: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                      />
+                      <TextField
+                        label={t('match') || 'Match'}
+                        value={editFormData.match}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, match: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                      />
+                      <TextField
+                        label={t('odds') || 'Odds'}
+                        type="number"
+                        value={editFormData.odds}
+                        onChange={(e) => {
+                          const value = parseFloat(e.target.value)
+                          if (!isNaN(value) && value >= 1.001 && value <= 2.0) {
+                            setEditFormData({ ...editFormData, odds: e.target.value })
+                          }
+                        }}
+                        fullWidth
+                        size="small"
+                        inputProps={{
+                          step: 0.001,
+                          min: 1.001,
+                          max: 2.0,
+                        }}
+                      />
+                      <DateTimePickerField
+                        label={t('matchDate') || 'Match Date'}
+                        value={editFormData.match_date}
+                        onChange={(value) =>
+                          setEditFormData({ ...editFormData, match_date: value ?? dayjs() })
+                        }
+                        slotProps={{
+                          textField: {
+                            size: 'small' as const,
+                            fullWidth: true,
+                          },
+                        }}
+                      />
+                      <TextField
+                        label={t('stake') || 'Stake'}
+                        type="number"
+                        value={editFormData.stake}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, stake: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                        inputProps={{
+                          step: 0.01,
+                          min: 0,
+                        }}
+                      />
+                      <TextField
+                        select
+                        label={t('status') || 'Status'}
+                        value={editFormData.status}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, status: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                      >
+                        <SelectMenuItem value="pending">{t('pending')}</SelectMenuItem>
+                        <SelectMenuItem value="win">{t('win')}</SelectMenuItem>
+                        <SelectMenuItem value="loss">{t('loss')}</SelectMenuItem>
+                      </TextField>
+                    </Stack>
+                  )}
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={handleEditCancel}
+                    disabled={isPending}
+                  >
+                    {tCommon('cancel')}
+                  </Button>
+                  <Button
+                    onClick={handleEditSave}
+                    variant="contained"
+                    disabled={isPending}
+                    autoFocus
+                  >
+                    {tCommon('save')}
+                  </Button>
+                </DialogActions>
+              </Dialog>
 
               {/* Pagination */}
               {totalTips > 0 && (

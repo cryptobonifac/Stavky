@@ -206,7 +206,7 @@ export default async function StatisticsPage({
         subtitle={t('subtitle')}
       >
         <Suspense fallback={<StatisticsLoading />}>
-          <HistoryMonthView months={months} />
+          <HistoryMonthView months={months} userRole={profile?.role} />
         </Suspense>
       </PageSection>
     </MainLayout>

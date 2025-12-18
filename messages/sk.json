@@ -146,7 +146,26 @@
     "tips": "tipov",
     "date": "Datum",
     "match": "Zapas",
-    "odds": "Kurz"
+    "odds": "Kurz",
+    "edit": "Upraviť",
+    "delete": "Vymazať",
+    "editTip": "Upraviť tip",
+    "deleteTip": "Vymazať tip",
+    "deleteConfirmationTitle": "Vymazať tip",
+    "deleteConfirmation": "Naozaj chcete vymazať tento tip?",
+    "tipDeleted": "Tip bol úspešne vymazaný",
+    "tipUpdated": "Tip bol úspešne aktualizovaný",
+    "deleteError": "Nepodarilo sa vymazať tip",
+    "updateError": "Nepodarilo sa aktualizovať tip",
+    "sport": "Šport",
+    "league": "Liga",
+    "match": "Zápas",
+    "matchDate": "Dátum zápasu",
+    "stake": "Stávka",
+    "status": "Status",
+    "pending": "Čakajúci",
+    "win": "Výhra",
+    "loss": "Prehra"
   },
   "profile": {
     "title": "Profil",
@@ -360,6 +379,7 @@
     "settings": "Nastavenia",
     "newbet": "Nový tip",
     "manage": "Spravovať tipy",
+    "customers": "Zákazníci",
     "contacts": "Kontakty",
     "admin": "ADMIN"
   },
@@ -425,6 +445,19 @@
     "Softball": "Softbal",
     "Politics": "Politika"
   },
-  "leagues": {}
+  "leagues": {},
+  "customers": {
+    "title": "Zákazníci",
+    "subtitle": "Spravovať účty zákazníkov a predplatné",
+    "dateOfRegistration": "Dátum registrácie",
+    "email": "Email",
+    "status": "Status",
+    "validTo": "Platné do",
+    "active": "Aktívny",
+    "inactive": "Neaktívny",
+    "noCustomers": "Neboli nájdení žiadni zákazníci",
+    "showing": "Zobrazuje sa",
+    "of": "z"
+  }
 }
 
