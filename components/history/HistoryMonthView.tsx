@@ -502,10 +502,10 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                     fontWeight: 500,
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px',
-                    textAlign: 'center',
+                    textAlign: 'right',
                   }}
                 >
-                  {t('status')}
+                  {t('stake')}
                 </Typography>
                 <Typography
                   sx={{
@@ -682,23 +682,25 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                         </Typography>
                       </Box>
 
-                      {/* Status Text */}
+                      {/* Stake */}
                       <Box
                         sx={{
                           display: 'flex',
                           alignItems: 'center',
-                          justifyContent: { xs: 'center', md: 'center' },
+                          justifyContent: { xs: 'flex-end', md: 'flex-end' },
                         }}
                       >
                         <Typography
                           sx={{
                             fontSize: { xs: '0.75rem', md: '0.875rem' },
                             fontWeight: 500,
-                            color: statusColor,
-                            textTransform: 'capitalize',
+                            color: '#1a1a1a',
+                            whiteSpace: 'nowrap',
                           }}
                         >
-                          {tip.status === 'win' ? t('win') : tip.status === 'loss' ? t('loss') : t('pending')}
+                          {tip.stake !== null && tip.stake !== undefined
+                            ? tip.stake.toFixed(2).replace('.', ',')
+                            : '-'}
                         </Typography>
                       </Box>
 
