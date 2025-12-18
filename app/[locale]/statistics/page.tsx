@@ -127,6 +127,8 @@ export default async function StatisticsPage({
       status, 
       match_date,
       created_at,
+      stake,
+      total_win,
       betting_company_id,
       result_id,
       betting_companies:betting_company_id (name),
@@ -168,6 +170,8 @@ export default async function StatisticsPage({
       odds: tip.odds,
       match_date: tip.match_date || tip.created_at,
       status: tip.status,
+      stake: tip.stake ?? null,
+      total_win: tip.total_win ?? null,
       // Add structured data for new design
       companyName,
       resultName,

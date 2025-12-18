@@ -91,6 +91,7 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
   const [editDialogOpen, setEditDialogOpen] = useState(false)
   const [tipToEdit, setTipToEdit] = useState<any>(null)
   const [editFormData, setEditFormData] = useState<any>(null)
+  const [results, setResults] = useState<Array<{ id: string; name: string }>>([])
   
   const isBettingRole = userRole === 'betting'
   
@@ -127,22 +128,37 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
 
   const handleEditClick = async (tip: TipRecord) => {
     try {
-      const response = await fetch(`/api/betting-tips/${tip.id}`)
-      if (!response.ok) {
+      // Fetch tip data and results in parallel
+      const [tipResponse, resultsResponse] = await Promise.all([
+        fetch(`/api/betting-tips/${tip.id}`),
+        fetch('/api/settings/results')
+      ])
+      
+      if (!tipResponse.ok) {
         console.error('Failed to fetch tip data')
         return
       }
-      const data = await response.json()
-      if (data.success && data.tip) {
-        setTipToEdit(data.tip)
+      
+      const tipData = await tipResponse.json()
+      if (tipData.success && tipData.tip) {
+        // Fetch results for dropdown
+        let resultsData: Array<{ id: string; name: string }> = []
+        if (resultsResponse.ok) {
+          resultsData = await resultsResponse.json()
+        }
+        setResults(resultsData)
+        
+        setTipToEdit(tipData.tip)
         setEditFormData({
-          sport: data.tip.sport || '',
-          league: data.tip.league || '',
-          match: data.tip.match || '',
-          odds: data.tip.odds?.toString() || '1.01',
-          match_date: dayjs(data.tip.match_date),
-          stake: data.tip.stake?.toString() || '',
-          status: data.tip.status || 'pending',
+          sport: tipData.tip.sport || '',
+          league: tipData.tip.league || '',
+          match: tipData.tip.match || '',
+          odds: tipData.tip.odds?.toString() || '1.01',
+          match_date: dayjs(tipData.tip.match_date),
+          stake: tipData.tip.stake?.toString() || '',
+          total_win: tipData.tip.total_win?.toString() || '',
+          result_id: tipData.tip.result_id || '',
+          status: tipData.tip.status || 'pending',
         })
         setEditDialogOpen(true)
       }
@@ -170,15 +186,43 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
         status: editFormData.status,
       }
 
+      // Handle result_id
+      if (editFormData.result_id) {
+        updateData.result_id = editFormData.result_id
+      } else {
+        updateData.result_id = null
+      }
+
+      // Handle stake
       if (editFormData.stake) {
         const stakeValue = parseFloat(editFormData.stake)
         if (!isNaN(stakeValue) && stakeValue > 0) {
           updateData.stake = stakeValue
-          updateData.total_win = stakeValue * parseFloat(editFormData.odds)
+          // Calculate total_win if not explicitly provided
+          if (editFormData.total_win) {
+            const totalWinValue = parseFloat(editFormData.total_win)
+            if (!isNaN(totalWinValue) && totalWinValue > 0) {
+              updateData.total_win = totalWinValue
+            } else {
+              updateData.total_win = stakeValue * parseFloat(editFormData.odds)
+            }
+          } else {
+            updateData.total_win = stakeValue * parseFloat(editFormData.odds)
+          }
         }
       } else {
         updateData.stake = null
-        updateData.total_win = null
+        // If total_win is explicitly provided, use it; otherwise set to null
+        if (editFormData.total_win) {
+          const totalWinValue = parseFloat(editFormData.total_win)
+          if (!isNaN(totalWinValue) && totalWinValue > 0) {
+            updateData.total_win = totalWinValue
+          } else {
+            updateData.total_win = null
+          }
+        } else {
+          updateData.total_win = null
+        }
       }
 
       const response = await fetch(`/api/betting-tips/${tipToEdit.id}`, {
@@ -408,8 +452,8 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                 sx={{
                   display: { xs: 'none', md: 'grid' },
                   gridTemplateColumns: isBettingRole 
-                    ? '70px 1fr 90px 24px 60px' 
-                    : '70px 1fr 90px 24px',
+                    ? '70px 1fr 90px 100px 100px 24px 60px' 
+                    : '70px 1fr 90px 100px 100px 24px',
                   gap: 2,
                   p: 2,
                   borderBottom: '1px solid #f0f0f0',
@@ -451,6 +495,30 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                 >
                   {t('odds')}
                 </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    textAlign: 'center',
+                  }}
+                >
+                  {t('status')}
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    fontWeight: 500,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    textAlign: 'right',
+                  }}
+                >
+                  {t('totalWin') || 'Total Win'}
+                </Typography>
                 <Box />
                 {isBettingRole && <Box />}
               </Box>
@@ -484,11 +552,11 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                         display: 'grid',
                         gridTemplateColumns: {
                           xs: isBettingRole 
-                            ? '50px minmax(0, 1fr) 70px 20px 50px'
-                            : '50px minmax(0, 1fr) 70px 20px',
+                            ? '50px minmax(0, 1fr) 70px 60px 60px 20px 50px'
+                            : '50px minmax(0, 1fr) 70px 60px 60px 20px',
                           md: isBettingRole
-                            ? '70px 1fr 90px 24px 60px'
-                            : '70px 1fr 90px 24px',
+                            ? '70px 1fr 90px 100px 100px 24px 60px'
+                            : '70px 1fr 90px 100px 100px 24px',
                         },
                         gap: { xs: 0.4, md: 1.13 },
                         p: { xs: '0.42rem', md: '0.56rem' },
@@ -611,6 +679,48 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                           }}
                         >
                           {formattedOdds}
+                        </Typography>
+                      </Box>
+
+                      {/* Status Text */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: { xs: 'center', md: 'center' },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '0.75rem', md: '0.875rem' },
+                            fontWeight: 500,
+                            color: statusColor,
+                            textTransform: 'capitalize',
+                          }}
+                        >
+                          {tip.status === 'win' ? t('win') : tip.status === 'loss' ? t('loss') : t('pending')}
+                        </Typography>
+                      </Box>
+
+                      {/* Total Win */}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: { xs: 'flex-end', md: 'flex-end' },
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            fontSize: { xs: '0.75rem', md: '0.875rem' },
+                            fontWeight: 500,
+                            color: '#1a1a1a',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {tip.total_win !== null && tip.total_win !== undefined
+                            ? tip.total_win.toFixed(2).replace('.', ',')
+                            : '-'}
                         </Typography>
                       </Box>
 
@@ -762,7 +872,15 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                         onChange={(e) => {
                           const value = parseFloat(e.target.value)
                           if (!isNaN(value) && value >= 1.001 && value <= 2.0) {
-                            setEditFormData({ ...editFormData, odds: e.target.value })
+                            const newOdds = e.target.value
+                            setEditFormData({ 
+                              ...editFormData, 
+                              odds: newOdds,
+                              // Auto-calculate total_win if stake and odds are available
+                              total_win: editFormData.stake && newOdds
+                                ? (parseFloat(editFormData.stake) * parseFloat(newOdds)).toFixed(2)
+                                : editFormData.total_win
+                            })
                           }
                         }}
                         fullWidth
@@ -790,9 +908,17 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                         label={t('stake') || 'Stake'}
                         type="number"
                         value={editFormData.stake}
-                        onChange={(e) =>
-                          setEditFormData({ ...editFormData, stake: e.target.value })
-                        }
+                        onChange={(e) => {
+                          const stakeValue = e.target.value
+                          setEditFormData({ 
+                            ...editFormData, 
+                            stake: stakeValue,
+                            // Auto-calculate total_win if stake and odds are available
+                            total_win: stakeValue && editFormData.odds
+                              ? (parseFloat(stakeValue) * parseFloat(editFormData.odds)).toFixed(2)
+                              : editFormData.total_win
+                          })
+                        }}
                         fullWidth
                         size="small"
                         inputProps={{
@@ -800,6 +926,40 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                           min: 0,
                         }}
                       />
+                      <TextField
+                        label={t('totalWin') || 'Total Win'}
+                        type="number"
+                        value={editFormData.total_win}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, total_win: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                        inputProps={{
+                          step: 0.01,
+                          min: 0,
+                        }}
+                        helperText={t('totalWinHelper') || 'Calculated: stake × odds (can be edited manually)'}
+                      />
+                      <TextField
+                        select
+                        label={t('result') || 'Result'}
+                        value={editFormData.result_id || ''}
+                        onChange={(e) =>
+                          setEditFormData({ ...editFormData, result_id: e.target.value })
+                        }
+                        fullWidth
+                        size="small"
+                      >
+                        <SelectMenuItem value="">
+                          <em>{t('none') || 'None'}</em>
+                        </SelectMenuItem>
+                        {results.map((result) => (
+                          <SelectMenuItem key={result.id} value={result.id}>
+                            {result.name}
+                          </SelectMenuItem>
+                        ))}
+                      </TextField>
                       <TextField
                         select
                         label={t('status') || 'Status'}
