@@ -360,10 +360,12 @@ export default function CheckoutPage() {
 ```typescript
 'use client'
 
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-export default function SuccessPage() {
+// Component that uses useSearchParams() - must be wrapped in Suspense
+function SuccessContent() {
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('session_id')
 
@@ -404,7 +406,27 @@ export default function SuccessPage() {
     </div>
   )
 }
+
+// Main page component - wraps content in Suspense (required in Next.js 16)
+export default function SuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading...</p>
+          </div>
+        </div>
+      }
+    >
+      <SuccessContent />
+    </Suspense>
+  )
+}
 ```
+
+**Note:** The Suspense wrapper is required in Next.js 16 when using `useSearchParams()`. See the "Common Issues" section for more details.
 
 ### Step 7: Create Cancel Page
 
