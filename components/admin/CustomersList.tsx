@@ -296,3 +296,4 @@ const CustomersList = ({ customers }: CustomersListProps) => {
 }
 
 export default CustomersList
+

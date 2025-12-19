@@ -49,6 +49,30 @@ These variables configure the application URLs for authentication callbacks and 
    - `http://localhost:3000/auth/callback` (development)
    - `https://yourdomain.com/auth/callback` (production)
 
+### Stripe Configuration
+
+These variables are required for payment processing with Stripe.
+
+| Variable | Description | Where to Find |
+|----------|-------------|---------------|
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key for client-side | [Stripe Dashboard](https://dashboard.stripe.com/test/apikeys) → Developers → API keys → Publishable key |
+| `STRIPE_SECRET_KEY` | Stripe secret key for server-side API calls | Stripe Dashboard → Developers → API keys → Secret key |
+| `STRIPE_WEBHOOK_SECRET` | Webhook signing secret for event verification | Stripe Dashboard → Developers → Webhooks → Endpoint → Signing secret |
+| `NEXT_PUBLIC_ONE_TIME_PRICE_ID` | Stripe Price ID for one-time purchase plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
+| `NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID` | Stripe Price ID for subscription plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
+
+**Setup Instructions:**
+1. Go to [Stripe Dashboard](https://dashboard.stripe.com/register)
+2. Create an account or sign in
+3. For development, use test mode keys (starts with `pk_test_` and `sk_test_`)
+4. For production, use live mode keys (starts with `pk_live_` and `sk_live_`)
+5. Set up webhook endpoint:
+   - Development: Use Stripe CLI (`stripe listen --forward-to localhost:3000/api/webhooks/stripe`)
+   - Production: Create endpoint at `https://yourdomain.com/api/webhooks/stripe`
+6. See [Stripe Setup Guide](./stripe/STRIPE_SETUP.md) for detailed instructions
+
+**⚠️ Security Note**: The `STRIPE_SECRET_KEY` must never be exposed to client-side code. Only use `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in the browser.
+
 ### Vercel Configuration (Optional)
 
 These are only needed if deploying to Vercel or using Vercel CLI.

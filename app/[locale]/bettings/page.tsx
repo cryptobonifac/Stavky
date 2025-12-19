@@ -7,7 +7,7 @@ import ActiveTipsList, {
   type TipRecord,
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
-import ContactForm from '@/components/contact/ContactForm'
+import SubscribeButton from '@/components/bettings/SubscribeButton'
 import { Alert, Box, Typography, Stack, Button } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 
@@ -140,15 +140,11 @@ export default async function BettingTipsPage({
             </Alert>
             {isInactiveCustomer && (
               <>
-                <Box>
-                  <Typography variant="h6" fontWeight="bold" gutterBottom>
-                    {tContact('bettingPageTitle')}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                    {tContact('bettingPageDescription')}
-                  </Typography>
-                  <ContactForm showTitle={false} showDescription={false} />
-                </Box>
+                <SubscribeButton
+                  locale={locale}
+                  title={tContact('bettingPageTitle')}
+                  description={tContact('bettingPageDescription')}
+                />
                 <Box sx={{ mt: 3 }}>
                   <Typography variant="h6" fontWeight="bold" gutterBottom>
                     {t('statistics') || 'Statistics'}

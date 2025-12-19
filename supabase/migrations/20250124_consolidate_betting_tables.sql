@@ -274,3 +274,4 @@ AFTER UPDATE ON public.betting_tip
 FOR EACH ROW
 EXECUTE FUNCTION public.apply_free_month_from_loss();
 
+

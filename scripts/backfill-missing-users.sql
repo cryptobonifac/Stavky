@@ -63,3 +63,4 @@ from public.users
 where updated_at >= timezone('utc', now()) - interval '1 minute'
 order by created_at desc;
 
+
