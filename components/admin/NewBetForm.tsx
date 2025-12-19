@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useTransition, useMemo } from 'react'
+import { useState, useTransition, useMemo, useId } from 'react'
 import { useRouter } from 'next/navigation'
 import dayjs, { type Dayjs } from 'dayjs'
 import {
@@ -53,6 +53,16 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
   const tCommon = useTranslations('common')
   const router = useRouter()
   const [isPending, startTransition] = useTransition()
+  
+  // Generate stable IDs for form fields to prevent hydration mismatches
+  const bettingCompanyId = useId()
+  const sportId = useId()
+  const leagueId = useId()
+  const matchId = useId()
+  const resultId = useId()
+  const oddsId = useId()
+  const stakeId = useId()
+  const totalWinId = useId()
 
   const [formData, setFormData] = useState<TipForm>({
     betting_company_id: '',
@@ -264,6 +274,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Betting Company - Dropdown with sufficient width */}
               <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '0 0 200px' } }}>
                 <TextField
+                  id={bettingCompanyId}
                   select
                   label={t('bettingCompany') || 'Company'}
                   fullWidth
@@ -307,6 +318,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   renderInput={(params) => (
                     <TextField
                       {...params}
+                      id={sportId}
                       label={t('sport') || 'Sport'}
                       required
                       fullWidth
@@ -325,6 +337,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* League */}
               <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '1 1 150px' } }}>
                 <TextField
+                  id={leagueId}
                   label={t('league') || 'League'}
                   fullWidth
                   required
@@ -341,6 +354,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Match */}
               <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '1 1 200px' } }}>
                 <TextField
+                  id={matchId}
                   label={t('match') || 'Match'}
                   placeholder={t('matchPlaceholder') || 'e.g., Team A vs Team B'}
                   value={formData.match}
@@ -358,6 +372,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Result */}
               <Box sx={{ minWidth: { xs: '100%', md: 100 }, flex: { xs: '1 1 100%', md: '0 0 100px' } }}>
                 <TextField
+                  id={resultId}
                   select
                   label={t('result') || 'Result'}
                   fullWidth
@@ -381,6 +396,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Odds */}
               <Box sx={{ minWidth: { xs: '100%', md: 140 }, flex: { xs: '1 1 100%', md: '0 0 140px' } }}>
                 <TextField
+                  id={oddsId}
                   label={t('odds') || 'Odds'}
                   type="number"
                   value={formData.odds}
@@ -481,6 +497,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Stake */}
               <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
                 <TextField
+                  id={stakeId}
                   label={t('stake') || 'Stake'}
                   type="number"
                   value={formData.stake}
@@ -503,6 +520,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               {/* Total Win (Read-only, calculated) */}
               <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
                 <TextField
+                  id={totalWinId}
                   label={t('totalWin') || 'Total Win'}
                   type="text"
                   value={totalWinValue}
