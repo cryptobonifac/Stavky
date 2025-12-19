@@ -23,3 +23,4 @@ ON public.betting_tip_items
 FOR SELECT
 USING (true);
 
+

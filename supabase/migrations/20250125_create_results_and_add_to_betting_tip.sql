@@ -59,3 +59,4 @@ CREATE INDEX IF NOT EXISTS betting_tip_result_id_idx ON public.betting_tip(resul
 -- Note: result_id remains nullable to allow migration of existing data
 -- It can be set to NOT NULL later after all existing records have a default value
 
+

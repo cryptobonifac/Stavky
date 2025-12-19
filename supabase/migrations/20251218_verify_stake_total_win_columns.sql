@@ -32,3 +32,4 @@ BEGIN
       ADD COLUMN total_win numeric;
   END IF;
 END $$;
+

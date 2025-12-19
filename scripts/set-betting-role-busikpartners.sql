@@ -23,3 +23,4 @@ SELECT id, email, role, account_active_until, created_at, updated_at
 FROM public.users
 WHERE email = 'busikpartners@gmail.com';
 
+

@@ -440,3 +440,4 @@ const outputPath = path.join(__dirname, '../supabase/seed.sql');
 fs.writeFileSync(outputPath, sql, 'utf-8');
 console.log(`✅ Generated ${outputPath} with ${sqlStatements.length} records from november.txt and december.txt`);
 
+
