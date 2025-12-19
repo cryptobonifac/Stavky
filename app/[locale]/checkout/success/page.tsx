@@ -18,20 +18,36 @@ export default function CheckoutSuccessPage() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
   const [loading, setLoading] = useState(true);
+  const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     if (sessionId) {
-      // You can verify the session here if needed
-      // For now, we'll just show success after a brief delay
-      const timer = setTimeout(() => {
+      // Show success page after a brief delay
+      const loadingTimer = setTimeout(() => {
         setLoading(false);
       }, 1000);
 
-      return () => clearTimeout(timer);
+      // Start countdown for auto-redirect
+      const countdownInterval = setInterval(() => {
+        setCountdown((prev) => {
+          if (prev <= 1) {
+            clearInterval(countdownInterval);
+            // Redirect to bettings page after 3 seconds
+            router.push('/bettings');
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => {
+        clearTimeout(loadingTimer);
+        clearInterval(countdownInterval);
+      };
     } else {
       setLoading(false);
     }
-  }, [sessionId]);
+  }, [sessionId, router]);
 
   if (loading) {
     return (
@@ -90,6 +106,12 @@ export default function CheckoutSuccessPage() {
         <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
           You will receive a confirmation email shortly.
         </Typography>
+
+        {sessionId && countdown > 0 && (
+          <Typography variant="body2" color="primary" sx={{ mb: 2 }}>
+            Redirecting to bettings page in {countdown} second{countdown !== 1 ? 's' : ''}...
+          </Typography>
+        )}
 
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Button
