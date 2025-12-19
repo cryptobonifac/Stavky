@@ -489,6 +489,67 @@ Use any future expiry date, any 3-digit CVC, any ZIP code.
 - Verify Stripe SDK version compatibility
 - Check environment variables are typed
 
+### Build Error: "useSearchParams() should be wrapped in a suspense boundary"
+
+**Issue:** In Next.js 16, using `useSearchParams()` directly in a page component causes a build error:
+```
+⨯ useSearchParams() should be wrapped in a suspense boundary at page "/checkout/success"
+```
+
+**Root Cause:** Next.js 16 requires `useSearchParams()` to be wrapped in a Suspense boundary for proper static generation and client-side rendering compatibility.
+
+**Solution:** Separate the component that uses `useSearchParams()` and wrap it in a Suspense boundary:
+
+**File: `app/checkout/success/page.tsx` (Fixed)**
+```typescript
+'use client';
+
+import { useEffect, useState, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
+// ... other imports
+
+// Component that uses useSearchParams() - must be separate
+function CheckoutSuccessContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams(); // ✅ Safe to use here
+  const sessionId = searchParams.get('session_id');
+  const [loading, setLoading] = useState(true);
+  const [countdown, setCountdown] = useState(3);
+
+  // ... rest of component logic
+}
+
+// Main page component - wraps content in Suspense
+export default function CheckoutSuccessPage() {
+  return (
+    <Suspense
+      fallback={
+        <Container maxWidth="sm" sx={{ py: 8 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress />
+          </Box>
+        </Container>
+      }
+    >
+      <CheckoutSuccessContent />
+    </Suspense>
+  );
+}
+```
+
+**Key Points:**
+- ✅ Always wrap `useSearchParams()` usage in Suspense
+- ✅ Provide a meaningful fallback UI (loading spinner, skeleton, etc.)
+- ✅ This applies to both locale-aware (`app/[locale]/checkout/success/page.tsx`) and non-locale pages
+- ✅ The same pattern applies to any page using `useSearchParams()`, not just Stripe success pages
+
+**Alternative:** If you don't need SSR, you can mark the page as dynamic:
+```typescript
+export const dynamic = 'force-dynamic'
+```
+However, wrapping in Suspense is the recommended approach for better performance.
+
 ## Production Deployment Notes
 1. Switch to live Stripe API keys
 2. Configure webhook URL in Stripe Dashboard
