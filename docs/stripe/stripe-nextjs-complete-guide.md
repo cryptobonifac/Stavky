@@ -195,8 +195,9 @@ If using Sandbox, update your `.env.local`:
 # Stripe Sandbox Keys (Development with Accounts V2)
 # Note: Sandboxes use pk_test_ and sk_test_ keys (same prefix as Test Mode)
 # but they operate in an isolated environment separate from regular Test Mode
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-STRIPE_SECRET_KEY=sk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Replace with your actual keys from Stripe Dashboard
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_test_YOUR_SECRET_KEY_HERE
 
 # Sandbox Price IDs (created in your Sandbox environment)
 NEXT_PUBLIC_ONE_TIME_PRICE_ID=price_1Sg2e1R30WjuWrQvnYztLsfE
@@ -235,8 +236,9 @@ Open `.env.local` and add:
 
 ```env
 # Stripe Test Keys (Development)
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-STRIPE_SECRET_KEY=sk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Replace with your actual keys from Stripe Dashboard
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_test_YOUR_SECRET_KEY_HERE
 
 # Stripe Price IDs (from Test Mode products)
 NEXT_PUBLIC_ONE_TIME_PRICE_ID=price_xxxxxxxxxxxxx
@@ -257,8 +259,9 @@ If using Sandbox (see Step 3.6), use:
 # Stripe Sandbox Keys (Development with Accounts V2)
 # Note: Sandboxes use pk_test_ and sk_test_ keys (same prefix as Test Mode)
 # but they operate in an isolated environment separate from regular Test Mode
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-STRIPE_SECRET_KEY=sk_test_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Replace with your actual keys from Stripe Dashboard
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_YOUR_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_test_YOUR_SECRET_KEY_HERE
 
 # Stripe Price IDs (from Sandbox products - MUST match Sandbox environment)
 NEXT_PUBLIC_ONE_TIME_PRICE_ID=price_xxxxxxxxxxxxx
@@ -1672,9 +1675,10 @@ Create a document (do NOT commit this to git) with your production values:
 # DO NOT commit this file to git!
 
 # Stripe Live Keys
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-STRIPE_SECRET_KEY=sk_live_51Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-STRIPE_WEBHOOK_SECRET=whsec_live_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+# Replace with your actual production keys from Stripe Dashboard
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_YOUR_PUBLISHABLE_KEY_HERE
+STRIPE_SECRET_KEY=sk_live_YOUR_SECRET_KEY_HERE
+STRIPE_WEBHOOK_SECRET=whsec_YOUR_WEBHOOK_SECRET_HERE
 
 # Production App URL
 NEXT_PUBLIC_APP_URL=https://yourdomain.com
