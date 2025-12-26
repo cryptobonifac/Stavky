@@ -600,8 +600,8 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                           overflow: 'hidden',
                         }}
                       >
-                        {/* Company Chip */}
-                        {companyName && (
+                        {/* Company Chip - Only show to authenticated users */}
+                        {userRole && companyName && (
                           <Box
                             sx={{
                               display: 'inline-flex',
