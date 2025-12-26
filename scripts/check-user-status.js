@@ -72,3 +72,6 @@ async function checkUserStatus(email) {
 
 const email = process.argv[2] || 'customer11@gmail.com';
 checkUserStatus(email).catch(console.error);
+
+
+

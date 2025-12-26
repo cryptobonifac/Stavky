@@ -61,3 +61,6 @@ const email = process.argv[2] || 'customer11@gmail.com';
 const days = parseInt(process.argv[3]) || 30;
 
 manuallyActivateAccount(email, days).catch(console.error);
+
+
+

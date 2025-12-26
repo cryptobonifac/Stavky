@@ -369,6 +369,49 @@ No action needed. These warnings don't affect application functionality. They're
    - Open http://127.0.0.1:54323
    - Verify you can see tables and data
 
+## Studio UI Limitations
+
+### Error: Cannot Reset Database Password in Studio UI
+
+**Symptoms:**
+- "Reset database password" modal in Studio UI shows errors
+- Console shows 404 errors for API endpoints:
+  - `PATCH /api/platform/projects/default/db-password` - 404
+  - `GET /api/v1/projects/default/network-bans/retrieve` - 404
+  - `GET /api/v1/projects/default/ssl-enforcement` - 404
+  - `GET /api/v1/projects/default/network-restrictions` - 404
+
+**Cause:**
+The Supabase Studio UI includes features designed for cloud/hosted Supabase projects. The "Reset database password" feature uses management API endpoints (`/api/platform/...`) that are **not available in local Supabase**. These endpoints only exist in the hosted Supabase platform.
+
+**Solution:**
+
+**For Local Development:**
+The local Supabase database uses a fixed password: `postgres`
+
+You can see the connection string in `supabase status`:
+```
+│ URL │ postgresql://postgres:postgres@127.0.0.1:54322/postgres │
+```
+
+**Important Notes:**
+- ✅ **You don't need to change the password** for local development
+- ✅ The password `postgres` is the default and works fine for local use
+- ❌ **You cannot change the database password through Studio UI** in local Supabase
+- ❌ The Studio UI password reset feature is **cloud-only**
+
+**If You Need a Different Password (Advanced):**
+Changing the local database password requires modifying the Docker/Podman container configuration, which is complex and not recommended. The default `postgres` password is secure for local development since it's only accessible on your machine.
+
+**For Production/Cloud:**
+If you need to reset the database password for your **hosted Supabase project**, use the Supabase Dashboard at https://app.supabase.com:
+1. Go to your project
+2. Navigate to **Settings** → **Database**
+3. Use the "Reset database password" feature there
+
+**Workaround:**
+Ignore the Studio UI password reset feature for local development. The console errors are harmless - they're just the Studio UI trying to call APIs that don't exist locally. Your local database works perfectly with the default `postgres` password.
+
 ## Quick Reference
 
 ### Start Supabase
@@ -425,6 +468,9 @@ Open http://127.0.0.1:54323 in your browser
 - [Supabase Local Development Docs](https://supabase.com/docs/guides/local-development)
 - [Supabase CLI Reference](https://supabase.com/docs/reference/cli)
 - [Local OAuth Setup](./LOCAL_SUPABASE_GOOGLE_OAUTH.md)
+
+
+
 
 
 

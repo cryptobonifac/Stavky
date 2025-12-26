@@ -173,3 +173,6 @@ async function listProductsAndPrices() {
 
 listProductsAndPrices().catch(console.error);
 
+
+
+

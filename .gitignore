@@ -44,3 +44,5 @@ playwright-report/index.html
 
 .vercel
 .env*.local
+
+.vercel

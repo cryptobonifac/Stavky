@@ -80,3 +80,6 @@ Write-Host "Next steps:" -ForegroundColor Cyan
 Write-Host "  1. Verify in Google Cloud Console that redirect URI is set to:" -ForegroundColor Gray
 Write-Host "     http://localhost:54321/auth/v1/callback" -ForegroundColor White
 Write-Host "  2. Test Google OAuth sign-in in your app" -ForegroundColor Gray
+
+
+

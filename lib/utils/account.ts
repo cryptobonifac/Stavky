@@ -7,3 +7,6 @@ export function isAccountActive(accountActiveUntil: string | null): boolean {
   if (!accountActiveUntil) return false
   return new Date(accountActiveUntil) >= new Date()
 }
+
+
+

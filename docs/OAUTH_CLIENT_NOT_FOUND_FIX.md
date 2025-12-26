@@ -159,3 +159,6 @@ This will:
    - Stop Supabase: `supabase stop`
    - Run setup script: `.\scripts\start-supabase-with-oauth.ps1`
    - Restart your Next.js app: `npm run dev`
+
+
+

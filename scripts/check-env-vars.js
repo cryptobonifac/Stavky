@@ -35,3 +35,6 @@ if (allSet) {
   console.log('💡 Add them to your .env.local file in the project root.\n');
 }
 
+
+
+

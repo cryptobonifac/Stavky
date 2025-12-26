@@ -1,5 +1,12 @@
 # Coding Standards & Best Practices
 
+
+supabase link --project-ref ezhcfemzrbfsfkafqsav --password "0kuy31Zk0guibDo1"
+
+
+.\tmp\set-db-password.ps1 -Password "9DMH1FoycY4PJfF"
+
+
 ## Vercel Secrets
 - **VERCEL_ORG_ID is User ID**: When deploying from a personal Vercel account, the `VERCEL_ORG_ID` required by GitHub Actions or Vercel CLI corresponds to your **Vercel User ID**. It is often referred to as `orgId` in config files.
 

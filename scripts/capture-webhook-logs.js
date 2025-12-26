@@ -83,3 +83,6 @@ Object.entries(analysisGuide).forEach(([key, value]) => {
 console.log('\n' + '='.repeat(80));
 console.log('💡 TIP: Copy logs from your terminal and paste them for analysis');
 console.log('='.repeat(80) + '\n');
+
+
+

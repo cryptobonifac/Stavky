@@ -205,3 +205,6 @@ node scripts/check-env-vars.js
    ```bash
    node scripts/check-user-status.js customer14@gmail.com
    ```
+
+
+

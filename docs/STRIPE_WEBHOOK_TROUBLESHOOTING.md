@@ -278,3 +278,6 @@ Check regularly:
 - Checkout Actions: `app/checkout/actions.ts`
 - User Status Script: `scripts/check-user-status.js`
 - Manual Activation Script: `scripts/manually-activate-account.js`
+
+
+

@@ -73,3 +73,6 @@ console.log('   1. Make sure stripe listen is running');
 console.log('   2. Verify the webhook secret matches the output from stripe listen');
 console.log('   3. Check Next.js terminal for signature verification errors');
 console.log('   4. If using Sandbox, ensure stripe listen uses --api-key flag');
+
+
+

@@ -225,3 +225,6 @@ stripe listen --forward-to localhost:3000/api/webhooks/stripe --api-key sk_test_
 
 **Last Updated:** 2025-01-19  
 **Status:** All webhooks returning 400 - signature verification failing
+
+
+

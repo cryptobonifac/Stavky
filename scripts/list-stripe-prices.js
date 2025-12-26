@@ -100,3 +100,6 @@ async function listAllPrices() {
 
 listAllPrices().catch(console.error);
 
+
+
+

@@ -259,3 +259,6 @@ Get-NetTCPConnection -LocalPort 54321
 - If OAuth still doesn't work, see [OAUTH_CLIENT_NOT_FOUND_FIX.md](./OAUTH_CLIENT_NOT_FOUND_FIX.md)
 - For general Supabase issues, see [SUPABASE_TROUBLESHOOTING.md](./SUPABASE_TROUBLESHOOTING.md)
 - For OAuth policy errors, see [GOOGLE_OAUTH_POLICY_FIX.md](./GOOGLE_OAUTH_POLICY_FIX.md)
+
+
+

@@ -24,3 +24,6 @@ FROM public.users
 WHERE email = 'busikpartners@gmail.com';
 
 
+
+
+

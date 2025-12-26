@@ -246,6 +246,9 @@ Use these test card numbers in development:
 - Use any 3-digit CVC
 - Use any postal code
 
+http://localhost:3000/en/admin/webhook-debug?email=customer14@gmail.com
+
+
 ### Testing Flow
 
 1. Start your development server:

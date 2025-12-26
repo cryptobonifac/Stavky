@@ -160,3 +160,6 @@ async function diagnoseWebhookIssue(email) {
 // Get email from command line or check all
 const email = process.argv[2];
 diagnoseWebhookIssue(email).catch(console.error);
+
+
+
