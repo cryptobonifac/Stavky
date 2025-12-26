@@ -14,8 +14,10 @@ import HistoryIcon from '@mui/icons-material/History'
 import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
+import CardMembershipIcon from '@mui/icons-material/CardMembership'
 import { useAuth } from '@/components/providers/auth-provider'
 import LanguageSwitcher from './LanguageSwitcher'
+import { isAccountActive } from '@/lib/utils/account'
 
 type TopNavProps = {
   showSettingsLink?: boolean
@@ -38,6 +40,10 @@ const TopNav = ({
   const isAuthLoading = loading || profileLoading
   // Use user (auth state) to determine if logged in, not profile (database state)
   const isLoggedIn = !!user
+  // Check if user is an active customer
+  const isActiveCustomer = profile?.role === 'customer' && profile?.account_active_until 
+    ? isAccountActive(profile.account_active_until)
+    : false
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -63,6 +69,9 @@ const TopNav = ({
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
+            {isActiveCustomer && (
+              <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
+            )}
           </>
         )}
         {profile?.role === 'betting' && (

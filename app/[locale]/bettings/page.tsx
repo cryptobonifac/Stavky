@@ -8,6 +8,7 @@ import ActiveTipsList, {
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
 import SubscribeButton from '@/components/bettings/SubscribeButton'
+import ProfileRefresher from '@/components/bettings/ProfileRefresher'
 import { Alert, Box, Typography, Stack, Button } from '@mui/material'
 import { createClient as createServerClient } from '@/lib/supabase/server'
 
@@ -123,6 +124,7 @@ export default async function BettingTipsPage({
 
   return (
     <MainLayout>
+      <ProfileRefresher />
       <TopNav
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}

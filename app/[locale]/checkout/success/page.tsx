@@ -12,28 +12,47 @@ import {
   CircularProgress,
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useAuth } from '@/components/providers/auth-provider';
+import { isAccountActive } from '@/lib/utils/account';
 
 function CheckoutSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const { refreshProfile, profile } = useAuth();
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState(3);
+  const [accountActivated, setAccountActivated] = useState(false);
 
   useEffect(() => {
     if (sessionId) {
+      // Refresh profile immediately to get updated account status
+      refreshProfile();
+
       // Show success page after a brief delay
       const loadingTimer = setTimeout(() => {
         setLoading(false);
       }, 1000);
+
+      // Poll for account activation (webhook might be delayed)
+      let pollCount = 0;
+      const maxPolls = 15; // Poll for up to 30 seconds (15 * 2 seconds)
+      
+      const pollInterval = setInterval(async () => {
+        pollCount++;
+        await refreshProfile();
+        
+        if (pollCount >= maxPolls) {
+          // Stop polling after max attempts
+          clearInterval(pollInterval);
+        }
+      }, 2000); // Poll every 2 seconds
 
       // Start countdown for auto-redirect
       const countdownInterval = setInterval(() => {
         setCountdown((prev) => {
           if (prev <= 1) {
             clearInterval(countdownInterval);
-            // Redirect to bettings page after 3 seconds
-            router.push('/bettings');
             return 0;
           }
           return prev - 1;
@@ -43,11 +62,32 @@ function CheckoutSuccessContent() {
       return () => {
         clearTimeout(loadingTimer);
         clearInterval(countdownInterval);
+        clearInterval(pollInterval);
       };
     } else {
       setLoading(false);
     }
-  }, [sessionId, router]);
+  }, [sessionId, refreshProfile]);
+
+  // Check if account is activated when profile updates
+  useEffect(() => {
+    if (profile && profile.account_active_until && isAccountActive(profile.account_active_until)) {
+      setAccountActivated(true);
+    }
+  }, [profile]);
+
+  // Separate effect for redirect to avoid React state update during render
+  useEffect(() => {
+    if (sessionId && countdown === 0) {
+      // Refresh profile one more time before redirecting
+      refreshProfile().then(() => {
+        // Use setTimeout to ensure redirect happens after state update is complete
+        setTimeout(() => {
+          router.push('/bettings');
+        }, 100); // Small delay to ensure profile refresh completes
+      });
+    }
+  }, [sessionId, countdown, router, refreshProfile]);
 
   if (loading) {
     return (

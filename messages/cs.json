@@ -380,6 +380,7 @@
     "history": "Historie",
     "statistics": "Statistiky",
     "profile": "Profil",
+    "subscription": "Předplatné",
     "settings": "Nastavení",
     "newbet": "Nový tip",
     "manage": "Spravovat tipy",
@@ -462,6 +463,24 @@
     "noCustomers": "Nebyli nalezeni žádní zákazníci",
     "showing": "Zobrazuje se",
     "of": "z"
+  },
+  "subscription": {
+    "title": "Správa předplatného",
+    "subtitle": "Spravujte své předplatné a fakturaci",
+    "activeSubscription": "Aktivní předplatné",
+    "subscriptionActiveDescription": "Máte aktivní předplatné",
+    "noSubscription": "Žádné aktivní předplatné",
+    "noSubscriptionDescription": "Nemáte aktivní předplatné. Vytvořte jedno pro přístup ke všem prémiovým funkcím.",
+    "createSubscription": "Vytvořit předplatné",
+    "cancelSubscription": "Zrušit předplatné",
+    "subscriptionId": "ID předplatného",
+    "status": "Status",
+    "renewsOn": "Obnoví se",
+    "cancelsOn": "Zruší se",
+    "cancellationScheduled": "Vaše předplatné bude zrušeno na konci aktuálního fakturačního období. Budete mít přístup až do tohoto data.",
+    "confirmCancellation": "Potvrdit zrušení",
+    "confirmCancellationMessage": "Opravdu chcete zrušit své předplatné? Budete mít přístup až do konce aktuálního fakturačního období.",
+    "confirmCancel": "Ano, zrušit předplatné"
   }
 }
 

@@ -381,6 +381,7 @@
     "history": "History",
     "statistics": "Statistics",
     "profile": "Profile",
+    "subscription": "Subscription",
     "settings": "Settings",
     "newbet": "New Bet",
     "manage": "Manage Tips",
@@ -463,6 +464,24 @@
     "noCustomers": "No customers found",
     "showing": "Showing",
     "of": "of"
+  },
+  "subscription": {
+    "title": "Subscription Management",
+    "subtitle": "Manage your subscription and billing",
+    "activeSubscription": "Active Subscription",
+    "subscriptionActiveDescription": "You have an active subscription",
+    "noSubscription": "No Active Subscription",
+    "noSubscriptionDescription": "You don't have an active subscription. Create one to get access to all premium features.",
+    "createSubscription": "Create Subscription",
+    "cancelSubscription": "Cancel Subscription",
+    "subscriptionId": "Subscription ID",
+    "status": "Status",
+    "renewsOn": "Renews on",
+    "cancelsOn": "Cancels on",
+    "cancellationScheduled": "Your subscription is scheduled to cancel at the end of the current billing period. You will continue to have access until then.",
+    "confirmCancellation": "Confirm Cancellation",
+    "confirmCancellationMessage": "Are you sure you want to cancel your subscription? You will continue to have access until the end of the current billing period.",
+    "confirmCancel": "Yes, Cancel Subscription"
   }
 }
 

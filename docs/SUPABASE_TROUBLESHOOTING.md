@@ -82,9 +82,179 @@ The local Supabase instance is not running or has crashed. Port 54321 is the def
    ```
 
 4. **For Windows users:**
-   - Ensure Docker Desktop is running
+   - Ensure Docker Desktop is running (or Podman, see [Using Podman on Windows](#using-podman-on-windows))
    - Check Docker Desktop logs for container errors
    - Restart Docker Desktop if containers fail to start
+
+## Using Podman on Windows
+
+Supabase CLI works seamlessly with Podman as an alternative to Docker Desktop on Windows. Podman provides a Docker-compatible API that Supabase can use without any special configuration.
+
+### Prerequisites
+
+- Podman installed on Windows
+- Podman configured with WSL backend
+
+### Setup Steps
+
+1. **Start Podman Machine:**
+   ```bash
+   podman machine start podman-machine-default
+   ```
+
+   Expected output:
+   ```
+   Starting machine "podman-machine-default"
+   API forwarding listening on: npipe:////./pipe/docker_engine
+   Docker API clients default to this address. You do not need to set DOCKER_HOST.
+   Machine "podman-machine-default" started successfully
+   ```
+
+2. **Verify Podman is Running:**
+   ```bash
+   podman machine list
+   ```
+
+   You should see your machine status as "Currently running":
+   ```
+   NAME                     VM TYPE     CREATED      LAST UP      CPUS    MEMORY    DISK SIZE
+   podman-machine-default*  wsl         7 weeks ago  Running now  10      2GiB      100GiB
+   ```
+
+3. **Start Supabase:**
+   ```bash
+   npm run db:local
+   # or
+   npx supabase start
+   ```
+
+4. **Verify All Containers are Running:**
+   ```bash
+   podman ps --format "table {{.Names}}\t{{.Status}}"
+   ```
+
+### Key Points
+
+- **No Special Configuration Required**: Podman exposes a Docker-compatible API via named pipe (`npipe:////./pipe/docker_engine`), so Supabase CLI works without any modifications
+- **No DOCKER_HOST Needed**: Unlike some Docker setups, you don't need to set the `DOCKER_HOST` environment variable
+- **Analytics Warning**: You may see a warning about Analytics requiring Docker daemon on `tcp://localhost:2375` - this is non-critical and doesn't affect core Supabase functionality
+
+### Daily Workflow with Podman
+
+```bash
+# 1. Start Podman machine (if not already running)
+podman machine start podman-machine-default
+
+# 2. Start Supabase
+npm run db:local
+
+# 3. Start your Next.js dev server
+npm run dev
+
+# Or for Stripe webhook testing:
+npm run dev:with-webhooks
+```
+
+### Troubleshooting Podman
+
+**Issue: Supabase says "already running" but containers are stopped**
+
+Solution:
+```bash
+# Stop Supabase
+npx supabase stop
+
+# Verify Podman machine is running
+podman machine list
+
+# If stopped, start it
+podman machine start podman-machine-default
+
+# Start Supabase with debug mode to see detailed logs
+npx supabase start --debug
+```
+
+**Issue: Podman machine won't start**
+
+Solution:
+```bash
+# Check machine status
+podman machine list
+
+# Try stopping and restarting
+podman machine stop podman-machine-default
+podman machine start podman-machine-default
+
+# If issues persist, check WSL status
+wsl --list --verbose
+```
+
+**Issue: "Cannot connect to Podman" errors**
+
+Solution:
+1. Ensure WSL 2 is installed and up to date:
+   ```bash
+   wsl --update
+   ```
+
+2. Restart Podman machine:
+   ```bash
+   podman machine stop podman-machine-default
+   podman machine start podman-machine-default
+   ```
+
+3. If problems persist, try setting machine to rootful mode:
+   ```bash
+   podman machine set --rootful podman-machine-default
+   podman machine start podman-machine-default
+   ```
+
+### Switching from Docker Desktop to Podman
+
+If you're switching from Docker Desktop to Podman:
+
+1. **Stop Docker Desktop** (optional, but recommended to avoid conflicts)
+
+2. **Stop any running Supabase instance:**
+   ```bash
+   npx supabase stop
+   ```
+
+3. **Start Podman machine:**
+   ```bash
+   podman machine start podman-machine-default
+   ```
+
+4. **Start Supabase with Podman:**
+   ```bash
+   npx supabase start
+   ```
+
+Your existing Supabase data volumes will be preserved and automatically detected by Podman.
+
+### Verifying Podman Setup
+
+To confirm Supabase is using Podman correctly:
+
+```bash
+# Check Podman version
+podman --version
+
+# List running containers (should show all Supabase containers)
+podman ps
+
+# Check Supabase status
+npx supabase status
+```
+
+You should see all Supabase services running:
+- ✅ Database (PostgreSQL)
+- ✅ API (Kong Gateway)
+- ✅ Auth
+- ✅ Storage
+- ✅ Realtime
+- ✅ Studio
+- ✅ Mailpit
 
 ## Environment Variable Warnings
 

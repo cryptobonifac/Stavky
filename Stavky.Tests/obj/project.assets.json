@@ -2458,24 +2458,31 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mroho\\.nuget\\packages\\": {}
+    "C:\\Users\\mroho\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
+      "projectUniqueName": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
       "projectName": "Stavky.Tests",
-      "projectPath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
+      "projectPath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
       "packagesPath": "C:\\Users\\mroho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\obj\\",
+      "outputPath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\mroho\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\mroho\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

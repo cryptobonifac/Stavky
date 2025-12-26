@@ -174,16 +174,31 @@ supabase start
    supabase start
    ```
 
-### Issue 4: Docker not running
+### Issue 4: Docker/Podman not running
 
 **Symptoms:**
 - Supabase fails to start
 - Error about Docker containers
 
 **Solution:**
+
+**For Docker Desktop users:**
 1. Make sure Docker Desktop is running
 2. Restart Docker Desktop if needed
 3. Try starting Supabase again
+
+**For Podman users (Windows):**
+1. Start Podman machine:
+   ```powershell
+   podman machine start podman-machine-default
+   ```
+2. Verify it's running:
+   ```powershell
+   podman machine list
+   ```
+3. Try starting Supabase again
+
+**Note:** Supabase works seamlessly with both Docker Desktop and Podman. For detailed Podman setup instructions, see [SUPABASE_TROUBLESHOOTING.md - Using Podman on Windows](./SUPABASE_TROUBLESHOOTING.md#using-podman-on-windows)
 
 ### Issue 5: Environment variables lost after closing terminal
 

@@ -7,15 +7,17 @@ import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PeopleIcon from '@mui/icons-material/People'
+import CardMembershipIcon from '@mui/icons-material/CardMembership'
 import { useTranslations } from 'next-intl'
 
 import SidebarItem from './SidebarItem'
 
 type SidebarProps = {
   role?: 'betting' | 'customer' | null
+  isActiveCustomer?: boolean
 }
 
-const Sidebar = ({ role }: SidebarProps) => {
+const Sidebar = ({ role, isActiveCustomer = false }: SidebarProps) => {
   const t = useTranslations('navigation')
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   // In a real app we might control mobile drawer state here
@@ -31,6 +33,9 @@ const Sidebar = ({ role }: SidebarProps) => {
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
+            {role === 'customer' && isActiveCustomer && (
+              <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
+            )}
           </>
         )}
 

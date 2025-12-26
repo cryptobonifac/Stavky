@@ -43,11 +43,75 @@ npm install
 ```bash
 npm run db:local
 ```
-   **Important**: Always start Supabase before starting the Next.js dev server. See [Supabase Troubleshooting Guide](./docs/SUPABASE_TROUBLESHOOTING.md) for common issues.
+   **Important**: Always start Supabase before starting the Next.js dev server.
+
+   **Windows Users**: Supabase works with both Docker Desktop and Podman. If using Podman, make sure to start the Podman machine first:
+   ```bash
+   podman machine start podman-machine-default
+   ```
+
+   See [Supabase Troubleshooting Guide](./docs/SUPABASE_TROUBLESHOOTING.md) for common issues and [Podman Setup Instructions](./docs/SUPABASE_TROUBLESHOOTING.md#using-podman-on-windows) for detailed Podman configuration.
 
 5. Run the development server:
 ```bash
 npm run dev
+```
+
+   **For Stripe webhook testing**, use one of these commands instead:
+   
+   **Test Mode (regular):**
+   ```bash
+   npm run dev:with-webhooks
+   ```
+   
+   **Sandbox Mode (if using Stripe Sandbox):**
+   ```bash
+   # 1. Get your sandbox API key from Stripe Dashboard:
+   #    - Go to Stripe Dashboard → Switch to your sandbox (top-right dropdown)
+   #    - Go to Developers → API keys
+   #    - Copy the Secret key (starts with sk_test_)
+   
+   # 2. Add to .env.local:
+   STRIPE_SANDBOX_API_KEY=sk_test_...
+   
+   # 3. Run the script (it will automatically use the sandbox API key):
+   node scripts/start-dev-with-webhooks.js
+   ```
+   
+   These commands will:
+   - Start the Next.js dev server
+   - Forward Stripe webhooks to your local endpoint
+   - Display both outputs with color-coded prefixes (NEXT in blue, STRIPE in green)
+   
+   **Important Stripe Webhook Setup:**
+
+   1. **Authenticate with Stripe CLI first:**
+      ```bash
+      stripe login
+      ```
+
+   2. **Start the dev server with webhooks:**
+      ```bash
+      npm run dev:with-webhooks
+      ```
+
+   3. **Copy the webhook secret from the STRIPE output** (starts with `whsec_`):
+      ```
+      [STRIPE] > Ready! Your webhook signing secret is whsec_xxxxx...
+      ```
+
+   4. **Add it to `.env.local`:**
+      ```env
+      STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxx
+      ```
+
+   5. **Restart the dev server** to load the new environment variable:
+      ```bash
+      # Press Ctrl+C to stop, then run again:
+      npm run dev:with-webhooks
+      ```
+
+   **Troubleshooting:** If webhooks aren't working, see [STRIPE_WEBHOOK_DEBUG.md](./docs/STRIPE_WEBHOOK_DEBUG.md) for detailed debugging steps.
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

@@ -12,16 +12,26 @@ import {
 } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/components/providers/auth-provider';
 
 function CheckoutSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const { refreshProfile } = useAuth();
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
     if (sessionId) {
+      // Refresh profile immediately to get updated account status
+      refreshProfile();
+
+      // Poll for account activation (webhook might be delayed)
+      const pollInterval = setInterval(async () => {
+        await refreshProfile();
+      }, 2000); // Poll every 2 seconds
+
       // Show success page after a brief delay
       const loadingTimer = setTimeout(() => {
         setLoading(false);
@@ -32,8 +42,6 @@ function CheckoutSuccessContent() {
         setCountdown((prev) => {
           if (prev <= 1) {
             clearInterval(countdownInterval);
-            // Redirect to bettings page after 3 seconds
-            router.push('/bettings');
             return 0;
           }
           return prev - 1;
@@ -43,11 +51,25 @@ function CheckoutSuccessContent() {
       return () => {
         clearTimeout(loadingTimer);
         clearInterval(countdownInterval);
+        clearInterval(pollInterval);
       };
     } else {
       setLoading(false);
     }
-  }, [sessionId, router]);
+  }, [sessionId, refreshProfile]);
+
+  // Separate effect for redirect to avoid React state update during render
+  useEffect(() => {
+    if (sessionId && countdown === 0) {
+      // Refresh profile one more time before redirecting
+      refreshProfile().then(() => {
+        // Use setTimeout to ensure redirect happens after state update is complete
+        setTimeout(() => {
+          router.push('/bettings');
+        }, 0);
+      });
+    }
+  }, [sessionId, countdown, router, refreshProfile]);
 
   if (loading) {
     return (

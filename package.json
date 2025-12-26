@@ -7,6 +7,8 @@
     "type-check": "tsc --noEmit",
     "dev": "npm run type-check && next dev",
     "dev:skip-check": "next dev",
+    "dev:with-webhooks": "concurrently \"npm run dev:skip-check\" \"stripe listen --forward-to localhost:3000/api/webhooks/stripe\" --names \"NEXT,STRIPE\" --prefix-colors \"blue,green\"",
+    "dev:with-webhooks:help": "echo 'For sandbox mode, add STRIPE_SANDBOX_API_KEY=sk_test_... to .env.local, then run: node scripts/start-dev-with-webhooks.js'",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -14,7 +16,8 @@
     "format:check": "prettier --check .",
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
-    "db:local": "supabase start"
+    "db:local": "supabase start",
+    "cleanup:dev": "node scripts/cleanup-dev.js"
   },
   "repository": {
     "type": "git",
@@ -54,6 +57,7 @@
     "@types/stripe": "^8.0.416",
     "autoprefixer": "^10.4.22",
     "baseline-browser-mapping": "^2.8.32",
+    "concurrently": "^9.2.1",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.7",
     "eslint-config-prettier": "^10.1.8",

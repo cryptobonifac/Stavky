@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <!-- Configuration for test execution -->
+  <RunConfiguration>
+    <!-- Maximum number of test worker processes -->
+    <MaxCpuCount>0</MaxCpuCount>
+
+    <!-- Test timeout in milliseconds -->
+    <TestSessionTimeout>600000</TestSessionTimeout>
+
+    <!-- Results directory -->
+    <ResultsDirectory>./test-results</ResultsDirectory>
+
+    <!-- Target platform (x86 or x64) -->
+    <TargetPlatform>x64</TargetPlatform>
+
+    <!-- Target framework -->
+    <TargetFrameworkVersion>net10.0</TargetFrameworkVersion>
+  </RunConfiguration>
+
+  <!-- Configuration for NUnit -->
+  <NUnit>
+    <!-- Number of worker threads -->
+    <NumberOfTestWorkers>4</NumberOfTestWorkers>
+
+    <!-- Default timeout for tests (milliseconds) -->
+    <DefaultTimeout>60000</DefaultTimeout>
+
+    <!-- Stop on error -->
+    <StopOnError>false</StopOnError>
+
+    <!-- Work directory -->
+    <WorkDirectory>./test-results</WorkDirectory>
+  </NUnit>
+
+  <!-- Playwright configuration via environment variables -->
+  <RunConfiguration>
+    <EnvironmentVariables>
+      <!-- Playwright browser type (chromium, firefox, webkit) -->
+      <BROWSER>chromium</BROWSER>
+
+      <!-- Run browser in headless mode -->
+      <HEADLESS>true</HEADLESS>
+
+      <!-- Slow down operations (in milliseconds) -->
+      <SLOW_MO>0</SLOW_MO>
+
+      <!-- Browser launch timeout (milliseconds) -->
+      <LAUNCH_TIMEOUT>30000</LAUNCH_TIMEOUT>
+
+      <!-- Default navigation timeout (milliseconds) -->
+      <NAVIGATION_TIMEOUT>30000</NAVIGATION_TIMEOUT>
+
+      <!-- Default timeout for expect assertions (milliseconds) -->
+      <EXPECT_TIMEOUT>5000</EXPECT_TIMEOUT>
+
+      <!-- Record video for failed tests -->
+      <RECORD_VIDEO>false</RECORD_VIDEO>
+
+      <!-- Take screenshots on failure -->
+      <SCREENSHOT_ON_FAILURE>true</SCREENSHOT_ON_FAILURE>
+
+      <!-- Base URL for the application under test -->
+      <BASE_URL>http://localhost:3000</BASE_URL>
+    </EnvironmentVariables>
+  </RunConfiguration>
+
+  <!-- Test adapters configuration -->
+  <LoggerRunSettings>
+    <Loggers>
+      <!-- Console logger -->
+      <Logger friendlyName="console" enabled="True">
+        <Configuration>
+          <Verbosity>normal</Verbosity>
+        </Configuration>
+      </Logger>
+
+      <!-- TRX logger for Azure DevOps / CI integration -->
+      <Logger friendlyName="trx" enabled="True">
+        <Configuration>
+          <LogFileName>test-results.trx</LogFileName>
+        </Configuration>
+      </Logger>
+
+      <!-- HTML logger -->
+      <Logger friendlyName="html" enabled="True">
+        <Configuration>
+          <LogFileName>test-results.html</LogFileName>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </LoggerRunSettings>
+
+  <!-- Data collection (for code coverage, etc.) -->
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <!-- Code coverage -->
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*\.dll$</ModulePath>
+              </Include>
+              <Exclude>
+                <ModulePath>.*tests\.dll$</ModulePath>
+                <ModulePath>.*testhost\.dll$</ModulePath>
+              </Exclude>
+            </ModulePaths>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

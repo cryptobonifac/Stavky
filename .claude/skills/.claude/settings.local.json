@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(skill-creator)",
+      "WebFetch(domain:playwright.dev)",
+      "WebFetch(domain:docs.reqnroll.net)",
+      "WebFetch(domain:github.com)",
+      "Bash(python skill-creator/scripts/init_skill.py:*)",
+      "Bash(python3:*)"
+    ]
+  }
+}

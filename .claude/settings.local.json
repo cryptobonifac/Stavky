@@ -5,7 +5,14 @@
       "Bash(ls:*)",
       "Bash(npm run dev:*)",
       "Bash(taskkill:*)",
-      "Bash(move:*)"
+      "Bash(move:*)",
+      "Bash(cd:*)",
+      "Bash(mkdir:*)",
+      "Bash(touch:*)",
+      "Write",
+      "Bash(podman:*)",
+      "Bash(echo:*)",
+      "Bash(npx stripe:*)"
     ]
   }
 }
