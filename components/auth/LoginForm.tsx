@@ -25,6 +25,20 @@ const LoginForm = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
+
+  // Map Supabase error messages to translation keys
+  const errorMessageKey = (msg: string | null): string | null => {
+    if (!msg) return null;
+    const map: Record<string, string> = {
+      'Invalid login credentials': 'invalidCredentials',
+      'Email not confirmed': 'emailNotConfirmed',
+      'User not found': 'userNotFound',
+      'Network error': 'networkError',
+      // Add more mappings as needed
+    };
+    // Default to generic if not found
+    return map[msg] || 'generic';
+  }
   const [submitting, setSubmitting] = useState(false)
 
   // Get redirect path and ensure it's locale-aware
@@ -39,7 +53,7 @@ const LoginForm = () => {
     setError(null)
     const { error } = await signInWithPassword(email, password)
     if (error) {
-      setError(error.message)
+      setError(errorMessageKey(error.message))
       setSubmitting(false)
       return
     }
@@ -48,7 +62,11 @@ const LoginForm = () => {
 
   return (
     <Stack spacing={3} component="form" onSubmit={handleSubmit} data-testid="login-form">
-      {error && <Alert severity="error" data-testid="login-error">{error}</Alert>}
+      {error && (
+        <Alert severity="error" data-testid="login-error">
+          {t(`errors.${error}`)}
+        </Alert>
+      )}
       <Stack spacing={2}>
         <TextField
           label={t('email')}

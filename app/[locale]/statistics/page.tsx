@@ -137,7 +137,7 @@ export default async function StatisticsPage({
     .order('match_date', { ascending: false })
 
   if (tipsError) {
-    console.error('❌ Error fetching tips:', tipsError)
+    console.error('❌ Error fetching tips:', JSON.stringify(tipsError, null, 2))
   }
 
   // Debug: Log what we're actually fetching

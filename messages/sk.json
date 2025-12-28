@@ -65,7 +65,14 @@
       "signingIn": "Prihlasovanie...",
       "signIn": "Prihlásiť sa",
       "orContinueWith": "alebo pokračovať cez",
-      "termsAgreement": "Pokračovaním súhlasíte s podmienkami služby Stavky."
+      "termsAgreement": "Pokračovaním súhlasíte s podmienkami služby Stavky.",
+      "errors": {
+        "invalidCredentials": "Neplatné prihlasovacie údaje.",
+        "emailNotConfirmed": "Pred prihlásením potvrďte svoj email.",
+        "userNotFound": "Používateľ nebol nájdený.",
+        "networkError": "Sieťová chyba. Skúste to znova.",
+        "generic": "Došlo k chybe. Skúste to prosím znova."
+      }
     },
     "signup": {
       "pageTitle": "Vytvorte si účet Stavky",
@@ -483,6 +490,23 @@
     "confirmCancellation": "Potvrdiť zrušenie",
     "confirmCancellationMessage": "Naozaj chcete zrušiť svoje predplatné? Budete mať prístup až do konca aktuálneho fakturačného obdobia.",
     "confirmCancel": "Áno, zrušiť predplatné"
+  },
+  "checkout": {
+    "choosePlan": "Vyberte si plán",
+    "selectPlanSubtitle": "Vyberte si predplatné, ktoré vám najviac vyhovuje",
+    "monthlySubscription": "Mesačné predplatné",
+    "perMonth": "mesačne",
+    "priceNotAvailable": "Cena nie je dostupná",
+    "processing": "Spracováva sa...",
+    "subscribeMonthly": "Predplatiť mesačne",
+    "monthlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID v prostredí",
+    "bestValue": "NAJLEPŠIA HODNOTA",
+    "yearlySubscription": "Ročné predplatné",
+    "perYear": "ročne",
+    "savePerYear": "Ušetríte {amount} ročne",
+    "subscribeYearly": "Predplatiť ročne",
+    "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostredí",
+    "securePayment": "Bezpečná platba cez Stripe"
   }
 }
 

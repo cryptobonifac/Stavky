@@ -65,7 +65,14 @@
       "signingIn": "Přihlašování...",
       "signIn": "Přihlásit se",
       "orContinueWith": "nebo pokračovat přes",
-      "termsAgreement": "Pokračováním souhlasíte s podmínkami služby Stavky."
+      "termsAgreement": "Pokračováním souhlasíte s podmínkami služby Stavky.",
+      "errors": {
+        "invalidCredentials": "Neplatné přihlašovací údaje.",
+        "emailNotConfirmed": "Před přihlášením potvrďte svůj email.",
+        "userNotFound": "Uživatel nebyl nalezen.",
+        "networkError": "Síťová chyba. Zkuste to znovu.",
+        "generic": "Došlo k chybě. Zkuste to prosím znovu."
+      }
     },
     "signup": {
       "pageTitle": "Vytvořte si účet Stavky",

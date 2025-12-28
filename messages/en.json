@@ -65,7 +65,14 @@
       "signingIn": "Signing in...",
       "signIn": "Sign in",
       "orContinueWith": "or continue with",
-      "termsAgreement": "By continuing you agree to the Stavky terms of service."
+      "termsAgreement": "By continuing you agree to the Stavky terms of service.",
+      "errors": {
+        "invalidCredentials": "Invalid login credentials.",
+        "emailNotConfirmed": "Please confirm your email before logging in.",
+        "userNotFound": "User not found.",
+        "networkError": "Network error. Please try again.",
+        "generic": "An error occurred. Please try again."
+      }
     },
     "signup": {
       "pageTitle": "Create your Stavky account",
@@ -483,6 +490,23 @@
     "confirmCancellation": "Confirm Cancellation",
     "confirmCancellationMessage": "Are you sure you want to cancel your subscription? You will continue to have access until the end of the current billing period.",
     "confirmCancel": "Yes, Cancel Subscription"
+  },
+  "checkout": {
+    "choosePlan": "Choose Your Plan",
+    "selectPlanSubtitle": "Select the subscription plan that works best for you",
+    "monthlySubscription": "Monthly Subscription",
+    "perMonth": "per month",
+    "priceNotAvailable": "Price not available",
+    "processing": "Processing...",
+    "subscribeMonthly": "Subscribe Monthly",
+    "monthlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID in your environment variables",
+    "bestValue": "BEST VALUE",
+    "yearlySubscription": "Yearly Subscription",
+    "perYear": "per year",
+    "savePerYear": "Save {amount} per year",
+    "subscribeYearly": "Subscribe Yearly",
+    "yearlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID in your environment variables",
+    "securePayment": "Secure payment powered by Stripe"
   }
 }
 

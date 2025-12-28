@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj": {}
+    "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj": {
+    "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
+        "projectUniqueName": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
         "projectName": "Stavky.Tests",
-        "projectPath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
+        "projectPath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
         "packagesPath": "C:\\Users\\mroho\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\obj\\",
+        "outputPath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

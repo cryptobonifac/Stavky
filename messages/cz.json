@@ -1,0 +1,19 @@
+{
+  "checkout": {
+    "choosePlan": "Vyberte si plán",
+    "selectPlanSubtitle": "Vyberte si předplatné, které vám nejlépe vyhovuje",
+    "monthlySubscription": "Měsíční předplatné",
+    "perMonth": "za měsíc",
+    "priceNotAvailable": "Cena není k dispozici",
+    "processing": "Zpracovává se...",
+    "subscribeMonthly": "Předplatit měsíčně",
+    "monthlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID v proměnných prostředí",
+    "bestValue": "NEJLEPŠÍ HODNOTA",
+    "yearlySubscription": "Roční předplatné",
+    "perYear": "za rok",
+    "savePerYear": "Ušetříte {amount} za rok",
+    "subscribeYearly": "Předplatit ročně",
+    "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v proměnných prostředí",
+    "securePayment": "Bezpečná platba přes Stripe"
+  }
+}
