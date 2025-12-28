@@ -538,25 +538,44 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
             <Divider />
 
             {/* Submit Button */}
-            <Stack direction="row" spacing={2} justifyContent="flex-end">
-              <Button
-                variant="outlined"
-                onClick={handleReset}
-                disabled={isPending}
-              >
-                {tCommon('cancel') || 'Cancel'}
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                disabled={isPending}
-                startIcon={<SaveIcon />}
-                size="large"
-              >
-                {isPending
-                  ? t('publishing') || 'Publishing...'
-                  : t('confirmAndPublish') || 'Create Tip'}
-              </Button>
+            <Stack 
+              direction={{ xs: 'column', sm: 'row' }} 
+              spacing={{ xs: 1.5, sm: 2 }} 
+              justifyContent="flex-end"
+              sx={{ width: '100%' }}
+            >
+              <Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
+                <Button
+                  variant="outlined"
+                  onClick={handleReset}
+                  disabled={isPending}
+                  fullWidth
+                  sx={{ 
+                    minHeight: 44,
+                    fontSize: { xs: '0.875rem', md: '1rem' },
+                  }}
+                >
+                  {tCommon('cancel') || 'Cancel'}
+                </Button>
+              </Box>
+              <Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isPending}
+                  startIcon={<SaveIcon />}
+                  size="large"
+                  fullWidth
+                  sx={{ 
+                    minHeight: 44,
+                    fontSize: { xs: '0.875rem', md: '1rem' },
+                  }}
+                >
+                  {isPending
+                    ? t('publishing') || 'Publishing...'
+                    : t('confirmAndPublish') || 'Create Tip'}
+                </Button>
+              </Box>
             </Stack>
           </Stack>
         </form>

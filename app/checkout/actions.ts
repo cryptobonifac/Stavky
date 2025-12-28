@@ -4,6 +4,94 @@ import { stripe } from '@/lib/stripe/stripe';
 import { headers } from 'next/headers';
 import { createClient as createServerClient } from '@/lib/supabase/server';
 
+interface PriceInfo {
+  amount: number;
+  currency: string;
+  interval: string | null;
+  intervalCount: number | null;
+  priceId: string;
+  error?: string;
+}
+
+interface StripePricesResponse {
+  monthly: PriceInfo | null;
+  yearly: PriceInfo | null;
+  error?: string;
+}
+
+export async function getStripePrices(): Promise<StripePricesResponse> {
+  try {
+    const monthlyPriceId = process.env.NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID;
+    const yearlyPriceId = process.env.NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID;
+
+    const result: StripePricesResponse = {
+      monthly: null,
+      yearly: null,
+    };
+
+    // Fetch monthly price
+    if (monthlyPriceId && monthlyPriceId.startsWith('price_')) {
+      try {
+        const monthlyPrice = await stripe.prices.retrieve(monthlyPriceId);
+        result.monthly = {
+          amount: monthlyPrice.unit_amount || 0,
+          currency: monthlyPrice.currency.toUpperCase(),
+          interval: monthlyPrice.recurring?.interval || null,
+          intervalCount: monthlyPrice.recurring?.interval_count || null,
+          priceId: monthlyPriceId,
+        };
+      } catch (error: any) {
+        console.error('Error fetching monthly price:', error);
+        result.monthly = {
+          amount: 0,
+          currency: 'USD',
+          interval: null,
+          intervalCount: null,
+          priceId: monthlyPriceId,
+          error: error.message || 'Failed to fetch monthly price',
+        };
+      }
+    }
+
+    // Fetch yearly price
+    if (yearlyPriceId && yearlyPriceId.startsWith('price_')) {
+      try {
+        const yearlyPrice = await stripe.prices.retrieve(yearlyPriceId);
+        result.yearly = {
+          amount: yearlyPrice.unit_amount || 0,
+          currency: yearlyPrice.currency.toUpperCase(),
+          interval: yearlyPrice.recurring?.interval || null,
+          intervalCount: yearlyPrice.recurring?.interval_count || null,
+          priceId: yearlyPriceId,
+        };
+      } catch (error: any) {
+        console.error('Error fetching yearly price:', error);
+        result.yearly = {
+          amount: 0,
+          currency: 'USD',
+          interval: null,
+          intervalCount: null,
+          priceId: yearlyPriceId,
+          error: error.message || 'Failed to fetch yearly price',
+        };
+      }
+    }
+
+    if (!result.monthly && !result.yearly) {
+      result.error = 'No valid price IDs configured. Please set NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID and NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID.';
+    }
+
+    return result;
+  } catch (error: any) {
+    console.error('Error in getStripePrices:', error);
+    return {
+      monthly: null,
+      yearly: null,
+      error: error.message || 'Failed to fetch prices from Stripe',
+    };
+  }
+}
+
 export async function createCheckoutSession(priceId: string, locale: string = 'en') {
   try {
     // Validate price ID
@@ -62,7 +150,7 @@ export async function createCheckoutSession(priceId: string, locale: string = 'e
 
     const sessionConfig: any = {
       mode: 'payment',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'link'],
       line_items: [
         {
           price: priceId,
@@ -186,7 +274,7 @@ export async function createSubscriptionCheckoutSession(priceId: string, locale:
 
     const sessionConfig: any = {
       mode: 'subscription',
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'link'],
       line_items: [
         {
           price: priceId,

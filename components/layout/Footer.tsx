@@ -22,16 +22,36 @@ const Footer = () => {
         direction={{ xs: 'column', md: 'row' }}
         justifyContent="space-between"
         alignItems="center"
-        spacing={2}
+        spacing={{ xs: 1.5, md: 2 }}
       >
-        <Typography variant="body2" color="text.secondary">
+        <Typography 
+          variant="body2" 
+          color="text.secondary"
+          sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+        >
           {t('copyright', { year: new Date().getFullYear() })}
         </Typography>
-        <Stack direction="row" spacing={3}>
-          <MuiLink component={Link} href="/statistics" color="text.secondary" underline="hover">
+        <Stack 
+          direction="row" 
+          spacing={{ xs: 2, md: 3 }}
+          sx={{ flexWrap: 'wrap', justifyContent: { xs: 'center', md: 'flex-end' } }}
+        >
+          <MuiLink 
+            component={Link} 
+            href="/statistics" 
+            color="text.secondary" 
+            underline="hover"
+            sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+          >
             {t('statistics')}
           </MuiLink>
-          <MuiLink component={Link} href="#" color="text.secondary" underline="hover">
+          <MuiLink 
+            component={Link} 
+            href="#" 
+            color="text.secondary" 
+            underline="hover"
+            sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+          >
             {t('privacy')}
           </MuiLink>
         </Stack>

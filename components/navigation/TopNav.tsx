@@ -55,14 +55,27 @@ const TopNav = ({
   }
 
   const drawerContent = (
-    <Box sx={{ p: 2, height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" fontWeight="bold">Menu</Typography>
-        <IconButton onClick={handleDrawerToggle} data-testid="nav-menu-close">
+    <Box sx={{ p: { xs: 1.5, sm: 2 }, height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, px: 1 }}>
+        <Typography 
+          variant="h6" 
+          fontWeight="bold"
+          sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}
+        >
+          Menu
+        </Typography>
+        <IconButton 
+          onClick={handleDrawerToggle} 
+          data-testid="nav-menu-close"
+          sx={{
+            minWidth: 44,
+            minHeight: 44,
+          }}
+        >
           <CloseIcon />
         </IconButton>
       </Box>
-      <List sx={{ flex: 1 }}>
+      <List sx={{ flex: 1, px: { xs: 0.5, sm: 1 } }}>
         <SidebarItem href="/" icon={<HomeIcon />} label={t('home')} />
         {profile && (
           <>
@@ -76,7 +89,18 @@ const TopNav = ({
         )}
         {profile?.role === 'betting' && (
           <>
-             <Typography variant="caption" sx={{ px: 2, mt: 2, mb: 1, display: 'block', color: 'text.secondary', fontWeight: 600 }}>
+             <Typography 
+               variant="caption" 
+               sx={{ 
+                 px: { xs: 1.5, sm: 2 }, 
+                 mt: 2, 
+                 mb: 1, 
+                 display: 'block', 
+                 color: 'text.secondary', 
+                 fontWeight: 600,
+                 fontSize: { xs: '0.7rem', sm: '0.75rem' },
+               }}
+             >
               ADMIN
             </Typography>
             <SidebarItem href="/newbet" icon={<AdminPanelSettingsIcon />} label={t('newbet')} />
@@ -85,7 +109,17 @@ const TopNav = ({
           </>
         )}
       </List>
-      <Box sx={{ mt: 'auto', pt: 2, borderTop: 1, borderColor: 'divider', display: 'flex', flexDirection: 'column', gap: 1 }}>
+      <Box sx={{ 
+        mt: 'auto', 
+        pt: 2, 
+        borderTop: 1, 
+        borderColor: 'divider', 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 1.5,
+        px: { xs: 1.5, sm: 2 },
+        pb: 2,
+      }}>
         {!isAuthLoading && !isLoggedIn ? (
           <>
             <Button
@@ -94,6 +128,7 @@ const TopNav = ({
               variant="outlined"
               fullWidth
               data-testid="nav-mobile-login-button"
+              sx={{ minHeight: 44, fontSize: { xs: '0.875rem', sm: '1rem' } }}
             >
               {tCommon('login')}
             </Button>
@@ -103,12 +138,20 @@ const TopNav = ({
               variant="contained"
               fullWidth
               data-testid="nav-mobile-signup-button"
+              sx={{ minHeight: 44, fontSize: { xs: '0.875rem', sm: '1rem' } }}
             >
               {tCommon('signup')}
             </Button>
           </>
         ) : (
-          <Button variant="outlined" fullWidth onClick={handleLogout} data-testid="nav-mobile-logout-button" disabled={isAuthLoading}>
+          <Button 
+            variant="outlined" 
+            fullWidth 
+            onClick={handleLogout} 
+            data-testid="nav-mobile-logout-button" 
+            disabled={isAuthLoading}
+            sx={{ minHeight: 44, fontSize: { xs: '0.875rem', sm: '1rem' } }}
+          >
             {tCommon('logout')}
           </Button>
         )}
@@ -123,14 +166,20 @@ const TopNav = ({
         color="transparent"
         elevation={0}
         sx={{
-          mb: 3,
+          mb: { xs: 2, md: 3 },
           border: '1px solid rgba(15,23,42,0.1)',
-          borderRadius: 3,
+          borderRadius: { xs: 2, md: 3 },
           backgroundColor: 'rgba(255,255,255,0.85)',
           backdropFilter: 'blur(8px)',
         }}
       >
-        <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Toolbar 
+          sx={{ 
+            justifyContent: 'space-between',
+            minHeight: { xs: 56, md: 64 },
+            px: { xs: 1, sm: 2, md: 3 },
+          }}
+        >
            {isMobile ? (
             <IconButton
               color="inherit"
@@ -138,12 +187,17 @@ const TopNav = ({
               edge="start"
               onClick={handleDrawerToggle}
               data-testid="nav-menu-toggle"
+              sx={{
+                minWidth: 44,
+                minHeight: 44,
+                p: 1,
+              }}
             >
               <MenuIcon />
             </IconButton>
           ) : <Box />}
 
-          <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
             <LanguageSwitcher />
             {!isMobile && !isAuthLoading && !isLoggedIn && (
               <>
@@ -153,6 +207,7 @@ const TopNav = ({
                   variant="text"
                   color="inherit"
                   data-testid="nav-login-button"
+                  sx={{ minHeight: 44 }}
                 >
                   {tCommon('login')}
                 </Button>
@@ -162,13 +217,20 @@ const TopNav = ({
                   variant="contained"
                   color="primary"
                   data-testid="nav-signup-button"
+                  sx={{ minHeight: 44 }}
                 >
                   {tCommon('signup')}
                 </Button>
               </>
             )}
             {!isMobile && isLoggedIn && (
-              <Button variant="outlined" onClick={handleLogout} data-testid="nav-logout-button" disabled={isAuthLoading}>
+              <Button 
+                variant="outlined" 
+                onClick={handleLogout} 
+                data-testid="nav-logout-button" 
+                disabled={isAuthLoading}
+                sx={{ minHeight: 44 }}
+              >
                 {tCommon('logout')}
               </Button>
             )}
@@ -185,7 +247,11 @@ const TopNav = ({
         }}
         sx={{
           display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 280 },
+          '& .MuiDrawer-paper': { 
+            boxSizing: 'border-box', 
+            width: { xs: '85%', sm: 320 },
+            maxWidth: 320,
+          },
         }}
       >
         {drawerContent}

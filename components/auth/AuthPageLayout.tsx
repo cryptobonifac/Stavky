@@ -32,7 +32,8 @@ const AuthPageLayout = ({
       alignItems: 'center',
       justifyContent: 'center',
       background: 'linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%)',
-      px: 2,
+      px: { xs: 1.5, sm: 2 },
+      py: { xs: 2, md: 3 },
     }}
   >
     <Paper
@@ -40,18 +41,31 @@ const AuthPageLayout = ({
       sx={{
         width: '100%',
         maxWidth: 480,
-        p: { xs: 4, md: 5 },
-        borderRadius: 4,
+        p: { xs: 3, sm: 4, md: 5 },
+        borderRadius: { xs: 2, md: 4 },
         border: '1px solid rgba(15,23,42,0.1)',
       }}
     >
-      <Stack spacing={3}>
+      <Stack spacing={{ xs: 2.5, md: 3 }}>
         <Stack spacing={1}>
-          <Typography variant="h4" component="h1">
+          <Typography 
+            variant="h4" 
+            component="h1"
+            sx={{
+              fontSize: { xs: '1.5rem', sm: '1.75rem', md: '2rem' },
+              lineHeight: 1.3,
+            }}
+          >
             {title}
           </Typography>
           {subtitle && (
-            <Typography variant="body1" color="text.secondary">
+            <Typography 
+              variant="body1" 
+              color="text.secondary"
+              sx={{
+                fontSize: { xs: '0.875rem', md: '1rem' },
+              }}
+            >
               {subtitle}
             </Typography>
           )}
@@ -61,7 +75,10 @@ const AuthPageLayout = ({
           <Typography
             variant="body2"
             color="text.secondary"
-            sx={{ textAlign: 'center' }}
+            sx={{ 
+              textAlign: 'center',
+              fontSize: { xs: '0.75rem', md: '0.875rem' },
+            }}
           >
             {footer.prompt}{' '}
             <Typography

@@ -58,8 +58,8 @@ These variables are required for payment processing with Stripe.
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key for client-side | [Stripe Dashboard](https://dashboard.stripe.com/test/apikeys) → Developers → API keys → Publishable key |
 | `STRIPE_SECRET_KEY` | Stripe secret key for server-side API calls | Stripe Dashboard → Developers → API keys → Secret key |
 | `STRIPE_WEBHOOK_SECRET` | Webhook signing secret for event verification | Stripe Dashboard → Developers → Webhooks → Endpoint → Signing secret |
-| `NEXT_PUBLIC_ONE_TIME_PRICE_ID` | Stripe Price ID for one-time purchase plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
-| `NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID` | Stripe Price ID for subscription plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
+| `NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID` | Stripe Price ID for monthly subscription plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
+| `NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID` | Stripe Price ID for yearly subscription plan | Stripe Dashboard → Products → Select Product → Copy Price ID (starts with `price_`) |
 
 **Setup Instructions:**
 1. Go to [Stripe Dashboard](https://dashboard.stripe.com/register)

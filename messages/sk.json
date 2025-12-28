@@ -148,6 +148,7 @@
     "date": "Datum",
     "match": "Zapas",
     "odds": "Kurz",
+    "company": "Spoločnosť",
     "edit": "Upraviť",
     "delete": "Vymazať",
     "editTip": "Upraviť tip",

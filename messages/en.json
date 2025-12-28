@@ -148,6 +148,7 @@
     "date": "Date",
     "match": "Match",
     "odds": "Odds",
+    "company": "Company",
     "edit": "Edit",
     "delete": "Delete",
     "editTip": "Edit Tip",

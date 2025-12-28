@@ -20,9 +20,16 @@ import {
   Button,
   TextField,
   MenuItem as SelectMenuItem,
+  Collapse,
+  Card,
+  CardContent,
+  useMediaQuery,
+  Theme,
 } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import { useTranslations, useLocale } from 'next-intl'
 
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
@@ -83,6 +90,7 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
   const tCommon = useTranslations('common')
   const locale = useLocale()
   const router = useRouter()
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   const [isPending, startTransition] = useTransition()
   const [selectedKey, setSelectedKey] = useState(months[0]?.key ?? '')
   const [currentPage, setCurrentPage] = useState(1)
@@ -92,8 +100,21 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
   const [tipToEdit, setTipToEdit] = useState<any>(null)
   const [editFormData, setEditFormData] = useState<any>(null)
   const [results, setResults] = useState<Array<{ id: string; name: string }>>([])
+  const [expandedTips, setExpandedTips] = useState<Set<string>>(new Set())
   
   const isBettingRole = userRole === 'betting'
+  
+  const toggleTipExpansion = (tipId: string) => {
+    setExpandedTips((prev) => {
+      const newSet = new Set(prev)
+      if (newSet.has(tipId)) {
+        newSet.delete(tipId)
+      } else {
+        newSet.add(tipId)
+      }
+      return newSet
+    })
+  }
   
   const handleDeleteClick = (tip: TipRecord) => {
     setTipToDelete(tip)
@@ -534,6 +555,7 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                   const resultName = tipWithExtras.resultName || ''
                   const odds = tip.odds || 0
                   const formattedOdds = odds.toFixed(2).replace('.', ',')
+                  const isExpanded = expandedTips.has(tip.id)
                   
                   // Get status color
                   const statusColor =
@@ -545,21 +567,258 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
 
                   const companyStyles = getCompanyChipStyles(companyName)
 
+                  // Mobile expandable card layout
+                  if (isMobile) {
+                    return (
+                      <Box
+                        key={tip.id}
+                        sx={{
+                          borderBottom:
+                            index < paginatedTips.length - 1
+                              ? '1px solid #f0f0f0'
+                              : 'none',
+                        }}
+                      >
+                        <Box
+                          onClick={() => isBettingRole && toggleTipExpansion(tip.id)}
+                          sx={{
+                            p: 1.5,
+                            cursor: isBettingRole ? 'pointer' : 'default',
+                            '&:hover': {
+                              backgroundColor: isBettingRole ? '#fafafa' : 'transparent',
+                            },
+                            transition: 'background-color 0.2s',
+                          }}
+                        >
+                          {/* First Row: Date, Company, Odds, Status */}
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 1,
+                              mb: 1,
+                            }}
+                          >
+                            {/* Date */}
+                            <Typography
+                              sx={{
+                                fontSize: '0.75rem',
+                                color: '#666',
+                                fontWeight: 500,
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                minWidth: '50px',
+                              }}
+                            >
+                              {dayjs(tip.match_date).format('DD.MM')}
+                            </Typography>
+
+                            {/* Company Chip */}
+                            {companyName && (
+                              <Box
+                                sx={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  px: 1,
+                                  py: 0.25,
+                                  borderRadius: '12px',
+                                  fontSize: '0.7rem',
+                                  fontWeight: 600,
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.1px',
+                                  whiteSpace: 'nowrap',
+                                  flexShrink: 0,
+                                  ...companyStyles,
+                                }}
+                              >
+                                {companyName}
+                              </Box>
+                            )}
+
+                            {/* Team Indicator */}
+                            {resultName && (resultName === '1' || resultName === '2') && (
+                              <Box
+                                sx={{
+                                  width: '18px',
+                                  height: '18px',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  justifyContent: 'center',
+                                  backgroundColor: '#f0f0f0',
+                                  color: '#666',
+                                  borderRadius: '4px',
+                                  fontSize: '0.65rem',
+                                  fontWeight: 600,
+                                  flexShrink: 0,
+                                }}
+                              >
+                                {resultName}
+                              </Box>
+                            )}
+
+                            {/* Odds */}
+                            <Typography
+                              sx={{
+                                fontSize: '0.85rem',
+                                fontWeight: 600,
+                                color: '#1a1a1a',
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0,
+                                ml: 'auto',
+                                mr: 1,
+                              }}
+                            >
+                              {formattedOdds}
+                            </Typography>
+
+                            {/* Status Indicator */}
+                            <Box
+                              sx={{
+                                width: '10px',
+                                height: '10px',
+                                borderRadius: '50%',
+                                backgroundColor: statusColor,
+                                flexShrink: 0,
+                              }}
+                            />
+
+                            {/* Expand Icon - Only show for betting role users */}
+                            {isBettingRole && (
+                              isExpanded ? (
+                                <ExpandLessIcon fontSize="small" sx={{ color: '#666', flexShrink: 0, ml: 0.5 }} />
+                              ) : (
+                                <ExpandMoreIcon fontSize="small" sx={{ color: '#666', flexShrink: 0, ml: 0.5 }} />
+                              )
+                            )}
+                          </Box>
+
+                          {/* Second Row: Match Text - Full width, no truncation */}
+                          <Typography
+                            sx={{
+                              fontSize: '0.875rem',
+                              color: '#1a1a1a',
+                              fontWeight: 400,
+                              wordBreak: 'break-word',
+                              mb: 1,
+                            }}
+                          >
+                            {tip.match}
+                          </Typography>
+
+                          {/* Third Row: Stake and Total Win */}
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                              gap: 2,
+                            }}
+                          >
+                            {/* Stake */}
+                            {tip.stake !== null && tip.stake !== undefined && (
+                              <Box>
+                                <Typography
+                                  sx={{
+                                    fontSize: '0.7rem',
+                                    color: '#666',
+                                    mb: 0.25,
+                                  }}
+                                >
+                                  {t('stake')}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    fontSize: '0.875rem',
+                                    fontWeight: 500,
+                                    color: '#1a1a1a',
+                                  }}
+                                >
+                                  {tip.stake.toFixed(2).replace('.', ',')}
+                                </Typography>
+                              </Box>
+                            )}
+
+                            {/* Total Win */}
+                            {tip.total_win !== null && tip.total_win !== undefined && (
+                              <Box sx={{ textAlign: 'right' }}>
+                                <Typography
+                                  sx={{
+                                    fontSize: '0.7rem',
+                                    color: '#666',
+                                    mb: 0.25,
+                                  }}
+                                >
+                                  {t('totalWin') || 'Total Win'}
+                                </Typography>
+                                <Typography
+                                  sx={{
+                                    fontSize: '0.875rem',
+                                    fontWeight: 500,
+                                    color: '#1a1a1a',
+                                  }}
+                                >
+                                  {tip.total_win.toFixed(2).replace('.', ',')}
+                                </Typography>
+                              </Box>
+                            )}
+                          </Box>
+                        </Box>
+
+                        {/* Expanded Details - Only show action buttons for betting role */}
+                        {isBettingRole && (
+                          <Collapse in={isExpanded}>
+                            <Box
+                              sx={{
+                                p: 2,
+                                pt: 0,
+                                backgroundColor: '#fafafa',
+                                borderTop: '1px solid #f0f0f0',
+                              }}
+                            >
+                              <Box
+                                sx={{
+                                  display: 'flex',
+                                  gap: 1,
+                                }}
+                              >
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  startIcon={<EditIcon />}
+                                  onClick={() => handleEditClick(tip)}
+                                  sx={{ fontSize: '0.75rem', minHeight: 36 }}
+                                >
+                                  {t('edit')}
+                                </Button>
+                                <Button
+                                  size="small"
+                                  variant="outlined"
+                                  color="error"
+                                  startIcon={<DeleteIcon />}
+                                  onClick={() => handleDeleteClick(tip)}
+                                  sx={{ fontSize: '0.75rem', minHeight: 36 }}
+                                >
+                                  {t('delete')}
+                                </Button>
+                              </Box>
+                            </Box>
+                          </Collapse>
+                        )}
+                      </Box>
+                    )
+                  }
+
+                  // Desktop grid layout (unchanged)
                   return (
                     <Box
                       key={tip.id}
                       sx={{
                         display: 'grid',
-                        gridTemplateColumns: {
-                          xs: isBettingRole 
-                            ? '50px minmax(0, 1fr) 70px 60px 60px 20px 50px'
-                            : '50px minmax(0, 1fr) 70px 60px 60px 20px',
-                          md: isBettingRole
-                            ? '70px 1fr 90px 100px 100px 24px 60px'
-                            : '70px 1fr 90px 100px 100px 24px',
-                        },
-                        gap: { xs: 0.4, md: 1.13 },
-                        p: { xs: '0.42rem', md: '0.56rem' },
+                        gridTemplateColumns: isBettingRole
+                          ? '70px 1fr 90px 100px 100px 24px 60px'
+                          : '70px 1fr 90px 100px 100px 24px',
+                        gap: 1.13,
+                        p: '0.56rem',
                         borderBottom:
                           index < paginatedTips.length - 1
                             ? '1px solid #f0f0f0'

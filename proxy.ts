@@ -20,9 +20,19 @@ const BETTING_ONLY_ROUTES = ['/newbet', '/bettings/manage', '/settings']
 export default async function proxy(request: NextRequest) {
   // Handle Supabase session update first
   const { supabase, response: supabaseResponse } = await updateSession(request)
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  
+  // Get user, handling refresh token errors gracefully
+  let user = null
+  try {
+    const { data } = await supabase.auth.getUser()
+    user = data.user
+  } catch (error: any) {
+    // Ignore refresh token errors - these are expected when sessions expire
+    if (error?.code !== 'refresh_token_not_found' && !error?.message?.includes('refresh_token_not_found')) {
+      // Only log non-refresh-token errors
+      console.error('Supabase auth error in proxy:', error)
+    }
+  }
 
   // Get the pathname
   const pathname = request.nextUrl.pathname

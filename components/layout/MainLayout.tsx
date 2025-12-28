@@ -31,7 +31,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       {/* Main Content Area */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
         {/* TopNav handles mobile menu and user actions */}
-        <Box sx={{ px: { xs: 2, md: 4 }, pt: 3 }}>
+        <Box sx={{ px: { xs: 1, sm: 2, md: 4 }, pt: { xs: 2, md: 3 } }}>
              {/* Only show TopNav inside MainLayout if we want it here, 
                  or individual pages can include it.
                  Previously TopNav was in pages. We'll integrate it here for consistency if user is logged in.
@@ -48,10 +48,11 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           component="main"
           sx={{
             flex: 1,
-            py: 4,
-            px: { xs: 2, md: 6 },
+            py: { xs: 2, md: 4 },
+            px: { xs: 1, sm: 2, md: 4, lg: 6 },
             display: 'flex',
             flexDirection: 'column',
+            overflow: 'hidden',
           }}
         >
           {children}

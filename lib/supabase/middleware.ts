@@ -36,7 +36,18 @@ export async function updateSession(
     }
   )
 
-  await supabase.auth.getUser()
+  // Try to get user, but handle refresh token errors gracefully
+  // Invalid refresh tokens are expected when sessions expire
+  try {
+    await supabase.auth.getUser()
+  } catch (error: any) {
+    // Ignore refresh token errors - these are expected when sessions expire
+    // The user will need to log in again, which is handled by the auth provider
+    if (error?.code !== 'refresh_token_not_found' && !error?.message?.includes('refresh_token_not_found')) {
+      // Only log non-refresh-token errors
+      console.error('Supabase auth error in middleware:', error)
+    }
+  }
 
   return { supabase, response: supabaseResponse }
 }

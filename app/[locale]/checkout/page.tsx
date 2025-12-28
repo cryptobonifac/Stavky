@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { createCheckoutSession, createSubscriptionCheckoutSession } from '@/app/checkout/actions';
+import { useState, useEffect } from 'react';
+import { createSubscriptionCheckoutSession, getStripePrices } from '@/app/checkout/actions';
 import { useLocale } from 'next-intl';
 import {
   Box,
@@ -17,50 +17,65 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
+interface PriceInfo {
+  amount: number;
+  currency: string;
+  interval: string | null;
+  intervalCount: number | null;
+  priceId: string;
+  error?: string;
+}
+
+function formatPrice(amount: number, currency: string): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: currency,
+    minimumFractionDigits: amount % 100 === 0 ? 0 : 2,
+  }).format(amount / 100);
+}
+
 export default function CheckoutPage() {
   const locale = useLocale();
   const [loading, setLoading] = useState(false);
+  const [pricesLoading, setPricesLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [monthlyPrice, setMonthlyPrice] = useState<PriceInfo | null>(null);
+  const [yearlyPrice, setYearlyPrice] = useState<PriceInfo | null>(null);
 
-  // Read Price IDs from environment variables
-  const ONE_TIME_PRICE_ID = process.env.NEXT_PUBLIC_ONE_TIME_PRICE_ID || '';
-  const SUBSCRIPTION_PRICE_ID = process.env.NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID || '';
-
-  // Debug: Log environment variables (remove in production)
-  if (typeof window !== 'undefined') {
-    console.log('🔍 Stripe Price ID Environment Variables Check:');
-    console.log('NEXT_PUBLIC_ONE_TIME_PRICE_ID:', ONE_TIME_PRICE_ID || '❌ NOT SET');
-    console.log('NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID:', SUBSCRIPTION_PRICE_ID || '❌ NOT SET');
-    console.log('Is ONE_TIME valid?', ONE_TIME_PRICE_ID && ONE_TIME_PRICE_ID.startsWith('price_') ? '✅' : '❌');
-    console.log('Is SUBSCRIPTION valid?', SUBSCRIPTION_PRICE_ID && SUBSCRIPTION_PRICE_ID.startsWith('price_') ? '✅' : '❌');
-  }
-
-  const isPlaceholderPriceId = (priceId: string | undefined) => {
-    if (!priceId) return true;
-    // Check for placeholder values
-    if (priceId.includes('XXXXXXXX') || priceId.includes('YYYYYYYY')) return true;
-    // Check if it's a Product ID instead of Price ID
-    if (priceId.startsWith('prod_')) {
-      console.error('❌ Error: You have a Product ID (prod_...) but need a Price ID (price_...). Go to Stripe Dashboard → Products → Select Product → Copy the Price ID from the Pricing section.');
-      return true;
+  useEffect(() => {
+    async function fetchPrices() {
+      try {
+        setPricesLoading(true);
+        const prices = await getStripePrices();
+        
+        if (prices.error) {
+          setError(prices.error);
+        }
+        
+        setMonthlyPrice(prices.monthly);
+        setYearlyPrice(prices.yearly);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed to load prices';
+        setError(errorMessage);
+        console.error('Error fetching prices:', err);
+      } finally {
+        setPricesLoading(false);
+      }
     }
-    // Must start with 'price_'
-    return !priceId.startsWith('price_');
-  };
 
-  const handleCheckout = async (priceId: string, isSubscription = false) => {
+    fetchPrices();
+  }, []);
+
+  const handleCheckout = async (priceId: string) => {
     try {
       setLoading(true);
       setError(null);
 
-      // Validate price ID before making the request
-      if (!priceId || isPlaceholderPriceId(priceId)) {
-        throw new Error('Please configure a valid Stripe Price ID in your environment variables (NEXT_PUBLIC_ONE_TIME_PRICE_ID or NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID).');
+      if (!priceId || !priceId.startsWith('price_')) {
+        throw new Error('Invalid price ID. Please configure valid Stripe Price IDs in your environment variables.');
       }
 
-      const { url } = isSubscription
-        ? await createSubscriptionCheckoutSession(priceId, locale)
-        : await createCheckoutSession(priceId, locale);
+      const { url } = await createSubscriptionCheckoutSession(priceId, locale);
 
       if (url) {
         window.location.href = url;
@@ -75,156 +90,334 @@ export default function CheckoutPage() {
     }
   };
 
+  const isPriceValid = (price: PriceInfo | null): boolean => {
+    return price !== null && !price.error && price.amount > 0 && price.priceId.startsWith('price_');
+  };
+
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
-        <Typography variant="h3" component="h1" fontWeight="bold" gutterBottom>
+    <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 }, px: { xs: 1.5, sm: 2, md: 3 } }}>
+      <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
+        <Typography 
+          variant="h3" 
+          component="h1" 
+          fontWeight="bold" 
+          gutterBottom
+          sx={{ fontSize: { xs: '1.75rem', sm: '2rem', md: '3rem' } }}
+        >
           Choose Your Plan
         </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Select the plan that works best for you
+        <Typography 
+          variant="h6" 
+          color="text.secondary"
+          sx={{ fontSize: { xs: '0.875rem', sm: '1rem', md: '1.25rem' } }}
+        >
+          Select the subscription plan that works best for you
         </Typography>
       </Box>
 
       {error && (
-        <Box sx={{ mb: 4, p: 2, bgcolor: 'error.light', borderRadius: 1 }}>
-          <Typography color="error.dark">{error}</Typography>
+        <Box sx={{ mb: { xs: 3, md: 4 }, p: { xs: 1.5, md: 2 }, bgcolor: 'error.light', borderRadius: 1 }}>
+          <Typography color="error.dark" sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+            {error}
+          </Typography>
         </Box>
       )}
 
-      <Stack
-        direction={{ xs: 'column', md: 'row' }}
-        spacing={4}
-        justifyContent="center"
-        alignItems="stretch"
-      >
-        {/* One-time Payment Card */}
-        <Card
-          sx={{
-            flex: 1,
-            maxWidth: 400,
-            transition: 'transform 0.2s',
-            '&:hover': { transform: 'translateY(-8px)' },
-          }}
+      {pricesLoading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', py: { xs: 6, md: 8 } }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Stack
+          direction={{ xs: 'column', md: 'row' }}
+          spacing={{ xs: 3, md: 4 }}
+          justifyContent="center"
+          alignItems="stretch"
         >
-          <CardContent sx={{ p: 4 }}>
-            <Box sx={{ textAlign: 'center', mb: 3 }}>
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                One-Time Purchase
-              </Typography>
-              <Typography variant="h3" fontWeight="bold" color="primary">
-                $29.99
-              </Typography>
-              <Typography color="text.secondary">One-time payment</Typography>
-            </Box>
-
-            <Stack spacing={2} sx={{ mb: 4 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Full access to all features</Typography>
+          {/* Monthly Subscription Card */}
+          <Card
+            sx={{
+              flex: 1,
+              maxWidth: { xs: '100%', md: 400 },
+              transition: 'transform 0.2s',
+              '&:hover': { transform: 'translateY(-8px)' },
+            }}
+          >
+            <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+              <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 3 } }}>
+                <Typography 
+                  variant="h5" 
+                  fontWeight="bold" 
+                  gutterBottom
+                  sx={{ fontSize: { xs: '1.1rem', md: '1.5rem' } }}
+                >
+                  Monthly Subscription
+                </Typography>
+                {monthlyPrice && isPriceValid(monthlyPrice) ? (
+                  <>
+                    <Typography 
+                      variant="h3" 
+                      fontWeight="bold" 
+                      color="primary"
+                      sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                    >
+                      {formatPrice(monthlyPrice.amount, monthlyPrice.currency)}
+                    </Typography>
+                    <Typography 
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+                    >
+                      per month
+                    </Typography>
+                  </>
+                ) : (
+                  <>
+                    <Typography 
+                      variant="h3" 
+                      fontWeight="bold" 
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                    >
+                      —
+                    </Typography>
+                    <Typography 
+                      color="error" 
+                      variant="caption"
+                      sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+                    >
+                      Price not available
+                    </Typography>
+                  </>
+                )}
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Lifetime updates</Typography>
+
+              <Stack spacing={{ xs: 1.5, md: 2 }} sx={{ mb: { xs: 3, md: 4 } }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    All premium features
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Monthly updates
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Priority support
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Cancel anytime
+                  </Typography>
+                </Box>
+              </Stack>
+
+              <Button
+                fullWidth
+                variant="outlined"
+                size="large"
+                startIcon={loading ? <CircularProgress size={20} /> : <ShoppingCartIcon />}
+                disabled={loading || !isPriceValid(monthlyPrice)}
+                onClick={() => monthlyPrice && handleCheckout(monthlyPrice.priceId)}
+                sx={{ 
+                  py: { xs: 1.25, md: 1.5 },
+                  minHeight: 44,
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                }}
+              >
+                {loading ? 'Processing...' : 'Subscribe Monthly'}
+              </Button>
+
+              {monthlyPrice && !isPriceValid(monthlyPrice) && (
+                <Typography 
+                  variant="caption" 
+                  color="error" 
+                  sx={{ 
+                    display: 'block', 
+                    mt: 2, 
+                    textAlign: 'center', 
+                    fontWeight: 'bold',
+                    fontSize: { xs: '0.7rem', md: '0.75rem' },
+                    px: 1,
+                  }}
+                >
+                  ⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID in your environment variables
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Yearly Subscription Card */}
+          <Card
+            sx={{
+              flex: 1,
+              maxWidth: { xs: '100%', md: 400 },
+              border: '2px solid',
+              borderColor: 'primary.main',
+              transition: 'transform 0.2s',
+              '&:hover': { transform: 'translateY(-8px)' },
+            }}
+          >
+            <CardContent sx={{ p: { xs: 3, md: 4 } }}>
+              <Box sx={{ textAlign: 'center', mb: 1 }}>
+                <Chip 
+                  label="BEST VALUE" 
+                  color="primary" 
+                  size="small" 
+                  sx={{ 
+                    mb: 2,
+                    fontSize: { xs: '0.7rem', md: '0.75rem' },
+                    height: { xs: 24, md: 28 },
+                  }} 
+                />
+                <Typography 
+                  variant="h5" 
+                  fontWeight="bold" 
+                  gutterBottom
+                  sx={{ fontSize: { xs: '1.1rem', md: '1.5rem' } }}
+                >
+                  Yearly Subscription
+                </Typography>
+                {yearlyPrice && isPriceValid(yearlyPrice) ? (
+                  <>
+                    <Typography 
+                      variant="h3" 
+                      fontWeight="bold" 
+                      color="primary"
+                      sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                    >
+                      {formatPrice(yearlyPrice.amount, yearlyPrice.currency)}
+                    </Typography>
+                    <Typography 
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+                    >
+                      per year
+                    </Typography>
+                    {monthlyPrice && isPriceValid(monthlyPrice) && (
+                      <Typography 
+                        variant="caption" 
+                        color="success.main" 
+                        sx={{ 
+                          display: 'block', 
+                          mt: 1,
+                          fontSize: { xs: '0.75rem', md: '0.875rem' },
+                        }}
+                      >
+                        Save {formatPrice(
+                          monthlyPrice.amount * 12 - yearlyPrice.amount,
+                          yearlyPrice.currency
+                        )} per year
+                      </Typography>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Typography 
+                      variant="h3" 
+                      fontWeight="bold" 
+                      color="text.secondary"
+                      sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
+                    >
+                      —
+                    </Typography>
+                    <Typography 
+                      color="error" 
+                      variant="caption"
+                      sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+                    >
+                      Price not available
+                    </Typography>
+                  </>
+                )}
               </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Premium support</Typography>
-              </Box>
-            </Stack>
 
-            <Button
-              fullWidth
-              variant="outlined"
-              size="large"
-              startIcon={loading ? <CircularProgress size={20} /> : <ShoppingCartIcon />}
-              disabled={loading || isPlaceholderPriceId(ONE_TIME_PRICE_ID)}
-              onClick={() => handleCheckout(ONE_TIME_PRICE_ID)}
-              sx={{ py: 1.5 }}
-            >
-              {loading ? 'Processing...' : 'Buy Now'}
-            </Button>
+              <Stack spacing={{ xs: 1.5, md: 2 }} sx={{ mb: { xs: 3, md: 4 } }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    All premium features
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Yearly updates
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Priority support
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Cancel anytime
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CheckCircleIcon color="success" fontSize="small" />
+                  <Typography sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}>
+                    Best value - save more
+                  </Typography>
+                </Box>
+              </Stack>
 
-            {isPlaceholderPriceId(ONE_TIME_PRICE_ID) && (
-              <Typography variant="caption" color="error" sx={{ display: 'block', mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
-                ⚠️ Configure NEXT_PUBLIC_ONE_TIME_PRICE_ID in your .env.local file
-              </Typography>
-            )}
-          </CardContent>
-        </Card>
+              <Button
+                fullWidth
+                variant="contained"
+                size="large"
+                startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <ShoppingCartIcon />}
+                disabled={loading || !isPriceValid(yearlyPrice)}
+                onClick={() => yearlyPrice && handleCheckout(yearlyPrice.priceId)}
+                sx={{ 
+                  py: { xs: 1.25, md: 1.5 },
+                  minHeight: 44,
+                  fontSize: { xs: '0.875rem', md: '1rem' },
+                }}
+              >
+                {loading ? 'Processing...' : 'Subscribe Yearly'}
+              </Button>
 
-        {/* Subscription Card */}
-        <Card
-          sx={{
-            flex: 1,
-            maxWidth: 400,
-            border: '2px solid',
-            borderColor: 'primary.main',
-            transition: 'transform 0.2s',
-            '&:hover': { transform: 'translateY(-8px)' },
-          }}
+              {yearlyPrice && !isPriceValid(yearlyPrice) && (
+                <Typography 
+                  variant="caption" 
+                  color="error" 
+                  sx={{ 
+                    display: 'block', 
+                    mt: 2, 
+                    textAlign: 'center', 
+                    fontWeight: 'bold',
+                    fontSize: { xs: '0.7rem', md: '0.75rem' },
+                    px: 1,
+                  }}
+                >
+                  ⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID in your environment variables
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        </Stack>
+      )}
+
+      <Box sx={{ mt: { xs: 4, md: 6 }, textAlign: 'center' }}>
+        <Typography 
+          variant="body2" 
+          color="text.secondary"
+          sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
         >
-          <CardContent sx={{ p: 4 }}>
-            <Box sx={{ textAlign: 'center', mb: 1 }}>
-              <Chip label="MOST POPULAR" color="primary" size="small" sx={{ mb: 2 }} />
-              <Typography variant="h5" fontWeight="bold" gutterBottom>
-                Monthly Subscription
-              </Typography>
-              <Typography variant="h3" fontWeight="bold" color="primary">
-                $9.99
-              </Typography>
-              <Typography color="text.secondary">per month</Typography>
-            </Box>
-
-            <Stack spacing={2} sx={{ mb: 4 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>All premium features</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Monthly updates</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Priority support</Typography>
-              </Box>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CheckCircleIcon color="success" fontSize="small" />
-                <Typography>Cancel anytime</Typography>
-              </Box>
-            </Stack>
-
-            <Button
-              fullWidth
-              variant="contained"
-              size="large"
-              startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <ShoppingCartIcon />}
-              disabled={loading || isPlaceholderPriceId(SUBSCRIPTION_PRICE_ID)}
-              onClick={() => handleCheckout(SUBSCRIPTION_PRICE_ID, true)}
-              sx={{ py: 1.5 }}
-            >
-              {loading ? 'Processing...' : 'Subscribe Now'}
-            </Button>
-
-            {isPlaceholderPriceId(SUBSCRIPTION_PRICE_ID) && (
-              <Typography variant="caption" color="error" sx={{ display: 'block', mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
-                ⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID in your .env.local file
-              </Typography>
-            )}
-          </CardContent>
-        </Card>
-      </Stack>
-
-      <Box sx={{ mt: 6, textAlign: 'center' }}>
-        <Typography variant="body2" color="text.secondary">
           Secure payment powered by Stripe
         </Typography>
       </Box>
     </Container>
   );
 }
-
-
-
 

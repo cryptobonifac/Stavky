@@ -92,9 +92,16 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   }, [tips, filter])
 
   return (
-    <Stack spacing={4}>
+    <Stack spacing={{ xs: 3, md: 4 }}>
       <Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+        <Typography 
+          variant="body2" 
+          color="text.secondary" 
+          sx={{ 
+            mb: { xs: 1.5, md: 2 },
+            fontSize: { xs: '0.75rem', md: '0.875rem' },
+          }}
+        >
           {t('filterDescription')}
         </Typography>
       <ToggleButtonGroup
@@ -105,14 +112,18 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
           fullWidth
           data-testid="bettings-filter-group"
           sx={{
+            flexWrap: { xs: 'wrap', sm: 'nowrap' },
             '& .MuiToggleButton-root': {
-              py: 1.5,
-              px: 3,
+              py: { xs: 1, md: 1.5 },
+              px: { xs: 2, md: 3 },
               fontWeight: 500,
               textTransform: 'none',
               borderRadius: 2,
               border: '1px solid',
               borderColor: 'divider',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              minHeight: 44,
+              flex: { xs: '1 1 calc(50% - 4px)', sm: '1 1 auto' },
               '&.Mui-selected': {
                 bgcolor: 'primary.main',
                 color: 'primary.contrastText',
@@ -135,46 +146,59 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
       {filteredTips.length > 0 && (
         <Box
           sx={{
-            p: 2,
+            p: { xs: 1.5, md: 2 },
             borderRadius: 2,
             bgcolor: 'background.default',
             border: '1px solid',
             borderColor: 'divider',
           }}
         >
-          <Typography variant="body2" color="text.secondary">
+          <Typography 
+            variant="body2" 
+            color="text.secondary"
+            sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+          >
             {t('showing')} <strong>{filteredTips.length}</strong>{' '}
             {filteredTips.length === 1 ? t('tip') : t('tips')}
           </Typography>
         </Box>
       )}
 
-      <Stack spacing={2.5}>
+      <Stack spacing={{ xs: 2, md: 2.5 }}>
         {filteredTips.length === 0 && (
           <Card
             variant="outlined"
             sx={{
               border: '1px dashed',
               borderColor: 'divider',
-              borderRadius: 3,
+              borderRadius: { xs: 2, md: 3 },
               textAlign: 'center',
-              py: 6,
+              py: { xs: 4, md: 6 },
               bgcolor: 'background.default',
             }}
           >
             <CardContent>
               <SportsSoccerIcon
                 sx={{
-                  fontSize: 48,
+                  fontSize: { xs: 40, md: 48 },
                   color: 'text.secondary',
                   opacity: 0.5,
-                  mb: 2,
+                  mb: { xs: 1.5, md: 2 },
                 }}
               />
-              <Typography variant="h6" color="text.secondary" gutterBottom>
+              <Typography 
+                variant="h6" 
+                color="text.secondary" 
+                gutterBottom
+                sx={{ fontSize: { xs: '1rem', md: '1.25rem' } }}
+              >
                 {t('noTipsForFilter')}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Typography 
+                variant="body2" 
+                color="text.secondary"
+                sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+              >
                 {t('checkBackLater')}
               </Typography>
             </CardContent>
@@ -187,7 +211,7 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
             sx={{
               border: '1px solid',
               borderColor: 'divider',
-              borderRadius: 3,
+              borderRadius: { xs: 2, md: 3 },
               transition: 'all 0.2s ease-in-out',
               '&:hover': {
                 borderColor: 'primary.main',
@@ -196,30 +220,39 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
               },
             }}
           >
-            <CardContent sx={{ p: 3 }}>
-              <Stack spacing={2.5}>
+            <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+              <Stack spacing={{ xs: 2, md: 2.5 }}>
               <Stack
                 direction={{ xs: 'column', md: 'row' }}
-                spacing={2}
+                spacing={{ xs: 1.5, md: 2 }}
                 justifyContent="space-between"
                   alignItems={{ xs: 'flex-start', md: 'center' }}
               >
-                  <Stack spacing={1.5} flex={1}>
-                    <Stack direction="row" spacing={1.5} alignItems="center">
+                  <Stack spacing={{ xs: 1, md: 1.5 }} flex={1} sx={{ width: '100%' }}>
+                    <Stack direction="row" spacing={{ xs: 1, md: 1.5 }} alignItems="center">
                       <Box
                         sx={{
-                          p: 0.75,
-                          borderRadius: 1.5,
+                          p: { xs: 0.5, md: 0.75 },
+                          borderRadius: { xs: 1, md: 1.5 },
                           bgcolor: 'primary.main',
                           color: 'primary.contrastText',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
+                          minWidth: { xs: 32, md: 36 },
+                          minHeight: { xs: 32, md: 36 },
                         }}
                       >
                         <SportsSoccerIcon fontSize="small" />
                       </Box>
-                      <Typography variant="h6" fontWeight={600}>
+                      <Typography 
+                        variant="h6" 
+                        fontWeight={600}
+                        sx={{ 
+                          fontSize: { xs: '1rem', md: '1.25rem' },
+                          wordBreak: 'break-word',
+                        }}
+                      >
                         {tip.match}
                       </Typography>
                     </Stack>
@@ -283,8 +316,9 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                   </Stack>
                   <Stack
                     direction={{ xs: 'row', md: 'column' }}
-                    spacing={1.5}
+                    spacing={{ xs: 1, md: 1.5 }}
                     alignItems={{ xs: 'center', md: 'flex-end' }}
+                    sx={{ flexShrink: 0 }}
                   >
                     <Chip
                       icon={<TrendingUpIcon />}
@@ -292,10 +326,11 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                       color="primary"
                       sx={{
                         fontWeight: 600,
-                        fontSize: '0.9rem',
-                        height: 36,
+                        fontSize: { xs: '0.8rem', md: '0.9rem' },
+                        height: { xs: 32, md: 36 },
                         '& .MuiChip-icon': {
                           color: 'inherit',
+                          fontSize: { xs: '1rem', md: '1.2rem' },
                         },
                       }}
                     />
@@ -305,7 +340,8 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                       sx={{
                         fontWeight: 500,
                         borderWidth: 1.5,
-                        height: 36,
+                        height: { xs: 32, md: 36 },
+                        fontSize: { xs: '0.8rem', md: '0.875rem' },
                       }}
                     />
                   </Stack>
@@ -313,21 +349,30 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
                 {(tip.stake || tip.total_win) && (
                   <Stack
                     direction={{ xs: 'column', sm: 'row' }}
-                    spacing={2}
+                    spacing={{ xs: 1, sm: 2 }}
                     sx={{
-                      mt: 2,
-                      pt: 2,
+                      mt: { xs: 1.5, md: 2 },
+                      pt: { xs: 1.5, md: 2 },
                       borderTop: '1px solid',
                       borderColor: 'divider',
                     }}
                   >
                     {tip.stake && (
-                      <Typography variant="body2" color="text.secondary">
+                      <Typography 
+                        variant="body2" 
+                        color="text.secondary"
+                        sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+                      >
                         <strong>{t('stake')}:</strong> {tip.stake.toFixed(2)}
                       </Typography>
                     )}
                     {tip.total_win && (
-                      <Typography variant="body2" color="success.main" fontWeight={600}>
+                      <Typography 
+                        variant="body2" 
+                        color="success.main" 
+                        fontWeight={600}
+                        sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
+                      >
                         <strong>{t('totalWin')}:</strong> {tip.total_win.toFixed(2)}
                       </Typography>
                     )}
