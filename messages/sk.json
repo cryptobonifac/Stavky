@@ -507,6 +507,59 @@
     "subscribeYearly": "Predplatiť ročne",
     "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostredí",
     "securePayment": "Bezpečná platba cez Stripe"
+  },
+  "cookies": {
+    "banner": {
+      "title": "Súhlas s cookies",
+      "description": "Používame cookies na zlepšenie vašej skúsenosti a analýzu využívania našej webovej stránky. Kliknutím na 'Prijať všetko' súhlasíte s používaním analytických a marketingových cookies. Môžete spravovať svoje preferencie alebo odmietnuť všetky nepovinné cookies.",
+      "acceptAll": "Prijať všetko",
+      "rejectAll": "Odmietnuť všetko",
+      "customize": "Nastaviť preferencie",
+      "learnMore": "Zistiť viac o našej politike cookies"
+    },
+    "settings": {
+      "title": "Nastavenia cookies",
+      "description": "Spravujte svoje preferencie cookies. Nižšie môžete povoliť alebo zakázať rôzne typy cookies.",
+      "necessary": {
+        "title": "Nevyhnutné cookies",
+        "description": "Tieto cookies sú potrebné pre správne fungovanie webovej stránky. Nemožno ich zakázať."
+      },
+      "analytics": {
+        "title": "Analytické cookies",
+        "description": "Pomáhajú nám pochopiť, ako používate našu webovú stránku, aby sme mohli zlepšiť vašu skúsenosť."
+      },
+      "marketing": {
+        "title": "Marketingové cookies",
+        "description": "Používajú sa na sledovanie návštevníkov na webových stránkach na zobrazenie relevantných reklám."
+      },
+      "save": "Uložiť preferencie",
+      "cancel": "Zrušiť",
+      "acceptAll": "Prijať všetko"
+    }
+  },
+  "privacy": {
+    "title": "Zásady ochrany osobných údajov",
+    "introduction": {
+      "title": "Úvod",
+      "content": "V Stavky sme odhodlaní chrániť vaše súkromie a zabezpečiť transparentnosť v tom, ako zhromažďujeme, používame a chránime vaše osobné údaje. Tieto zásady ochrany osobných údajov vysvetľujú naše postupy týkajúce sa zhromažďovania údajov a vaše práva podľa GDPR a ďalších platných zákonov o ochrane osobných údajov."
+    },
+    "cookieUsage": {
+      "title": "Používanie cookies",
+      "content": "Používame cookies na zlepšenie vašej skúsenosti s prehliadaním a analýzu využívania webovej stránky. Máte úplnú kontrolu nad tým, ktoré cookies prijmete prostredníctvom nášho bannera so súhlasom s cookies.",
+      "manageCookies": "Spravovať nastavenia cookies"
+    },
+    "dataCollection": {
+      "title": "Zhromažďovanie údajov",
+      "content": "Zhromažďujeme informácie, ktoré nám poskytujete priamo, napríklad keď vytvárate účet, prihlásite sa na odber našich služieb alebo nás kontaktujete. Môže to zahŕňať vaše meno, e-mailovú adresu a platobné informácie. Automaticky tiež zhromažďujeme určité informácie o vašom zariadení a o tom, ako interagujete s našou webovou stránkou."
+    },
+    "userRights": {
+      "title": "Vaše práva",
+      "content": "Podľa GDPR máte právo na prístup, opravu alebo vymazanie svojich osobných údajov. Môžete tiež namietať proti spracovaniu, požadovať prenosnosť údajov a kedykoľvek odvolať súhlas. Ak chcete uplatniť tieto práva, kontaktujte nás pomocou informácií nižšie."
+    },
+    "contact": {
+      "title": "Kontaktné informácie",
+      "content": "Ak máte akékoľvek otázky týkajúce sa týchto zásad ochrany osobných údajov alebo našich postupov týkajúcich sa údajov, kontaktujte nás prostredníctvom našej kontaktnej stránky alebo nám napíšte priamo e-mail."
+    }
   }
 }
 

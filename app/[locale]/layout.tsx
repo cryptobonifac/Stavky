@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import { routing } from '@/i18n/routing'
 import { AppThemeProvider } from '@/components/providers/app-theme-provider'
 import { AuthProvider } from '@/components/providers/auth-provider'
+import { CookieConsentProvider, CookieBanner } from '@/components/cookies'
 import LocaleHtml from '@/components/layout/LocaleHtml'
 import '../globals.css'
 
@@ -40,11 +41,16 @@ export default async function LocaleLayout({
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
-      <LocaleHtml locale={locale}>
-        <AppThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
-        </AppThemeProvider>
-      </LocaleHtml>
+      <CookieConsentProvider>
+        <LocaleHtml locale={locale}>
+          <AppThemeProvider>
+            <AuthProvider>
+              {children}
+              <CookieBanner />
+            </AuthProvider>
+          </AppThemeProvider>
+        </LocaleHtml>
+      </CookieConsentProvider>
     </NextIntlClientProvider>
   )
 }

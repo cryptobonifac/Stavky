@@ -507,6 +507,59 @@
     "subscribeYearly": "Subscribe Yearly",
     "yearlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID in your environment variables",
     "securePayment": "Secure payment powered by Stripe"
+  },
+  "cookies": {
+    "banner": {
+      "title": "Cookie Consent",
+      "description": "We use cookies to improve your experience and analyze how our website is used. By clicking 'Accept All', you consent to our use of analytics and marketing cookies. You can manage your preferences or reject all non-essential cookies.",
+      "acceptAll": "Accept All",
+      "rejectAll": "Reject All",
+      "customize": "Customize Settings",
+      "learnMore": "Learn more about our cookie policy"
+    },
+    "settings": {
+      "title": "Cookie Preferences",
+      "description": "Manage your cookie preferences. You can enable or disable different types of cookies below.",
+      "necessary": {
+        "title": "Necessary Cookies",
+        "description": "These cookies are essential for the website to function properly. They cannot be disabled."
+      },
+      "analytics": {
+        "title": "Analytics Cookies",
+        "description": "Help us understand how you use our website to improve your experience."
+      },
+      "marketing": {
+        "title": "Marketing Cookies",
+        "description": "Used to track visitors across websites to display relevant advertisements."
+      },
+      "save": "Save Preferences",
+      "cancel": "Cancel",
+      "acceptAll": "Accept All"
+    }
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "introduction": {
+      "title": "Introduction",
+      "content": "At Stavky, we are committed to protecting your privacy and ensuring transparency in how we collect, use, and protect your personal information. This privacy policy explains our practices regarding data collection and your rights under GDPR and other applicable privacy laws."
+    },
+    "cookieUsage": {
+      "title": "Cookie Usage",
+      "content": "We use cookies to enhance your browsing experience and analyze website usage. You have full control over which cookies you accept through our cookie consent banner.",
+      "manageCookies": "Manage Cookie Preferences"
+    },
+    "dataCollection": {
+      "title": "Data Collection",
+      "content": "We collect information that you provide directly to us, such as when you create an account, subscribe to our services, or contact us. This may include your name, email address, and payment information. We also automatically collect certain information about your device and how you interact with our website."
+    },
+    "userRights": {
+      "title": "Your Rights",
+      "content": "Under GDPR, you have the right to access, correct, or delete your personal data. You can also object to processing, request data portability, and withdraw consent at any time. To exercise these rights, please contact us using the information below."
+    },
+    "contact": {
+      "title": "Contact Information",
+      "content": "If you have any questions about this privacy policy or our data practices, please contact us through our contact page or email us directly."
+    }
   }
 }
 

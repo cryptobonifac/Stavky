@@ -489,6 +489,76 @@
     "confirmCancellation": "Potvrdit zrušení",
     "confirmCancellationMessage": "Opravdu chcete zrušit své předplatné? Budete mít přístup až do konce aktuálního fakturačního období.",
     "confirmCancel": "Ano, zrušit předplatné"
+  },
+  "checkout": {
+    "choosePlan": "Vyberte si plán",
+    "selectPlanSubtitle": "Vyberte si předplatné, které vám nejvíce vyhovuje",
+    "monthlySubscription": "Měsíční předplatné",
+    "perMonth": "měsíčně",
+    "priceNotAvailable": "Cena není dostupná",
+    "processing": "Zpracovává se...",
+    "subscribeMonthly": "Předplatit měsíčně",
+    "monthlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID v prostředí",
+    "bestValue": "NEJLEPŠÍ HODNOTA",
+    "yearlySubscription": "Roční předplatné",
+    "perYear": "ročně",
+    "savePerYear": "Ušetříte {amount} ročně",
+    "subscribeYearly": "Předplatit ročně",
+    "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostředí",
+    "securePayment": "Bezpečná platba přes Stripe"
+  },
+  "cookies": {
+    "banner": {
+      "title": "Souhlas s cookies",
+      "description": "Používáme cookies ke zlepšení vaší zkušenosti a analýze využití naší webové stránky. Kliknutím na 'Přijmout vše' souhlasíte s používáním analytických a marketingových cookies. Můžete spravovat své preference nebo odmítnout všechny nepovinné cookies.",
+      "acceptAll": "Přijmout vše",
+      "rejectAll": "Odmítnout vše",
+      "customize": "Nastavit preference",
+      "learnMore": "Zjistit více o naší politice cookies"
+    },
+    "settings": {
+      "title": "Nastavení cookies",
+      "description": "Spravujte své preference cookies. Níže můžete povolit nebo zakázat různé typy cookies.",
+      "necessary": {
+        "title": "Nezbytné cookies",
+        "description": "Tyto cookies jsou nezbytné pro správné fungování webové stránky. Nelze je zakázat."
+      },
+      "analytics": {
+        "title": "Analytické cookies",
+        "description": "Pomáhají nám pochopit, jak používáte naši webovou stránku, abychom mohli zlepšit vaši zkušenost."
+      },
+      "marketing": {
+        "title": "Marketingové cookies",
+        "description": "Používají se ke sledování návštěvníků na webových stránkách k zobrazení relevantních reklam."
+      },
+      "save": "Uložit preference",
+      "cancel": "Zrušit",
+      "acceptAll": "Přijmout vše"
+    }
+  },
+  "privacy": {
+    "title": "Zásady ochrany osobních údajů",
+    "introduction": {
+      "title": "Úvod",
+      "content": "Ve Stavky jsme odhodláni chránit vaše soukromí a zajistit transparentnost v tom, jak shromažďujeme, používáme a chráníme vaše osobní údaje. Tyto zásady ochrany osobních údajů vysvětlují naše postupy týkající se shromažďování údajů a vaše práva podle GDPR a dalších platných zákonů o ochraně osobních údajů."
+    },
+    "cookieUsage": {
+      "title": "Používání cookies",
+      "content": "Používáme cookies ke zlepšení vaší zkušenosti s prohlížením a analýze využití webové stránky. Máte plnou kontrolu nad tím, které cookies přijmete prostřednictvím našeho banneru se souhlasem s cookies.",
+      "manageCookies": "Spravovat nastavení cookies"
+    },
+    "dataCollection": {
+      "title": "Shromažďování údajů",
+      "content": "Shromažďujeme informace, které nám poskytujete přímo, například když vytváříte účet, přihlásíte se k odběru našich služeb nebo nás kontaktujete. Může to zahrnovat vaše jméno, e-mailovou adresu a platební informace. Automaticky také shromažďujeme určité informace o vašem zařízení a o tom, jak interagujete s naší webovou stránkou."
+    },
+    "userRights": {
+      "title": "Vaše práva",
+      "content": "Podle GDPR máte právo na přístup, opravu nebo vymazání svých osobních údajů. Můžete také namítat proti zpracování, požadovat přenositelnost údajů a kdykoli odvolat souhlas. Chcete-li uplatnit tato práva, kontaktujte nás pomocí informací níže."
+    },
+    "contact": {
+      "title": "Kontaktní informace",
+      "content": "Pokud máte jakékoli otázky týkající se těchto zásad ochrany osobních údajů nebo našich postupů týkajících se údajů, kontaktujte nás prostřednictvím naší kontaktní stránky nebo nám napište přímo e-mail."
+    }
   }
 }
 

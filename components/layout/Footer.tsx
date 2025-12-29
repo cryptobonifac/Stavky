@@ -45,10 +45,10 @@ const Footer = () => {
           >
             {t('statistics')}
           </MuiLink>
-          <MuiLink 
-            component={Link} 
-            href="#" 
-            color="text.secondary" 
+          <MuiLink
+            component={Link}
+            href="/privacy"
+            color="text.secondary"
             underline="hover"
             sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
           >
