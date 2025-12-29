@@ -243,9 +243,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               <Typography variant="h5" gutterBottom fontWeight={600}>
                 {t('title') || 'Create New Betting Tip'}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {t('subtitle') || 'Fill in all fields to create a new betting tip'}
-              </Typography>
             </Box>
 
             {error && (
