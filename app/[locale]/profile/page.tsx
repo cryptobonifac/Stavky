@@ -84,8 +84,6 @@ export default async function ProfilePage({
         canAccessSettings={profile?.role === 'betting'}
       />
       <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
       >
         <Stack spacing={3}>
           <ProfileInfoCard profile={profileData} />

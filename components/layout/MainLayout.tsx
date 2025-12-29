@@ -30,26 +30,10 @@ const MainLayout = ({ children }: MainLayoutProps) => {
 
       {/* Main Content Area */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-        {/* TopNav handles mobile menu and user actions */}
-        <Box sx={{ px: { xs: 1, sm: 2, md: 4 }, pt: { xs: 2, md: 3 } }}>
-             {/* Only show TopNav inside MainLayout if we want it here, 
-                 or individual pages can include it.
-                 Previously TopNav was in pages. We'll integrate it here for consistency if user is logged in.
-              */}
-             {/* However, the previous design had TopNav inside pages. 
-                 To keep backward compatibility with existing pages that might include TopNav,
-                 we'll check if we should render a global header or let pages handle it.
-                 For this phase, let's keep TopNav control in pages but provide the structure.
-             */}
-             {/* Actually, let's make MainLayout robust. */}
-        </Box>
-        
         <Box
           component="main"
           sx={{
             flex: 1,
-            py: { xs: 2, md: 4 },
-            px: { xs: 1, sm: 2, md: 4, lg: 6 },
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',

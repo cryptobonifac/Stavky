@@ -89,10 +89,7 @@ export default async function NewBetPage({
         showSettingsLink={true}
         canAccessSettings={true}
       />
-      <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
-      >
+      <PageSection>
         <NewBetForm
           bettingCompanies={companies.map((company) => ({
             id: company.id,

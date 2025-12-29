@@ -72,10 +72,7 @@ export default async function ContactsPage({
         showSettingsLink={true}
         canAccessSettings={true}
       />
-      <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
-      >
+      <PageSection>
         <ContactsList contacts={contactsList} />
       </PageSection>
     </MainLayout>

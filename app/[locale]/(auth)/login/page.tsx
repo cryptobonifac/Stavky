@@ -28,7 +28,6 @@ export default async function LoginPage({
   return (
     <AuthPageLayout
       title={t('pageTitle')}
-      subtitle={t('pageSubtitle')}
       footer={{
         prompt: t('noAccountPrompt'),
         link: { href: '/signup', label: t('createAccountLink') },

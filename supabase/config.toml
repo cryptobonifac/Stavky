@@ -286,16 +286,16 @@ content_path = "./supabase/templates/reset_password.html"
 
 [auth.external.google]
 enabled = true
-client_id = "env(GOOGLE_CLIENT_ID)"
-# DO NOT commit your OAuth provider secret to git. Use environment variable substitution instead:
-secret = "env(GOOGLE_CLIENT_SECRET)"
-# Overrides the default auth redirectUrl. For local development: http://localhost:54321/auth/v1/callback
-redirect_uri = "http://localhost:54321/auth/v1/callback"
+# For local development - these values are safe to commit as they only work with localhost/127.0.0.1
+client_id = "161230976386-q99dtviv09l0v7sadohcb5rjr13bkbpg.apps.googleusercontent.com"
+secret = "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"
+# Overrides the default auth redirectUrl. For local development this is always the same.
+redirect_uri = "http://127.0.0.1:54321/auth/v1/callback"
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
 # or any other third-party OIDC providers.
 url = ""
 # If enabled, the nonce check will be skipped. Required for local sign in with Google auth.
-skip_nonce_check = false
+skip_nonce_check = true
 # If enabled, it will allow the user to successfully authenticate when the provider does not return an email address.
 email_optional = false
 

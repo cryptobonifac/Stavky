@@ -115,10 +115,6 @@ export default async function BettingTipsPage({
   const tContact = (key: string): string => {
     return contactMessages[key] || key
   }
-  const subtitle = activeAccount
-    ? t('subtitleActive')
-    : t('subtitleInactive')
-
   // Check if user is inactive customer (not betting admin and account not active)
   const isInactiveCustomer = profile?.role === 'customer' && !activeAccount
 
@@ -129,10 +125,7 @@ export default async function BettingTipsPage({
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}
       />
-      <PageSection
-        title={t('title')}
-        subtitle={subtitle}
-      >
+      <PageSection>
         {activeAccount ? (
           <ActiveTipsList tips={normalizedTips} />
         ) : (

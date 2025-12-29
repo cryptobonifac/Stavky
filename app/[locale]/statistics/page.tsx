@@ -205,10 +205,7 @@ export default async function StatisticsPage({
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}
       />
-      <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
-      >
+      <PageSection>
         <Suspense fallback={<StatisticsLoading />}>
           <HistoryMonthView months={months} userRole={profile?.role} />
         </Suspense>

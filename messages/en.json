@@ -19,7 +19,10 @@
     "settings": "Settings",
     "home": "Home",
     "back": "Back",
-    "next": "Next"
+    "next": "Next",
+    "admin": "Admin",
+    "webhookLogs": "Webhook Logs",
+    "webhookDebug": "Webhook Debug"
   },
   "home": {
     "title": "Expert Betting Tips that",
@@ -538,15 +541,38 @@
     }
   },
   "privacy": {
-    "title": "Privacy Policy",
+    "title": "Privacy Policy and Cookie Information",
     "introduction": {
-      "title": "Introduction",
-      "content": "At Stavky, we are committed to protecting your privacy and ensuring transparency in how we collect, use, and protect your personal information. This privacy policy explains our practices regarding data collection and your rights under GDPR and other applicable privacy laws."
+      "title": "Essential Information",
+      "content": "To ensure optimal functionality of this platform and deliver quality services, we utilize small data files called cookies on your device. The following policy informs you about their use and your rights."
     },
-    "cookieUsage": {
-      "title": "Cookie Usage",
-      "content": "We use cookies to enhance your browsing experience and analyze website usage. You have full control over which cookies you accept through our cookie consent banner.",
-      "manageCookies": "Manage Cookie Preferences"
+    "whatAreCookies": {
+      "title": "What Are Cookies?",
+      "content": "Cookies are text files generated through communication between the website and your browser. These files are stored on your device (computer, tablet, smartphone) and enable our platform to recognize your device during subsequent visits."
+    },
+    "cookiePurpose": {
+      "title": "Purpose of Cookie Usage",
+      "content": "Our servers employ cookies to enhance the quality of provided services and tailor content to your preferences. Specifically, we use them for: monitoring website functionality, service optimization, simplifying repeat usage, collecting and analyzing visitor data, providing personalized content, recommending relevant services, and targeted remarketing. By browsing this site, you consent to this processing. Collected information is anonymized and does not lead to your personal identification."
+    },
+    "cookieTypes": {
+      "title": "Cookie Categories",
+      "content": "From a temporal perspective, we distinguish between temporary cookies (valid only during a session) and permanent cookies (retained until manual deletion or expiration of the set period). By content, we use: essential cookies necessary for proper functioning (such as login credentials), operational cookies for behavioral analysis, functional cookies for feature optimization, and advertising cookies for preference identification. We use advertising cookies exclusively with your consent."
+    },
+    "consentManagement": {
+      "title": "Obtaining and Managing Consent",
+      "content": "Essential cookies necessary for website operation are processed without your explicit consent. Other categories are processed only after consent is granted through the consent window on our site, where you can select which types you agree to."
+    },
+    "revokeConsent": {
+      "title": "Revoking Consent",
+      "content": "You can modify cookie settings in your browser at any time - you can delete, block, or completely disable them, or limit them to selected categories. Instructions for cookie management can be found in the documentation of individual browsers (Chrome, Edge, Firefox, Safari, and others)."
+    },
+    "thirdPartyCookies": {
+      "title": "Third-Party Cookies",
+      "content": "This site contains links to other platforms (such as social networks). Therefore, cookies may be created during your visit that are not managed by us. You can find the policies for these cookies on the respective third-party sites."
+    },
+    "retentionPeriod": {
+      "title": "Retention Period",
+      "content": "We retain cookies for a maximum of 15 months. We retain records of granted consent for 4 years for the purpose of demonstrating compliance with legal obligations."
     },
     "dataCollection": {
       "title": "Data Collection",
@@ -558,7 +584,12 @@
     },
     "contact": {
       "title": "Contact Information",
-      "content": "If you have any questions about this privacy policy or our data practices, please contact us through our contact page or email us directly."
+      "content": "If you have any questions regarding this privacy policy, cookies, or our data processing practices, please contact us through our contact page or email us directly."
+    },
+    "cookieUsage": {
+      "title": "Managing Cookie Settings",
+      "content": "You have full control over which cookies you accept. You can modify your preferences at any time through our consent window or in your browser settings.",
+      "manageCookies": "Manage Cookie Preferences"
     }
   }
 }

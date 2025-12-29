@@ -97,10 +97,7 @@ export default async function SettingsPage({
   return (
     <MainLayout>
       <TopNav />
-      <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
-      >
+      <PageSection>
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, lg: 7 }}>
             <Stack spacing={4}>

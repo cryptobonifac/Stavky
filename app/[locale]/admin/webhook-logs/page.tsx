@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import PageBreadcrumbs from '@/components/navigation/PageBreadcrumbs';
 
 interface UserLog {
   email: string;
@@ -76,9 +77,12 @@ export default function WebhookLogsPage() {
   }, [autoRefresh, email]);
 
   return (
-    <div className="container mx-auto p-8 max-w-6xl">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Webhook Logs Analysis</h1>
+    <div className="w-full">
+      <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <PageBreadcrumbs />
+      </div>
+      <div className="px-4 py-3">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex gap-4 items-center">
           <label className="flex items-center gap-2">
             <input
@@ -99,7 +103,7 @@ export default function WebhookLogsPage() {
         </div>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
+      <div className="bg-white rounded-lg shadow p-4 mb-4">
         <div className="flex gap-4">
           <input
             type="email"
@@ -119,14 +123,13 @@ export default function WebhookLogsPage() {
       </div>
 
       {logs && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {logs.success ? (
             <>
               {logs.user ? (
                 // Single user view
-                <div className="space-y-6">
-                  <div className="bg-white rounded-lg shadow p-6">
-                    <h2 className="text-2xl font-semibold mb-4">User Information</h2>
+                <div className="space-y-4">
+                  <div className="bg-white rounded-lg shadow p-4">
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className="text-sm font-medium text-gray-500">Email</label>
@@ -154,8 +157,7 @@ export default function WebhookLogsPage() {
                   </div>
 
                   {logs.analysis && (
-                    <div className="bg-white rounded-lg shadow p-6">
-                      <h2 className="text-2xl font-semibold mb-4">Analysis</h2>
+                    <div className="bg-white rounded-lg shadow p-4">
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="font-medium">Account Status:</span>
@@ -176,8 +178,7 @@ export default function WebhookLogsPage() {
                   )}
 
                   {logs.webhook_status && (
-                    <div className={`rounded-lg shadow p-6 ${logs.webhook_status.likely_issue ? 'bg-yellow-50 border border-yellow-200' : 'bg-green-50 border border-green-200'}`}>
-                      <h2 className="text-2xl font-semibold mb-4">Webhook Status</h2>
+                    <div className={`rounded-lg shadow p-4 ${logs.webhook_status.likely_issue ? 'bg-yellow-50 border border-yellow-200' : 'bg-green-50 border border-green-200'}`}>
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="font-medium">Webhook Processed:</span>
@@ -195,10 +196,7 @@ export default function WebhookLogsPage() {
                 </div>
               ) : (
                 // All users view
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-2xl font-semibold mb-4">
-                    Recent Users ({logs.total || 0})
-                  </h2>
+                <div className="bg-white rounded-lg shadow p-4">
                   <div className="overflow-x-auto">
                     <table className="min-w-full divide-y divide-gray-200">
                       <thead className="bg-gray-50">
@@ -239,16 +237,14 @@ export default function WebhookLogsPage() {
               )}
             </>
           ) : (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-              <h2 className="text-xl font-semibold text-red-800 mb-2">❌ Error</h2>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-700">{logs.error || 'Failed to fetch logs'}</p>
             </div>
           )}
         </div>
       )}
 
-      <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-        <h2 className="text-xl font-semibold text-blue-800 mb-3">📋 Log Analysis Guide</h2>
+      <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="space-y-2 text-blue-700">
           <p><strong>✅ ACTIVE + Has Stripe Customer:</strong> Webhook processed successfully</p>
           <p><strong>❌ INACTIVE + No Stripe Customer:</strong> Webhook likely not processed</p>

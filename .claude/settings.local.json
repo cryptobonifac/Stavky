@@ -16,7 +16,16 @@
       "Bash(git log:*)",
       "Bash(test:*)",
       "Bash(cat:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash($env:GOOGLE_CLIENT_ID = \"161230976386-q99dtviv09l0v7sadohcb5rjr13bkbpg.apps.googleusercontent.com\")",
+      "Bash($env:GOOGLE_CLIENT_SECRET = \"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\")",
+      "Bash($env:GOOGLE_REDIRECT_URL = \"http://127.0.0.1:54321/auth/v1/callback\")",
+      "Bash(export GOOGLE_CLIENT_ID:*)",
+      "Bash(export:*)",
+      "Bash(export GOOGLE_REDIRECT_URL=\"http://127.0.0.1:54321/auth/v1/callback\")",
+      "Bash(GOOGLE_CLIENT_ID=\"161230976386-q99dtviv09l0v7sadohcb5rjr13bkbpg.apps.googleusercontent.com\" GOOGLE_CLIENT_SECRET=\"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\" GOOGLE_REDIRECT_URL=\"http://127.0.0.1:54321/auth/v1/callback\" npx supabase start)",
+      "Bash(docker logs:*)",
+      "Bash(findstr:*)"
     ]
   }
 }

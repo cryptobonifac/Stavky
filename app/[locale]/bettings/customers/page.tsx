@@ -55,7 +55,7 @@ export default async function CustomersPage() {
     return (
       <MainLayout>
         <TopNav showSettingsLink={true} canAccessSettings={true} />
-        <PageSection title={t('title')} subtitle={t('subtitle')}>
+        <PageSection>
           <CustomersList customers={[]} />
         </PageSection>
       </MainLayout>

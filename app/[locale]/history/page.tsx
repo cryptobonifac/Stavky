@@ -237,10 +237,7 @@ export default async function HistoryPage({
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}
       />
-      <PageSection
-        title={t('title')}
-        subtitle={t('subtitle')}
-      >
+      <PageSection>
         {activeAccount || isBettingAdmin ? (
           <HistoryMonthView months={months} />
         ) : (

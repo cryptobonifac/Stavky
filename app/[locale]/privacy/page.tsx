@@ -1,23 +1,20 @@
 'use client'
 
-import { Box, Typography, Stack, Button, Divider, Paper, Container } from '@mui/material'
+import { Box, Typography, Stack, Button, Divider, Paper } from '@mui/material'
 import { useTranslations } from 'next-intl'
 import { useCookieConsent } from '@/components/cookies'
+import MainLayout from '@/components/layout/MainLayout'
+import TopNav from '@/components/navigation/TopNav'
+import PageSection from '@/components/layout/PageSection'
 
 export default function PrivacyPage() {
   const t = useTranslations('privacy')
   const { openSettings } = useCookieConsent()
 
   return (
-    <Container
-      maxWidth="lg"
-      sx={{
-        py: { xs: 4, md: 8, lg: 10 },
-        display: 'flex',
-        flexDirection: 'column',
-        gap: { xs: 2, md: 3 },
-      }}
-    >
+    <MainLayout>
+      <TopNav />
+      <PageSection maxWidth="lg">
       <Stack spacing={4} sx={{ maxWidth: 900, mx: 'auto', width: '100%' }}>
         {/* Page Header */}
         <Box>
@@ -128,6 +125,7 @@ export default function PrivacyPage() {
           </Typography>
         </Paper>
       </Stack>
-    </Container>
+      </PageSection>
+    </MainLayout>
   )
 }

@@ -18,6 +18,7 @@ import CardMembershipIcon from '@mui/icons-material/CardMembership'
 import { useAuth } from '@/components/providers/auth-provider'
 import LanguageSwitcher from './LanguageSwitcher'
 import { isAccountActive } from '@/lib/utils/account'
+import PageBreadcrumbs from './PageBreadcrumbs'
 
 type TopNavProps = {
   showSettingsLink?: boolean
@@ -166,36 +167,38 @@ const TopNav = ({
         color="transparent"
         elevation={0}
         sx={{
-          mb: { xs: 2, md: 3 },
           border: '1px solid rgba(15,23,42,0.1)',
-          borderRadius: { xs: 2, md: 3 },
+          borderRadius: 0,
           backgroundColor: 'rgba(255,255,255,0.85)',
           backdropFilter: 'blur(8px)',
         }}
       >
-        <Toolbar 
-          sx={{ 
+        <Toolbar
+          sx={{
             justifyContent: 'space-between',
             minHeight: { xs: 56, md: 64 },
             px: { xs: 1, sm: 2, md: 3 },
           }}
         >
-           {isMobile ? (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              data-testid="nav-menu-toggle"
-              sx={{
-                minWidth: 44,
-                minHeight: 44,
-                p: 1,
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-          ) : <Box />}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+            {isMobile && (
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                data-testid="nav-menu-toggle"
+                sx={{
+                  minWidth: 44,
+                  minHeight: 44,
+                  p: 1,
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+            )}
+            <PageBreadcrumbs />
+          </Box>
 
           <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
             <LanguageSwitcher />

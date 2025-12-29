@@ -19,7 +19,10 @@
     "settings": "Nastavenia",
     "home": "Domov",
     "back": "Späť",
-    "next": "Ďalej"
+    "next": "Ďalej",
+    "admin": "Admin",
+    "webhookLogs": "Logy Webhooku",
+    "webhookDebug": "Ladenie Webhooku"
   },
   "home": {
     "title": "Odborné stávkové tipy, ktoré",
@@ -538,15 +541,38 @@
     }
   },
   "privacy": {
-    "title": "Zásady ochrany osobných údajov",
+    "title": "Zásady ochrany osobných údajov a používania cookies",
     "introduction": {
-      "title": "Úvod",
-      "content": "V Stavky sme odhodlaní chrániť vaše súkromie a zabezpečiť transparentnosť v tom, ako zhromažďujeme, používame a chránime vaše osobné údaje. Tieto zásady ochrany osobných údajov vysvetľujú naše postupy týkajúce sa zhromažďovania údajov a vaše práva podľa GDPR a ďalších platných zákonov o ochrane osobných údajov."
+      "title": "Základné informácie",
+      "content": "Pre optimálne fungovanie tejto platformy a poskytovanie kvalitných služieb využívame vo vašom zariadení malé dátové súbory nazývané cookies. Nasledujúca politika vás informuje o ich použití a vašich právach."
     },
-    "cookieUsage": {
-      "title": "Používanie cookies",
-      "content": "Používame cookies na zlepšenie vašej skúsenosti s prehliadaním a analýzu využívania webovej stránky. Máte úplnú kontrolu nad tým, ktoré cookies prijmete prostredníctvom nášho bannera so súhlasom s cookies.",
-      "manageCookies": "Spravovať nastavenia cookies"
+    "whatAreCookies": {
+      "title": "Čo predstavujú cookies?",
+      "content": "Cookies sú textové súbory generované prostredníctvom komunikácie medzi webovou stránkou a vaším prehliadačom. Tieto súbory sa ukladajú do vášho zariadenia (počítač, tablet, smartfón) a umožňujú našej platforme rozpoznať vaše zariadenie pri ďalších návštevách."
+    },
+    "cookiePurpose": {
+      "title": "Účel využívania cookies",
+      "content": "Naše servery aplikujú cookies s cieľom zlepšiť kvalitu poskytovaných služieb a prispôsobiť obsah vašim preferenciám. Konkrétne ich využívame na: sledovanie funkčnosti webu, optimalizáciu služieb, zjednodušenie opakovaného používania, zber a vyhodnotenie údajov o návštevnosti, poskytovanie personalizovaného obsahu, odporúčanie relevantných služieb a cielený remarketing. Prehliadaním tejto stránky vyjadrujete súhlas s týmto spracovaním. Zhromažďované informácie sú anonymizované a nevedú k vašej osobnej identifikácii."
+    },
+    "cookieTypes": {
+      "title": "Kategórie cookies",
+      "content": "Z časového aspektu rozlišujeme dočasné cookies (platné len počas relácie) a permanentné cookies (uchovávané až do ich manuálneho odstránenia alebo vypršania nastavenej doby). Podľa obsahu používame: základné cookies potrebné pre riadne fungovanie (napríklad prihlasovacie údaje), prevádzkové cookies na analýzu vášho správania, funkčné cookies na optimalizáciu funkcionalít a reklamné cookies na identifikáciu vašich preferencií. Reklamné cookies využívame výhradne s vaším súhlasom."
+    },
+    "consentManagement": {
+      "title": "Získavanie a správa súhlasu",
+      "content": "Základné cookies nevyhnutné pre fungovanie webu spracúvame bez vášho výslovného súhlasu. Ostatné kategórie spracúvame len po udelení súhlasu prostredníctvom súhlasového okna na našej stránke, kde si môžete vybrať, s ktorými typmi súhlasíte."
+    },
+    "revokeConsent": {
+      "title": "Odvolanie súhlasu",
+      "content": "Kedykoľvek môžete upraviť nastavenia cookies vo vašom prehliadači - môžete ich vymazať, zablokovať alebo úplne zakázať, prípadne obmedziť na vybrané kategórie. Pokyny pre správu cookies nájdete v dokumentácii jednotlivých prehliadačov (Chrome, Edge, Firefox, Safari a ďalšie)."
+    },
+    "thirdPartyCookies": {
+      "title": "Cookies tretích strán",
+      "content": "Na tejto stránke sa nachádzajú prepojenia na iné platformy (napríklad sociálne siete). Preto môžu byť počas návštevy vytvorené cookies, ktoré nespravujeme my. Pravidlá týchto cookies nájdete na príslušných stránkach tretích strán."
+    },
+    "retentionPeriod": {
+      "title": "Doba uchovávania",
+      "content": "Cookies uchovávame maximálne 15 mesiacov. Záznam o udelenom súhlase uchovávame 4 roky na účely preukázania splnenia zákonných povinností."
     },
     "dataCollection": {
       "title": "Zhromažďovanie údajov",
@@ -558,7 +584,12 @@
     },
     "contact": {
       "title": "Kontaktné informácie",
-      "content": "Ak máte akékoľvek otázky týkajúce sa týchto zásad ochrany osobných údajov alebo našich postupov týkajúcich sa údajov, kontaktujte nás prostredníctvom našej kontaktnej stránky alebo nám napíšte priamo e-mail."
+      "content": "Ak máte akékoľvek otázky týkajúce sa týchto zásad ochrany osobných údajov, cookies alebo našich postupov spracovávania údajov, kontaktujte nás prostredníctvom našej kontaktnej stránky alebo nám napíšte priamo e-mail."
+    },
+    "cookieUsage": {
+      "title": "Správa nastavení cookies",
+      "content": "Máte úplnú kontrolu nad tým, ktoré cookies prijmete. Vaše preferencie môžete kedykoľvek upraviť prostredníctvom nášho súhlasového okna alebo v nastaveniach vášho prehliadača.",
+      "manageCookies": "Spravovať nastavenia cookies"
     }
   }
 }

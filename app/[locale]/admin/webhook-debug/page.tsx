@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import PageBreadcrumbs from '@/components/navigation/PageBreadcrumbs';
 
 interface UserData {
   id: string;
@@ -62,10 +63,13 @@ export default function WebhookDebugPage() {
   };
 
   return (
-    <div className="container mx-auto p-8 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-6">Webhook Debug Tool</h1>
-      
-      <div className="bg-white rounded-lg shadow p-6 mb-6">
+    <div className="w-full">
+      <div className="bg-white border-b border-gray-200 px-4 py-3">
+        <PageBreadcrumbs />
+      </div>
+      <div className="px-4 py-3">
+
+      <div className="bg-white rounded-lg shadow p-4 mb-4">
         <div className="flex gap-4 mb-4">
           <input
             type="email"
@@ -85,12 +89,11 @@ export default function WebhookDebugPage() {
       </div>
 
       {result && (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {result.success && result.user ? (
             <>
               {/* User Information */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <h2 className="text-2xl font-semibold mb-4">User Information</h2>
+              <div className="bg-white rounded-lg shadow p-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Email</label>
@@ -131,8 +134,7 @@ export default function WebhookDebugPage() {
 
               {/* Analysis */}
               {result.analysis && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-2xl font-semibold mb-4">Analysis</h2>
+                <div className="bg-white rounded-lg shadow p-4">
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="font-medium">Account Status:</span>
@@ -154,8 +156,7 @@ export default function WebhookDebugPage() {
 
               {/* Webhook Checklist */}
               {result.webhook_checklist && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h2 className="text-2xl font-semibold mb-4">Webhook Checklist</h2>
+                <div className="bg-white rounded-lg shadow p-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
                       <span>{result.webhook_checklist['User exists in database'] ? '✅' : '❌'}</span>
@@ -180,8 +181,7 @@ export default function WebhookDebugPage() {
               )}
 
               {/* Next Steps */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <h2 className="text-xl font-semibold text-blue-800 mb-3">🔍 Next Steps</h2>
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <ol className="list-decimal list-inside space-y-2 text-blue-700">
                   <li>Check your terminal logs where <code className="bg-blue-100 px-1 rounded">npm run dev</code> is running</li>
                   <li>Look for logs starting with <code className="bg-blue-100 px-1 rounded">🔔 WEBHOOK EVENT RECEIVED</code></li>
@@ -194,8 +194,7 @@ export default function WebhookDebugPage() {
               </div>
             </>
           ) : (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-              <h2 className="text-xl font-semibold text-red-800 mb-2">❌ Error</h2>
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <p className="text-red-700">{result.error || 'User not found'}</p>
               {result.note && (
                 <p className="mt-2 text-sm text-red-600">{result.note}</p>
@@ -204,6 +203,7 @@ export default function WebhookDebugPage() {
           )}
         </div>
       )}
+      </div>
     </div>
   );
 }
