@@ -1225,9 +1225,25 @@ const HistoryMonthView = ({ months, userRole }: HistoryMonthViewProps) => {
                         select
                         label={t('status') || 'Status'}
                         value={editFormData.status}
-                        onChange={(e) =>
-                          setEditFormData({ ...editFormData, status: e.target.value })
-                        }
+                        onChange={(e) => {
+                          const newStatus = e.target.value
+                          const previousStatus = editFormData.status
+
+                          // If changing from loss to win, recalculate total_win
+                          if (previousStatus === 'loss' && newStatus === 'win') {
+                            const calculatedWin = editFormData.stake && editFormData.odds
+                              ? (parseFloat(editFormData.stake) * parseFloat(editFormData.odds)).toFixed(2)
+                              : editFormData.total_win
+
+                            setEditFormData({
+                              ...editFormData,
+                              status: newStatus,
+                              total_win: calculatedWin
+                            })
+                          } else {
+                            setEditFormData({ ...editFormData, status: newStatus })
+                          }
+                        }}
                         fullWidth
                         size="small"
                       >
