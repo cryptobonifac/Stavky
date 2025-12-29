@@ -253,6 +253,7 @@ export default function WebhookLogsPage() {
         </div>
       </div>
     </div>
+    </div>
   );
 }
 
