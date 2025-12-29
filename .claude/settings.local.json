@@ -12,7 +12,10 @@
       "Write",
       "Bash(podman:*)",
       "Bash(echo:*)",
-      "Bash(npx stripe:*)"
+      "Bash(npx stripe:*)",
+      "Bash(git log:*)",
+      "Bash(test:*)",
+      "Bash(cat:*)"
     ]
   }
 }
