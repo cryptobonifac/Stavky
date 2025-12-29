@@ -75,10 +75,7 @@ export default async function ManageBettingTipsPage() {
 
   return (
     <MainLayout>
-      <PageSection
-        title="Pending tips"
-        subtitle="Evaluate recent picks and mark them as win or loss."
-      >
+      <PageSection>
         <PendingTipsList tips={normalizedTips} />
       </PageSection>
     </MainLayout>

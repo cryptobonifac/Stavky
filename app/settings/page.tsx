@@ -58,10 +58,7 @@ export default async function SettingsPage() {
   return (
     <MainLayout>
       <TopNav />
-      <PageSection
-        title="Settings"
-        subtitle="Manage users, account activation, betting companies, and marketing rules."
-      >
+      <PageSection>
         <Grid container spacing={3}>
           <Grid size={{ xs: 12, xl: 7 }}>
             <Stack spacing={3}>

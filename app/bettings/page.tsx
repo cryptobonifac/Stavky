@@ -97,10 +97,7 @@ export default async function BettingTipsPage() {
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}
       />
-      <PageSection
-        title="Active betting tips"
-        subtitle={subtitle}
-      >
+      <PageSection>
         {activeAccount ? (
           <ActiveTipsList tips={normalizedTips} />
         ) : (

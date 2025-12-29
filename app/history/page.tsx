@@ -211,10 +211,7 @@ export default async function HistoryPage() {
 
   return (
     <MainLayout>
-      <PageSection
-        title="History & performance"
-        subtitle="Review win/loss ratios grouped by calendar month."
-      >
+      <PageSection>
         {activeAccount ? (
           <HistoryMonthView months={months} />
         ) : (

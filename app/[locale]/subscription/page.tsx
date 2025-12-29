@@ -132,7 +132,7 @@ export default function SubscriptionPage() {
   return (
     <MainLayout>
       <TopNav />
-      <PageSection title={t('title')} subtitle={t('subtitle')}>
+      <PageSection>
         <Container maxWidth="md">
 
       {error && (

@@ -62,10 +62,7 @@ export default async function ProfilePage() {
 
   return (
     <MainLayout>
-      <PageSection
-        title="Profile"
-        subtitle="Review your account details and keep your personal information up to date."
-      >
+      <PageSection>
         <Stack spacing={3}>
           <ProfileInfoCard profile={profileData} />
           <ProfileDetailsForm profile={profileData} />

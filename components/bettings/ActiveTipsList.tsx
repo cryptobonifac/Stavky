@@ -94,10 +94,10 @@ const ActiveTipsList = ({ tips }: ActiveTipsListProps) => {
   return (
     <Stack spacing={{ xs: 3, md: 4 }}>
       <Box>
-        <Typography 
-          variant="body2" 
-          color="text.secondary" 
-          sx={{ 
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{
             mb: { xs: 1.5, md: 2 },
             fontSize: { xs: '0.75rem', md: '0.875rem' },
           }}

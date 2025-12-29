@@ -138,7 +138,6 @@
   },
   "statistics": {
     "title": "Štatistiky",
-    "subtitle": "Preskúmajte detailné štatistiky všetkých našich tipov a výsledkov. Transparentnosť je pre nás kľúčová.",
     "loadingMatches": "Načítavam zápasy...",
     "loginRequired": "Prosím prihláste sa, aby ste mohli zobraziť svoje osobné štatistiky.",
     "accountNotActive": "Aktivujte svoj účet, aby ste odomkli historické štatistiky výhier/prehier. Kontaktujte administrátora pre aktiváciu účtu.",
@@ -185,7 +184,6 @@
   },
   "profile": {
     "title": "Profil",
-    "subtitle": "Prehľadajte údaje o svojom účte a udržiavajte svoje osobné informácie aktuálne.",
     "accountOverview": "Prehľad účtu",
     "email": "Email",
     "role": "Rola",
@@ -217,7 +215,6 @@
   },
   "newbet": {
     "title": "Publikovať nový stávkový tip",
-    "subtitle": "Vyplňte podrobnosti o zápase, vyberte ligu a nastavte čas začiatku.",
     "formTitle": "Nový stávkový tip",
     "formDescription": "Publikujte nový tip vrátane kancelárie, ligy a času začiatku.",
     "tip": "Tip",
@@ -274,7 +271,6 @@
   },
   "manage": {
     "title": "Čakajúce tipy",
-    "subtitle": "Vyhodnoťte nedávne tipy a označte ich ako výhra alebo prehra.",
     "evaluateTip": "Vyhodnotiť tip",
     "markAsWin": "Označiť ako výhru",
     "markAsLoss": "Označiť ako prehru",
@@ -287,7 +283,6 @@
   },
   "settings": {
     "title": "Nastavenia",
-    "subtitle": "Spravovať používateľov, aktiváciu účtov, stávkové spoločnosti a marketingové pravidlá.",
     "users": {
       "title": "Používatelia a predplatné",
       "email": "Email",
@@ -402,7 +397,6 @@
   },
   "contact": {
     "title": "Kontaktujte nás",
-    "subtitle": "Spojte sa s nami. Odpovieme čo najskôr.",
     "email": "Email",
     "emailPlaceholder": "vas.email@priklad.sk",
     "mobile": "Mobilné číslo",
@@ -429,7 +423,6 @@
   },
   "contacts": {
     "title": "Kontaktné odoslania",
-    "subtitle": "Zobraziť a spravovať všetky odoslania kontaktného formulára.",
     "noContacts": "Zatiaľ žiadne kontaktné odoslania.",
     "delete": "Vymazať",
     "cancel": "Zrušiť",
@@ -465,7 +458,6 @@
   "leagues": {},
   "customers": {
     "title": "Zákazníci",
-    "subtitle": "Spravovať účty zákazníkov a predplatné",
     "dateOfRegistration": "Dátum registrácie",
     "email": "Email",
     "status": "Status",
@@ -478,7 +470,6 @@
   },
   "subscription": {
     "title": "Správa predplatného",
-    "subtitle": "Spravujte svoje predplatné a fakturáciu",
     "activeSubscription": "Aktívne predplatné",
     "subscriptionActiveDescription": "Máte aktívne predplatné",
     "noSubscription": "Žiadne aktívne predplatné",

@@ -106,7 +106,6 @@
     "subtitleInactive": "Only active customers can access this feed. Tips update automatically as new picks are published.",
     "accountNotActive": "Your account is not active yet. Once your subscription is confirmed you will see the full list of pending tips here.",
     "currentTips": "Current betting tips",
-    "filterDescription": "Filter tips by upcoming dates. Only pending tips with future kickoff times are shown.",
     "filterToday": "Today",
     "filterTomorrow": "Tomorrow",
     "filterUpcoming": "Upcoming",
@@ -138,7 +137,6 @@
   },
   "statistics": {
     "title": "Statistics",
-    "subtitle": "Explore detailed statistics of all our tips and results. Transparency is key for us.",
     "loadingMatches": "Loading matches...",
     "loginRequired": "Please log in to view your personal statistics.",
     "accountNotActive": "Activate your account to unlock historical win/loss statistics. Contact admin to activate your account.",
@@ -185,7 +183,6 @@
   },
   "profile": {
     "title": "Profile",
-    "subtitle": "Review your account details and keep your personal information up to date.",
     "accountOverview": "Account overview",
     "email": "Email",
     "role": "Role",
@@ -217,7 +214,6 @@
   },
   "newbet": {
     "title": "Publish a new betting tip",
-    "subtitle": "Fill out the match details, select the league, and set the kickoff time.",
     "formTitle": "New betting tip",
     "formDescription": "Publish a fresh pick including company, league, and kickoff time.",
     "tip": "Tip",
@@ -274,7 +270,6 @@
   },
   "manage": {
     "title": "Pending tips",
-    "subtitle": "Evaluate recent picks and mark them as win or loss.",
     "evaluateTip": "Evaluate Tip",
     "markAsWin": "Mark as Win",
     "markAsLoss": "Mark as Loss",
@@ -287,7 +282,6 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Manage users, account activation, betting companies, and marketing rules.",
     "users": {
       "title": "Users & subscriptions",
       "email": "Email",
@@ -465,7 +459,6 @@
   "leagues": {},
   "customers": {
     "title": "Customers",
-    "subtitle": "Manage customer accounts and subscriptions",
     "dateOfRegistration": "Date of Registration",
     "email": "Email",
     "status": "Status",
@@ -478,7 +471,6 @@
   },
   "subscription": {
     "title": "Subscription Management",
-    "subtitle": "Manage your subscription and billing",
     "activeSubscription": "Active Subscription",
     "subscriptionActiveDescription": "You have an active subscription",
     "noSubscription": "No Active Subscription",

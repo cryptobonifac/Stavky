@@ -106,7 +106,6 @@
     "subtitleInactive": "Tento přehled je dostupný pouze pro aktivní zákazníky. Tipy se automaticky aktualizují, když se publikují nové tipy.",
     "accountNotActive": "Váš účet ještě není aktivní. Po potvrzení předplatného uvidíte zde úplný seznam čekajících tipů.",
     "currentTips": "Aktuální sázkové tipy",
-    "filterDescription": "Filtrovat tipy podle nadcházejících dat. Zobrazují se pouze čekající tipy s budoucími časy začátku.",
     "filterToday": "Dnes",
     "filterTomorrow": "Zítra",
     "filterUpcoming": "Nadcházející",
@@ -133,11 +132,11 @@
     "totalWin": "Výhra",
     "statistics": "Statistiky",
     "viewStatistics": "Zobrazit statistiky",
-    "viewStatisticsDescription": "Zobrazit vaše sázkové statistiky a minulé tipy."
+    "viewStatisticsDescription": "Zobrazit vaše sázkové statistiky a minulé tipy.",
+    "subscribeNow": "Předplatit nyní"
   },
   "statistics": {
     "title": "Statistiky",
-    "subtitle": "Prozkoumejte detailní statistiky všech našich tipů a výsledků. Transparentnost je pro nás klíčová.",
     "loadingMatches": "Načítám zápasy...",
     "loginRequired": "Prosím přihlaste se, abyste mohli zobrazit své osobní statistiky.",
     "accountNotActive": "Aktivujte svůj účet, abyste odemkli historické statistiky výher/proher. Kontaktujte administrátora pro aktivaci účtu.",
@@ -184,7 +183,6 @@
   },
   "profile": {
     "title": "Profil",
-    "subtitle": "Procházejte údaje o svém účtu a udržujte své osobní informace aktuální.",
     "accountOverview": "Přehled účtu",
     "email": "Email",
     "role": "Role",
@@ -216,7 +214,6 @@
   },
   "newbet": {
     "title": "Publikovat nový sázkový tip",
-    "subtitle": "Vyplňte podrobnosti o zápase, vyberte ligu a nastavte čas začátku.",
     "formTitle": "Nový sázkový tip",
     "formDescription": "Publikujte nový tip včetně kanceláře, ligy a času začátku.",
     "tip": "Tip",
@@ -273,7 +270,6 @@
   },
   "manage": {
     "title": "Čekající tipy",
-    "subtitle": "Vyhodnoťte nedávné tipy a označte je jako výhra nebo prohra.",
     "evaluateTip": "Vyhodnotit tip",
     "markAsWin": "Označit jako výhru",
     "markAsLoss": "Označit jako prohru",
@@ -286,7 +282,6 @@
   },
   "settings": {
     "title": "Nastavení",
-    "subtitle": "Spravovat uživatele, aktivaci účtů, sázkové kanceláře a marketingová pravidla.",
     "users": {
       "title": "Uživatelé a předplatné",
       "email": "Email",
@@ -401,7 +396,6 @@
   },
   "contact": {
     "title": "Kontaktujte nás",
-    "subtitle": "Spojte se s námi. Odpovíme co nejdříve.",
     "email": "Email",
     "emailPlaceholder": "vas.email@priklad.cz",
     "mobile": "Mobilní číslo",
@@ -428,7 +422,6 @@
   },
   "contacts": {
     "title": "Kontaktní odeslání",
-    "subtitle": "Zobrazit a spravovat všechna odeslání kontaktního formuláře.",
     "noContacts": "Zatím žádná kontaktní odeslání.",
     "delete": "Smazat",
     "cancel": "Zrušit",
@@ -464,7 +457,6 @@
   "leagues": {},
   "customers": {
     "title": "Zákazníci",
-    "subtitle": "Spravovat účty zákazníků a předplatné",
     "dateOfRegistration": "Datum registrace",
     "email": "Email",
     "status": "Status",
@@ -477,7 +469,6 @@
   },
   "subscription": {
     "title": "Správa předplatného",
-    "subtitle": "Spravujte své předplatné a fakturaci",
     "activeSubscription": "Aktivní předplatné",
     "subscriptionActiveDescription": "Máte aktivní předplatné",
     "noSubscription": "Žádné aktivní předplatné",

@@ -68,10 +68,7 @@ export default async function NewBetPage() {
 
   return (
     <MainLayout>
-      <PageSection
-        title="Publish a new betting tip"
-        subtitle="Fill out the match details, select the league, and set the kickoff time."
-      >
+      <PageSection>
         <NewBetForm
           bettingCompanies={companies.map((company) => ({
             id: company.id,
