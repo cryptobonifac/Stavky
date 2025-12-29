@@ -464,7 +464,6 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   onChange={(value: Dayjs | null) =>
                     handleFieldChange('match_date', value ?? dayjs())
                   }
-                  minDateTime={dayjs()}
                   error={!!fieldErrors.match_date}
                   helperText={fieldErrors.match_date}
                   slotProps={{

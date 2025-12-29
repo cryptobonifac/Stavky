@@ -130,6 +130,11 @@ export async function PATCH(
       )
     }
     updateData.status = body.status
+
+    // If status is changed to 'loss', set total_win to 0
+    if (body.status === 'loss') {
+      updateData.total_win = 0
+    }
   } else {
     // Full update - validate and include all provided fields
     if (body.status !== undefined) {
@@ -140,6 +145,11 @@ export async function PATCH(
         )
       }
       updateData.status = body.status
+
+      // If status is changed to 'loss', set total_win to 0
+      if (body.status === 'loss') {
+        updateData.total_win = 0
+      }
     }
 
     if (body.sport !== undefined) updateData.sport = body.sport
@@ -178,23 +188,27 @@ export async function PATCH(
     }
 
     // Handle total_win
-    if (body.total_win !== undefined && body.total_win !== null && body.total_win !== '') {
-      updateData.total_win = parseFloat(body.total_win)
-    } else if (body.total_win === null || body.total_win === '') {
-      updateData.total_win = null
-    } else if (updateData.stake !== undefined && updateData.odds !== undefined) {
-      // Calculate total_win if stake and odds are provided
-      updateData.total_win = updateData.stake * updateData.odds
-    } else if (updateData.stake !== undefined && body.odds === undefined) {
-      // If only stake is updated, recalculate total_win with existing odds
-      const { data: existingTip } = await supabase
-        .from('betting_tip')
-        .select('odds')
-        .eq('id', id)
-        .single()
-      
-      if (existingTip?.odds) {
-        updateData.total_win = updateData.stake * existingTip.odds
+    // If status is 'loss', total_win should always be 0 (already set above)
+    // Otherwise, handle total_win normally
+    if (updateData.status !== 'loss') {
+      if (body.total_win !== undefined && body.total_win !== null && body.total_win !== '') {
+        updateData.total_win = parseFloat(body.total_win)
+      } else if (body.total_win === null || body.total_win === '') {
+        updateData.total_win = null
+      } else if (updateData.stake !== undefined && updateData.odds !== undefined) {
+        // Calculate total_win if stake and odds are provided
+        updateData.total_win = updateData.stake * updateData.odds
+      } else if (updateData.stake !== undefined && body.odds === undefined) {
+        // If only stake is updated, recalculate total_win with existing odds
+        const { data: existingTip } = await supabase
+          .from('betting_tip')
+          .select('odds')
+          .eq('id', id)
+          .single()
+
+        if (existingTip?.odds) {
+          updateData.total_win = updateData.stake * existingTip.odds
+        }
       }
     }
   }
