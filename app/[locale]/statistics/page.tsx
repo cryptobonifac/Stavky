@@ -3,9 +3,8 @@ import { Suspense } from 'react'
 
 import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
-import HistoryMonthView, {
-  type HistoryMonth,
-} from '@/components/history/HistoryMonthView'
+import StatisticsTabsContainer from '@/components/statistics/StatisticsTabsContainer'
+import type { HistoryMonth } from '@/components/history/HistoryMonthView'
 import TopNav from '@/components/navigation/TopNav'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 import { createClient as createServerClient } from '@/lib/supabase/server'
@@ -207,7 +206,11 @@ export default async function StatisticsPage({
       />
       <PageSection>
         <Suspense fallback={<StatisticsLoading />}>
-          <HistoryMonthView months={months} userRole={profile?.role} />
+          <StatisticsTabsContainer
+            months={months}
+            userRole={profile?.role}
+            isLoggedIn={!!user}
+          />
         </Suspense>
       </PageSection>
     </MainLayout>

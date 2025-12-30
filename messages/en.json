@@ -142,6 +142,10 @@
     "accountNotActive": "Activate your account to unlock historical win/loss statistics. Contact admin to activate your account.",
     "monthlyPerformance": "Monthly performance",
     "monthlyStats": "Monthly Statistics",
+    "tabs": {
+      "monthlyStats": "Monthly Statistics",
+      "balanceCharts": "Balance Charts"
+    },
     "successRate": "Success Rate",
     "wins": "Wins",
     "losses": "Losses",
@@ -180,6 +184,19 @@
     "pending": "Pending",
     "win": "Win",
     "loss": "Loss"
+  },
+  "history": {
+    "accountNotActive": "Your account is not active. Please activate your account to view full history.",
+    "tabs": {
+      "monthlyHistory": "Monthly History",
+      "balanceCharts": "Balance Charts"
+    },
+    "balanceCharts": {
+      "title": "Cumulative Balance Over Time",
+      "combined": "Combined Total",
+      "noData": "No balance data available",
+      "errorLoading": "Failed to load balance data"
+    }
   },
   "profile": {
     "title": "Profile",
@@ -392,7 +409,9 @@
     "manage": "Manage Tips",
     "customers": "Customers",
     "contacts": "Contacts",
-    "admin": "ADMIN"
+    "admin": "ADMIN",
+    "plans": "Plans",
+    "introduction": "Introduction"
   },
   "contact": {
     "title": "Contact Us",
@@ -489,6 +508,7 @@
   "checkout": {
     "choosePlan": "Choose Your Plan",
     "selectPlanSubtitle": "Select the subscription plan that works best for you",
+    "backButton": "Back",
     "monthlySubscription": "Monthly Subscription",
     "perMonth": "per month",
     "priceNotAvailable": "Price not available",
@@ -501,7 +521,8 @@
     "savePerYear": "Save {amount} per year",
     "subscribeYearly": "Subscribe Yearly",
     "yearlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID in your environment variables",
-    "securePayment": "Secure payment powered by Stripe"
+    "securePayment": "Secure payment powered by Stripe",
+    "backToHome": "Back to Home"
   },
   "cookies": {
     "banner": {
@@ -530,6 +551,51 @@
       "save": "Save Preferences",
       "cancel": "Cancel",
       "acceptAll": "Accept All"
+    }
+  },
+  "introduction": {
+    "title": "Welcome to Professional Betting Tips",
+    "subtitle": "Your gateway to data-driven sports betting success",
+    "about": {
+      "title": "About Our Service",
+      "description": "Our platform provides expert betting guidance by analyzing matches across leading bookmakers including bet365, Niké, and Tipsport. Each tip undergoes thorough analysis to maximize your winning potential. By comparing odds across multiple betting platforms, you can achieve even higher returns on your investments."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "step1": {
+        "title": "Expert Analysis",
+        "description": "Every match is carefully analyzed by our experienced team before any tip is published."
+      },
+      "step2": {
+        "title": "Compare Odds",
+        "description": "We compare odds across bet365, Niké, and Tipsport to find the best value bets."
+      },
+      "step3": {
+        "title": "Stake Management",
+        "description": "Stake amounts are provided in units based on expert analysis. Maintain consistent proportions whether you bet double or half amounts."
+      },
+      "step4": {
+        "title": "Track Results",
+        "description": "All tips are tracked and verified with transparent results in your statistics dashboard."
+      }
+    },
+    "pricing": {
+      "title": "Subscription Plan",
+      "amount": "€50/month",
+      "guarantee": "Money-Back Guarantee",
+      "guaranteeDescription": "If we don't generate profit in any given month, your next month is completely free.",
+      "features": {
+        "feature1": "Access to all betting tips",
+        "feature2": "Detailed match analysis",
+        "feature3": "Real-time odds comparison",
+        "feature4": "Performance statistics",
+        "feature5": "Expert stake recommendations"
+      }
+    },
+    "cta": {
+      "title": "Ready to Start Winning?",
+      "description": "Join our community of successful bettors today.",
+      "button": "Get Started Now"
     }
   },
   "privacy": {

@@ -1,7 +1,27 @@
 {
+  "statistics": {
+    "tabs": {
+      "monthlyStats": "Měsíční statistiky",
+      "balanceCharts": "Grafy zůstatku"
+    }
+  },
+  "history": {
+    "accountNotActive": "Váš účet není aktivní. Pro zobrazení úplné historie aktivujte svůj účet.",
+    "tabs": {
+      "monthlyHistory": "Měsíční historie",
+      "balanceCharts": "Grafy zůstatku"
+    },
+    "balanceCharts": {
+      "title": "Kumulativní zůstatek v čase",
+      "combined": "Celkový součet",
+      "noData": "Žádná data o zůstatku k dispozici",
+      "errorLoading": "Nepodařilo se načíst data o zůstatku"
+    }
+  },
   "checkout": {
     "choosePlan": "Vyberte si plán",
     "selectPlanSubtitle": "Vyberte si předplatné, které vám nejlépe vyhovuje",
+    "backButton": "Zpět",
     "monthlySubscription": "Měsíční předplatné",
     "perMonth": "za měsíc",
     "priceNotAvailable": "Cena není k dispozici",

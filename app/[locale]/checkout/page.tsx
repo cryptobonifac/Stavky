@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { createSubscriptionCheckoutSession, getStripePrices } from '@/app/checkout/actions';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 import {
   Box,
   Button,
@@ -15,9 +17,11 @@ import {
   Stack,
   Chip,
   CircularProgress,
+  IconButton,
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface PriceInfo {
   amount: number;
@@ -39,23 +43,44 @@ function formatPrice(amount: number, currency: string): string {
 export default function CheckoutPage() {
   const locale = useLocale();
   const t = useTranslations('checkout');
+  const router = useRouter();
   const [selectedPlan, setSelectedPlan] = useState<'monthly' | 'yearly' | null>('yearly');
   const [loading, setLoading] = useState(false);
   const [pricesLoading, setPricesLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [monthlyPrice, setMonthlyPrice] = useState<PriceInfo | null>(null);
   const [yearlyPrice, setYearlyPrice] = useState<PriceInfo | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [authChecking, setAuthChecking] = useState(true);
+
+  // Check authentication status
+  useEffect(() => {
+    async function checkAuth() {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        setIsAuthenticated(!!user);
+      } catch (err) {
+        console.error('Error checking auth:', err);
+        setIsAuthenticated(false);
+      } finally {
+        setAuthChecking(false);
+      }
+    }
+
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     async function fetchPrices() {
       try {
         setPricesLoading(true);
         const prices = await getStripePrices();
-        
+
         if (prices.error) {
           setError(prices.error);
         }
-        
+
         setMonthlyPrice(prices.monthly);
         setYearlyPrice(prices.yearly);
       } catch (err) {
@@ -74,6 +99,13 @@ export default function CheckoutPage() {
     try {
       setLoading(true);
       setError(null);
+
+      // Check if user is authenticated
+      if (!isAuthenticated) {
+        // Redirect to login with return URL
+        router.push(`/${locale}/login?redirect=${encodeURIComponent(`/${locale}/checkout`)}`);
+        return;
+      }
 
       if (!priceId || !priceId.startsWith('price_')) {
         throw new Error('Invalid price ID. Please configure valid Stripe Price IDs in your environment variables.');
@@ -101,17 +133,17 @@ export default function CheckoutPage() {
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 4, md: 8 }, px: { xs: 1.5, sm: 2, md: 3 } }}>
       <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
-        <Typography 
-          variant="h3" 
-          component="h1" 
-          fontWeight="bold" 
+        <Typography
+          variant="h3"
+          component="h1"
+          fontWeight="bold"
           gutterBottom
           sx={{ fontSize: { xs: '1.75rem', sm: '2rem', md: '3rem' } }}
         >
           {t('choosePlan')}
         </Typography>
-        <Typography 
-          variant="h6" 
+        <Typography
+          variant="h6"
           color="text.secondary"
           sx={{ fontSize: { xs: '0.875rem', sm: '1rem', md: '1.25rem' } }}
         >
@@ -153,9 +185,9 @@ export default function CheckoutPage() {
           >
             <CardContent sx={{ p: { xs: 3, md: 4 } }}>
               <Box sx={{ textAlign: 'center', mb: { xs: 2, md: 3 } }}>
-                <Typography 
-                  variant="h5" 
-                  fontWeight="bold" 
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
                   gutterBottom
                   sx={{ fontSize: { xs: '1.1rem', md: '1.5rem' } }}
                 >
@@ -163,15 +195,15 @@ export default function CheckoutPage() {
                 </Typography>
                 {monthlyPrice && isPriceValid(monthlyPrice) ? (
                   <>
-                    <Typography 
-                      variant="h3" 
-                      fontWeight="bold" 
+                    <Typography
+                      variant="h3"
+                      fontWeight="bold"
                       color="primary"
                       sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
                     >
                       {formatPrice(monthlyPrice.amount, monthlyPrice.currency)}
                     </Typography>
-                    <Typography 
+                    <Typography
                       color="text.secondary"
                       sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
                     >
@@ -180,16 +212,16 @@ export default function CheckoutPage() {
                   </>
                 ) : (
                   <>
-                    <Typography 
-                      variant="h3" 
-                      fontWeight="bold" 
+                    <Typography
+                      variant="h3"
+                      fontWeight="bold"
                       color="text.secondary"
                       sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
                     >
                       —
                     </Typography>
-                    <Typography 
-                      color="error" 
+                    <Typography
+                      color="error"
                       variant="caption"
                       sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
                     >
@@ -213,7 +245,7 @@ export default function CheckoutPage() {
                   setSelectedPlan('monthly');
                   monthlyPrice && handleCheckout(monthlyPrice.priceId);
                 }}
-                sx={{ 
+                sx={{
                   py: { xs: 1.25, md: 1.5 },
                   minHeight: 44,
                   fontSize: { xs: '0.875rem', md: '1rem' },
@@ -223,13 +255,13 @@ export default function CheckoutPage() {
               </Button>
 
               {monthlyPrice && !isPriceValid(monthlyPrice) && (
-                <Typography 
-                  variant="caption" 
-                  color="error" 
-                  sx={{ 
-                    display: 'block', 
-                    mt: 2, 
-                    textAlign: 'center', 
+                <Typography
+                  variant="caption"
+                  color="error"
+                  sx={{
+                    display: 'block',
+                    mt: 2,
+                    textAlign: 'center',
                     fontWeight: 'bold',
                     fontSize: { xs: '0.7rem', md: '0.75rem' },
                     px: 1,
@@ -257,38 +289,38 @@ export default function CheckoutPage() {
           >
             <CardContent sx={{ p: { xs: 3, md: 4 } }}>
               <Box sx={{ textAlign: 'center', mb: 1 }}>
-                <Chip 
-                  label={t('bestValue')} 
-                  color="primary" 
-                  size="small" 
-                  sx={{ 
+                <Chip
+                  label={t('bestValue')}
+                  color="primary"
+                  size="small"
+                  sx={{
                     mb: 2,
                     fontSize: { xs: '0.7rem', md: '0.75rem' },
                     height: { xs: 24, md: 28 },
-                  }} 
+                  }}
                 />
                 {yearlyPrice && isPriceValid(yearlyPrice) ? (
                   <>
-                    <Typography 
-                      variant="h3" 
-                      fontWeight="bold" 
+                    <Typography
+                      variant="h3"
+                      fontWeight="bold"
                       color="primary"
                       sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
                     >
                       {formatPrice(yearlyPrice.amount, yearlyPrice.currency)}
                     </Typography>
-                    <Typography 
+                    <Typography
                       color="text.secondary"
                       sx={{ fontSize: { xs: '0.875rem', md: '1rem' } }}
                     >
                       {t('perYear')}
                     </Typography>
                     {monthlyPrice && isPriceValid(monthlyPrice) && (
-                      <Typography 
-                        variant="caption" 
-                        color="success.main" 
-                        sx={{ 
-                          display: 'block', 
+                      <Typography
+                        variant="caption"
+                        color="success.main"
+                        sx={{
+                          display: 'block',
                           mt: 1,
                           fontSize: { xs: '0.75rem', md: '0.875rem' },
                         }}
@@ -304,16 +336,16 @@ export default function CheckoutPage() {
                   </>
                 ) : (
                   <>
-                    <Typography 
-                      variant="h3" 
-                      fontWeight="bold" 
+                    <Typography
+                      variant="h3"
+                      fontWeight="bold"
                       color="text.secondary"
                       sx={{ fontSize: { xs: '2rem', md: '3rem' } }}
                     >
                       —
                     </Typography>
-                    <Typography 
-                      color="error" 
+                    <Typography
+                      color="error"
                       variant="caption"
                       sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
                     >
@@ -334,7 +366,7 @@ export default function CheckoutPage() {
                 startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <ShoppingCartIcon />}
                 disabled={loading || !isPriceValid(yearlyPrice)}
                 onClick={() => yearlyPrice && handleCheckout(yearlyPrice.priceId)}
-                sx={{ 
+                sx={{
                   py: { xs: 1.25, md: 1.5 },
                   minHeight: 44,
                   fontSize: { xs: '0.875rem', md: '1rem' },
@@ -344,13 +376,13 @@ export default function CheckoutPage() {
               </Button>
 
               {yearlyPrice && !isPriceValid(yearlyPrice) && (
-                <Typography 
-                  variant="caption" 
-                  color="error" 
-                  sx={{ 
-                    display: 'block', 
-                    mt: 2, 
-                    textAlign: 'center', 
+                <Typography
+                  variant="caption"
+                  color="error"
+                  sx={{
+                    display: 'block',
+                    mt: 2,
+                    textAlign: 'center',
                     fontWeight: 'bold',
                     fontSize: { xs: '0.7rem', md: '0.75rem' },
                     px: 1,
@@ -365,13 +397,30 @@ export default function CheckoutPage() {
       )}
 
       <Box sx={{ mt: { xs: 4, md: 6 }, textAlign: 'center' }}>
-        <Typography 
-          variant="body2" 
+        <Typography
+          variant="body2"
           color="text.secondary"
-          sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+          sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' }, mb: 3 }}
         >
           {t('securePayment')}
         </Typography>
+
+        {/* Back button */}
+        <Button
+          variant="outlined"
+          size="large"
+          startIcon={<ArrowBackIcon />}
+          onClick={() => router.back()}
+          sx={{
+            py: { xs: 1.25, md: 1.5 },
+            px: { xs: 3, md: 4 },
+            minHeight: 48,
+            fontSize: { xs: '0.875rem', md: '1rem' },
+            fontWeight: 500,
+          }}
+        >
+          {t('backButton')}
+        </Button>
       </Box>
     </Container>
   );

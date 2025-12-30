@@ -27,6 +27,7 @@ const ROUTE_TRANSLATION_MAP: Record<string, { key: string; namespace: string }> 
   'signup': { key: 'signup', namespace: 'common' },
   'cancel': { key: 'cancel', namespace: 'common' },
   'success': { key: 'success', namespace: 'common' },
+  'introduction': { key: 'introduction', namespace: 'navigation' },
 };
 
 const PageBreadcrumbs = () => {

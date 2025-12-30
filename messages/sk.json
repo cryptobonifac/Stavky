@@ -143,6 +143,10 @@
     "accountNotActive": "Aktivujte svoj účet, aby ste odomkli historické štatistiky výhier/prehier. Kontaktujte administrátora pre aktiváciu účtu.",
     "monthlyPerformance": "Mesačný výkon",
     "monthlyStats": "Mesačné štatistiky",
+    "tabs": {
+      "monthlyStats": "Mesačné štatistiky",
+      "balanceCharts": "Grafy zostatku"
+    },
     "successRate": "Úspešnosť",
     "wins": "Výhry",
     "losses": "Prehry",
@@ -181,6 +185,19 @@
     "pending": "Čakajúci",
     "win": "Výhra",
     "loss": "Prehra"
+  },
+  "history": {
+    "accountNotActive": "Váš účet nie je aktívny. Pre zobrazenie úplnej histórie aktivujte svoj účet.",
+    "tabs": {
+      "monthlyHistory": "Mesačná história",
+      "balanceCharts": "Grafy zostatku"
+    },
+    "balanceCharts": {
+      "title": "Kumulatívny zostatok v čase",
+      "combined": "Celkový súčet",
+      "noData": "Žiadne dáta o zostatku k dispozícii",
+      "errorLoading": "Nepodarilo sa načítať dáta o zostatku"
+    }
   },
   "profile": {
     "title": "Profil",
@@ -393,7 +410,9 @@
     "manage": "Spravovať tipy",
     "customers": "Zákazníci",
     "contacts": "Kontakty",
-    "admin": "ADMIN"
+    "admin": "ADMIN",
+    "plans": "Plány",
+    "introduction": "Úvod"
   },
   "contact": {
     "title": "Kontaktujte nás",
@@ -488,6 +507,7 @@
   "checkout": {
     "choosePlan": "Vyberte si plán",
     "selectPlanSubtitle": "Vyberte si predplatné, ktoré vám najviac vyhovuje",
+    "backButton": "Späť",
     "monthlySubscription": "Mesačné predplatné",
     "perMonth": "mesačne",
     "priceNotAvailable": "Cena nie je dostupná",
@@ -500,7 +520,8 @@
     "savePerYear": "Ušetríte {amount} ročne",
     "subscribeYearly": "Predplatiť ročne",
     "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostredí",
-    "securePayment": "Bezpečná platba cez Stripe"
+    "securePayment": "Bezpečná platba cez Stripe",
+    "backToHome": "Späť na úvodnú stránku"
   },
   "cookies": {
     "banner": {
@@ -529,6 +550,51 @@
       "save": "Uložiť preferencie",
       "cancel": "Zrušiť",
       "acceptAll": "Prijať všetko"
+    }
+  },
+  "introduction": {
+    "title": "Vitajte u profesionálnych tipov na stávky",
+    "subtitle": "Vaša cesta k úspechu v stávkovaní založenom na dátach",
+    "about": {
+      "title": "O našej službe",
+      "description": "Naša platforma poskytuje odborné pokyny pre stávkovanie analýzou zápasov naprieč popredným stávkovými kanceláriami vrátane bet365, Niké a Tipsport. Každý tip prechádza dôkladnou analýzou pre maximalizáciu vášho výherného potenciálu. Porovnávaním kurzov naprieč viacerými stávkovými platformami môžete dosiahnuť ešte vyššie výnosy z vašich investícií."
+    },
+    "howItWorks": {
+      "title": "Ako to funguje",
+      "step1": {
+        "title": "Odborná analýza",
+        "description": "Každý zápas je starostlivo analyzovaný naším skúseným týmom pred zverejnením akéhokoľvek tipu."
+      },
+      "step2": {
+        "title": "Porovnanie kurzov",
+        "description": "Porovnávame kurzy naprieč bet365, Niké a Tipsport pre nájdenie najlepších hodnotových stávok."
+      },
+      "step3": {
+        "title": "Správa vkladu",
+        "description": "Výška vkladov sú uvedené v jednotkách na základe odbornej analýzy. Udržujte konzistentné pomery, či už stávkujete dvojnásobné alebo polovičné čiastky."
+      },
+      "step4": {
+        "title": "Sledovanie výsledkov",
+        "description": "Všetky tipy sú sledované a overované s transparentnými výsledkami vo vašom štatistickom paneli."
+      }
+    },
+    "pricing": {
+      "title": "Predplatné",
+      "amount": "50€/mesiac",
+      "guarantee": "Záruka vrátenia peňazí",
+      "guaranteeDescription": "Ak v danom mesiaci nevytvoríme zisk, ďalší mesiac je úplne zadarmo.",
+      "features": {
+        "feature1": "Prístup ku všetkým stávkovým tipom",
+        "feature2": "Podrobná analýza zápasov",
+        "feature3": "Porovnanie kurzov v reálnom čase",
+        "feature4": "Štatistiky výkonnosti",
+        "feature5": "Odborné odporúčania pre výšku vkladu"
+      }
+    },
+    "cta": {
+      "title": "Ste pripravení začať vyhrávať?",
+      "description": "Pripojte sa k našej komunite úspešných stávkarov ešte dnes.",
+      "button": "Začať teraz"
     }
   },
   "privacy": {

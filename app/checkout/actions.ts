@@ -289,16 +289,14 @@ export async function createSubscriptionCheckoutSession(priceId: string, locale:
       },
     };
 
-    // For Accounts V2: use customer if we have one, otherwise use customer_email with customer_creation
+    // For subscription mode: use customer if we have one, otherwise use customer_email
+    // Note: customer_creation is NOT supported in subscription mode (Stripe always creates a customer)
     if (customerId) {
       sessionConfig.customer = customerId;
     } else if (customerEmail) {
       sessionConfig.customer_email = customerEmail;
-      sessionConfig.customer_creation = 'always';
-    } else {
-      // No email - Stripe will collect it, but we still need customer_creation for Accounts V2
-      sessionConfig.customer_creation = 'always';
     }
+    // If no customer or email, Stripe will collect email during checkout and create customer automatically
 
     const session = await stripe.checkout.sessions.create(sessionConfig);
 

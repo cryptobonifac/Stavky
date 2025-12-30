@@ -150,11 +150,12 @@ export default async function HistoryPage({
     : false
   const isBettingAdmin = profile?.role === 'betting'
 
-  // Allow history access for all logged-in users (active, inactive, or betting admin)
+  // Allow history access for all logged-in users (including inactive accounts)
   let tips: TipRecord[] = []
   let monthlySummaries: TipMonthSummary[] = []
 
-  if (activeAccount || isBettingAdmin) {
+  // Fetch data for all logged-in users
+  if (user) {
     const cutoff = new Date()
     cutoff.setUTCDate(1)
     cutoff.setUTCHours(0, 0, 0, 0)
@@ -238,13 +239,7 @@ export default async function HistoryPage({
         canAccessSettings={profile?.role === 'betting'}
       />
       <PageSection>
-        {activeAccount || isBettingAdmin ? (
-          <HistoryMonthView months={months} />
-        ) : (
-          <Alert severity="info">
-            {t('accountNotActive') || 'Your account is not active. Please activate your account to view full history.'}
-          </Alert>
-        )}
+        <HistoryMonthView months={months} userRole={profile?.role} />
       </PageSection>
     </MainLayout>
   )

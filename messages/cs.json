@@ -142,6 +142,10 @@
     "accountNotActive": "Aktivujte svůj účet, abyste odemkli historické statistiky výher/proher. Kontaktujte administrátora pro aktivaci účtu.",
     "monthlyPerformance": "Měsíční výkon",
     "monthlyStats": "Měsíční statistiky",
+    "tabs": {
+      "monthlyStats": "Měsíční statistiky",
+      "balanceCharts": "Grafy zůstatku"
+    },
     "successRate": "Úspěšnost",
     "wins": "Výhry",
     "losses": "Prohry",
@@ -180,6 +184,19 @@
     "pending": "Čekající",
     "win": "Výhra",
     "loss": "Prohra"
+  },
+  "history": {
+    "accountNotActive": "Váš účet není aktivní. Pro zobrazení úplné historie aktivujte svůj účet.",
+    "tabs": {
+      "monthlyHistory": "Měsíční historie",
+      "balanceCharts": "Grafy zůstatku"
+    },
+    "balanceCharts": {
+      "title": "Kumulativní zůstatek v čase",
+      "combined": "Celkový součet",
+      "noData": "Žádná data o zůstatku k dispozici",
+      "errorLoading": "Nepodařilo se načíst data o zůstatku"
+    }
   },
   "profile": {
     "title": "Profil",
@@ -392,7 +409,9 @@
     "manage": "Spravovat tipy",
     "customers": "Zákazníci",
     "contacts": "Kontakty",
-    "admin": "ADMIN"
+    "admin": "ADMIN",
+    "plans": "Plány",
+    "introduction": "Úvod"
   },
   "contact": {
     "title": "Kontaktujte nás",
@@ -487,6 +506,7 @@
   "checkout": {
     "choosePlan": "Vyberte si plán",
     "selectPlanSubtitle": "Vyberte si předplatné, které vám nejvíce vyhovuje",
+    "backButton": "Zpět",
     "monthlySubscription": "Měsíční předplatné",
     "perMonth": "měsíčně",
     "priceNotAvailable": "Cena není dostupná",
@@ -499,7 +519,8 @@
     "savePerYear": "Ušetříte {amount} ročně",
     "subscribeYearly": "Předplatit ročně",
     "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostředí",
-    "securePayment": "Bezpečná platba přes Stripe"
+    "securePayment": "Bezpečná platba přes Stripe",
+    "backToHome": "Zpět na úvodní stránku"
   },
   "cookies": {
     "banner": {
@@ -528,6 +549,51 @@
       "save": "Uložit preference",
       "cancel": "Zrušit",
       "acceptAll": "Přijmout vše"
+    }
+  },
+  "introduction": {
+    "title": "Vítejte u profesionálních tipů na sázky",
+    "subtitle": "Vaše cesta k úspěchu v sázení založeném na datech",
+    "about": {
+      "title": "O naší službě",
+      "description": "Naše platforma poskytuje odborné pokyny pro sázení analýzou zápasů napříč předními sázkovými kancelářemi včetně bet365, Niké a Tipsport. Každý tip prochází důkladnou analýzou pro maximalizaci vašeho výherního potenciálu. Porovnáváním kurzů napříč více sázkovými platformami můžete dosáhnout ještě vyšších výnosů z vašich investic."
+    },
+    "howItWorks": {
+      "title": "Jak to funguje",
+      "step1": {
+        "title": "Odborná analýza",
+        "description": "Každý zápas je pečlivě analyzován naším zkušeným týmem před zveřejněním jakéhokoli tipu."
+      },
+      "step2": {
+        "title": "Porovnání kurzů",
+        "description": "Porovnáváme kurzy napříč bet365, Niké a Tipsport pro nalezení nejlepších hodnotových sázek."
+      },
+      "step3": {
+        "title": "Správa vkladu",
+        "description": "Výše vkladů jsou uvedeny v jednotkách na základě odborné analýzy. Udržujte konzistentní poměry, ať už sázíte dvojnásobné nebo poloviční částky."
+      },
+      "step4": {
+        "title": "Sledování výsledků",
+        "description": "Všechny tipy jsou sledovány a ověřovány s transparentními výsledky ve vašem statistickém panelu."
+      }
+    },
+    "pricing": {
+      "title": "Předplatné",
+      "amount": "50€/měsíc",
+      "guarantee": "Záruka vrácení peněz",
+      "guaranteeDescription": "Pokud v daném měsíci nevytvoříme zisk, další měsíc je zcela zdarma.",
+      "features": {
+        "feature1": "Přístup ke všem sázkovým tipům",
+        "feature2": "Podrobná analýza zápasů",
+        "feature3": "Porovnání kurzů v reálném čase",
+        "feature4": "Statistiky výkonnosti",
+        "feature5": "Odborná doporučení pro výši vkladu"
+      }
+    },
+    "cta": {
+      "title": "Jste připraveni začít vyhrávat?",
+      "description": "Připojte se k naší komunitě úspěšných sázejících ještě dnes.",
+      "button": "Začít nyní"
     }
   },
   "privacy": {

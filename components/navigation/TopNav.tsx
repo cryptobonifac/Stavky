@@ -15,6 +15,8 @@ import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import CardMembershipIcon from '@mui/icons-material/CardMembership'
+import LocalOfferIcon from '@mui/icons-material/LocalOffer'
+import InfoIcon from '@mui/icons-material/Info'
 import { useAuth } from '@/components/providers/auth-provider'
 import LanguageSwitcher from './LanguageSwitcher'
 import { isAccountActive } from '@/lib/utils/account'
@@ -78,6 +80,13 @@ const TopNav = ({
       </Box>
       <List sx={{ flex: 1, px: { xs: 0.5, sm: 1 } }}>
         <SidebarItem href="/" icon={<HomeIcon />} label={t('home')} />
+        {!profile && (
+          <>
+            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
+            <SidebarItem href="/checkout" icon={<LocalOfferIcon />} label={t('plans')} />
+            <SidebarItem href="/introduction" icon={<InfoIcon />} label={t('introduction')} />
+          </>
+        )}
         {profile && (
           <>
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
@@ -90,14 +99,14 @@ const TopNav = ({
         )}
         {profile?.role === 'betting' && (
           <>
-             <Typography 
-               variant="caption" 
-               sx={{ 
-                 px: { xs: 1.5, sm: 2 }, 
-                 mt: 2, 
-                 mb: 1, 
-                 display: 'block', 
-                 color: 'text.secondary', 
+             <Typography
+               variant="caption"
+               sx={{
+                 px: { xs: 1.5, sm: 2 },
+                 mt: 2,
+                 mb: 1,
+                 display: 'block',
+                 color: 'text.secondary',
                  fontWeight: 600,
                  fontSize: { xs: '0.7rem', sm: '0.75rem' },
                }}
@@ -180,6 +189,7 @@ const TopNav = ({
             px: { xs: 1, sm: 2, md: 3 },
           }}
         >
+          {/* Left section */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
             {isMobile && (
               <IconButton
@@ -200,7 +210,41 @@ const TopNav = ({
             <PageBreadcrumbs />
           </Box>
 
-          <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+          {/* Center navigation - Public links for non-logged users */}
+          {!isMobile && !isLoggedIn && (
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+              <Button
+                component={Link}
+                href="/statistics"
+                variant="text"
+                color="inherit"
+                sx={{ minHeight: 44 }}
+              >
+                {t('statistics')}
+              </Button>
+              <Button
+                component={Link}
+                href="/checkout"
+                variant="text"
+                color="inherit"
+                sx={{ minHeight: 44 }}
+              >
+                {t('plans')}
+              </Button>
+              <Button
+                component={Link}
+                href="/introduction"
+                variant="text"
+                color="inherit"
+                sx={{ minHeight: 44 }}
+              >
+                {t('introduction')}
+              </Button>
+            </Box>
+          )}
+
+          {/* Right section */}
+          <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 1 }, alignItems: 'center', flex: 1, justifyContent: 'flex-end' }}>
             <LanguageSwitcher />
             {!isMobile && !isAuthLoading && !isLoggedIn && (
               <>

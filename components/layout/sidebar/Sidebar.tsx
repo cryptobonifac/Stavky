@@ -2,7 +2,7 @@
 
 import { Box, Drawer, List, Typography, useMediaQuery, Theme } from '@mui/material'
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer'
-import HistoryIcon from '@mui/icons-material/History'
+import TimelineIcon from '@mui/icons-material/Timeline'
 import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
@@ -31,7 +31,7 @@ const Sidebar = ({ role, isActiveCustomer = false }: SidebarProps) => {
         {role && (
           <>
             <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />
-            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
+            <SidebarItem href="/statistics" icon={<TimelineIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
             {role === 'customer' && isActiveCustomer && (
               <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />

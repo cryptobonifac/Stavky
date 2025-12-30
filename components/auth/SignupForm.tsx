@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   Alert,
   Button,
@@ -11,6 +11,7 @@ import {
 } from '@mui/material'
 import { useTranslations, useLocale } from 'next-intl'
 import { useRouter } from '@/i18n/routing'
+import { useSearchParams } from 'next/navigation'
 
 import SocialLoginButtons from '@/components/auth/SocialLoginButtons'
 import { useAuth } from '@/components/providers/auth-provider'
@@ -19,12 +20,22 @@ const SignupForm = () => {
   const t = useTranslations('auth.signup')
   const { signUpWithPassword } = useAuth()
   const router = useRouter()
+  const searchParams = useSearchParams()
   const locale = useLocale()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [returnUrl, setReturnUrl] = useState<string | null>(null)
+
+  // Get returnUrl from URL parameters
+  useEffect(() => {
+    const url = searchParams.get('returnUrl')
+    if (url) {
+      setReturnUrl(decodeURIComponent(url))
+    }
+  }, [searchParams])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -42,8 +53,9 @@ const SignupForm = () => {
       setSubmitting(false)
       return
     }
+    // Redirect to returnUrl if provided, otherwise to bettings
     // Use locale-aware path - router will automatically prefix with current locale
-    router.replace('/bettings')
+    router.replace(returnUrl || '/bettings')
   }
 
   return (
