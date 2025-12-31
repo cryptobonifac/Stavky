@@ -196,7 +196,8 @@
       "title": "Kumulatívny zostatok v čase",
       "combined": "Celkový súčet",
       "noData": "Žiadne dáta o zostatku k dispozícii",
-      "errorLoading": "Nepodarilo sa načítať dáta o zostatku"
+      "errorLoading": "Nepodarilo sa načítať dáta o zostatku",
+      "demoAccountNotice": "Toto je demo účet. Každá stávková kancelária začína s počiatočným zostatkom 1 000 €."
     }
   },
   "profile": {

@@ -166,7 +166,7 @@ const CombinedBalanceChart = ({
               dataKey={company.name}
               stroke={getCompanyColor(company.name)}
               strokeWidth={2}
-              dot={{ r: isMobile ? 2 : 3 }}
+              dot={false}
               activeDot={{ r: isMobile ? 4 : 6 }}
               connectNulls
             />
@@ -178,7 +178,7 @@ const CombinedBalanceChart = ({
             dataKey="Combined"
             stroke={COMPANY_COLORS.combined}
             strokeWidth={3}
-            dot={{ r: isMobile ? 3 : 4 }}
+            dot={false}
             activeDot={{ r: isMobile ? 5 : 7 }}
             connectNulls
           />

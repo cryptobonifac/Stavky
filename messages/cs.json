@@ -195,7 +195,8 @@
       "title": "Kumulativní zůstatek v čase",
       "combined": "Celkový součet",
       "noData": "Žádná data o zůstatku k dispozici",
-      "errorLoading": "Nepodařilo se načíst data o zůstatku"
+      "errorLoading": "Nepodařilo se načíst data o zůstatku",
+      "demoAccountNotice": "Toto je demo účet. Každá sázková kancelář začína s počátečním zůstatkem 1 000 €."
     }
   },
   "profile": {

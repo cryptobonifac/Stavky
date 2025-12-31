@@ -193,7 +193,8 @@
       "title": "Cumulative Balance Over Time",
       "combined": "Combined Total",
       "noData": "No balance data available",
-      "errorLoading": "Failed to load balance data"
+      "errorLoading": "Failed to load balance data",
+      "demoAccountNotice": "This is a demo account. Each betting company starts with an initial balance of €1,000."
     }
   },
   "profile": {

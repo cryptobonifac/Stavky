@@ -116,6 +116,13 @@ const BalanceChartsView = () => {
         </Typography>
       </Box>
 
+      {/* Demo Account Notice */}
+      <Box sx={{ mb: 3 }}>
+        <Alert severity="info" sx={{ backgroundColor: '#e3f2fd' }}>
+          {t('demoAccountNotice')}
+        </Alert>
+      </Box>
+
       {/* Chart */}
       <CombinedBalanceChart
         companies={data.companies}

@@ -235,41 +235,49 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
     : null
 
   return (
-    <Card variant="outlined" sx={{ width: '75%', mx: 'auto' }}>
-      <CardContent>
+    <Card
+      elevation={0}
+      sx={{
+        width: { xs: '100%', md: '90%', lg: '80%' },
+        mx: 'auto',
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 3,
+        overflow: 'hidden',
+        background: 'linear-gradient(to bottom, #ffffff 0%, #fafafa 100%)',
+      }}
+    >
+      <CardContent sx={{ p: { xs: 3, md: 5 } }}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={4} sx={{ width: '100%' }}>
-            <Box>
-              <Typography variant="h5" gutterBottom fontWeight={600}>
-                {t('title') || 'Create New Betting Tip'}
-              </Typography>
-            </Box>
-
             {error && (
-              <Alert severity="error" onClose={() => setError(null)} sx={{ mb: 2 }}>
+              <Alert
+                severity="error"
+                onClose={() => setError(null)}
+                sx={{
+                  borderRadius: 2,
+                  boxShadow: '0 2px 8px rgba(211, 47, 47, 0.15)',
+                }}
+              >
                 {error}
               </Alert>
             )}
 
-            <Divider sx={{ my: 2 }} />
-
-            {/* Single Row Form - Table-like Layout */}
+            {/* Row 1: Betting Company, Sport, League */}
             <Box
               sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
-                gap: 2,
+                gap: 2.5,
                 alignItems: 'flex-start',
-                flexWrap: 'wrap',
-                '& > *': {
-                  flex: { xs: '1 1 100%', md: '1 1 auto' },
-                  minWidth: { xs: '100%', md: 0 },
-                },
+                p: { xs: 0, md: 2 },
+                borderRadius: 2,
+                backgroundColor: { xs: 'transparent', md: 'rgba(255, 255, 255, 0.6)' },
               }}
             >
-              {/* Betting Company - Dropdown with sufficient width */}
-              <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '0 0 200px' } }}>
+              {/* Betting Company */}
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={bettingCompanyId}
                   select
@@ -283,6 +291,15 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   onChange={(event) =>
                     handleFieldChange('betting_company_id', event.target.value)
                   }
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                 >
                   {bettingCompanies.map((company) => (
                     <MenuItem key={company.id} value={company.id}>
@@ -292,8 +309,8 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                 </TextField>
               </Box>
 
-              {/* Sport - Dropdown with sufficient width */}
-              <Box sx={{ minWidth: { xs: '100%', md: 180 }, flex: { xs: '1 1 100%', md: '0 0 180px' } }}>
+              {/* Sport */}
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <Autocomplete
                   open={openSportAutocomplete}
                   onOpen={() => setOpenSportAutocomplete(true)}
@@ -326,13 +343,22 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                         ...params.inputProps,
                         autoComplete: 'new-password',
                       }}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 2,
+                          backgroundColor: 'white',
+                          '&:hover fieldset': {
+                            borderColor: 'primary.main',
+                          },
+                        },
+                      }}
                     />
                   )}
                 />
               </Box>
 
               {/* League */}
-              <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '1 1 150px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={leagueId}
                   label={t('league') || 'League'}
@@ -345,11 +371,34 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   onChange={(event) =>
                     handleFieldChange('league', event.target.value)
                   }
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                 />
               </Box>
+            </Box>
 
+            {/* Row 2: Match, Result, Odds, Date */}
+            <Box
+              sx={{
+                width: '100%',
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                gap: 2.5,
+                alignItems: 'flex-start',
+                p: { xs: 0, md: 2 },
+                borderRadius: 2,
+                backgroundColor: { xs: 'transparent', md: 'rgba(255, 255, 255, 0.6)' },
+              }}
+            >
               {/* Match */}
-              <Box sx={{ minWidth: { xs: '100%', md: 200 }, flex: { xs: '1 1 100%', md: '1 1 200px' } }}>
+              <Box sx={{ flex: 2, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={matchId}
                   label={t('match') || 'Match'}
@@ -363,11 +412,20 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   required
                   fullWidth
                   size="small"
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                 />
               </Box>
 
               {/* Result */}
-              <Box sx={{ minWidth: { xs: '100%', md: 100 }, flex: { xs: '1 1 100%', md: '0 0 100px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={resultId}
                   select
@@ -381,6 +439,15 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   onChange={(event) =>
                     handleFieldChange('result_id', event.target.value)
                   }
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                 >
                   {results.map((result) => (
                     <MenuItem key={result.id} value={result.id}>
@@ -391,7 +458,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               </Box>
 
               {/* Odds */}
-              <Box sx={{ minWidth: { xs: '100%', md: 140 }, flex: { xs: '1 1 100%', md: '0 0 140px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={oddsId}
                   label={t('odds') || 'Odds'}
@@ -427,6 +494,15 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                       ? t('oddsValidationError') || '1.001-2.0'
                       : '')
                   }
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -457,7 +533,7 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
               </Box>
 
               {/* Match Date */}
-              <Box sx={{ minWidth: { xs: '100%', md: 180 }, flex: { xs: '1 1 100%', md: '0 0 180px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <DateTimePickerField
                   label={t('matchKickoff') || 'Kickoff'}
                   value={formData.match_date}
@@ -469,29 +545,36 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   slotProps={{
                     textField: {
                       size: 'small' as const,
+                      sx: {
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 2,
+                          backgroundColor: 'white',
+                          '&:hover fieldset': {
+                            borderColor: 'primary.main',
+                          },
+                        },
+                      },
                     },
                   }}
                 />
               </Box>
             </Box>
 
-            {/* Stake and Total Win Row */}
+            {/* Row 3: Stake and Total Win */}
             <Box
               sx={{
                 width: '100%',
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
-                gap: 2,
+                gap: 2.5,
                 alignItems: 'flex-start',
-                flexWrap: 'wrap',
-                '& > *': {
-                  flex: { xs: '1 1 100%', md: '1 1 auto' },
-                  minWidth: { xs: '100%', md: 0 },
-                },
+                p: { xs: 0, md: 2 },
+                borderRadius: 2,
+                backgroundColor: { xs: 'transparent', md: 'rgba(255, 255, 255, 0.6)' },
               }}
             >
               {/* Stake */}
-              <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={stakeId}
                   label={t('stake') || 'Stake'}
@@ -510,11 +593,20 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   error={!!fieldErrors.stake}
                   helperText={fieldErrors.stake || t('stakeHelper')}
                   placeholder={t('stakeHelper')}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'white',
+                      '&:hover fieldset': {
+                        borderColor: 'primary.main',
+                      },
+                    },
+                  }}
                 />
               </Box>
 
               {/* Total Win (Read-only, calculated) */}
-              <Box sx={{ minWidth: { xs: '100%', md: 150 }, flex: { xs: '1 1 100%', md: '0 0 150px' } }}>
+              <Box sx={{ flex: 1, minWidth: { xs: '100%', md: 0 } }}>
                 <TextField
                   id={totalWinId}
                   label={t('totalWin') || 'Total Win'}
@@ -527,18 +619,24 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   InputProps={{
                     readOnly: true,
                   }}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: 2,
+                      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                    },
+                  }}
                 />
               </Box>
             </Box>
 
-            <Divider />
+            <Divider sx={{ my: 1, opacity: 0.6 }} />
 
             {/* Submit Button */}
-            <Stack 
-              direction={{ xs: 'column', sm: 'row' }} 
-              spacing={{ xs: 1.5, sm: 2 }} 
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={{ xs: 2, sm: 3 }}
               justifyContent="flex-end"
-              sx={{ width: '100%' }}
+              sx={{ width: '100%', pt: 2 }}
             >
               <Box sx={{ width: { xs: '100%', sm: 'auto' } }}>
                 <Button
@@ -546,9 +644,17 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   onClick={handleReset}
                   disabled={isPending}
                   fullWidth
-                  sx={{ 
-                    minHeight: 44,
-                    fontSize: { xs: '0.875rem', md: '1rem' },
+                  sx={{
+                    minHeight: 48,
+                    fontSize: { xs: '0.9375rem', md: '1rem' },
+                    borderRadius: 2,
+                    borderWidth: 2,
+                    px: 4,
+                    fontWeight: 500,
+                    '&:hover': {
+                      borderWidth: 2,
+                      backgroundColor: 'rgba(0, 0, 0, 0.02)',
+                    },
                   }}
                 >
                   {tCommon('cancel') || 'Cancel'}
@@ -562,9 +668,16 @@ const NewBetForm = ({ bettingCompanies, sports, results }: NewBetFormProps) => {
                   startIcon={<SaveIcon />}
                   size="large"
                   fullWidth
-                  sx={{ 
-                    minHeight: 44,
-                    fontSize: { xs: '0.875rem', md: '1rem' },
+                  sx={{
+                    minHeight: 48,
+                    fontSize: { xs: '0.9375rem', md: '1rem' },
+                    borderRadius: 2,
+                    px: 5,
+                    fontWeight: 600,
+                    boxShadow: '0 4px 14px rgba(25, 118, 210, 0.25)',
+                    '&:hover': {
+                      boxShadow: '0 6px 20px rgba(25, 118, 210, 0.35)',
+                    },
                   }}
                 >
                   {isPending
