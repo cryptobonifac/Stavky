@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe/stripe';
-import { createClient as createServerClient } from '@/lib/supabase/server';
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 export async function POST() {
   try {

@@ -159,7 +159,7 @@
     "of": "z",
     "tips": "tipov",
     "date": "Datum",
-    "match": "Zapas",
+ 
     "odds": "Kurz",
     "company": "Spoločnosť",
     "edit": "Upraviť",
@@ -182,7 +182,6 @@
     "result": "Výsledok",
     "none": "Žiadny",
     "status": "Status",
-    "pending": "Čakajúci",
     "win": "Výhra",
     "loss": "Prehra"
   },

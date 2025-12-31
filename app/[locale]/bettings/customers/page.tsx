@@ -6,7 +6,7 @@ import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
 import CustomersList from '@/components/admin/CustomersList'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'Customers | Stavky',
@@ -34,22 +34,34 @@ export default async function CustomersPage() {
   }
 
   // TypeScript: user is guaranteed to be non-null after redirect check
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('users')
     .select('role')
     .eq('id', user!.id)
     .single()
+
+  // Log for debugging
+  console.log('User ID:', user!.id)
+  console.log('Profile:', profile)
+  if (profileError) {
+    console.error('Error fetching profile:', profileError)
+  }
 
   if (profile?.role !== 'betting') {
     redirect({ href: '/bettings', locale })
   }
 
   // Fetch all customers
-  const { data: customers } = await supabase
+  const { data: customers, error: customersError } = await supabase
     .from('users')
     .select('id, email, created_at, account_active_until, role, subscription_plan_type')
     .eq('role', 'customer')
     .order('created_at', { ascending: false })
+
+  // Log error for debugging
+  if (customersError) {
+    console.error('Error fetching customers:', customersError)
+  }
 
   if (!customers || customers.length === 0) {
     const t = await getTranslations('customers')
@@ -65,11 +77,16 @@ export default async function CustomersPage() {
 
   // Fetch latest subscription valid_to for each customer
   const customerIds = customers.map((c) => c.id)
-  const { data: subscriptions } = await supabase
+  const { data: subscriptions, error: subscriptionsError } = await supabase
     .from('user_subscriptions')
     .select('user_id, valid_to, month')
     .in('user_id', customerIds)
     .order('month', { ascending: false })
+
+  // Log error for debugging
+  if (subscriptionsError) {
+    console.error('Error fetching subscriptions:', subscriptionsError)
+  }
 
   // Group subscriptions by user_id and get the latest valid_to
   const latestValidToByUser = new Map<string, string | null>()

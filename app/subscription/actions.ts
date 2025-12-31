@@ -2,7 +2,7 @@
 
 import Stripe from 'stripe';
 import { stripe } from '@/lib/stripe/stripe';
-import { createClient as createServerClient } from '@/lib/supabase/server';
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 /**
  * Get the current subscription status for the logged-in user

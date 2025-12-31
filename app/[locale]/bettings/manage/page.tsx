@@ -6,7 +6,7 @@ import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
 import PendingTipsList from '@/components/admin/PendingTipsList'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'Manage betting tips | Stavky',

@@ -2,7 +2,7 @@
 
 import { stripe } from '@/lib/stripe/stripe';
 import { headers } from 'next/headers';
-import { createClient as createServerClient } from '@/lib/supabase/server';
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 interface PriceInfo {
   amount: number;

@@ -10,7 +10,7 @@ import TopNav from '@/components/navigation/TopNav'
 import SubscribeButton from '@/components/bettings/SubscribeButton'
 import ProfileRefresher from '@/components/bettings/ProfileRefresher'
 import { Alert, Box, Typography, Stack, Button } from '@mui/material'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'Betting tips | Stavky',

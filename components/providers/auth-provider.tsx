@@ -121,6 +121,37 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loadProfile()
   }, [loadProfile])
 
+  // Proactive token refresh: refresh session 5 minutes before expiry
+  useEffect(() => {
+    if (!session?.expires_at) return
+
+    // Calculate time until token expires (with 5 min buffer)
+    const expiresAt = session.expires_at * 1000 // Convert to milliseconds
+    const now = Date.now()
+    const fiveMinutes = 5 * 60 * 1000
+    const timeUntilRefresh = expiresAt - now - fiveMinutes
+
+    // Only set timer if expiry is more than 5 minutes away
+    if (timeUntilRefresh > 0) {
+      const timer = setTimeout(async () => {
+        try {
+          const { data, error } = await supabase.auth.refreshSession()
+          if (!error && data.session) {
+            setSession(data.session)
+            setUser(data.session.user)
+          } else if (error) {
+            // Silently handle refresh errors - onAuthStateChange will handle logout
+            console.log('Session refresh failed:', error.message)
+          }
+        } catch (error) {
+          console.log('Error refreshing session:', error)
+        }
+      }, timeUntilRefresh)
+
+      return () => clearTimeout(timer)
+    }
+  }, [session, supabase])
+
   const signInWithPassword = useCallback(
     async (email: string, password: string) => {
       const { error } = await supabase.auth.signInWithPassword({

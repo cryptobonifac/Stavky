@@ -20,7 +20,7 @@ import ResultsSection from '@/components/settings/ResultsSection'
 import MarketingSettingsSection from '@/components/settings/MarketingSettingsSection'
 import FreeMonthOverrideSection from '@/components/settings/FreeMonthOverrideSection'
 import DeleteAllTipsSection from '@/components/settings/DeleteAllTipsSection'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 import Grid from '@mui/material/Grid'
 import {
   Card,

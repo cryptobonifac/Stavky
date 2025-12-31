@@ -7,7 +7,7 @@ import StatisticsTabsContainer from '@/components/statistics/StatisticsTabsConta
 import type { HistoryMonth } from '@/components/history/HistoryMonthView'
 import TopNav from '@/components/navigation/TopNav'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import StatisticsLoading from './loading'
 

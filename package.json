@@ -17,7 +17,8 @@
     "db:push": "supabase db push",
     "db:reset": "supabase db reset",
     "db:local": "supabase start",
-    "cleanup:dev": "node scripts/cleanup-dev.js"
+    "cleanup:dev": "node scripts/cleanup-dev.js",
+    "deploy:prod": "npx supabase db push --linked && vercel deploy --prod"
   },
   "repository": {
     "type": "git",

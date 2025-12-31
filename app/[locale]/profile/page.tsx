@@ -10,7 +10,7 @@ import ProfileSubscriptionHistory, {
   type SubscriptionHistoryEntry,
 } from '@/components/profile/ProfileSubscriptionHistory'
 import type { UserProfile } from '@/components/providers/auth-provider'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export async function generateMetadata() {
   const t = await getTranslations('profile')

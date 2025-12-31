@@ -5,7 +5,7 @@ import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
 import NewBetForm from '@/components/admin/NewBetForm'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export async function generateMetadata() {
   const t = await getTranslations('newbet')

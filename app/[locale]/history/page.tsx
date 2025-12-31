@@ -9,7 +9,7 @@ import HistoryMonthView, {
 import TopNav from '@/components/navigation/TopNav'
 import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 import { Alert } from '@mui/material'
-import { createClient as createServerClient } from '@/lib/supabase/server'
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
   title: 'History | Stavky',

@@ -1,5 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/admin';
-import { createClient as createServerClient } from '@/lib/supabase/server';
+import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 
 // GET: list all betting companies (id, name)
