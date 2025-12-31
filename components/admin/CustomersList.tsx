@@ -17,6 +17,7 @@ type CustomerData = {
   account_active_until: string | null
   valid_to: string | null
   status: 'active' | 'inactive'
+  subscription_plan_type: 'monthly' | 'yearly' | 'one-time' | null
 }
 
 type CustomersListProps = {
@@ -80,7 +81,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
           <Box
             sx={{
               display: { xs: 'none', md: 'grid' },
-              gridTemplateColumns: '120px 1fr 100px 120px',
+              gridTemplateColumns: '120px 1fr 100px 120px 120px',
               gap: 2,
               p: 2,
               borderBottom: '1px solid #f0f0f0',
@@ -134,6 +135,18 @@ const CustomersList = ({ customers }: CustomersListProps) => {
             >
               {t('validTo')}
             </Typography>
+            <Typography
+              sx={{
+                fontSize: '0.8rem',
+                color: '#666',
+                fontWeight: 500,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                textAlign: 'right',
+              }}
+            >
+              {t('planType')}
+            </Typography>
           </Box>
 
           {/* Customers Grid */}
@@ -153,7 +166,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                     display: 'grid',
                     gridTemplateColumns: {
                       xs: '1fr',
-                      md: '120px 1fr 100px 120px',
+                      md: '120px 1fr 100px 120px 120px',
                     },
                     gap: { xs: 0.5, md: 2 },
                     p: { xs: '0.75rem', md: '0.56rem' },
@@ -248,6 +261,31 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                       }}
                     >
                       {validToDate ? validToDate.format('DD.MM.YYYY') : '-'}
+                    </Typography>
+                  </Box>
+
+                  {/* Plan Type */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: { xs: 'flex-start', md: 'flex-end' },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { xs: '0.75rem', md: '0.85rem' },
+                        color: '#666',
+                        fontWeight: 500,
+                      }}
+                    >
+                      {customer.subscription_plan_type === 'monthly'
+                        ? t('monthly')
+                        : customer.subscription_plan_type === 'yearly'
+                        ? t('yearly')
+                        : customer.subscription_plan_type === 'one-time'
+                        ? t('oneTime')
+                        : '-'}
                     </Typography>
                   </Box>
                 </Box>

@@ -16,6 +16,23 @@ const supabase = createClient(
   }
 );
 
+// Helper function to determine subscription plan type from Stripe subscription
+async function getSubscriptionPlanType(subscriptionId: string): Promise<'monthly' | 'yearly' | null> {
+  try {
+    const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+    const interval = subscription.items.data[0]?.price?.recurring?.interval;
+
+    if (interval === 'month') return 'monthly';
+    if (interval === 'year') return 'yearly';
+
+    console.warn(`Unexpected subscription interval: ${interval}`);
+    return null;
+  } catch (error) {
+    console.error('Error fetching subscription plan type:', error);
+    return null;
+  }
+}
+
 export async function POST(req: Request) {
   // Add immediate logging to confirm endpoint is reached
   console.log('\n🔔 WEBHOOK REQUEST RECEIVED');
@@ -327,6 +344,7 @@ export async function POST(req: Request) {
               const updateData: {
                 stripe_customer_id?: string | null;
                 stripe_subscription_id?: string | null;
+                subscription_plan_type?: 'monthly' | 'yearly' | 'one-time' | null;
                 account_active_until: string;
               } = {
                 account_active_until: activationDate.toISOString(),
@@ -343,6 +361,17 @@ export async function POST(req: Request) {
               if (mode === 'subscription' && subscriptionId) {
                 updateData.stripe_subscription_id = subscriptionId;
                 console.log('   Will update stripe_subscription_id:', subscriptionId);
+
+                // Fetch and store subscription plan type
+                const planType = await getSubscriptionPlanType(subscriptionId);
+                if (planType) {
+                  updateData.subscription_plan_type = planType;
+                  console.log('   Will update subscription_plan_type:', planType);
+                }
+              } else if (mode === 'payment') {
+                // One-time payment
+                updateData.subscription_plan_type = 'one-time';
+                console.log('   One-time payment - setting subscription_plan_type: one-time');
               } else {
                 console.log('   stripe_subscription_id: NULL (not updating)');
               }
@@ -457,7 +486,49 @@ export async function POST(req: Request) {
       case 'customer.subscription.updated': {
         const subscription = event.data.object as Stripe.Subscription;
         console.log('Subscription updated:', subscription.id);
-        // Handle subscription update
+
+        // Handle subscription update - update plan type if changed
+        const customerId = typeof subscription.customer === 'string'
+          ? subscription.customer
+          : subscription.customer?.id;
+
+        if (customerId) {
+          try {
+            const { data: user, error: userError } = await supabase
+              .from('users')
+              .select('id, email')
+              .eq('stripe_customer_id', customerId)
+              .single();
+
+            if (userError || !user) {
+              console.error('User not found for customer:', customerId, userError);
+              break;
+            }
+
+            // Fetch plan type from subscription
+            const interval = subscription.items.data[0]?.price?.recurring?.interval;
+            const planType = interval === 'month' ? 'monthly' : interval === 'year' ? 'yearly' : null;
+
+            if (planType) {
+              const { error: updateError } = await supabase
+                .from('users')
+                .update({
+                  subscription_plan_type: planType,
+                  stripe_subscription_id: subscription.id,
+                })
+                .eq('id', user.id);
+
+              if (!updateError) {
+                console.log(`Subscription plan type updated for ${user.email}: ${planType}`);
+              } else {
+                console.error('Failed to update subscription plan type:', updateError);
+              }
+            }
+          } catch (error) {
+            console.error('Error handling subscription update:', error);
+          }
+        }
+
         break;
       }
 
@@ -541,12 +612,23 @@ export async function POST(req: Request) {
             const extensionDate = currentExpiry > now ? currentExpiry : now;
             extensionDate.setDate(extensionDate.getDate() + 30);
 
-            // Update user's account expiry
+            // Fetch subscription plan type
+            let planType: 'monthly' | 'yearly' | null = null;
+            try {
+              const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+              const interval = subscription.items.data[0]?.price?.recurring?.interval;
+              planType = interval === 'month' ? 'monthly' : interval === 'year' ? 'yearly' : null;
+            } catch (error) {
+              console.error('Error fetching plan type during invoice payment:', error);
+            }
+
+            // Update user's account expiry and plan type
             const { error: updateError } = await supabase
               .from('users')
               .update({
                 account_active_until: extensionDate.toISOString(),
                 stripe_subscription_id: subscriptionId,
+                ...(planType && { subscription_plan_type: planType }),
               })
               .eq('id', user.id);
 
