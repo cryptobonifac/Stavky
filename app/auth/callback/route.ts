@@ -85,9 +85,12 @@ export async function GET(request: NextRequest) {
     }
   }
   
-  // Redirect directly to locale-prefixed path
-  // Build the full URL with locale prefix to avoid middleware adding it twice
-  const localePrefixedPath = `/${locale}${next}`
+  // Strip any existing locale prefix from 'next' path to avoid duplication
+  const localePattern = new RegExp(`^/(${routing.locales.join('|')})(/|$)`)
+  const nextWithoutLocale = next.replace(localePattern, '$2') || '/'
+
+  // Add current locale prefix
+  const localePrefixedPath = `/${locale}${nextWithoutLocale}`
   const finalRedirectUrl = new URL(localePrefixedPath, request.url)
   
   // Create redirect response and ensure session cookies are included

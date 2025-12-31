@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { createSubscriptionCheckoutSession, getStripePrices } from '@/app/checkout/actions';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import { createClient } from '@/lib/supabase/client';
 import {
   Box,
@@ -102,8 +102,8 @@ export default function CheckoutPage() {
 
       // Check if user is authenticated
       if (!isAuthenticated) {
-        // Redirect to login with return URL
-        router.push(`/${locale}/login?redirect=${encodeURIComponent(`/${locale}/checkout`)}`);
+        // Redirect to login with return URL (locale prefix added automatically by i18n router)
+        router.push(`/login?redirect=${encodeURIComponent('/checkout')}`);
         return;
       }
 

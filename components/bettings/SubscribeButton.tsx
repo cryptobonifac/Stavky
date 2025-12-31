@@ -1,7 +1,7 @@
 'use client';
 
 import { Button, Box, Typography, Card, CardContent } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/i18n/routing';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import { useTranslations } from 'next-intl';
 
@@ -20,7 +20,7 @@ export default function SubscribeButton({
   const t = useTranslations('bettings');
 
   const handleSubscribe = () => {
-    router.push(`/${locale}/checkout`);
+    router.push('/checkout');
   };
 
   return (
