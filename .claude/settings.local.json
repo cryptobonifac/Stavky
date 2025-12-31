@@ -30,7 +30,11 @@
       "Bash(docker ps:*)",
       "Bash(node:*)",
       "Bash(dir:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(rm:*)",
+      "Bash(del appbettingspage.tsx)",
+      "Bash(del appcheckoutpage.tsx apphistorypage.tsx appnewbetpage.tsx appprofilepage.tsx appsettingspage.tsx)",
+      "Bash(del appsubscriptionpage.tsx)"
     ]
   }
 }
