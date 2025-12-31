@@ -234,14 +234,18 @@ export async function createSubscriptionCheckoutSession(priceId: string, locale:
     let customerEmail: string | undefined;
     let userId: string | undefined;
     let customerId: string | undefined;
-    
+
     try {
       const supabase = await createServerClient();
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user?.email) {
+      const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+      if (userError) {
+        console.error('Error getting user from session:', userError);
+      } else if (user?.email) {
         customerEmail = user.email;
         userId = user.id;
-        
+        console.log('Found authenticated user, will prefill email in Stripe checkout:', customerEmail);
+
         // For Accounts V2, create or retrieve customer first
         try {
           // Try to find existing customer by email
@@ -249,9 +253,10 @@ export async function createSubscriptionCheckoutSession(priceId: string, locale:
             email: customerEmail,
             limit: 1,
           });
-          
+
           if (existingCustomers.data.length > 0) {
             customerId = existingCustomers.data[0].id;
+            console.log('Found existing Stripe customer:', customerId);
           } else {
             // Create new customer
             const customer = await stripe.customers.create({
@@ -261,15 +266,18 @@ export async function createSubscriptionCheckoutSession(priceId: string, locale:
               },
             });
             customerId = customer.id;
+            console.log('Created new Stripe customer:', customerId);
           }
         } catch (customerError) {
           console.error('Error creating/finding customer:', customerError);
           // Fall back to customer_email if customer creation fails
         }
+      } else {
+        console.log('No user session found, Stripe will collect email during checkout');
       }
     } catch (error) {
       // User not logged in - that's okay, Stripe will collect email during checkout
-      console.log('No logged-in user, Stripe will collect email during checkout');
+      console.error('Exception while getting user session:', error);
     }
 
     const sessionConfig: any = {

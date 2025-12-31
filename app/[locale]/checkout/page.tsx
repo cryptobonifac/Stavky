@@ -159,7 +159,7 @@ export default function CheckoutPage() {
         </Box>
       )}
 
-      {pricesLoading ? (
+      {(pricesLoading || authChecking) ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', py: { xs: 6, md: 8 } }}>
           <CircularProgress />
         </Box>

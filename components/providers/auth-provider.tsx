@@ -154,13 +154,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const currentPath = window.location.pathname
       const localeMatch = currentPath.match(/^\/(en|cs|sk)/)
       const locale = localeMatch ? localeMatch[1] : 'en'
-      
+
+      // Get redirect parameter from current URL if it exists
+      const searchParams = new URLSearchParams(window.location.search)
+      const redirectParam = searchParams.get('redirect')
+
       // Build callback URL with locale parameter
       // Always use current origin (window.location.origin) to ensure it works in production
       // This will be the production URL when deployed, or localhost when in dev
       const currentOrigin = window.location.origin
       let callbackUrl: URL
-      
+
       if (process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL) {
         // If env var is set, use it but replace hostname with current origin
         callbackUrl = new URL(process.env.NEXT_PUBLIC_AUTH_CALLBACK_URL)
@@ -172,9 +176,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         // Default to current origin
         callbackUrl = new URL(`${currentOrigin}/auth/callback`)
       }
-      
+
       callbackUrl.searchParams.set('locale', locale)
-      
+
+      // Preserve redirect parameter if it exists
+      if (redirectParam) {
+        callbackUrl.searchParams.set('redirect', redirectParam)
+      }
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {

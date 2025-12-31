@@ -25,9 +25,10 @@ export async function GET(request: NextRequest) {
   }
   
   // Default redirect path (without locale - middleware will add it)
-  const nextParam = requestUrl.searchParams.get('next')
-  let next = nextParam 
-    ? (nextParam.startsWith('/') ? nextParam : `/${nextParam}`)
+  // Support both 'redirect' (new) and 'next' (legacy) parameters
+  const redirectParam = requestUrl.searchParams.get('redirect') || requestUrl.searchParams.get('next')
+  let next = redirectParam
+    ? (redirectParam.startsWith('/') ? redirectParam : `/${redirectParam}`)
     : '/bettings'
 
   if (!code) {
@@ -74,11 +75,11 @@ export async function GET(request: NextRequest) {
       .select('role')
       .eq('id', user.id)
       .single()
-    
+
     // Determine redirect based on role (similar to proxy.ts logic)
-    // Only override if no explicit 'next' parameter was provided
+    // Only override if no explicit 'redirect' or 'next' parameter was provided
     // Don't add locale prefix - middleware will handle it
-    if (!nextParam) {
+    if (!redirectParam) {
       const role = userProfile?.role
       next = role === 'betting' ? '/newbet' : '/bettings'
     }

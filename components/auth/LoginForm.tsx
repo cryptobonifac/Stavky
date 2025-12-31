@@ -42,10 +42,10 @@ const LoginForm = () => {
   const [submitting, setSubmitting] = useState(false)
 
   // Get redirect path and ensure it's locale-aware
-  // If redirectedFrom starts with a locale prefix, use it as-is
+  // If redirect starts with a locale prefix, use it as-is
   // Otherwise, use the current locale (router will handle prefixing)
-  const redirectedFrom = searchParams.get('redirectedFrom')
-  const redirectTo = redirectedFrom ?? '/bettings'
+  const redirect = searchParams.get('redirect')
+  const redirectTo = redirect ?? '/bettings'
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
