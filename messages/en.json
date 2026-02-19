@@ -520,14 +520,14 @@
     "priceNotAvailable": "Price not available",
     "processing": "Processing...",
     "subscribeMonthly": "Subscribe Monthly",
-    "monthlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID in your environment variables",
+    "monthlyPriceIdWarning": "⚠️ Configure POLAR_MONTHLY_PRODUCT_ID in your environment variables",
     "bestValue": "BEST VALUE",
     "yearlySubscription": "Yearly Subscription",
     "perYear": "per year",
     "savePerYear": "Save {amount} per year",
     "subscribeYearly": "Subscribe Yearly",
-    "yearlyPriceIdWarning": "⚠️ Configure NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID in your environment variables",
-    "securePayment": "Secure payment powered by Stripe",
+    "yearlyPriceIdWarning": "⚠️ Configure POLAR_YEARLY_PRODUCT_ID in your environment variables",
+    "securePayment": "Secure payment powered by Polar",
     "backToHome": "Back to Home"
   },
   "cookies": {

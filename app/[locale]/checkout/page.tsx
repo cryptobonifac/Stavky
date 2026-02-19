@@ -1,8 +1,7 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
-import { createSubscriptionCheckoutSession, getStripePrices } from '@/app/checkout/actions';
+import { createPolarCheckoutSession, getPolarPrices } from '@/app/checkout/actions';
 import { useLocale } from 'next-intl';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/i18n/routing';
@@ -17,10 +16,8 @@ import {
   Stack,
   Chip,
   CircularProgress,
-  IconButton,
 } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface PriceInfo {
@@ -28,7 +25,7 @@ interface PriceInfo {
   currency: string;
   interval: string | null;
   intervalCount: number | null;
-  priceId: string;
+  productId: string;
   error?: string;
 }
 
@@ -75,7 +72,7 @@ export default function CheckoutPage() {
     async function fetchPrices() {
       try {
         setPricesLoading(true);
-        const prices = await getStripePrices();
+        const prices = await getPolarPrices();
 
         if (prices.error) {
           setError(prices.error);
@@ -95,28 +92,28 @@ export default function CheckoutPage() {
     fetchPrices();
   }, []);
 
-  const handleCheckout = async (priceId: string) => {
+  const handleCheckout = async (productId: string) => {
     try {
       setLoading(true);
       setError(null);
 
       // Check if user is authenticated
       if (!isAuthenticated) {
-        // Redirect to login with return URL (locale prefix added automatically by i18n router)
+        // Redirect to login with return URL
         router.push(`/login?redirect=${encodeURIComponent('/checkout')}`);
         return;
       }
 
-      if (!priceId || !priceId.startsWith('price_')) {
-        throw new Error('Invalid price ID. Please configure valid Stripe Price IDs in your environment variables.');
+      if (!productId) {
+        throw new Error('Invalid product ID. Please configure valid Polar Product IDs in your environment variables.');
       }
 
-      const { url } = await createSubscriptionCheckoutSession(priceId, locale);
+      const { url } = await createPolarCheckoutSession(productId, locale);
 
       if (url) {
         window.location.href = url;
       } else {
-        throw new Error('No checkout URL received from Stripe');
+        throw new Error('No checkout URL received from Polar');
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred';
@@ -127,7 +124,7 @@ export default function CheckoutPage() {
   };
 
   const isPriceValid = (price: PriceInfo | null): boolean => {
-    return price !== null && !price.error && price.amount > 0 && price.priceId.startsWith('price_');
+    return price !== null && !price.error && price.amount > 0 && !!price.productId;
   };
 
   return (
@@ -232,7 +229,6 @@ export default function CheckoutPage() {
               </Box>
 
               <Stack spacing={{ xs: 1.5, md: 2 }} sx={{ mb: { xs: 3, md: 4 } }}>
-                  {/* Features removed for translation. Add translated features here if needed. */}
               </Stack>
 
               <Button
@@ -243,7 +239,7 @@ export default function CheckoutPage() {
                 disabled={loading || !isPriceValid(monthlyPrice)}
                 onClick={() => {
                   setSelectedPlan('monthly');
-                  monthlyPrice && handleCheckout(monthlyPrice.priceId);
+                  monthlyPrice && handleCheckout(monthlyPrice.productId);
                 }}
                 sx={{
                   py: { xs: 1.25, md: 1.5 },
@@ -356,7 +352,6 @@ export default function CheckoutPage() {
               </Box>
 
               <Stack spacing={{ xs: 1.5, md: 2 }} sx={{ mb: { xs: 3, md: 4 } }}>
-                  {/* Features removed for translation. Add translated features here if needed. */}
               </Stack>
 
               <Button
@@ -365,7 +360,7 @@ export default function CheckoutPage() {
                 size="large"
                 startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <ShoppingCartIcon />}
                 disabled={loading || !isPriceValid(yearlyPrice)}
-                onClick={() => yearlyPrice && handleCheckout(yearlyPrice.priceId)}
+                onClick={() => yearlyPrice && handleCheckout(yearlyPrice.productId)}
                 sx={{
                   py: { xs: 1.25, md: 1.5 },
                   minHeight: 44,
@@ -425,4 +420,3 @@ export default function CheckoutPage() {
     </Container>
   );
 }
-

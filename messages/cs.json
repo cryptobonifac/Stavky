@@ -520,14 +520,14 @@
     "priceNotAvailable": "Cena není dostupná",
     "processing": "Zpracovává se...",
     "subscribeMonthly": "Předplatit měsíčně",
-    "monthlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_MONTHLY_PRICE_ID v prostředí",
+    "monthlyPriceIdWarning": "⚠️ Nastavte POLAR_MONTHLY_PRODUCT_ID v prostředí",
     "bestValue": "NEJLEPŠÍ HODNOTA",
     "yearlySubscription": "Roční předplatné",
     "perYear": "ročně",
     "savePerYear": "Ušetříte {amount} ročně",
     "subscribeYearly": "Předplatit ročně",
-    "yearlyPriceIdWarning": "⚠️ Nastavte NEXT_PUBLIC_SUBSCRIPTION_YEARLY_PRICE_ID v prostředí",
-    "securePayment": "Bezpečná platba přes Stripe",
+    "yearlyPriceIdWarning": "⚠️ Nastavte POLAR_YEARLY_PRODUCT_ID v prostředí",
+    "securePayment": "Bezpečná platba přes Polar",
     "backToHome": "Zpět na úvodní stránku"
   },
   "cookies": {

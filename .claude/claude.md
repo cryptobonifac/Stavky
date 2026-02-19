@@ -4,7 +4,9 @@
 
 This project uses Google OAuth for authentication via Supabase Auth. The configuration uses **environment variables** stored in `.env` file, which are read by `supabase/config.toml`.
 
-## File Structure
+## Local Supabase
+
+- if you create supabase db migration always reset database `npx supabase db reset`
 
 ### 1. `.env` - Google OAuth Credentials (MAIN CONFIG)
 **Location:** `/.env`

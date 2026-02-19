@@ -21,7 +21,7 @@ import {
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { createSubscriptionCheckoutSession } from '@/app/checkout/actions';
+import { createPolarCheckoutSession } from '@/app/checkout/actions';
 import { getSubscriptionStatus, cancelSubscription } from '@/app/subscription/actions';
 import { useLocale } from 'next-intl';
 import MainLayout from '@/components/layout/MainLayout';
@@ -42,7 +42,7 @@ export default function SubscriptionPage() {
   const t = useTranslations('subscription');
   const tCommon = useTranslations('common');
   const { profile } = useAuth();
-  
+
   const [loading, setLoading] = useState(true);
   const [cancelling, setCancelling] = useState(false);
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
@@ -58,7 +58,7 @@ export default function SubscriptionPage() {
       setLoading(true);
       setError(null);
       const result = await getSubscriptionStatus();
-      
+
       if (result.error) {
         setError(result.error);
       } else if (result.subscription) {
@@ -76,22 +76,10 @@ export default function SubscriptionPage() {
   const handleCreateSubscription = async () => {
     try {
       setError(null);
-      const subscriptionPriceId = process.env.NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID;
-      
-      if (!subscriptionPriceId || !subscriptionPriceId.startsWith('price_')) {
-        setError('Subscription price ID is not configured. Please contact support.');
-        return;
-      }
-
-      const { url } = await createSubscriptionCheckoutSession(subscriptionPriceId, locale);
-      
-      if (url) {
-        window.location.href = url;
-      } else {
-        setError('Failed to create checkout session');
-      }
+      // Redirect to checkout page instead of direct checkout
+      window.location.href = `/${locale}/checkout`;
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create subscription');
+      setError(err instanceof Error ? err.message : 'Failed to navigate to checkout');
     }
   };
 
@@ -99,9 +87,9 @@ export default function SubscriptionPage() {
     try {
       setCancelling(true);
       setError(null);
-      
+
       const result = await cancelSubscription();
-      
+
       if (result.error) {
         setError(result.error);
       } else {
@@ -167,7 +155,7 @@ export default function SubscriptionPage() {
                       {subscription.id}
                     </Typography>
                   </Box>
-                  
+
                   <Box>
                     <Typography variant="caption" color="text.secondary">
                       {t('status')}
@@ -251,9 +239,9 @@ export default function SubscriptionPage() {
           <Button onClick={() => setCancelDialogOpen(false)} disabled={cancelling}>
             {tCommon('cancel')}
           </Button>
-          <Button 
-            onClick={handleCancelSubscription} 
-            color="error" 
+          <Button
+            onClick={handleCancelSubscription}
+            color="error"
             variant="contained"
             disabled={cancelling}
           >
@@ -266,10 +254,3 @@ export default function SubscriptionPage() {
     </MainLayout>
   );
 }
-
-
-
-
-
-
-

@@ -1,7 +1,6 @@
 'use server';
 
-import Stripe from 'stripe';
-import { stripe } from '@/lib/stripe/stripe';
+import { polar } from '@/lib/polar/polar';
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 /**
@@ -16,10 +15,10 @@ export async function getSubscriptionStatus() {
       return { error: 'Not authenticated', subscription: null };
     }
 
-    // Get user's Stripe subscription ID from database
+    // Get user's Polar subscription ID from database
     const { data: profile, error: profileError } = await supabase
       .from('users')
-      .select('stripe_subscription_id, stripe_customer_id, account_active_until')
+      .select('polar_subscription_id, polar_customer_id, account_active_until')
       .eq('id', user.id)
       .single();
 
@@ -27,48 +26,47 @@ export async function getSubscriptionStatus() {
       return { error: 'User profile not found', subscription: null };
     }
 
-    if (!profile.stripe_subscription_id) {
-      return { 
-        error: null, 
+    if (!profile.polar_subscription_id) {
+      return {
+        error: null,
         subscription: null,
-        hasSubscription: false 
+        hasSubscription: false
       };
     }
 
-    // Retrieve subscription from Stripe
+    // Retrieve subscription from Polar
     try {
-      const subscription = await stripe.subscriptions.retrieve(profile.stripe_subscription_id);
-      
-      // Access current_period_end with proper type handling
-      const currentPeriodEnd = (subscription as any).current_period_end as number;
-      
+      const subscription = await polar.subscriptions.get({
+        id: profile.polar_subscription_id,
+      });
+
       return {
         error: null,
         subscription: {
           id: subscription.id,
           status: subscription.status,
-          currentPeriodEnd: currentPeriodEnd 
-            ? new Date(currentPeriodEnd * 1000).toISOString()
+          currentPeriodEnd: subscription.currentPeriodEnd
+            ? new Date(subscription.currentPeriodEnd).toISOString()
             : new Date().toISOString(),
-          cancelAtPeriodEnd: subscription.cancel_at_period_end,
-          customerId: profile.stripe_customer_id,
+          cancelAtPeriodEnd: subscription.cancelAtPeriodEnd || false,
+          customerId: profile.polar_customer_id,
         },
         hasSubscription: true,
       };
-    } catch (stripeError: any) {
-      console.error('Error retrieving subscription from Stripe:', stripeError);
-      return { 
-        error: stripeError.message || 'Failed to retrieve subscription', 
+    } catch (polarError: any) {
+      console.error('Error retrieving subscription from Polar:', polarError);
+      return {
+        error: polarError.message || 'Failed to retrieve subscription',
         subscription: null,
-        hasSubscription: false 
+        hasSubscription: false
       };
     }
   } catch (error: any) {
     console.error('Error getting subscription status:', error);
-    return { 
-      error: error.message || 'An error occurred', 
+    return {
+      error: error.message || 'An error occurred',
       subscription: null,
-      hasSubscription: false 
+      hasSubscription: false
     };
   }
 }
@@ -85,10 +83,10 @@ export async function cancelSubscription() {
       return { error: 'Not authenticated' };
     }
 
-    // Get user's Stripe subscription ID from database
+    // Get user's Polar subscription ID from database
     const { data: profile, error: profileError } = await supabase
       .from('users')
-      .select('stripe_subscription_id')
+      .select('polar_subscription_id')
       .eq('id', user.id)
       .single();
 
@@ -96,39 +94,32 @@ export async function cancelSubscription() {
       return { error: 'User profile not found' };
     }
 
-    if (!profile.stripe_subscription_id) {
+    if (!profile.polar_subscription_id) {
       return { error: 'No active subscription found' };
     }
 
-    // Cancel subscription in Stripe (cancel at period end)
+    // Revoke subscription in Polar (this cancels the subscription)
     try {
-      const subscription = await stripe.subscriptions.update(profile.stripe_subscription_id, {
-        cancel_at_period_end: true,
+      const subscription = await polar.subscriptions.revoke({
+        id: profile.polar_subscription_id,
       });
 
       return {
         error: null,
         success: true,
-        message: 'Subscription will be cancelled at the end of the current billing period',
-        cancelAtPeriodEnd: subscription.cancel_at_period_end,
+        message: 'Subscription has been cancelled',
+        cancelAtPeriodEnd: true, // Polar revoke cancels the subscription
       };
-    } catch (stripeError: any) {
-      console.error('Error cancelling subscription in Stripe:', stripeError);
-      return { 
-        error: stripeError.message || 'Failed to cancel subscription' 
+    } catch (polarError: any) {
+      console.error('Error revoking subscription in Polar:', polarError);
+      return {
+        error: polarError.message || 'Failed to cancel subscription'
       };
     }
   } catch (error: any) {
     console.error('Error cancelling subscription:', error);
-    return { 
-      error: error.message || 'An error occurred' 
+    return {
+      error: error.message || 'An error occurred'
     };
   }
 }
-
-
-
-
-
-
-

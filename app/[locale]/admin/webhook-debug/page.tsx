@@ -9,8 +9,9 @@ interface UserData {
   email: string;
   role: string;
   account_active_until: string | null;
-  stripe_customer_id: string | null;
-  stripe_subscription_id: string | null;
+  polar_customer_id: string | null;
+  polar_subscription_id: string | null;
+  subscription_plan_type: string | null;
   is_active: boolean | null;
   created_at: string;
   updated_at: string;
@@ -21,8 +22,9 @@ interface AnalysisResult {
   user?: UserData;
   analysis?: {
     account_status: string;
-    has_stripe_customer: boolean;
-    has_stripe_subscription: boolean;
+    has_polar_customer: boolean;
+    has_polar_subscription: boolean;
+    subscription_plan_type: string | null;
     activation_expired: string | null;
   };
   webhook_checklist?: {
@@ -49,7 +51,7 @@ export default function WebhookDebugPage() {
 
     setLoading(true);
     try {
-      const response = await fetch(`/api/webhooks/debug?email=${encodeURIComponent(email)}`);
+      const response = await fetch(`/api/admin/users?email=${encodeURIComponent(email)}`);
       const data = await response.json();
       setResult(data);
     } catch (error) {
@@ -75,7 +77,7 @@ export default function WebhookDebugPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Enter user email (e.g., customer14@gmail.com)"
+            placeholder="Enter user email (e.g., customer@example.com)"
             className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
@@ -118,12 +120,16 @@ export default function WebhookDebugPage() {
                     <p className="text-lg">{result.user.account_active_until || 'NULL'}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Stripe Customer ID</label>
-                    <p className="text-sm font-mono">{result.user.stripe_customer_id || 'NULL'}</p>
+                    <label className="text-sm font-medium text-gray-500">Subscription Plan</label>
+                    <p className="text-lg capitalize">{result.user.subscription_plan_type || 'None'}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Stripe Subscription ID</label>
-                    <p className="text-sm font-mono">{result.user.stripe_subscription_id || 'NULL'}</p>
+                    <label className="text-sm font-medium text-gray-500">Polar Customer ID</label>
+                    <p className="text-sm font-mono">{result.user.polar_customer_id || 'NULL'}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-500">Polar Subscription ID</label>
+                    <p className="text-sm font-mono">{result.user.polar_subscription_id || 'NULL'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Last Updated</label>
@@ -143,12 +149,16 @@ export default function WebhookDebugPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Has Stripe Customer:</span>
-                      <span>{result.analysis.has_stripe_customer ? '✅ Yes' : '❌ No'}</span>
+                      <span className="font-medium">Has Polar Customer:</span>
+                      <span>{result.analysis.has_polar_customer ? '✅ Yes' : '❌ No'}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Has Stripe Subscription:</span>
-                      <span>{result.analysis.has_stripe_subscription ? '✅ Yes' : '❌ No'}</span>
+                      <span className="font-medium">Has Polar Subscription:</span>
+                      <span>{result.analysis.has_polar_subscription ? '✅ Yes' : '❌ No'}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-medium">Subscription Plan:</span>
+                      <span className="capitalize">{result.analysis.subscription_plan_type || 'None'}</span>
                     </div>
                   </div>
                 </div>
@@ -184,12 +194,12 @@ export default function WebhookDebugPage() {
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <ol className="list-decimal list-inside space-y-2 text-blue-700">
                   <li>Check your terminal logs where <code className="bg-blue-100 px-1 rounded">npm run dev</code> is running</li>
-                  <li>Look for logs starting with <code className="bg-blue-100 px-1 rounded">🔔 WEBHOOK EVENT RECEIVED</code></li>
-                  <li>If no webhook logs appear, verify Stripe CLI is running:
-                    <code className="block bg-blue-100 px-2 py-1 rounded mt-1">stripe listen --forward-to localhost:3000/api/webhooks/stripe</code>
+                  <li>Look for logs starting with <code className="bg-blue-100 px-1 rounded">🔔 POLAR WEBHOOK REQUEST RECEIVED</code></li>
+                  <li>If no webhook logs appear, verify Polar tunnel is running:
+                    <code className="block bg-blue-100 px-2 py-1 rounded mt-1">npx polar tunnel --port 3000</code>
                   </li>
-                  <li>Check Stripe Dashboard → Developers → Webhooks → Events for recent <code className="bg-blue-100 px-1 rounded">checkout.session.completed</code> events</li>
-                  <li>Verify the email in Stripe matches the database email exactly (case-sensitive)</li>
+                  <li>Check Polar Dashboard → Developers → Webhooks → Events for recent subscription events</li>
+                  <li>Verify the email in Polar matches the database email exactly (case-insensitive)</li>
                 </ol>
               </div>
             </>
@@ -207,10 +217,3 @@ export default function WebhookDebugPage() {
     </div>
   );
 }
-
-
-
-
-
-
-

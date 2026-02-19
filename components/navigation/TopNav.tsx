@@ -89,12 +89,13 @@ const TopNav = ({
         )}
         {profile && (
           <>
-            <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
+            {/* Betting tips only visible for betting role or active customers */}
+            {(profile.role === 'betting' || isActiveCustomer) && (
+              <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
+            )}
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
-            {isActiveCustomer && (
-              <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
-            )}
+            <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
           </>
         )}
         {profile?.role === 'betting' && (

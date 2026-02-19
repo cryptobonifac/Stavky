@@ -8,8 +8,9 @@ interface UserLog {
   email: string;
   role: string;
   is_active: boolean;
-  has_stripe_customer: boolean;
-  has_stripe_subscription: boolean;
+  has_polar_customer: boolean;
+  has_polar_subscription: boolean;
+  subscription_plan_type: string | null;
   last_updated: string;
 }
 
@@ -36,7 +37,7 @@ export default function WebhookLogsPage() {
       // Fetch all users
       setLoading(true);
       try {
-        const response = await fetch(`/api/webhooks/logs?limit=20`);
+        const response = await fetch(`/api/admin/users?limit=20`);
         const data = await response.json();
         setLogs(data);
       } catch (error) {
@@ -51,7 +52,7 @@ export default function WebhookLogsPage() {
       // Fetch specific user
       setLoading(true);
       try {
-        const response = await fetch(`/api/webhooks/logs?email=${encodeURIComponent(email)}`);
+        const response = await fetch(`/api/admin/users?email=${encodeURIComponent(email)}`);
         const data = await response.json();
         setLogs(data);
       } catch (error) {
@@ -142,12 +143,16 @@ export default function WebhookLogsPage() {
                         </p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Stripe Customer ID</label>
-                        <p className="text-sm font-mono">{logs.user.stripe_customer_id || 'NULL'}</p>
+                        <label className="text-sm font-medium text-gray-500">Subscription Plan</label>
+                        <p className="text-lg capitalize">{logs.user.subscription_plan_type || 'None'}</p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Stripe Subscription ID</label>
-                        <p className="text-sm font-mono">{logs.user.stripe_subscription_id || 'NULL'}</p>
+                        <label className="text-sm font-medium text-gray-500">Polar Customer ID</label>
+                        <p className="text-sm font-mono">{logs.user.polar_customer_id || 'NULL'}</p>
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-gray-500">Polar Subscription ID</label>
+                        <p className="text-sm font-mono">{logs.user.polar_subscription_id || 'NULL'}</p>
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-500">Last Updated</label>
@@ -166,8 +171,8 @@ export default function WebhookLogsPage() {
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="font-medium">Has Stripe Customer:</span>
-                          <span>{logs.analysis.has_stripe_customer ? '✅ Yes' : '❌ No'}</span>
+                          <span className="font-medium">Has Polar Customer:</span>
+                          <span>{logs.analysis.has_polar_customer ? '✅ Yes' : '❌ No'}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-medium">Days Since Last Update:</span>
@@ -204,8 +209,9 @@ export default function WebhookLogsPage() {
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stripe Customer</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Stripe Subscription</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Plan</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Polar Customer</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Polar Subscription</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Updated</th>
                         </tr>
                       </thead>
@@ -219,11 +225,14 @@ export default function WebhookLogsPage() {
                                 {user.is_active ? '✅ ACTIVE' : '❌ INACTIVE'}
                               </span>
                             </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm">
-                              {user.has_stripe_customer ? '✅ Yes' : '❌ No'}
+                            <td className="px-6 py-4 whitespace-nowrap text-sm capitalize">
+                              {user.subscription_plan_type || '-'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
-                              {user.has_stripe_subscription ? '✅ Yes' : '❌ No'}
+                              {user.has_polar_customer ? '✅ Yes' : '❌ No'}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                              {user.has_polar_subscription ? '✅ Yes' : '❌ No'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                               {new Date(user.last_updated).toLocaleString()}
@@ -246,8 +255,8 @@ export default function WebhookLogsPage() {
 
       <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="space-y-2 text-blue-700">
-          <p><strong>✅ ACTIVE + Has Stripe Customer:</strong> Webhook processed successfully</p>
-          <p><strong>❌ INACTIVE + No Stripe Customer:</strong> Webhook likely not processed</p>
+          <p><strong>✅ ACTIVE + Has Polar Customer:</strong> Webhook processed successfully</p>
+          <p><strong>❌ INACTIVE + No Polar Customer:</strong> Webhook likely not processed</p>
           <p><strong>⚠️ Check Last Updated:</strong> If old, webhook may not have fired recently</p>
           <p><strong>💡 Tip:</strong> Use auto-refresh to monitor real-time changes after payments</p>
         </div>
@@ -256,10 +265,3 @@ export default function WebhookLogsPage() {
     </div>
   );
 }
-
-
-
-
-
-
-

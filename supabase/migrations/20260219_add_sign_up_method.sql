@@ -35,8 +35,10 @@ BEGIN
   -- Get the provider from raw_app_meta_data
   provider_value := COALESCE(new.raw_app_meta_data->>'provider', 'email');
 
+  -- New customers start with account_active_until = null (no subscription)
+  -- Account is only activated after successful payment via Polar webhook
   INSERT INTO public.users (id, email, role, account_active_until, sign_up_method)
-  VALUES (new.id, new.email, 'customer', '2099-12-31 23:59:59+00'::timestamptz, provider_value)
+  VALUES (new.id, new.email, 'customer', null, provider_value)
   ON CONFLICT (id) DO UPDATE SET
     sign_up_method = COALESCE(EXCLUDED.sign_up_method, public.users.sign_up_method);
   RETURN new;

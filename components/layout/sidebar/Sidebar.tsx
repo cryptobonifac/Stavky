@@ -15,9 +15,12 @@ import SidebarItem from './SidebarItem'
 type SidebarProps = {
   role?: 'betting' | 'customer' | null
   isActiveCustomer?: boolean
+  isLoggedIn?: boolean
 }
 
-const Sidebar = ({ role, isActiveCustomer = false }: SidebarProps) => {
+const Sidebar = ({ role, isActiveCustomer = false, isLoggedIn = false }: SidebarProps) => {
+  // Show menu items for logged-in users (even if role is not yet set)
+  const showUserMenu = isLoggedIn || !!role
   const t = useTranslations('navigation')
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
   // In a real app we might control mobile drawer state here
@@ -28,14 +31,15 @@ const Sidebar = ({ role, isActiveCustomer = false }: SidebarProps) => {
         Stavky
       </Typography>
       <List>
-        {role && (
+        {showUserMenu && (
           <>
-            <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />
+            {/* Betting tips only visible for betting role or active customers */}
+            {(role === 'betting' || isActiveCustomer) && (
+              <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettingTips')} />
+            )}
             <SidebarItem href="/statistics" icon={<TimelineIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
-            {role === 'customer' && isActiveCustomer && (
-              <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
-            )}
+            <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
           </>
         )}
 

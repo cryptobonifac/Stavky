@@ -1,4 +1,3 @@
-import { getTranslations, getLocale } from 'next-intl/server'
 import { redirect } from '@/i18n/routing'
 
 import MainLayout from '@/components/layout/MainLayout'
@@ -7,9 +6,7 @@ import ActiveTipsList, {
   type TipRecord,
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
-import SubscribeButton from '@/components/bettings/SubscribeButton'
 import ProfileRefresher from '@/components/bettings/ProfileRefresher'
-import { Alert, Box, Typography, Stack, Button } from '@mui/material'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -51,28 +48,31 @@ export default async function BettingTipsPage({
     isBettingAdmin ||
     (profile ? isAccountActive(profile.account_active_until) : false)
 
+  // Redirect non-active customers to subscription page
+  if (!activeAccount) {
+    redirect({ href: '/subscription', locale })
+  }
+
   const now = new Date().toISOString()
-  const { data: tips } = activeAccount
-    ? await supabase
-        .from('betting_tip')
-        .select(
-          `
-            id,
-            sport,
-            league,
-            match,
-            odds,
-            status,
-            match_date,
-            created_at,
-            stake,
-            total_win,
-            betting_companies:betting_company_id ( name )
-          `
-        )
-        .eq('status', 'pending')
-        .order('match_date', { ascending: false })
-    : { data: [] }
+  const { data: tips } = await supabase
+    .from('betting_tip')
+    .select(
+      `
+        id,
+        sport,
+        league,
+        match,
+        odds,
+        status,
+        match_date,
+        created_at,
+        stake,
+        total_win,
+        betting_companies:betting_company_id ( name )
+      `
+    )
+    .eq('status', 'pending')
+    .order('match_date', { ascending: false })
 
   const normalizedTips: TipRecord[] = ((tips ?? []) as any[])
     .map((tip) => {
@@ -105,19 +105,6 @@ export default async function BettingTipsPage({
       return tip.match_date ? new Date(tip.match_date) >= new Date(now) : false
     })
 
-  // Load translations explicitly with locale to ensure correct language
-  const messages = (await import(`../../../messages/${locale}.json`)).default
-  const bettingsMessages = messages.bettings as Record<string, string>
-  const contactMessages = messages.contact as Record<string, string>
-  const t = (key: string): string => {
-    return bettingsMessages[key] || key
-  }
-  const tContact = (key: string): string => {
-    return contactMessages[key] || key
-  }
-  // Check if user is inactive customer (not betting admin and account not active)
-  const isInactiveCustomer = profile?.role === 'customer' && !activeAccount
-
   return (
     <MainLayout>
       <ProfileRefresher />
@@ -126,39 +113,7 @@ export default async function BettingTipsPage({
         canAccessSettings={profile?.role === 'betting'}
       />
       <PageSection>
-        {activeAccount ? (
-          <ActiveTipsList tips={normalizedTips} />
-        ) : (
-          <Stack spacing={3}>
-            <Alert severity="info">
-              {t('accountNotActive')}
-            </Alert>
-            {isInactiveCustomer && (
-              <>
-                <SubscribeButton
-                  locale={locale}
-                  title={tContact('bettingPageTitle')}
-                  description={tContact('bettingPageDescription')}
-                />
-                <Box sx={{ mt: 3 }}>
-                  <Typography variant="h6" fontWeight="bold" gutterBottom>
-                    {t('statistics') || 'Statistics'}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                    {t('viewStatisticsDescription') || 'View your betting statistics and past tips.'}
-                  </Typography>
-                  <Button
-                    variant="outlined"
-                    href={`/${locale}/statistics`}
-                    sx={{ mt: 1 }}
-                  >
-                    {t('viewStatistics') || 'View Statistics'}
-                  </Button>
-                </Box>
-              </>
-            )}
-          </Stack>
-        )}
+        <ActiveTipsList tips={normalizedTips} />
       </PageSection>
     </MainLayout>
   )

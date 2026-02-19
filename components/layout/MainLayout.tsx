@@ -26,7 +26,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
   return (
     <Stack direction="row" sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
       {/* Sidebar visible on desktop */}
-      <Sidebar role={profile?.role} isActiveCustomer={isActiveCustomer} />
+      <Sidebar role={profile?.role} isActiveCustomer={isActiveCustomer} isLoggedIn={!!user} />
 
       {/* Main Content Area */}
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>

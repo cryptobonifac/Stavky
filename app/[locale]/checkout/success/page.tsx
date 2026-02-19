@@ -18,14 +18,14 @@ import { isAccountActive } from '@/lib/utils/account';
 function CheckoutSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const checkoutId = searchParams.get('checkout_id');
   const { refreshProfile, profile } = useAuth();
   const [loading, setLoading] = useState(true);
   const [countdown, setCountdown] = useState(3);
   const [accountActivated, setAccountActivated] = useState(false);
 
   useEffect(() => {
-    if (sessionId) {
+    if (checkoutId) {
       // Refresh profile immediately to get updated account status
       refreshProfile();
 
@@ -37,11 +37,11 @@ function CheckoutSuccessContent() {
       // Poll for account activation (webhook might be delayed)
       let pollCount = 0;
       const maxPolls = 15; // Poll for up to 30 seconds (15 * 2 seconds)
-      
+
       const pollInterval = setInterval(async () => {
         pollCount++;
         await refreshProfile();
-        
+
         if (pollCount >= maxPolls) {
           // Stop polling after max attempts
           clearInterval(pollInterval);
@@ -67,7 +67,7 @@ function CheckoutSuccessContent() {
     } else {
       setLoading(false);
     }
-  }, [sessionId, refreshProfile]);
+  }, [checkoutId, refreshProfile]);
 
   // Check if account is activated when profile updates
   useEffect(() => {
@@ -78,7 +78,7 @@ function CheckoutSuccessContent() {
 
   // Separate effect for redirect to avoid React state update during render
   useEffect(() => {
-    if (sessionId && countdown === 0) {
+    if (checkoutId && countdown === 0) {
       // Refresh profile one more time before redirecting
       refreshProfile().then(() => {
         // Use setTimeout to ensure redirect happens after state update is complete
@@ -87,7 +87,7 @@ function CheckoutSuccessContent() {
         }, 100); // Small delay to ensure profile refresh completes
       });
     }
-  }, [sessionId, countdown, router, refreshProfile]);
+  }, [checkoutId, countdown, router, refreshProfile]);
 
   if (loading) {
     return (
@@ -125,7 +125,7 @@ function CheckoutSuccessContent() {
           Thank you for your purchase. Your payment has been processed successfully.
         </Typography>
 
-        {sessionId && (
+        {checkoutId && (
           <Box
             sx={{
               bgcolor: 'grey.100',
@@ -135,10 +135,10 @@ function CheckoutSuccessContent() {
             }}
           >
             <Typography variant="caption" color="text.secondary">
-              Session ID
+              Checkout ID
             </Typography>
             <Typography variant="body2" sx={{ wordBreak: 'break-all' }}>
-              {sessionId}
+              {checkoutId}
             </Typography>
           </Box>
         )}
@@ -147,7 +147,7 @@ function CheckoutSuccessContent() {
           You will receive a confirmation email shortly.
         </Typography>
 
-        {sessionId && countdown > 0 && (
+        {checkoutId && countdown > 0 && (
           <Typography variant="body2" color="primary" sx={{ mb: 2 }}>
             Redirecting to bettings page in {countdown} second{countdown !== 1 ? 's' : ''}...
           </Typography>
@@ -191,11 +191,3 @@ export default function CheckoutSuccessPage() {
     </Suspense>
   );
 }
-
-
-
-
-
-
-
-

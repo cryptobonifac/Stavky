@@ -1,44 +1,41 @@
-// Quick script to verify environment variables are set
+// Quick script to verify Polar environment variables are set
 // Run with: node scripts/check-env-vars.js
 
 require('dotenv').config({ path: '.env.local' });
 
 const requiredVars = [
-  'NEXT_PUBLIC_ONE_TIME_PRICE_ID',
-  'NEXT_PUBLIC_SUBSCRIPTION_PRICE_ID',
+  'POLAR_ACCESS_TOKEN',
+  'POLAR_ORGANIZATION_ID',
+  'POLAR_WEBHOOK_SECRET',
+  'POLAR_MONTHLY_PRODUCT_ID',
+  'POLAR_YEARLY_PRODUCT_ID',
+  'POLAR_ENVIRONMENT',
 ];
 
-console.log('\n🔍 Checking Stripe Price ID Environment Variables...\n');
+console.log('\n🔍 Checking Polar Environment Variables...\n');
 
 let allSet = true;
 
 requiredVars.forEach((varName) => {
   const value = process.env[varName];
-  if (value) {
-    const isValid = value.startsWith('price_') && value.length > 10;
+  if (value && value !== `your_${varName.toLowerCase().replace('polar_', '')}`) {
+    const displayValue = varName.includes('SECRET') || varName.includes('TOKEN')
+      ? `${value.substring(0, 8)}...${value.substring(value.length - 4)}`
+      : value;
     console.log(`✅ ${varName}`);
-    console.log(`   Value: ${value.substring(0, 15)}...`);
-    console.log(`   Valid: ${isValid ? '✅ Yes' : '❌ No (must start with "price_")'}`);
-    if (!isValid) allSet = false;
+    console.log(`   Value: ${displayValue}`);
   } else {
-    console.log(`❌ ${varName} - NOT SET`);
+    console.log(`❌ ${varName} - NOT SET or placeholder value`);
     allSet = false;
   }
   console.log('');
 });
 
 if (allSet) {
-  console.log('✅ All environment variables are set correctly!');
+  console.log('✅ All Polar environment variables are set!');
   console.log('💡 Remember to restart your dev server: npm run dev\n');
 } else {
-  console.log('❌ Some environment variables are missing or invalid.');
-  console.log('💡 Add them to your .env.local file in the project root.\n');
+  console.log('❌ Some environment variables are missing or still have placeholder values.');
+  console.log('💡 Update them in your .env.local file with values from Polar dashboard.');
+  console.log('   https://polar.sh/dashboard\n');
 }
-
-
-
-
-
-
-
-

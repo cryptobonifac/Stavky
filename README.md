@@ -57,62 +57,61 @@ npm run db:local
 npm run dev
 ```
 
-   **For Stripe webhook testing**, use one of these commands instead:
-   
-   **Test Mode (regular):**
+## Local Polar Webhook Testing
+
+This project uses [Polar](https://polar.sh) for subscription payments. To test webhooks locally, you need to expose your local server to the internet.
+
+### Setup Steps
+
+1. **Start the Next.js dev server:**
    ```bash
-   npm run dev:with-webhooks
+   npm run dev
    ```
-   
-   **Sandbox Mode (if using Stripe Sandbox):**
+
+2. **In a separate terminal, start localtunnel:**
    ```bash
-   # 1. Get your sandbox API key from Stripe Dashboard:
-   #    - Go to Stripe Dashboard → Switch to your sandbox (top-right dropdown)
-   #    - Go to Developers → API keys
-   #    - Copy the Secret key (starts with sk_test_)
-   
-   # 2. Add to .env.local:
-   STRIPE_SANDBOX_API_KEY=sk_test_...
-   
-   # 3. Run the script (it will automatically use the sandbox API key):
-   node scripts/start-dev-with-webhooks.js
+   npx localtunnel --port 3000
    ```
-   
-   These commands will:
-   - Start the Next.js dev server
-   - Forward Stripe webhooks to your local endpoint
-   - Display both outputs with color-coded prefixes (NEXT in blue, STRIPE in green)
-   
-   **Important Stripe Webhook Setup:**
 
-   1. **Authenticate with Stripe CLI first:**
-      ```bash
-      stripe login
-      ```
+   This will output a public URL like:
+   ```
+   your url is: https://random-name.loca.lt
+   ```
 
-   2. **Start the dev server with webhooks:**
-      ```bash
-      npm run dev:with-webhooks
-      ```
+3. **Configure webhook in Polar Dashboard:**
+   - Go to [Polar Dashboard](https://polar.sh) → Settings → Webhooks
+   - Add a new webhook with URL: `https://random-name.loca.lt/api/webhooks/polar`
+   - Select the events you want to receive:
+     - `subscription.created`
+     - `subscription.updated`
+     - `subscription.canceled`
+     - `checkout.created`
+     - `checkout.updated`
 
-   3. **Copy the webhook secret from the STRIPE output** (starts with `whsec_`):
-      ```
-      [STRIPE] > Ready! Your webhook signing secret is whsec_xxxxx...
-      ```
+4. **Copy the webhook secret from Polar** and add it to `.env.local`:
+   ```env
+   POLAR_WEBHOOK_SECRET=your-webhook-secret
+   ```
 
-   4. **Add it to `.env.local`:**
-      ```env
-      STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxx
-      ```
+5. **First visit to localtunnel URL:**
+   - When you first visit the localtunnel URL in a browser, you may need to click through a confirmation page
+   - This is a one-time step per tunnel session
 
-   5. **Restart the dev server** to load the new environment variable:
-      ```bash
-      # Press Ctrl+C to stop, then run again:
-      npm run dev:with-webhooks
-      ```
+### Important Notes
 
-   **Troubleshooting:** If webhooks aren't working, see [STRIPE_WEBHOOK_DEBUG.md](./docs/STRIPE_WEBHOOK_DEBUG.md) for detailed debugging steps.
+- The localtunnel URL changes each time you restart it
+- You'll need to update the webhook URL in Polar Dashboard when it changes
+- For persistent URLs, consider using [ngrok](https://ngrok.com) with a free account
+- The tunnel must stay running while testing webhooks
+
+### Alternative: Using ngrok
+
+If you prefer ngrok (offers stable URLs with free account):
+```bash
+npx ngrok http 3000
 ```
+
+Then use the provided `https://*.ngrok.io` URL in your Polar webhook configuration.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -155,6 +154,7 @@ Then rerun `npm run db:push` with `SUPABASE_DB_PASSWORD` exported in your shell.
 - **Styling**: Tailwind CSS
 - **Linting**: ESLint + Prettier
 - **Database**: Supabase (PostgreSQL)
+- **Payments**: Polar
 - **Deployment**: Vercel
 - **Auth Providers**: Supabase Auth (Email/Password, Google OAuth)
 
