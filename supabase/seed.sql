@@ -6,10 +6,8 @@
 DO $$
 BEGIN
   INSERT INTO public.betting_companies (name)
-  SELECT name FROM (VALUES 
-    ('tipsport'), 
-    ('bet365'), 
-    ('nike')
+  SELECT name FROM (VALUES
+    ('bet365')
   ) AS v(name)
   WHERE NOT EXISTS (
     SELECT 1 FROM public.betting_companies WHERE LOWER(public.betting_companies.name) = LOWER(v.name)
@@ -91,10 +89,10 @@ BEGIN
   END IF;
 
   -- Row 2 (november): SR R. Šramková - A. L. Nita
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -149,10 +147,10 @@ BEGIN
   END IF;
 
   -- Row 3 (november): Most - Michalovce
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -323,10 +321,10 @@ BEGIN
   END IF;
 
   -- Row 6 (november): Poruba - Slavia
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -439,10 +437,10 @@ BEGIN
   END IF;
 
   -- Row 8 (november): Masters Alcaraz - Fritz
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -671,10 +669,10 @@ BEGIN
   END IF;
 
   -- Row 12 (november): Moldavsko - Taliansko
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -787,10 +785,10 @@ BEGIN
   END IF;
 
   -- Row 14 (november): Capogroso/Capogroso - Mondlane/Mungoi
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -845,10 +843,10 @@ BEGIN
   END IF;
 
   -- Row 15 (november): Sanok - Jastrzbie
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -903,10 +901,10 @@ BEGIN
   END IF;
 
   -- Row 16 (november): Plzen - Usti
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -961,10 +959,10 @@ BEGIN
   END IF;
 
   -- Row 17 (november): Sinner - DeMinaur
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1019,10 +1017,10 @@ BEGIN
   END IF;
 
   -- Row 18 (november): Metz - DVSC
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1077,10 +1075,10 @@ BEGIN
   END IF;
 
   -- Row 19 (november): Vyskov - Chrudim
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -1135,10 +1133,10 @@ BEGIN
   END IF;
 
   -- Row 20 (november): Dansko - Bielorusko
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1193,10 +1191,10 @@ BEGIN
   END IF;
 
   -- Row 21 (november): Sinner - Alcaraz
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1599,10 +1597,10 @@ BEGIN
   END IF;
 
   -- Row 28 (november): Torun - Sanok
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1657,10 +1655,10 @@ BEGIN
   END IF;
 
   -- Row 29 (november): Plzeň - Brno
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -1773,10 +1771,10 @@ BEGIN
   END IF;
 
   -- Row 31 (november): Legionowo - Kielce
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -2353,10 +2351,10 @@ BEGIN
   END IF;
 
   -- Row 41 (december): Chrudim-Chomutov
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -2527,10 +2525,10 @@ BEGIN
   END IF;
 
   -- Row 44 (december): Sanok-Katowice
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('2');
@@ -2701,10 +2699,10 @@ BEGIN
   END IF;
 
   -- Row 47 (december): Asher-Kiryat
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3049,10 +3047,10 @@ BEGIN
   END IF;
 
   -- Row 53 (december): Kucmova-Wirglerova
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3340,10 +3338,10 @@ BEGIN
 
 
   -- Row 58 (2025-12-19): Wassermann-Malis
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3456,10 +3454,10 @@ BEGIN
   END IF;
 
   -- Row 60 (2025-11-11): Masters Alcaraz - Fritz
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3804,10 +3802,10 @@ BEGIN
   END IF;
 
   -- Row 66 (2025-12-18): Punks-Zemgale
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3862,10 +3860,10 @@ BEGIN
   END IF;
 
   -- Row 67 (2025-11-14): Sanok - Jastrzbie
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -3920,10 +3918,10 @@ BEGIN
   END IF;
 
   -- Row 68 (2025-11-15): Dansko - Bielorusko
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4094,10 +4092,10 @@ BEGIN
   END IF;
 
   -- Row 71 (2025-11-14): Plzen - Usti
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4268,10 +4266,10 @@ BEGIN
   END IF;
 
   -- Row 74 (2025-11-05): Most - Michalovce
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4558,10 +4556,10 @@ BEGIN
   END IF;
 
   -- Row 79 (2025-12-03): Azman-Orfi
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4790,10 +4788,10 @@ BEGIN
   END IF;
 
   -- Row 83 (2025-11-15): Vyskov - Chrudim
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4906,10 +4904,10 @@ BEGIN
   END IF;
 
   -- Row 85 (2025-11-21): Plzeň - Brno
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -4964,10 +4962,10 @@ BEGIN
   END IF;
 
   -- Row 86 (2025-12-27): Shandong-Fujian
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5022,10 +5020,10 @@ BEGIN
   END IF;
 
   -- Row 87 (2025-11-16): Sinner - Alcaraz
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5138,10 +5136,10 @@ BEGIN
   END IF;
 
   -- Row 89 (2025-11-21): Torun - Sanok
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5312,10 +5310,10 @@ BEGIN
   END IF;
 
   -- Row 92 (2025-12-05): Chrudim-Chomutov
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5370,10 +5368,10 @@ BEGIN
   END IF;
 
   -- Row 93 (2025-11-23): Legionowo - Kielce
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5544,10 +5542,10 @@ BEGIN
   END IF;
 
   -- Row 96 (2025-11-04): SR R. Šramková - A. L. Nita
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5776,10 +5774,10 @@ BEGIN
   END IF;
 
   -- Row 100 (2025-11-14): Capogroso/Capogroso - Mondlane/Mungoi
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -5892,10 +5890,10 @@ BEGIN
   END IF;
 
   -- Row 102 (2025-12-07): Sanok-Katowice
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -6298,10 +6296,10 @@ BEGIN
   END IF;
 
   -- Row 109 (2025-11-15): Sinner - DeMinaur
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -6356,10 +6354,10 @@ BEGIN
   END IF;
 
   -- Row 110 (2025-12-25): Dinamo-CSM
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -6414,10 +6412,10 @@ BEGIN
   END IF;
 
   -- Row 111 (2025-11-09): Poruba - Slavia
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -6588,10 +6586,10 @@ BEGIN
   END IF;
 
   -- Row 114 (2025-12-12): Kucmova-Wirglerova
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -6762,10 +6760,10 @@ BEGIN
   END IF;
 
   -- Row 117 (2025-11-13): Moldavsko - Taliansko
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -7110,10 +7108,10 @@ BEGIN
   END IF;
 
   -- Row 123 (2025-11-15): Metz - DVSC
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'tipsport';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'tipsport';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -7284,10 +7282,10 @@ BEGIN
   END IF;
 
   -- Row 126 (2025-12-09): Mate Asher-Kiryat
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');
@@ -7342,10 +7340,10 @@ BEGIN
   END IF;
 
   -- Row 127 (2025-11-15): Dánsko-Bielorusko
-  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'nike';
+  SELECT id INTO company_id FROM public.betting_companies WHERE LOWER(name) = 'bet365';
   
   IF company_id IS NULL THEN
-    RAISE EXCEPTION 'Company not found: %', 'nike';
+    RAISE EXCEPTION 'Company not found: %', 'bet365';
   END IF;
   
   SELECT id INTO result_id_var FROM public.results WHERE LOWER(name) = LOWER('1');

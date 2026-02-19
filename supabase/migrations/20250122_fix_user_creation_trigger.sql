@@ -76,3 +76,7 @@ grant execute on function public.is_betting_account_email(text) to postgres, ano
 
 
 
+
+
+
+

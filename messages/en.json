@@ -479,6 +479,9 @@
     "title": "Customers",
     "dateOfRegistration": "Date of Registration",
     "email": "Email",
+    "signUpMethod": "Sign Up",
+    "google": "Google",
+    "emailMethod": "Email",
     "status": "Status",
     "validTo": "Valid To",
     "planType": "Plan Type",
@@ -561,7 +564,7 @@
     "subtitle": "Your gateway to data-driven sports betting success",
     "about": {
       "title": "About Our Service",
-      "description": "Our platform provides expert betting guidance by analyzing matches across leading bookmakers including bet365, Niké, and Tipsport. Each tip undergoes thorough analysis to maximize your winning potential. By comparing odds across multiple betting platforms, you can achieve even higher returns on your investments."
+      "description": "Our platform provides expert betting guidance by analyzing matches at bet365. Each tip undergoes thorough analysis to maximize your winning potential."
     },
     "howItWorks": {
       "title": "How It Works",
@@ -571,7 +574,7 @@
       },
       "step2": {
         "title": "Compare Odds",
-        "description": "We compare odds across bet365, Niké, and Tipsport to find the best value bets."
+        "description": "We analyze odds at bet365 to find the best value bets."
       },
       "step3": {
         "title": "Stake Management",

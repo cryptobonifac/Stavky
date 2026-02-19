@@ -18,6 +18,7 @@ type CustomerData = {
   valid_to: string | null
   status: 'active' | 'inactive'
   subscription_plan_type: 'monthly' | 'yearly' | 'one-time' | null
+  sign_up_method: 'email' | 'google' | string | null
 }
 
 type CustomersListProps = {
@@ -81,7 +82,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
           <Box
             sx={{
               display: { xs: 'none', md: 'grid' },
-              gridTemplateColumns: '120px 1fr 100px 120px 120px',
+              gridTemplateColumns: '120px 1fr 100px 100px 120px 120px',
               gap: 2,
               p: 2,
               borderBottom: '1px solid #f0f0f0',
@@ -110,6 +111,18 @@ const CustomersList = ({ customers }: CustomersListProps) => {
               }}
             >
               {t('email')}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '0.8rem',
+                color: '#666',
+                fontWeight: 500,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                textAlign: 'center',
+              }}
+            >
+              {t('signUpMethod')}
             </Typography>
             <Typography
               sx={{
@@ -166,7 +179,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                     display: 'grid',
                     gridTemplateColumns: {
                       xs: '1fr',
-                      md: '120px 1fr 100px 120px 120px',
+                      md: '120px 1fr 100px 100px 120px 120px',
                     },
                     gap: { xs: 0.5, md: 2 },
                     p: { xs: '0.75rem', md: '0.56rem' },
@@ -221,6 +234,29 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                       }}
                     >
                       {customer.email}
+                    </Typography>
+                  </Box>
+
+                  {/* Sign Up Method */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: { xs: 'flex-start', md: 'center' },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { xs: '0.75rem', md: '0.85rem' },
+                        fontWeight: 500,
+                        color: customer.sign_up_method === 'google' ? '#4285F4' : '#666',
+                      }}
+                    >
+                      {customer.sign_up_method === 'google'
+                        ? t('google')
+                        : customer.sign_up_method === 'email'
+                        ? t('emailMethod')
+                        : customer.sign_up_method || '-'}
                     </Typography>
                   </Box>
 
@@ -334,6 +370,10 @@ const CustomersList = ({ customers }: CustomersListProps) => {
 }
 
 export default CustomersList
+
+
+
+
 
 
 

@@ -479,6 +479,9 @@
     "title": "Zákazníci",
     "dateOfRegistration": "Dátum registrácie",
     "email": "Email",
+    "signUpMethod": "Registrácia",
+    "google": "Google",
+    "emailMethod": "Email",
     "status": "Status",
     "validTo": "Platné do",
     "planType": "Typ plánu",
@@ -561,7 +564,7 @@
     "subtitle": "Vaša cesta k úspechu v stávkovaní založenom na dátach",
     "about": {
       "title": "O našej službe",
-      "description": "Naša platforma poskytuje odborné pokyny pre stávkovanie analýzou zápasov naprieč popredným stávkovými kanceláriami vrátane bet365, Niké a Tipsport. Každý tip prechádza dôkladnou analýzou pre maximalizáciu vášho výherného potenciálu. Porovnávaním kurzov naprieč viacerými stávkovými platformami môžete dosiahnuť ešte vyššie výnosy z vašich investícií."
+      "description": "Naša platforma poskytuje odborné pokyny pre stávkovanie analýzou zápasov u bet365. Každý tip prechádza dôkladnou analýzou pre maximalizáciu vášho výherného potenciálu."
     },
     "howItWorks": {
       "title": "Ako to funguje",
@@ -571,7 +574,7 @@
       },
       "step2": {
         "title": "Porovnanie kurzov",
-        "description": "Porovnávame kurzy naprieč bet365, Niké a Tipsport pre nájdenie najlepších hodnotových stávok."
+        "description": "Analyzujeme kurzy u bet365 pre nájdenie najlepších hodnotových stávok."
       },
       "step3": {
         "title": "Správa vkladu",

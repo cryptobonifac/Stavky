@@ -8,7 +8,7 @@ declare
   inserted_count integer;
 begin
   insert into public.betting_companies (name)
-  select name from (values ('Bet365'), ('Tipsport'), ('Fortuna'), ('Nike')) as v(name)
+  select name from (values ('Bet365')) as v(name)
   where not exists (select 1 from public.betting_companies where public.betting_companies.name = v.name);
   
   get diagnostics inserted_count = row_count;

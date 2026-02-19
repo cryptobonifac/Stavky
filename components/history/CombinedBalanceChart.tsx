@@ -29,8 +29,6 @@ type CombinedBalanceChartProps = {
 // Company colors matching existing design
 const COMPANY_COLORS: Record<string, string> = {
   bet365: '#0369a1',
-  nike: '#92400e',
-  tipsport: '#6b21a8',
   combined: '#16a34a',
   default: '#374151',
 }
@@ -38,8 +36,6 @@ const COMPANY_COLORS: Record<string, string> = {
 const getCompanyColor = (companyName: string): string => {
   const normalized = companyName.toLowerCase()
   if (normalized.includes('bet365')) return COMPANY_COLORS.bet365
-  if (normalized.includes('nike')) return COMPANY_COLORS.nike
-  if (normalized.includes('tipsport')) return COMPANY_COLORS.tipsport
   return COMPANY_COLORS.default
 }
 

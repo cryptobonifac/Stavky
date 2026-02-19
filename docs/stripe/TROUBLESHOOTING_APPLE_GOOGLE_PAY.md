@@ -164,3 +164,7 @@ node tmp/verify-stripe-config.js
 - [Stripe Payment Methods Settings](https://dashboard.stripe.com/settings/payment_methods)
 - [Stripe Testing Guide](https://stripe.com/docs/testing)
 
+
+
+
+

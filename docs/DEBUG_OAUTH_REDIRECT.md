@@ -131,3 +131,7 @@ This would catch the wrong redirect and fix it.
 4. **Share the logs** so we can see what's actually being sent
 5. If logs show correct URL but Supabase still redirects wrong, it's a Supabase configuration or bug issue
 
+
+
+
+

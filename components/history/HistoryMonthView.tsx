@@ -64,18 +64,6 @@ const getCompanyChipStyles = (companyName: string) => {
       color: '#0369a1',
       border: '1px solid #bae6fd',
     }
-  } else if (normalized.includes('nike')) {
-    return {
-      background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
-      color: '#92400e',
-      border: '1px solid #fcd34d',
-    }
-  } else if (normalized.includes('tipsport')) {
-    return {
-      background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
-      color: '#6b21a8',
-      border: '1px solid #c4b5fd',
-    }
   }
   // Default fallback
   return {

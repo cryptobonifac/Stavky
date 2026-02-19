@@ -86,3 +86,7 @@ The checkout sessions have been configured with:
 - [Stripe Google Pay Documentation](https://docs.stripe.com/google-pay)
 - [Stripe Payment Methods Settings](https://dashboard.stripe.com/settings/payment_methods)
 
+
+
+
+

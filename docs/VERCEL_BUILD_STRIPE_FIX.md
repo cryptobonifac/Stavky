@@ -120,3 +120,7 @@ export const stripe = new Proxy({} as Stripe, {
 - `app/api/subscription/cancel/route.ts` - Route that was failing during build
 - `app/checkout/actions.ts` - Uses Stripe for checkout sessions
 
+
+
+
+

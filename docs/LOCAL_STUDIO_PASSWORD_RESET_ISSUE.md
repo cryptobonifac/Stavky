@@ -68,3 +68,7 @@ If you can connect, everything is working correctly!
 - [Supabase Troubleshooting Guide](./SUPABASE_TROUBLESHOOTING.md)
 - [Local Supabase Start Guide](./LOCAL_SUPABASE_START_GUIDE.md)
 
+
+
+
+

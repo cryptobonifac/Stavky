@@ -8,7 +8,7 @@ export async function GET() {
 
     try {
         // Betting Companies
-        const companies = ['Bet365', 'Tipsport', 'Fortuna', 'Nike']
+        const companies = ['Bet365']
         let companiesInserted = 0
 
         const { count: startCompanies } = await supabase.from('betting_companies').select('*', { count: 'exact', head: true })

@@ -20,6 +20,7 @@ type CustomerData = {
   valid_to: string | null
   status: 'active' | 'inactive'
   subscription_plan_type: 'monthly' | 'yearly' | 'one-time' | null
+  sign_up_method: 'email' | 'google' | string | null
 }
 
 export default async function CustomersPage() {
@@ -54,7 +55,7 @@ export default async function CustomersPage() {
   // Fetch all customers
   const { data: customers, error: customersError } = await supabase
     .from('users')
-    .select('id, email, created_at, account_active_until, role, subscription_plan_type')
+    .select('id, email, created_at, account_active_until, role, subscription_plan_type, sign_up_method')
     .eq('role', 'customer')
     .order('created_at', { ascending: false })
 
@@ -120,6 +121,7 @@ export default async function CustomersPage() {
       valid_to: latestValidTo,
       status: isActive ? 'active' : 'inactive',
       subscription_plan_type: customer.subscription_plan_type,
+      sign_up_method: customer.sign_up_method || 'email',
     }
   })
 
@@ -134,6 +136,10 @@ export default async function CustomersPage() {
     </MainLayout>
   )
 }
+
+
+
+
 
 
 

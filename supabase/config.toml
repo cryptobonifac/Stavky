@@ -286,11 +286,11 @@ content_path = "./supabase/templates/reset_password.html"
 
 [auth.external.google]
 enabled = true
-# For local development - these values are safe to commit as they only work with localhost/127.0.0.1
-client_id = "161230976386-q99dtviv09l0v7sadohcb5rjr13bkbpg.apps.googleusercontent.com"
-secret = "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"
-# Overrides the default auth redirectUrl. For local development this is always the same.
-redirect_uri = "http://localhost:54321/auth/v1/callback"
+# Google OAuth credentials - stored in .env file for security
+client_id = "env(GOOGLE_CLIENT_ID)"
+secret = "env(GOOGLE_CLIENT_SECRET)"
+# Overrides the default auth redirectUrl
+redirect_uri = "env(GOOGLE_REDIRECT_URL)"
 # Overrides the default auth provider URL. Used to support self-hosted gitlab, single-tenant Azure,
 # or any other third-party OIDC providers.
 url = ""

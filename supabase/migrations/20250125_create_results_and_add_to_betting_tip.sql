@@ -63,3 +63,7 @@ CREATE INDEX IF NOT EXISTS betting_tip_result_id_idx ON public.betting_tip(resul
 
 
 
+
+
+
+
