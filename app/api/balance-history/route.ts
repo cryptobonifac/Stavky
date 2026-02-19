@@ -27,8 +27,8 @@ export async function GET() {
 
     // Allow all logged-in users to access balance history
 
-    // Fetch all betting tips with stake data (including pending)
-    // Pending bets are included because the stake is immediately deducted from balance
+    // Fetch all betting tips with stake data
+    // Note: Pending tips are fetched but filtered out during processing - they don't affect balance until evaluated
     const { data: tips, error } = await supabase
       .from('betting_tip')
       .select(
@@ -90,16 +90,22 @@ export async function GET() {
       const stake = tip.stake ?? 0
       const totalWin = tip.total_win ?? 0
 
+      // Skip pending tips - they don't affect balance until evaluated
+      if (tip.status === 'pending') {
+        return
+      }
+
       // Calculate profit/loss for this tip based on status:
-      // - PENDING: Stake is deducted (money tied up in bet)
       // - WIN: Net profit = total_win - stake (get winnings, stake already gone)
       // - LOSS: Lose the stake (nothing returned)
       let profit: number
       if (tip.status === 'win') {
         profit = totalWin - stake  // You get total_win back, but paid stake
-      } else {
-        // For LOSS or PENDING: deduct the stake
+      } else if (tip.status === 'loss') {
         profit = -stake
+      } else {
+        // Unknown status - skip to be safe
+        return
       }
 
       const tipData = {
