@@ -27,8 +27,8 @@ namespace Stavky.Tests.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Customer Registration and Subscription Flow", "  As a new customer\r\n  I want to register and see subscription options\r\n  So that" +
-                " I can subscribe to the betting tips service", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Customer Registration and Subscription Flow", "  As a new customer\r\n  I want to register, login, and purchase a subscription\r\n  " +
+                "So that I can access betting tips", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
 #line 1 "CustomerSubscriptionFlow.feature"
 #line hidden
@@ -115,20 +115,28 @@ namespace Stavky.Tests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/CustomerSubscriptionFlow.feature.ndjson", 5);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/CustomerSubscriptionFlow.feature.ndjson", 6);
         }
         
         [global::NUnit.Framework.TestAttribute()]
-        [global::NUnit.Framework.DescriptionAttribute("New customer registers and sees Statistics page and Stripe payment options")]
-        public async global::System.Threading.Tasks.Task NewCustomerRegistersAndSeesStatisticsPageAndStripePaymentOptions()
+        [global::NUnit.Framework.DescriptionAttribute("New customer registers, purchases monthly subscription, and verifies access to be" +
+            "tting tips")]
+        [global::NUnit.Framework.CategoryAttribute("e2e")]
+        [global::NUnit.Framework.CategoryAttribute("subscription")]
+        [global::NUnit.Framework.CategoryAttribute("polar")]
+        public async global::System.Threading.Tasks.Task NewCustomerRegistersPurchasesMonthlySubscriptionAndVerifiesAccessToBettingTips()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "e2e",
+                    "subscription",
+                    "polar"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("New customer registers and sees Statistics page and Stripe payment options", "", tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("New customer registers, purchases monthly subscription, and verifies access to be" +
+                    "tting tips", "", tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 9
+#line 10
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -141,53 +149,159 @@ namespace Stavky.Tests.Features
 #line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 11
+#line 12
     await testRunner.GivenAsync("I am on the signup page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 12
+#line 13
     await testRunner.WhenAsync("I fill in the registration form with a unique email", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 14
     await testRunner.AndAsync("I submit the registration form", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 14
+#line 15
     await testRunner.ThenAsync("I should be redirected to the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 17
-    await testRunner.AndAsync("the sidebar should display the Statistics link", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
 #line 18
-    await testRunner.WhenAsync("I click on the Statistics link in the sidebar", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.ThenAsync("the sidebar should NOT display the Betting Tips link", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 19
-    await testRunner.ThenAsync("I should be on the Statistics page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("the sidebar should display the Subscription link", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 20
-    await testRunner.AndAsync("the Statistics page should load successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line 22
+    await testRunner.WhenAsync("I click on the Subscription link in the sidebar", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 23
-    await testRunner.WhenAsync("I navigate to the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+    await testRunner.ThenAsync("I should be on the subscription page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 24
-    await testRunner.ThenAsync("I should see the subscription options", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+    await testRunner.AndAsync("I should see the no active subscription message", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 25
-    await testRunner.AndAsync("I should see the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.WhenAsync("I click on the Create Subscription button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 28
-    await testRunner.WhenAsync("I click on the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
-#line 29
+#line 26
     await testRunner.ThenAsync("I should be on the checkout page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 30
+#line 27
     await testRunner.AndAsync("I should see the monthly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 31
+#line 28
     await testRunner.AndAsync("I should see the yearly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
+#line 31
+    await testRunner.WhenAsync("I click on the monthly subscription button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
 #line 32
-    await testRunner.AndAsync("I should see the Stripe payment buttons", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+    await testRunner.ThenAsync("I should be redirected to Polar checkout page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 33
+    await testRunner.WhenAsync("I complete the Polar sandbox payment with test card", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 34
+    await testRunner.ThenAsync("I should be redirected to the checkout success page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 37
+    await testRunner.WhenAsync("I sync the subscription via admin endpoint", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 40
+    await testRunner.WhenAsync("I navigate to the subscription page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 41
+    await testRunner.ThenAsync("I should see the active subscription status", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 42
+    await testRunner.AndAsync("I should see subscription details with active status", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 45
+    await testRunner.WhenAsync("I navigate to the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 46
+    await testRunner.ThenAsync("the sidebar should display the Betting Tips link", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 47
+    await testRunner.AndAsync("I should see the betting tips list", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 50
+    await testRunner.ThenAsync("the database should show the user has an active subscription", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::NUnit.Framework.TestAttribute()]
+        [global::NUnit.Framework.DescriptionAttribute("New customer registers and sees subscription options")]
+        [global::NUnit.Framework.CategoryAttribute("e2e")]
+        [global::NUnit.Framework.CategoryAttribute("subscription")]
+        public async global::System.Threading.Tasks.Task NewCustomerRegistersAndSeesSubscriptionOptions()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "e2e",
+                    "subscription"};
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "1";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("New customer registers and sees subscription options", "", tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
+#line 53
+  this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 6
+  await this.FeatureBackgroundAsync();
+#line hidden
+#line 55
+    await testRunner.GivenAsync("I am on the signup page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 56
+    await testRunner.WhenAsync("I fill in the registration form with a unique email", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 57
+    await testRunner.AndAsync("I submit the registration form", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 58
+    await testRunner.ThenAsync("I should be redirected to the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 61
+    await testRunner.AndAsync("the sidebar should display the Statistics link", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 62
+    await testRunner.WhenAsync("I click on the Statistics link in the sidebar", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 63
+    await testRunner.ThenAsync("I should be on the Statistics page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 64
+    await testRunner.AndAsync("the Statistics page should load successfully", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 67
+    await testRunner.WhenAsync("I navigate to the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 68
+    await testRunner.ThenAsync("I should see the subscription options", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 69
+    await testRunner.AndAsync("I should see the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 72
+    await testRunner.WhenAsync("I click on the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 73
+    await testRunner.ThenAsync("I should be on the checkout page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 74
+    await testRunner.AndAsync("I should see the monthly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 75
+    await testRunner.AndAsync("I should see the yearly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 76
+    await testRunner.AndAsync("I should see the Polar payment buttons", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -195,15 +309,19 @@ namespace Stavky.Tests.Features
         
         [global::NUnit.Framework.TestAttribute()]
         [global::NUnit.Framework.DescriptionAttribute("Non-subscribed customer can access Statistics from sidebar")]
+        [global::NUnit.Framework.CategoryAttribute("e2e")]
+        [global::NUnit.Framework.CategoryAttribute("sidebar")]
         public async global::System.Threading.Tasks.Task Non_SubscribedCustomerCanAccessStatisticsFromSidebar()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "e2e",
+                    "sidebar"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "1";
+            string pickleIndex = "2";
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Non-subscribed customer can access Statistics from sidebar", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 34
+#line 79
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -216,19 +334,19 @@ namespace Stavky.Tests.Features
 #line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 35
+#line 80
     await testRunner.GivenAsync("I am logged in as a non-subscribed customer", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 36
+#line 81
     await testRunner.WhenAsync("I am on the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 37
+#line 82
     await testRunner.ThenAsync("the sidebar should display the Statistics link", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 38
+#line 83
     await testRunner.WhenAsync("I click on the Statistics link in the sidebar", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 39
+#line 84
     await testRunner.ThenAsync("I should be on the Statistics page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
@@ -236,16 +354,20 @@ namespace Stavky.Tests.Features
         }
         
         [global::NUnit.Framework.TestAttribute()]
-        [global::NUnit.Framework.DescriptionAttribute("Non-subscribed customer sees Stripe payment options on bettings page")]
-        public async global::System.Threading.Tasks.Task Non_SubscribedCustomerSeesStripePaymentOptionsOnBettingsPage()
+        [global::NUnit.Framework.DescriptionAttribute("Non-subscribed customer sees subscription options on bettings page")]
+        [global::NUnit.Framework.CategoryAttribute("e2e")]
+        [global::NUnit.Framework.CategoryAttribute("sidebar")]
+        public async global::System.Threading.Tasks.Task Non_SubscribedCustomerSeesSubscriptionOptionsOnBettingsPage()
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = new string[] {
+                    "e2e",
+                    "sidebar"};
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
-            string pickleIndex = "2";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Non-subscribed customer sees Stripe payment options on bettings page", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string pickleIndex = "3";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Non-subscribed customer sees subscription options on bettings page", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 41
+#line 87
   this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -258,28 +380,28 @@ namespace Stavky.Tests.Features
 #line 6
   await this.FeatureBackgroundAsync();
 #line hidden
-#line 42
+#line 88
     await testRunner.GivenAsync("I am logged in as a non-subscribed customer", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 43
+#line 89
     await testRunner.WhenAsync("I am on the bettings page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 44
+#line 90
     await testRunner.ThenAsync("I should see the account not active message", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 45
+#line 91
     await testRunner.AndAsync("I should see the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 46
+#line 92
     await testRunner.WhenAsync("I click on the Subscribe button", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 47
+#line 93
     await testRunner.ThenAsync("I should be on the checkout page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 48
+#line 94
     await testRunner.AndAsync("I should see the monthly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 49
+#line 95
     await testRunner.AndAsync("I should see the yearly subscription option", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
