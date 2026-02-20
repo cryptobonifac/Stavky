@@ -58,7 +58,8 @@ export async function getSubscriptionStatus() {
       .single();
 
     if (profileError || !profile) {
-      return { error: 'User profile not found', subscription: null };
+      // Profile not found - return as no subscription (don't show error to user)
+      return { error: null, subscription: null, hasSubscription: false };
     }
 
     if (!profile.polar_subscription_id) {
@@ -125,11 +126,7 @@ export async function cancelSubscription() {
       .eq('id', user.id)
       .single();
 
-    if (profileError || !profile) {
-      return { error: 'User profile not found' };
-    }
-
-    if (!profile.polar_subscription_id) {
+    if (profileError || !profile || !profile.polar_subscription_id) {
       return { error: 'No active subscription found' };
     }
 
