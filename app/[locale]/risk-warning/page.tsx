@@ -1,35 +1,29 @@
 'use client'
 
-import { Box, Typography, Stack, Button, Divider, Paper } from '@mui/material'
+import { Box, Typography, Stack, Divider, Paper } from '@mui/material'
 import { useTranslations } from 'next-intl'
-import { useCookieConsent } from '@/components/cookies'
 import MainLayout from '@/components/layout/MainLayout'
 import TopNav from '@/components/navigation/TopNav'
 import PageSection from '@/components/layout/PageSection'
 
-export default function PrivacyPage() {
-  const t = useTranslations('privacy')
-  const { openSettings } = useCookieConsent()
+export default function RiskWarningPage() {
+  const t = useTranslations('riskWarning')
 
   const sections = [
-    'introduction',
-    'dataController',
-    'dataWeCollect',
-    'purposeOfProcessing',
-    'legalBasis',
-    'cookieUsage',
-    'dataSharing',
-    'internationalTransfers',
-    'dataRetention',
-    'dataSecurity',
-    'userRights',
-    'marketingCommunications',
-    'childrensPrivacy',
-    'thirdPartyLinks',
-    'automatedDecisions',
-    'supervisoryAuthority',
-    'changesToPolicy',
-    'contact'
+    'importantNotice',
+    'noGuarantee',
+    'financialLossRisk',
+    'personalResponsibility',
+    'consultancyClarification',
+    'noInvestmentAdvice',
+    'responsibleBetting',
+    'legalCompliance',
+    'thirdPartyRisk',
+    'psychologicalRisk',
+    'limitationOfLiability',
+    'ageRestriction',
+    'acknowledgement',
+    'contactInformation'
   ]
 
   return (
@@ -68,20 +62,10 @@ export default function PrivacyPage() {
               <Typography
                 variant="body1"
                 color="text.secondary"
-                sx={{ lineHeight: 1.8, whiteSpace: 'pre-line', mb: section === 'cookieUsage' ? 3 : 0 }}
+                sx={{ lineHeight: 1.8, whiteSpace: 'pre-line' }}
               >
                 {t(`${section}.content`)}
               </Typography>
-              {section === 'cookieUsage' && (
-                <Button
-                  variant="outlined"
-                  color="primary"
-                  onClick={openSettings}
-                  sx={{ textTransform: 'none' }}
-                >
-                  {t('cookieUsage.manageCookies')}
-                </Button>
-              )}
             </Paper>
           ))}
         </Stack>

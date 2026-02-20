@@ -450,11 +450,13 @@
     "deleting": "Vymazávanie..."
   },
   "footer": {
-    "copyright": "© {year} Stavky. Všetky práva vyhradené.",
+    "copyright": "© {year} smartbet365.com. Všetky práva vyhradené.",
     "terms": "Podmienky",
     "statistics": "Štatistiky",
     "privacy": "Súkromie",
-    "contact": "Kontakt"
+    "legalDisclaimer": "Právne vyhlásenie",
+    "riskWarning": "Varovanie o rizikách",
+    "disclaimer": "Poskytujeme iba športovú analytiku a poradenské služby. Neprevádzkujeme hazardné služby a negarantujeme zisky."
   },
   "sports": {
     "Soccer": "Futbal",
@@ -605,55 +607,276 @@
     }
   },
   "privacy": {
-    "title": "Zásady ochrany osobných údajov a používania cookies",
+    "title": "Zásady ochrany osobných údajov (GDPR)",
     "introduction": {
-      "title": "Základné informácie",
-      "content": "Pre optimálne fungovanie tejto platformy a poskytovanie kvalitných služieb využívame vo vašom zariadení malé dátové súbory nazývané cookies. Nasledujúca politika vás informuje o ich použití a vašich právach."
+      "title": "Úvod",
+      "content": "Tieto Zásady ochrany osobných údajov vysvetľujú, ako spoločnosť Busik&Partners, s.r.o. (\"Spoločnosť\", \"my\", \"nás\" alebo \"naše\") zhromažďuje, používa a chráni osobné údaje pri používaní tejto webovej stránky a súvisiacich služieb.\n\nZaväzujeme sa chrániť vaše osobné údaje v súlade s:\n• Nariadením (EÚ) 2016/679 (Všeobecné nariadenie o ochrane údajov – GDPR)\n• Platnými českými zákonmi o ochrane údajov\n• Smernicou EÚ o súkromí a elektronických komunikáciách\n\nPoužívaním našich webových stránok a služieb súhlasíte so zhromažďovaním a používaním informácií v súlade s týmito Zásadami."
     },
-    "whatAreCookies": {
-      "title": "Čo predstavujú cookies?",
-      "content": "Cookies sú textové súbory generované prostredníctvom komunikácie medzi webovou stránkou a vaším prehliadačom. Tieto súbory sa ukladajú do vášho zariadenia (počítač, tablet, smartfón) a umožňujú našej platforme rozpoznať vaše zariadenie pri ďalších návštevách."
+    "dataController": {
+      "title": "Identifikácia správcu údajov",
+      "content": "Správca údajov: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, Staré Brno, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: Krajský súd v Brne, sp. zn. C 138671\n\nSpoločnosť prevádzkuje digitálnu poradenskú platformu poskytujúcu športovú analytiku a informačný obsah."
     },
-    "cookiePurpose": {
-      "title": "Účel využívania cookies",
-      "content": "Naše servery aplikujú cookies s cieľom zlepšiť kvalitu poskytovaných služieb a prispôsobiť obsah vašim preferenciám. Konkrétne ich využívame na: sledovanie funkčnosti webu, optimalizáciu služieb, zjednodušenie opakovaného používania, zber a vyhodnotenie údajov o návštevnosti, poskytovanie personalizovaného obsahu, odporúčanie relevantných služieb a cielený remarketing. Prehliadaním tejto stránky vyjadrujete súhlas s týmto spracovaním. Zhromažďované informácie sú anonymizované a nevedú k vašej osobnej identifikácii."
+    "dataWeCollect": {
+      "title": "Osobné údaje, ktoré zhromažďujeme",
+      "content": "Môžeme zhromažďovať a spracúvať nasledujúce kategórie osobných údajov:\n\nInformácie, ktoré nám priamo poskytujete:\n• Meno (ak je poskytnuté)\n• E-mailová adresa\n• Fakturačné údaje\n• Prihlasovacie údaje k účtu\n• Komunikácia so zákazníckou podporou\n\nAutomaticky zhromažďované údaje:\n• IP adresa\n• Typ a verzia prehliadača\n• Informácie o zariadení\n• Navštívené stránky a údaje o používaní\n• Dátum a čas prístupu\n• Cookies a sledovacie údaje\n\nPlatobné údaje:\nPlatby spracúvajú poskytovatelia platobných služieb tretích strán. NEUKLADÁME úplné údaje o kreditných kartách na našich serveroch."
     },
-    "cookieTypes": {
-      "title": "Kategórie cookies",
-      "content": "Z časového aspektu rozlišujeme dočasné cookies (platné len počas relácie) a permanentné cookies (uchovávané až do ich manuálneho odstránenia alebo vypršania nastavenej doby). Podľa obsahu používame: základné cookies potrebné pre riadne fungovanie (napríklad prihlasovacie údaje), prevádzkové cookies na analýzu vášho správania, funkčné cookies na optimalizáciu funkcionalít a reklamné cookies na identifikáciu vašich preferencií. Reklamné cookies využívame výhradne s vaším súhlasom."
+    "purposeOfProcessing": {
+      "title": "Účel spracúvania údajov",
+      "content": "Osobné údaje spracúvame na nasledujúce účely:\n• Poskytovanie prístupu k predplatiteľským službám\n• Registrácia a správa účtu\n• Spracovanie platieb a fakturácia\n• Zákaznícka podpora\n• Zlepšovanie služieb a analytika\n• Prevencia podvodov a bezpečnosť\n• Právne a regulačné dodržiavanie predpisov\n• Komunikácia ohľadom služieb a aktualizácií"
     },
-    "consentManagement": {
-      "title": "Získavanie a správa súhlasu",
-      "content": "Základné cookies nevyhnutné pre fungovanie webu spracúvame bez vášho výslovného súhlasu. Ostatné kategórie spracúvame len po udelení súhlasu prostredníctvom súhlasového okna na našej stránke, kde si môžete vybrať, s ktorými typmi súhlasíte."
-    },
-    "revokeConsent": {
-      "title": "Odvolanie súhlasu",
-      "content": "Kedykoľvek môžete upraviť nastavenia cookies vo vašom prehliadači - môžete ich vymazať, zablokovať alebo úplne zakázať, prípadne obmedziť na vybrané kategórie. Pokyny pre správu cookies nájdete v dokumentácii jednotlivých prehliadačov (Chrome, Edge, Firefox, Safari a ďalšie)."
-    },
-    "thirdPartyCookies": {
-      "title": "Cookies tretích strán",
-      "content": "Na tejto stránke sa nachádzajú prepojenia na iné platformy (napríklad sociálne siete). Preto môžu byť počas návštevy vytvorené cookies, ktoré nespravujeme my. Pravidlá týchto cookies nájdete na príslušných stránkach tretích strán."
-    },
-    "retentionPeriod": {
-      "title": "Doba uchovávania",
-      "content": "Cookies uchovávame maximálne 15 mesiacov. Záznam o udelenom súhlase uchovávame 4 roky na účely preukázania splnenia zákonných povinností."
-    },
-    "dataCollection": {
-      "title": "Zhromažďovanie údajov",
-      "content": "Zhromažďujeme informácie, ktoré nám poskytujete priamo, napríklad keď vytvárate účet, prihlásite sa na odber našich služieb alebo nás kontaktujete. Môže to zahŕňať vaše meno, e-mailovú adresu a platobné informácie. Automaticky tiež zhromažďujeme určité informácie o vašom zariadení a o tom, ako interagujete s našou webovou stránkou."
-    },
-    "userRights": {
-      "title": "Vaše práva",
-      "content": "Podľa GDPR máte právo na prístup, opravu alebo vymazanie svojich osobných údajov. Môžete tiež namietať proti spracovaniu, požadovať prenosnosť údajov a kedykoľvek odvolať súhlas. Ak chcete uplatniť tieto práva, kontaktujte nás pomocou informácií nižšie."
-    },
-    "contact": {
-      "title": "Kontaktné informácie",
-      "content": "Ak máte akékoľvek otázky týkajúce sa týchto zásad ochrany osobných údajov, cookies alebo našich postupov spracovávania údajov, kontaktujte nás prostredníctvom našej kontaktnej stránky alebo nám napíšte priamo e-mail."
+    "legalBasis": {
+      "title": "Právny základ pre spracúvanie",
+      "content": "Osobné údaje spracúvame na základe nasledujúcich právnych dôvodov:\n• Plnenie zmluvy (čl. 6 ods. 1 písm. b) GDPR) – pre poskytovanie zakúpených služieb\n• Právna povinnosť (čl. 6 ods. 1 písm. c) GDPR) – účtovníctvo a právne dodržiavanie predpisov\n• Oprávnený záujem (čl. 6 ods. 1 písm. f) GDPR) – bezpečnosť webu, analytika, prevencia podvodov\n• Súhlas (čl. 6 ods. 1 písm. a) GDPR) – marketingová komunikácia a voliteľné cookies"
     },
     "cookieUsage": {
-      "title": "Správa nastavení cookies",
-      "content": "Máte úplnú kontrolu nad tým, ktoré cookies prijmete. Vaše preferencie môžete kedykoľvek upraviť prostredníctvom nášho súhlasového okna alebo v nastaveniach vášho prehliadača.",
+      "title": "Cookies a sledovacie technológie",
+      "content": "Naša webová stránka používa cookies a podobné technológie na:\n• Zabezpečenie funkčnosti webu\n• Zlepšenie používateľského zážitku\n• Analýzu návštevnosti a výkonu\n• Udržiavanie používateľských relácií\n• Podporu marketingu a analytiky\n\nTypy používaných cookies:\n• Nevyhnutné cookies (nutné pre prevádzku)\n• Analytické cookies\n• Funkčné cookies\n• Marketingové cookies (ak sú použité)\n\nPoužívatelia môžu spravovať preferencie cookies prostredníctvom bannera cookies a nastavení prehliadača.",
       "manageCookies": "Spravovať nastavenia cookies"
+    },
+    "dataSharing": {
+      "title": "Zdieľanie údajov a tretie strany",
+      "content": "Osobné údaje môžeme zdieľať s dôveryhodnými poskytovateľmi služieb tretích strán iba v nevyhnutných prípadoch, vrátane:\n• Spracovateľov platieb\n• Poskytovateľov hostingu\n• Poskytovateľov e-mailových služieb\n• Poskytovateľov analytiky\n• Poskytovateľov IT a bezpečnosti\n\nVšetky tretie strany spracúvajú údaje v súlade s GDPR a iba na základe zmluvných záruk.\n\nOsobné údaje NEPREDÁVAME tretím stranám."
+    },
+    "internationalTransfers": {
+      "title": "Medzinárodné prenosy údajov",
+      "content": "Niektorí poskytovatelia služieb tretích strán môžu spracúvať údaje mimo Európsky hospodársky priestor (EHP). V takých prípadoch zabezpečujeme zodpovedajúce záruky, vrátane:\n• Štandardných zmluvných doložiek (SCC)\n• Zmlúv o spracúvaní údajov v súlade s GDPR\n• Zodpovedajúcej úrovne ochrany údajov podľa požiadaviek práva EÚ"
+    },
+    "dataRetention": {
+      "title": "Doba uchovávania údajov",
+      "content": "Osobné údaje uchovávame iba po dobu nevyhnutnú na naplnenie účelov uvedených v týchto Zásadách, vrátane:\n• Údaje o účte: po dobu trvania používateľského vzťahu\n• Fakturačné a finančné údaje: až 10 rokov (právne/účtovné povinnosti)\n• Komunikácia s podporou: až 3 roky\n• Analytické údaje: podľa potreby pre optimalizáciu služieb\n\nPo uplynutí doby uchovávania sú údaje bezpečne vymazané alebo anonymizované."
+    },
+    "dataSecurity": {
+      "title": "Bezpečnostné opatrenia",
+      "content": "Implementujeme zodpovedajúce technické a organizačné opatrenia na ochranu osobných údajov, vrátane:\n• Bezpečného SSL šifrovania\n• Kontroly prístupu a autentifikácie\n• Zabezpečenia serverov a databáz\n• Monitorovacích a antifraudových systémov\n• Postupov minimalizácie údajov\n\nNapriek týmto opatreniam žiadny online systém nemôže zaručiť absolútnu bezpečnosť."
+    },
+    "userRights": {
+      "title": "Vaše práva podľa GDPR",
+      "content": "Podľa GDPR máte nasledujúce práva:\n• Právo na prístup (čl. 15 GDPR)\n• Právo na opravu (čl. 16 GDPR)\n• Právo na vymazanie (\"právo byť zabudnutý\") (čl. 17 GDPR)\n• Právo na obmedzenie spracúvania (čl. 18 GDPR)\n• Právo na prenosnosť údajov (čl. 20 GDPR)\n• Právo namietať (čl. 21 GDPR)\n• Právo kedykoľvek odvolať súhlas\n\nPre uplatnenie týchto práv nás prosím kontaktujte pomocou poskytnutých informácií."
+    },
+    "marketingCommunications": {
+      "title": "Marketingová komunikácia",
+      "content": "Ak sa prihlásite na odber newsletterov alebo marketingovej komunikácie:\n• Môžete dostávať e-maily o aktualizáciách, službách alebo akciách\n• Kedykoľvek sa môžete odhlásiť prostredníctvom odkazu na odhlásenie alebo nás kontaktovať\n\nMarketingovú komunikáciu zasielame iba na základe súhlasu alebo oprávneného záujmu, kde to zákon povoľuje."
+    },
+    "childrensPrivacy": {
+      "title": "Ochrana súkromia detí",
+      "content": "Naše služby nie sú určené osobám mladším ako 18 rokov. Vedome nezhromažďujeme osobné údaje od neplnoletých. Ak zistíme, že sme zhromaždili údaje od neplnoletej osoby, budú bez zbytočného odkladu vymazané."
+    },
+    "thirdPartyLinks": {
+      "title": "Odkazy na tretie strany",
+      "content": "Naša webová stránka môže obsahovať odkazy na webové stránky alebo platformy tretích strán. Nie sme zodpovední za postupy ochrany súkromia, zásady alebo obsah externých webových stránok. Používatelia by si mali samostatne prečítať zásady ochrany súkromia služieb tretích strán."
+    },
+    "automatedDecisions": {
+      "title": "Automatizované rozhodovanie",
+      "content": "Nepoužívame automatizované rozhodovanie ani profilovanie, ktoré by malo právne alebo podobne významné účinky na používateľov v zmysle článku 22 GDPR."
+    },
+    "supervisoryAuthority": {
+      "title": "Sťažnosť u dozorného úradu",
+      "content": "Ak sa domnievate, že boli porušené vaše práva na ochranu údajov, máte právo podať sťažnosť na dozorný úrad.\n\nPríslušný úrad:\nÚrad pre ochranu osobných údajov\nPplk. Sochora 27, 170 00 Praha 7, Česká republika\nWebová stránka: https://www.uoou.cz"
+    },
+    "changesToPolicy": {
+      "title": "Zmeny Zásad ochrany súkromia",
+      "content": "Vyhradzujeme si právo tieto Zásady ochrany súkromia kedykoľvek aktualizovať alebo upraviť tak, aby odrážali právne, technické alebo prevádzkové zmeny. Aktualizovaná verzia bude vždy zverejnená na tejto stránke s revidovaným dátumom účinnosti."
+    },
+    "contact": {
+      "title": "Kontaktné údaje",
+      "content": "Správca údajov: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, 602 00 Brno, Česká republika\nIČO: 21445389\n\nV prípade akýchkoľvek otázok ohľadom týchto zásad ochrany súkromia alebo našich postupov spracúvania údajov nás prosím kontaktujte prostredníctvom našej kontaktnej stránky."
+    }
+  },
+  "terms": {
+    "title": "Obchodné podmienky",
+    "companyIdentification": {
+      "title": "Identifikácia spoločnosti",
+      "content": "Tieto Obchodné podmienky upravujú používanie webových stránok a služieb poskytovaných:\n\nObchodný názov: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, Staré Brno, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: C 138671, Krajský súd v Brne\nDátum založenia: 8. apríla 2024\nPrávna forma: Spoločnosť s ručením obmedzeným\n\nSpoločnosť prevádzkuje online digitálnu poradenskú platformu zameranú na športovú analýzu a informačné stávkové tipy."
+    },
+    "natureOfServices": {
+      "title": "Povaha služieb",
+      "content": "Webová stránka poskytuje:\n• Športovú analýzu\n• Štatistické prehľady\n• Vzdelávací obsah\n• Informačné stávkové tipy\n• Poradenské služby súvisiace so športovými udalosťami\n\nSpoločnosť výslovne prehlasuje, že:\n• NEPREVÁDZKUJE hazardnú platformu\n• NEPRIJÍMA ani neuzatvára stávky\n• NEPÔSOBÍ ako bookmaker\n• NEPOSKYTUJE sprostredkovanie stávok\n• NESPRAVUJE stávkové účty\n\nVšetky služby sú prísne poradenské, informačné a analytické digitálne služby. Vzhľadom na poradenskú povahu služby Spoločnosť NEVYŽADUJE žiadnu licenciu pre hazardné hry alebo stávkovanie podľa platných českých, EÚ alebo medzinárodných právnych predpisov."
+    },
+    "acceptanceOfTerms": {
+      "title": "Prijatie podmienok",
+      "content": "Prístupom na túto webovú stránku alebo zakúpením predplatného používateľ potvrdzuje, že:\n• Má najmenej 18 rokov\n• Rozumie poradenskej povahe služieb\n• Prijíma tieto Podmienky v plnom rozsahu"
+    },
+    "noGuarantee": {
+      "title": "Žiadna záruka zisku",
+      "content": "Spoločnosť NEZARUČUJE:\n• Výherné stávky\n• Zisky\n• Finančné prínosy\n• Mieru úspešnosti\n• Konkrétne výsledky\n\nVšetky športové predpovede a tipy sú iba názory a analytické poznatky. Minulá výkonnosť NEZARUČUJE budúce výsledky."
+    },
+    "riskDisclaimer": {
+      "title": "Vyhlásenie o rizikách",
+      "content": "Športové stávkovanie zahŕňa významné finančné riziko. Používatelia môžu prísť o časť alebo všetky svoje prostriedky. Používateľ berie na vedomie, že všetky rozhodnutia o stávkach sú robené na jeho vlastné riziko a zodpovednosť.\n\nSpoločnosť nenesie zodpovednosť za akékoľvek finančné straty vyplývajúce z použitia poskytnutých informácií."
+    },
+    "userResponsibility": {
+      "title": "Zodpovednosť používateľa",
+      "content": "Používatelia sú plne zodpovední za:\n• Svoje rozhodnutia o stávkach\n• Finančné hospodárenie\n• Dodržiavanie miestnych zákonov o hazardných hrách\n• Používanie služieb stávkových kancelárií tretích strán\n\nSpoločnosť neposkytuje finančné ani investičné poradenstvo."
+    },
+    "subscription": {
+      "title": "Predplatné a platby",
+      "content": "• Prístup k prémiovému obsahu je poskytovaný prostredníctvom plateného predplatného\n• Poplatky za predplatné sú zobrazené na webových stránkach\n• Platby sú spracúvané prostredníctvom poskytovateľov platobných služieb tretích strán\n• Zakúpením predplatného používateľ súhlasí s opakovanou fakturáciou (ak je to relevantné)"
+    },
+    "refundPolicy": {
+      "title": "Zásady vrátenia peňazí",
+      "content": "Vzhľadom na digitálnu povahu služieb sú všetky predaje konečné po udelení prístupu k obsahu.\n\nVrátenie peňazí môže byť poskytnuté iba v prípadoch:\n• Duplicitnej platby\n• Technickej závady brániace prístupu k službe"
+    },
+    "intellectualProperty": {
+      "title": "Duševné vlastníctvo",
+      "content": "Všetok obsah vrátane tipov, analýz, stratégií, textov, grafiky a správ je duševným vlastníctvom spoločnosti Busik&Partners, s.r.o.\n\nPoužívateľom je prísne zakázané:\n• Zdieľať obsah predplatného\n• Ďalej predávať tipy\n• Redistribuovať materiály\n• Verejne publikovať platený obsah\n\nPorušenie môže viesť k ukončeniu účtu a právnym krokom."
+    },
+    "accountTermination": {
+      "title": "Ukončenie účtu",
+      "content": "Spoločnosť si vyhradzuje právo pozastaviť alebo ukončiť účty bez vrátenia peňazí, ak:\n• Je obsah nelegálne zdieľaný\n• Je zistená podvodná činnosť\n• Sú porušené Podmienky"
+    },
+    "thirdPartyServices": {
+      "title": "Služby tretích strán",
+      "content": "Webová stránka môže obsahovať odkazy na stávkové kancelárie tretích strán alebo externé platformy. Spoločnosť:\n• Nemá kontrolu nad službami tretích strán\n• Nenesie zodpovednosť za ich konanie, kurzy alebo výplaty\n• Nezúčastňuje sa žiadnych hazardných transakcií"
+    },
+    "limitationOfLiability": {
+      "title": "Obmedzenie zodpovednosti",
+      "content": "V maximálnom rozsahu povolenom zákonom Spoločnosť nenesie zodpovednosť za:\n• Priame alebo nepriame finančné straty\n• Straty zo stávok\n• Ušlý zisk\n• Prerušenie služieb\n• Problémy s platformami tretích strán\n\nSlužba je poskytovaná \"tak, ako je\" a \"ako je dostupná\"."
+    },
+    "regulatoryCompliance": {
+      "title": "Súlad s reguláciou",
+      "content": "Spoločnosť pôsobí ako digitálny poradenský a informačný poskytovateľ služieb. Služby NETVORIA:\n• Hazardné služby\n• Stávkové operácie\n• Služby finančného poradenstva\n\nPreto nie je vyžadovaná žiadna licencia pre hazardné hry."
+    },
+    "dataProtection": {
+      "title": "Ochrana údajov (GDPR)",
+      "content": "Spoločnosť spracúva osobné údaje v súlade s GDPR (nariadenie EÚ 2016/679). Údaje sa používajú výhradne na:\n• Poskytovanie služieb\n• Správu účtov\n• Právne dodržiavanie predpisov\n• Zákaznícku podporu"
+    },
+    "responsibleUse": {
+      "title": "Zodpovedné používanie",
+      "content": "Používatelia sú nabádaní k zodpovednému stávkovaniu a nikdy nestávkovať peniaze, ktoré si nemôžu dovoliť stratiť. Platforma je určená iba na informačné a zábavné účely."
+    },
+    "governingLaw": {
+      "title": "Rozhodné právo",
+      "content": "Tieto Podmienky sa riadia právom Českej republiky. Všetky spory budú riešené príslušnými súdmi v Českej republike, predovšetkým v Brne."
+    },
+    "finalProvisions": {
+      "title": "Záverečné ustanovenia",
+      "content": "Spoločnosť si vyhradzuje právo tieto Podmienky kedykoľvek aktualizovať. Pokračujúce používanie webových stránok predstavuje prijatie aktualizovaných Podmienok."
+    }
+  },
+  "legalDisclaimer": {
+    "title": "Právne vyhlásenie",
+    "generalInformation": {
+      "title": "Iba pre všeobecné informačné účely",
+      "content": "Všetok obsah poskytovaný na tejto webovej stránke, vrátane, ale nielen, športových tipov, predpovedí, analýz, štatistík, stratégií, správ a vzdelávacích materiálov, je poskytovaný výhradne na informačné, analytické, vzdelávacie a poradenské účely.\n\nInformácie zverejnené na tejto platforme nepredstavujú finančné poradenstvo, investičné poradenstvo, poradenstvo v oblasti hazardných hier ani žiadnu formu služby garantovaných výsledkov."
+    },
+    "noGamblingServices": {
+      "title": "Vyhlásenie o neposkytovaní hazardných služieb",
+      "content": "Táto webová stránka je prevádzkovaná spoločnosťou Busik&Partners, s.r.o., poskytovateľom poradenských a digitálnych služieb.\n\nSpoločnosť výslovne prehlasuje, že:\n• NEPREVÁDZKUJE žiadnu hazardnú službu\n• NEPRIJÍMA ani neuzatvára stávky menom používateľov\n• NEPÔSOBÍ ako bookmaker\n• NEPOSKYTUJE sprostredkovanie stávok\n• NESPRAVUJE stávkové účty\n• NESPROSTREDKÚVA hazardné transakcie\n\nPoužívatelia uzatvárajú stávky výhradne na vlastné uváženie u stávkových operátorov tretích strán.\n\nPlatforma poskytuje iba poradenské a analytické informácie, a preto NEVYŽADUJE licenciu pre hazardné hry podľa platných českých, EÚ alebo medzinárodných právnych predpisov."
+    },
+    "noGuarantee": {
+      "title": "Žiadna záruka výhier alebo ziskov",
+      "content": "Spoločnosť absolútne nezaručuje:\n• Výherné stávky\n• Ziskovosť\n• Presnosť predpovedí\n• Finančné výsledky\n• Mieru úspešnosti\n\nVšetky športové predpovede a stávkové tipy sú názory založené na štatistickej analýze a historických údajoch a nesmú byť interpretované ako záruky akéhokoľvek výsledku.\n\nMinulá výkonnosť nie je indikátorom budúcich výsledkov."
+    },
+    "financialRiskWarning": {
+      "title": "Varovanie pred finančným rizikom",
+      "content": "Športové stávkovanie je vysoko riziková činnosť zahŕňajúca významnú finančnú neistotu.\n\nPoužívaním tejto webovej stránky beriete na vedomie a súhlasíte s tým, že:\n• Môžete prísť o časť alebo všetky svoje peniaze\n• Výsledky stávok sú nepredvídateľné\n• Žiadny analytický model nemôže zaručiť úspech\n• Ste výhradne zodpovední za svoje finančné rozhodnutia\n\nNikdy by ste nemali stávkovať peniaze, ktoré si nemôžete dovoliť stratiť."
+    },
+    "personalResponsibility": {
+      "title": "Osobná zodpovednosť",
+      "content": "Všetky rozhodnutia urobené na základe obsahu dostupného na tejto webovej stránke sú urobené úplne na vlastné riziko a uváženie používateľa.\n\nSpoločnosť nenesie zodpovednosť za:\n• Straty zo stávok\n• Finančné škody\n• Nesprávnu interpretáciu tipov\n• Rozhodnutia používateľov\n• Emocionálne alebo finančné následky stávkových aktivít"
+    },
+    "notFinancialAdvice": {
+      "title": "Nejedná sa o finančné, investičné alebo právne poradenstvo",
+      "content": "Poskytované služby a obsah nepredstavujú:\n• Služby finančného poradenstva\n• Investičné služby\n• Právne poradenstvo\n• Profesionálne poradenstvo v oblasti hazardných hier\n\nPoužívatelia by mali vyhľadať nezávislé odborné poradenstvo pred akýmikoľvek finančnými alebo stávkovými rozhodnutiami."
+    },
+    "thirdPartyPlatforms": {
+      "title": "Stávkové kancelárie a externé platformy tretích strán",
+      "content": "Táto webová stránka môže odkazovať na stávkové kancelárie tretích strán alebo externé platformy.\n\nSpoločnosť:\n• Nemá kontrolu nad operátormi tretích strán\n• Nie je spojená so stávkovými kanceláriami, pokiaľ nie je výslovne uvedené\n• Nezaručuje kurzy, výplaty alebo služby tretích strán\n• Nenesie zodpovednosť za spory medzi používateľmi a stávkovými operátormi\n\nVšetky interakcie so službami tretích strán sú výhradne medzi používateľom a príslušným poskytovateľom."
+    },
+    "serviceNature": {
+      "title": "Povaha služby – poradenská a analytická platforma",
+      "content": "Platforma funguje výhradne ako digitálna poradenská služba zameraná na:\n• Športovú analytiku\n• Interpretáciu dát\n• Informačné predpovede\n• Vzdelávacie poznatky\n\nSlužba je klasifikovaná ako informačný a poradenský digitálny produkt, nie ako hazardný produkt."
+    },
+    "regulatoryPositioning": {
+      "title": "Regulačná pozícia",
+      "content": "Podľa platných zákonov Českej republiky a Európskej únie poskytované služby:\n• Nepredstavujú hazardné operácie\n• Nezahŕňajú organizovanie alebo sprostredkovanie stávok\n• Nekvalifikujú sa ako stávkové sprostredkovanie\n\nKeďže Spoločnosť poskytuje iba digitálne informačné poradenské služby, nie je vyžadovaná žiadna licencia pre hazardné hry.\n\nPoužívatelia sú zodpovední za dodržiavanie zákonov o hazardných hrách platných v ich jurisdikcii."
+    },
+    "limitationOfLiability": {
+      "title": "Obmedzenie zodpovednosti",
+      "content": "V najširšom rozsahu povolenom zákonom spoločnosť Busik&Partners, s.r.o. nenesie zodpovednosť za:\n• Akékoľvek priame alebo nepriame finančné straty\n• Ušlý zisk\n• Straty zo stávok\n• Nepresnosti v dátach\n• Prerušenie služieb\n• Technické problémy\n• Zlyhania platforiem tretích strán\n\nWebová stránka a všetky služby sú poskytované na báze \"tak, ako sú\" a \"ako sú dostupné\" bez akýchkoľvek záruk."
+    },
+    "accuracyOfInformation": {
+      "title": "Presnosť informácií",
+      "content": "Hoci sa Spoločnosť snaží poskytovať presnú a dátovo riadenú analýzu, nezaručuje, že:\n• Informácie sú bez chýb\n• Predpovede budú presné\n• Dáta budú vždy úplné alebo aktuálne\n\nŠportové udalosti sú zo svojej podstaty nepredvídateľné a podliehajú externým premenným mimo analytickú kontrolu."
+    },
+    "userEligibility": {
+      "title": "Spôsobilosť používateľa",
+      "content": "Používaním tejto webovej stránky potvrdzujete, že:\n• Máte najmenej 18 rokov alebo zákonný vek vo vašej jurisdikcii\n• Máte zákonné oprávnenie pristupovať k informačnému obsahu súvisiacemu so stávkovaním\n• Službu používate dobrovoľne a na vlastné riziko"
+    },
+    "responsibleBetting": {
+      "title": "Vyhlásenie o zodpovednom stávkovaní",
+      "content": "Spoločnosť podporuje zodpovedné správanie a nepodporuje nadmerné hazardné hry.\n\nAk sa domnievate, že môžete mať problém s hazardnými hrami, mali by ste vyhľadať odbornú pomoc od licencovanej podpornej organizácie vo vašej jurisdikcii."
+    },
+    "intellectualProperty": {
+      "title": "Upozornenie o duševnom vlastníctve",
+      "content": "Všetky analýzy, tipy, dátové modely a písaný obsah sú vlastníckym duševným vlastníctvom spoločnosti Busik&Partners, s.r.o.\n\nNeoprávnená reprodukcia, redistribúcia, ďalší predaj alebo zdieľanie plateného obsahu je prísne zakázané a môže viesť k:\n• Okamžitému ukončeniu účtu\n• Právnym krokom\n• Finančným nárokom na náhradu škody"
+    },
+    "changesToDisclaimer": {
+      "title": "Zmeny vyhlásenia",
+      "content": "Spoločnosť si vyhradzuje právo toto Vyhlásenie kedykoľvek upraviť bez predchádzajúceho upozornenia. Pokračujúce používanie webovej stránky predstavuje prijatie aktualizovaného Vyhlásenia."
+    },
+    "contactInformation": {
+      "title": "Kontaktné údaje",
+      "content": "Prevádzkovateľ: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: Krajský súd v Brne, sp. zn. C 138671"
+    }
+  },
+  "riskWarning": {
+    "title": "Varovanie o rizikách",
+    "importantNotice": {
+      "title": "Dôležité upozornenie na riziká",
+      "content": "Účasť na športovom stávkovaní a stávkových aktivitách zahŕňa vysokú úroveň finančného rizika a môže viesť k významným stratám.\n\nPoužívaním tejto webovej stránky a jej služieb beriete na vedomie a prijímate, že ste si plne vedomí rizík spojených so stávkovými aktivitami.\n\nObsah poskytovaný na tejto platforme je určený iba na informačné a poradenské účely a nemal by byť interpretovaný ako záruka akéhokoľvek výsledku."
+    },
+    "noGuarantee": {
+      "title": "Žiadna záruka výsledkov",
+      "content": "Všetky informácie, vrátane športových tipov, predpovedí, štatistických modelov, analýz a stratégií, sú založené na analýze dát, názoroch a historickej výkonnosti.\n\nŽiadna metóda, analýza alebo predpoveď nemôže zaručiť:\n• Výherné stávky\n• Ziskovosť\n• Konzistentný úspech\n• Finančné zisky\n\nMinulá výkonnosť nie je indikátorom budúcich výsledkov."
+    },
+    "financialLossRisk": {
+      "title": "Riziko finančnej straty",
+      "content": "Používatelia musia rozumieť, že:\n• Výsledky stávok sú neisté\n• Straty sú normálnou a očakávanou súčasťou stávkovania\n• Aj profesionálna analýza môže byť nesprávna\n• Externé faktory (zranenia, rozhodnutia rozhodcov, počasie atď.) môžu ovplyvniť výsledky\n\nMôžete prísť o časť alebo všetky peniaze, ktoré vsadíte pri stávkovaní u operátorov tretích strán."
+    },
+    "personalResponsibility": {
+      "title": "Osobná zodpovednosť",
+      "content": "Všetky rozhodnutia o uzatvorení stávok sú robené výhradne používateľom a na jeho vlastné riziko.\n\nPoužívaním tejto webovej stránky potvrdzujete, že:\n• Ste výhradne zodpovední za svoje stávkové rozhodnutia\n• Spravujete svoje vlastné prostriedky a toleranciu k riziku\n• Nespoliehate na platformu ako na zdroj zaručeného príjmu\n\nSpoločnosť Busik&Partners, s.r.o. nenesie zodpovednosť za akékoľvek finančné straty alebo škody vyplývajúce z použitia poskytnutých informácií."
+    },
+    "consultancyClarification": {
+      "title": "Vyjasnenie poradenskej služby",
+      "content": "Táto webová stránka je digitálna poradenská a analytická platforma poskytujúca:\n• Poznatky zo športových dát\n• Informačné predpovede\n• Vzdelávaciu športovú analýzu\n\nSpoločnosť:\n• NEPREVÁDZKUJE hazardnú platformu\n• NEPRIJÍMA stávky\n• NEUZATVÁRA stávky menom používateľov\n• NEPÔSOBÍ ako bookmaker\n• NESPROSTREDKÚVA hazardné transakcie\n\nPoužívatelia nezávisle rozhodujú, či uzatvoria stávky u licencovaných stávkových kancelárií tretích strán."
+    },
+    "noInvestmentAdvice": {
+      "title": "Žiadne investičné alebo finančné poradenstvo",
+      "content": "Služby ponúkané na tejto webovej stránke nepredstavujú:\n• Finančné poradenstvo\n• Investičné poradenstvo\n• Poradenské služby v oblasti hazardných hier\n• Profesionálne finančné plánovanie\n\nAkékoľvek finančné rozhodnutia urobené na základe obsahu sú úplne na uváženie a riziko používateľa."
+    },
+    "responsibleBetting": {
+      "title": "Vyhlásenie o zodpovednom stávkovaní",
+      "content": "Dôrazne podporujeme zodpovedné a kontrolované správanie.\n\nPoužívatelia by mali:\n• Stanoviť prísne stávkové limity\n• Vyhýbať sa naháňaniu strát\n• Nikdy nestávkovať peniaze, ktoré si nemôžu dovoliť stratiť\n• Považovať stávkovanie za zábavu, nie za zdroj príjmu\n\nAk stávkovanie prestane byť zábavné a stane sa problematickým, mali by ste okamžite prestať a vyhľadať odbornú podporu."
+    },
+    "legalCompliance": {
+      "title": "Právny súlad a povinnosť používateľa",
+      "content": "Používatelia sú zodpovední za zabezpečenie, že:\n• Online stávkovanie je legálne v ich jurisdikcii\n• Dodržiavajú miestne zákony a predpisy\n• Spĺňajú zákonné požiadavky na vek v ich krajine\n\nSpoločnosť neposkytuje služby do jurisdikcií, kde môže byť taký informačný obsah obmedzený zákonom."
+    },
+    "thirdPartyRisk": {
+      "title": "Riziko platformy tretej strany",
+      "content": "Táto webová stránka môže odkazovať na stávkové kancelárie tretích strán alebo stávkové platformy alebo o nich diskutovať.\n\nSpoločnosť:\n• Nemá kontrolu nad službami tretích strán\n• Nenesie zodpovednosť za kurzy, výplaty alebo spory\n• Nezaručuje spoľahlivosť alebo dostupnosť externých platforiem\n\nAkákoľvek interakcia s operátormi tretích strán je výhradne medzi používateľom a príslušným poskytovateľom."
+    },
+    "psychologicalRisk": {
+      "title": "Psychologické a behaviorálne riziko",
+      "content": "Stávkovanie môže byť psychologicky pútavé a môže viesť k impulzívnemu rozhodovaniu.\n\nPoužívatelia by si mali byť vedomí, že:\n• Emocionálne stávkovanie zvyšuje finančné riziko\n• Prílišná sebadôvera po výhrach môže viesť k väčším stratám\n• Naháňanie strát výrazne zvyšuje vystavenie riziku\n\nZachovanie disciplíny a emocionálnej kontroly je zásadné."
+    },
+    "limitationOfLiability": {
+      "title": "Obmedzenie zodpovednosti",
+      "content": "V maximálnom rozsahu povolenom platným právom spoločnosť Busik&Partners, s.r.o. nenesie zodpovednosť za:\n• Priame alebo nepriame finančné straty\n• Straty zo stávok\n• Ušlý zisk\n• Emocionálne utrpenie súvisiace s finančnými stratami\n• Rozhodnutia urobené na základe obsahu webovej stránky\n\nVšetky služby sú poskytované na báze \"tak, ako sú\" a \"ako sú dostupné\" bez akýchkoľvek záruk."
+    },
+    "ageRestriction": {
+      "title": "Vekové obmedzenie",
+      "content": "Táto webová stránka a jej služby sú určené iba osobám, ktoré sú:\n• Najmenej 18 rokov staré, alebo\n• V zákonnom veku v krajine svojho bydliska\n\nPoužívaním webovej stránky potvrdzujete, že spĺňate požiadavku na zákonný vek."
+    },
+    "acknowledgement": {
+      "title": "Potvrdenie rizika",
+      "content": "Prístupom, zakúpením alebo používaním akejkoľvek služby na tejto webovej stránke výslovne potvrdzujete, že:\n• Rozumiete rizikám spojeným so športovým stávkovaním\n• Prijímate plnú zodpovednosť za svoje konanie\n• Nebudete činiť Spoločnosť zodpovednou za akékoľvek finančné straty"
+    },
+    "contactInformation": {
+      "title": "Kontaktné údaje",
+      "content": "Prevádzkovateľ: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, Staré Brno, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: Krajský súd v Brne, sp. zn. C 138671"
     }
   }
 }
