@@ -1,4 +1,5 @@
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\testhost.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.NUnit.ReqnrollPlugin.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\testhost.exe
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\.playwright\node\win32_x64\node.exe
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\.playwright\node\LICENSE
@@ -346,13 +347,19 @@ C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\nunit.engine.
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\nunit.engine.core.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\testcentric.engine.metadata.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\NUnit3.TestAdapter.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\reqnroll.json
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Stavky.Tests.deps.json
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Stavky.Tests.runtimeconfig.json
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Stavky.Tests.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Stavky.Tests.pdb
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\CucumberExpressions.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.HtmlFormatter.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.Messages.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Gherkin.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.ApplicationInsights.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.VisualStudio.CodeCoverage.Shim.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Playwright.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Playwright.NUnit.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Playwright.TestAdapter.dll
@@ -371,6 +378,8 @@ C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Vis
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Newtonsoft.Json.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\nunit.framework.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\nunit.framework.legacy.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.Utils.dll
+C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\cs\Microsoft.Testing.Extensions.Telemetry.resources.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\de\Microsoft.Testing.Extensions.Telemetry.resources.dll
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\es\Microsoft.Testing.Extensions.Telemetry.resources.dll
@@ -500,12 +509,3 @@ C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\refint\Stavky
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\Stavky.Tests.pdb
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\Stavky.Tests.genruntimeconfig.cache
 C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\obj\Debug\net10.0\ref\Stavky.Tests.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Gherkin.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Microsoft.Extensions.DependencyModel.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.NUnit.ReqnrollPlugin.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\reqnroll.json
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\CucumberExpressions.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.HtmlFormatter.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Cucumber.Messages.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.Utils.dll
-C:\Users\mroho\Code\Projects\Stavky\Stavky.Tests\bin\Debug\net10.0\Reqnroll.dll

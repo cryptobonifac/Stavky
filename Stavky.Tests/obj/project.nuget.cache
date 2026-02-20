@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q0CC2INsLtg=",
+  "dgSpecHash": "o25nUIRzHV4=",
   "success": true,
-  "projectFilePath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
+  "projectFilePath": "C:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mroho\\.nuget\\packages\\coverlet.collector\\6.0.4\\coverlet.collector.6.0.4.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\cucumber.cucumberexpressions\\17.1.0\\cucumber.cucumberexpressions.17.1.0.nupkg.sha512",
@@ -33,15 +33,5 @@
     "C:\\Users\\mroho\\.nuget\\packages\\reqnroll.tools.msbuild.generation\\3.2.1\\reqnroll.tools.msbuild.generation.3.2.1.nupkg.sha512",
     "C:\\Users\\mroho\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json.",
-      "projectPath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
-      "warningLevel": 1,
-      "filePath": "c:\\Users\\mroho\\Code\\Projects\\Stavky\\Stavky.Tests\\Stavky.Tests.csproj",
-      "targetGraphs": []
-    }
-  ]
+  "logs": []
 }
