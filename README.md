@@ -113,6 +113,101 @@ npx ngrok http 3000
 
 Then use the provided `https://*.ngrok.io` URL in your Polar webhook configuration.
 
+## Polar Sandbox Testing
+
+Polar provides a sandbox environment for testing payments without real money.
+
+### Environment Configuration
+
+The project supports both sandbox and production Polar environments:
+
+- **Production config** is stored in `.env` (default)
+- **Sandbox config** can override in `.env.local`
+
+To use sandbox, add these to `.env.local`:
+
+```env
+POLAR_ACCESS_TOKEN=your_sandbox_access_token
+POLAR_ORGANIZATION_ID=your_sandbox_org_id
+POLAR_WEBHOOK_SECRET=your_sandbox_webhook_secret
+POLAR_MONTHLY_PRODUCT_ID=your_sandbox_monthly_product_id
+POLAR_YEARLY_PRODUCT_ID=your_sandbox_yearly_product_id
+POLAR_ENVIRONMENT=sandbox
+```
+
+### Getting Sandbox Credentials
+
+1. Go to [Polar Sandbox Dashboard](https://sandbox.polar.sh) (NOT polar.sh)
+2. Create an account or log in
+3. Navigate to **Settings** → **Developers** → **Access Tokens**
+4. Create a new token and copy it to `POLAR_ACCESS_TOKEN`
+5. Get your Organization ID from the dashboard URL or settings
+6. Create test products for monthly and yearly subscriptions
+7. Copy the product IDs to the environment variables
+
+### Test Credit Cards
+
+Use Stripe's test card numbers in sandbox:
+
+| Card Number | Description |
+|-------------|-------------|
+| `4242 4242 4242 4242` | Successful payment |
+| `4000 0000 0000 0002` | Card declined |
+| `4000 0025 0000 3155` | Requires 3D Secure authentication |
+| `4000 0000 0000 9995` | Insufficient funds |
+
+For all test cards:
+- **Expiry**: Any future date (e.g., `12/34`)
+- **CVC**: Any 3 digits (e.g., `123`)
+- **Name/Address/ZIP**: Any values
+
+### Sandbox Webhook Setup
+
+To test webhooks in sandbox environment:
+
+1. **Start your local server and tunnel:**
+   ```bash
+   # Terminal 1 - Start Next.js
+   npm run dev
+
+   # Terminal 2 - Start tunnel (choose one)
+   npx localtunnel --port 3000
+   # or
+   npx ngrok http 3000
+   ```
+
+2. **Configure webhook in Polar Sandbox Dashboard:**
+   - Go to [sandbox.polar.sh](https://sandbox.polar.sh) → **Settings** → **Webhooks**
+   - Click **Add Webhook**
+   - URL: `https://your-tunnel-url.loca.lt/api/webhooks/polar`
+   - Select events:
+     - `subscription.created`
+     - `subscription.updated`
+     - `subscription.canceled`
+     - `checkout.created`
+     - `checkout.updated`
+
+3. **Copy the webhook secret** and update `.env.local`:
+   ```env
+   POLAR_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxx
+   ```
+
+4. **Restart Next.js** to pick up the new secret:
+   ```bash
+   rm -rf .next && npm run dev
+   ```
+
+> **Note:** Use **sandbox.polar.sh** for sandbox webhooks, NOT polar.sh. The tunnel URL changes each restart, so you'll need to update the webhook URL in the dashboard accordingly.
+
+### Switching Between Environments
+
+1. **For sandbox**: Ensure `.env.local` has sandbox values with `POLAR_ENVIRONMENT=sandbox`
+2. **For production**: Remove or comment out Polar variables in `.env.local` (falls back to `.env`)
+3. **Restart** the Next.js dev server after changing environments:
+   ```bash
+   rm -rf .next && npm run dev
+   ```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Project Structure

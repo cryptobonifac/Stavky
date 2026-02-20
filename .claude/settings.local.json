@@ -47,7 +47,13 @@
       "WebFetch(domain:github.com)",
       "Bash(npm run type-check:*)",
       "Bash(git mv:*)",
-      "Bash(npx localtunnel --port 3000)"
+      "Bash(npx localtunnel --port 3000)",
+      "Bash(curl:*)",
+      "Bash(npx polar tunnel:*)",
+      "WebSearch",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet clean:*)"
     ]
   }
 }
