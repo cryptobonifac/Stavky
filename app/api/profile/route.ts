@@ -2,6 +2,38 @@ import { NextResponse } from 'next/server'
 
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
+/**
+ * Ensure user profile exists in public.users table.
+ * This is a failsafe in case the auth trigger didn't fire.
+ */
+async function ensureUserProfile(supabase: any, user: any) {
+  const { data: existingProfile } = await supabase
+    .from('users')
+    .select('id')
+    .eq('id', user.id)
+    .single()
+
+  if (!existingProfile) {
+    // Profile doesn't exist, create it
+    const { error: insertError } = await supabase
+      .from('users')
+      .insert({
+        id: user.id,
+        email: user.email,
+        role: 'customer',
+        account_active_until: null,
+        sign_up_method: user.app_metadata?.provider || 'email',
+      })
+
+    if (insertError) {
+      console.error('Failed to create user profile:', insertError)
+      return false
+    }
+    return true
+  }
+  return true
+}
+
 export async function GET() {
   const supabase = await createServerClient()
   const {
@@ -12,6 +44,9 @@ export async function GET() {
   if (authError || !user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
+
+  // Ensure user profile exists (failsafe for trigger failures)
+  await ensureUserProfile(supabase, user)
 
   const { data, error } = await supabase
     .from('users')

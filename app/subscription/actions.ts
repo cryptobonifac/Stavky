@@ -4,6 +4,38 @@ import { polar } from '@/lib/polar/polar';
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 /**
+ * Ensure user profile exists in public.users table.
+ * This is a failsafe in case the auth trigger didn't fire.
+ */
+async function ensureUserProfile(supabase: any, user: any) {
+  const { data: existingProfile } = await supabase
+    .from('users')
+    .select('id')
+    .eq('id', user.id)
+    .single();
+
+  if (!existingProfile) {
+    // Profile doesn't exist, create it
+    const { error: insertError } = await supabase
+      .from('users')
+      .insert({
+        id: user.id,
+        email: user.email,
+        role: 'customer',
+        account_active_until: null,
+        sign_up_method: user.app_metadata?.provider || 'email',
+      });
+
+    if (insertError) {
+      console.error('Failed to create user profile:', insertError);
+      return false;
+    }
+    return true;
+  }
+  return true;
+}
+
+/**
  * Get the current subscription status for the logged-in user
  */
 export async function getSubscriptionStatus() {
@@ -14,6 +46,9 @@ export async function getSubscriptionStatus() {
     if (!user) {
       return { error: 'Not authenticated', subscription: null };
     }
+
+    // Ensure user profile exists (failsafe for trigger failures)
+    await ensureUserProfile(supabase, user);
 
     // Get user's Polar subscription ID from database
     const { data: profile, error: profileError } = await supabase
