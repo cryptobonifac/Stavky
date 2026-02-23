@@ -7400,7 +7400,7 @@ BEGIN
 END $$;
 
 -- Verification
-SELECT 
+SELECT
   COUNT(*) as total_tips,
   COUNT(DISTINCT betting_company_id) as companies_used,
   COUNT(*) FILTER (WHERE status = 'win') as wins,
@@ -7408,3 +7408,96 @@ SELECT
   COUNT(*) FILTER (WHERE status = 'pending') as pending,
   COUNT(*) FILTER (WHERE result_id IS NULL) as tips_without_result
 FROM public.betting_tip;
+
+-- ============================================================
+-- Create admin user: busikpartners@gmail.com
+-- ============================================================
+DO $$
+DECLARE
+  admin_user_id uuid := gen_random_uuid();
+  existing_user_id uuid;
+BEGIN
+  -- Check if user already exists
+  SELECT id INTO existing_user_id FROM auth.users WHERE email = 'busikpartners@gmail.com';
+
+  IF existing_user_id IS NOT NULL THEN
+    admin_user_id := existing_user_id;
+    RAISE NOTICE 'User busikpartners@gmail.com already exists with id %', admin_user_id;
+  ELSE
+    -- Insert into auth.users (Supabase auth table)
+    INSERT INTO auth.users (
+      id,
+      instance_id,
+      aud,
+      role,
+      email,
+      encrypted_password,
+      email_confirmed_at,
+      raw_app_meta_data,
+      raw_user_meta_data,
+      created_at,
+      updated_at,
+      confirmation_token,
+      email_change,
+      email_change_token_new,
+      recovery_token
+    ) VALUES (
+      admin_user_id,
+      '00000000-0000-0000-0000-000000000000',
+      'authenticated',
+      'authenticated',
+      'busikpartners@gmail.com',
+      crypt('AdminPassword123!', gen_salt('bf')),
+      now(),
+      '{"provider": "email", "providers": ["email"]}',
+      '{"full_name": "Admin User"}',
+      now(),
+      now(),
+      '',
+      '',
+      '',
+      ''
+    );
+
+    -- Insert into auth.identities
+    INSERT INTO auth.identities (
+      id,
+      user_id,
+      identity_data,
+      provider,
+      provider_id,
+      last_sign_in_at,
+      created_at,
+      updated_at
+    ) VALUES (
+      admin_user_id,
+      admin_user_id,
+      jsonb_build_object('sub', admin_user_id::text, 'email', 'busikpartners@gmail.com'),
+      'email',
+      admin_user_id::text,
+      now(),
+      now(),
+      now()
+    );
+
+    RAISE NOTICE 'Created auth user busikpartners@gmail.com with id %', admin_user_id;
+  END IF;
+
+  -- Insert or update public.users with 'betting' (admin) role
+  INSERT INTO public.users (
+    id,
+    email,
+    role,
+    account_active_until
+  ) VALUES (
+    admin_user_id,
+    'busikpartners@gmail.com',
+    'betting',
+    now() + interval '10 years'
+  )
+  ON CONFLICT (id) DO UPDATE SET
+    role = 'betting',
+    account_active_until = now() + interval '10 years';
+
+  RAISE NOTICE 'Admin user busikpartners@gmail.com configured with betting role';
+END $$;
