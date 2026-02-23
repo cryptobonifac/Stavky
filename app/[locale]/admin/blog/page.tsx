@@ -169,17 +169,9 @@ export default async function AdminBlogPage({
               borderRadius: 1,
             }}
           >
-            <Typography variant="h6" color="text.secondary" gutterBottom>
+            <Typography variant="h6" color="text.secondary">
               {t('noPosts')}
             </Typography>
-            <Button
-              variant="contained"
-              startIcon={<Add />}
-              href={`/${locale}/admin/blog/new`}
-              sx={{ mt: 2 }}
-            >
-              {t('newPost')}
-            </Button>
           </Box>
         )}
       </Container>
