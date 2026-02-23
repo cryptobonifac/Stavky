@@ -1,8 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Container, Button, Breadcrumbs, Link as MuiLink, Typography } from '@mui/material'
-import { ArrowBack } from '@mui/icons-material'
+import { Box, Stack } from '@mui/material'
+import { ArrowBack, Home as HomeIcon } from '@mui/icons-material'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 import MainLayout from '@/components/layout/MainLayout'
 import TopNav from '@/components/navigation/TopNav'
@@ -88,6 +89,7 @@ export default async function BlogPostPage({
   }
 
   const t = await getTranslations('blog')
+  const tNav = await getTranslations('navigation')
   const title = getLocalizedContent(post.title, locale as Locale)
   const categoryName = post.category
     ? getLocalizedContent(post.category.name, locale as Locale)
@@ -113,37 +115,100 @@ export default async function BlogPostPage({
 
   return (
     <MainLayout>
+      {/* Google Fonts */}
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@400;500;600&display=swap"
+        rel="stylesheet"
+      />
+
       <TopNav
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}
       />
-      <Container maxWidth="md" sx={{ py: { xs: 3, md: 4 } }}>
-        {/* Breadcrumbs */}
-        <Breadcrumbs sx={{ mb: 3 }}>
-          <MuiLink href={`/${locale}`} underline="hover" color="inherit">
-            Home
-          </MuiLink>
-          <MuiLink href={`/${locale}/blog`} underline="hover" color="inherit">
-            {t('title')}
-          </MuiLink>
-          {categoryName && (
-            <MuiLink
-              href={`/${locale}/blog/category/${post.category?.slug}`}
-              underline="hover"
-              color="inherit"
-            >
-              {categoryName}
-            </MuiLink>
-          )}
-          <Typography color="text.primary" noWrap sx={{ maxWidth: 200 }}>
-            {title}
-          </Typography>
-        </Breadcrumbs>
 
-        {/* Back Button */}
-        <Button href={`/${locale}/blog`} startIcon={<ArrowBack />} sx={{ mb: 3 }}>
-          {t('backToBlog')}
-        </Button>
+      {/* Dark background wrapper */}
+      <Box
+        sx={{
+          bgcolor: '#0c0f0a',
+          minHeight: '100vh',
+        }}
+      >
+        {/* Breadcrumb Navigation */}
+        <Box
+          sx={{
+            maxWidth: 900,
+            mx: 'auto',
+            px: 3,
+            pt: { xs: 2, md: 3 },
+          }}
+        >
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{
+              fontSize: '0.85rem',
+              color: '#8a9182',
+            }}
+          >
+            <Link
+              href={`/${locale}`}
+              style={{
+                color: '#8a9182',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+              }}
+            >
+              <HomeIcon sx={{ fontSize: 16 }} />
+              {tNav('home')}
+            </Link>
+            <Box component="span" sx={{ color: '#2a3324' }}>/</Box>
+            <Link
+              href={`/${locale}/blog`}
+              style={{
+                color: '#8a9182',
+                textDecoration: 'none',
+              }}
+            >
+              {t('title')}
+            </Link>
+            {categoryName && (
+              <>
+                <Box component="span" sx={{ color: '#2a3324' }}>/</Box>
+                <Link
+                  href={`/${locale}/blog/category/${post.category?.slug}`}
+                  style={{
+                    color: '#8a9182',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {categoryName}
+                </Link>
+              </>
+            )}
+          </Stack>
+
+          {/* Back Button */}
+          <Link
+            href={`/${locale}/blog`}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              marginTop: 16,
+              color: '#8a9182',
+              textDecoration: 'none',
+              fontSize: '0.875rem',
+            }}
+          >
+            <ArrowBack sx={{ fontSize: 18 }} />
+            {t('backToBlog')}
+          </Link>
+        </Box>
 
         {/* Article Content */}
         <BlogPostContent post={post} />
@@ -153,7 +218,7 @@ export default async function BlogPostPage({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </Container>
+      </Box>
     </MainLayout>
   )
 }
