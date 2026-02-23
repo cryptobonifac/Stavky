@@ -544,6 +544,7 @@
     "subscriptionId": "ID předplatného",
     "status": "Status",
     "activeUntil": "Aktivní do",
+    "managementDisabled": "Správa předplatného je dočasně zakázána během aktualizace systému.",
     "renewsOn": "Obnoví se",
     "cancelsOn": "Zruší se",
     "cancellationScheduled": "Vaše předplatné bude zrušeno na konci aktuálního fakturačního období. Budete mít přístup až do tohoto data.",

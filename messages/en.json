@@ -544,6 +544,7 @@
     "subscriptionId": "Subscription ID",
     "status": "Status",
     "activeUntil": "Active Until",
+    "managementDisabled": "Subscription management is temporarily disabled during system update.",
     "renewsOn": "Renews on",
     "cancelsOn": "Cancels on",
     "cancellationScheduled": "Your subscription is scheduled to cancel at the end of the current billing period. You will continue to have access until then.",
