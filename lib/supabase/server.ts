@@ -1,6 +1,19 @@
 import { createServerClient } from '@supabase/ssr'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import { cookies } from 'next/headers'
 import type { SupabaseClient } from '@supabase/supabase-js'
+
+/**
+ * Creates a Supabase client for build-time static generation.
+ * This client doesn't use cookies and is only suitable for fetching public data.
+ * Use this in generateStaticParams and other build-time functions.
+ */
+export function createBuildClient() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+}
 
 export async function createClient() {
   const cookieStore = await cookies()
