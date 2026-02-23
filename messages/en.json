@@ -434,6 +434,7 @@
     "bettingTips": "Betting Tips",
     "history": "History",
     "statistics": "Statistics",
+    "blog": "Blog",
     "profile": "Profile",
     "subscription": "Subscription",
     "settings": "Settings",
@@ -486,6 +487,7 @@
     "copyright": "© {year} smartbet365.com. All rights reserved.",
     "terms": "Terms",
     "statistics": "Statistics",
+    "blog": "Blog",
     "privacy": "Privacy",
     "legalDisclaimer": "Legal Disclaimer",
     "riskWarning": "Risk Warning",
@@ -541,6 +543,7 @@
     "cancelSubscription": "Cancel Subscription",
     "subscriptionId": "Subscription ID",
     "status": "Status",
+    "activeUntil": "Active Until",
     "renewsOn": "Renews on",
     "cancelsOn": "Cancels on",
     "cancellationScheduled": "Your subscription is scheduled to cancel at the end of the current billing period. You will continue to have access until then.",
@@ -853,6 +856,29 @@
     "contactInformation": {
       "title": "Contact Information",
       "content": "Operator: Busik&Partners, s.r.o.\nRegistered Office: Nové sady 988/2, 602 00 Brno, Czech Republic\nCompany ID (IČO): 21445389\nRegistered at: Krajský soud v Brně, sp. zn. C 138671"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "latestPosts": "Latest from the Blog",
+    "allCategories": "All Categories",
+    "readMore": "Read More",
+    "publishedOn": "Published on",
+    "byAuthor": "By",
+    "noPosts": "No articles found",
+    "backToBlog": "Back to Blog",
+    "admin": {
+      "title": "Blog Management",
+      "newPost": "New Post",
+      "editPost": "Edit Post",
+      "deletePost": "Delete Post",
+      "confirmDelete": "Are you sure you want to delete this post?",
+      "postCreated": "Post created successfully",
+      "postUpdated": "Post updated successfully",
+      "postDeleted": "Post deleted successfully",
+      "saveDraft": "Save Draft",
+      "publish": "Publish",
+      "noPosts": "No blog posts yet"
     }
   },
   "riskWarning": {

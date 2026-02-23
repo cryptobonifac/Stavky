@@ -436,6 +436,7 @@
     "bettingTips": "Sázkové tipy",
     "history": "Historie",
     "statistics": "Statistiky",
+    "blog": "Blog",
     "profile": "Profil",
     "subscription": "Předplatné",
     "settings": "Nastavení",
@@ -486,6 +487,7 @@
     "copyright": "© {year} smartbet365.com. Všechna práva vyhrazena.",
     "terms": "Podmínky",
     "statistics": "Statistiky",
+    "blog": "Blog",
     "privacy": "Soukromí",
     "legalDisclaimer": "Právní prohlášení",
     "riskWarning": "Varování o rizicích",
@@ -541,6 +543,7 @@
     "cancelSubscription": "Zrušit předplatné",
     "subscriptionId": "ID předplatného",
     "status": "Status",
+    "activeUntil": "Aktivní do",
     "renewsOn": "Obnoví se",
     "cancelsOn": "Zruší se",
     "cancellationScheduled": "Vaše předplatné bude zrušeno na konci aktuálního fakturačního období. Budete mít přístup až do tohoto data.",
@@ -853,6 +856,29 @@
     "contactInformation": {
       "title": "Kontaktní údaje",
       "content": "Provozovatel: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, 602 00 Brno, Česká republika\nIČO: 21445389\nZapsáno u: Krajský soud v Brně, sp. zn. C 138671"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "latestPosts": "Nejnovější články",
+    "allCategories": "Všechny kategorie",
+    "readMore": "Číst více",
+    "publishedOn": "Publikováno",
+    "byAuthor": "Autor",
+    "noPosts": "Žádné články nenalezeny",
+    "backToBlog": "Zpět na blog",
+    "admin": {
+      "title": "Správa blogu",
+      "newPost": "Nový příspěvek",
+      "editPost": "Upravit příspěvek",
+      "deletePost": "Smazat příspěvek",
+      "confirmDelete": "Opravdu chcete smazat tento příspěvek?",
+      "postCreated": "Příspěvek byl úspěšně vytvořen",
+      "postUpdated": "Příspěvek byl úspěšně aktualizován",
+      "postDeleted": "Příspěvek byl úspěšně smazán",
+      "saveDraft": "Uložit koncept",
+      "publish": "Publikovat",
+      "noPosts": "Zatím žádné příspěvky"
     }
   },
   "riskWarning": {
