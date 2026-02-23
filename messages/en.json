@@ -332,6 +332,21 @@
   },
   "settings": {
     "title": "Settings",
+    "userManagement": {
+      "title": "User Management"
+    },
+    "promotionOverrides": {
+      "title": "Promotion & Overrides"
+    },
+    "systemConfiguration": {
+      "title": "System Configuration"
+    },
+    "marketingLogic": {
+      "title": "Marketing Logic"
+    },
+    "dangerZone": {
+      "title": "Danger Zone"
+    },
     "users": {
       "title": "Users & subscriptions",
       "email": "Email",
@@ -349,10 +364,11 @@
       "updateFailed": "Failed to update user"
     },
     "bettingCompanies": {
-      "title": "Betting companies",
+      "title": "Betting Companies",
       "name": "Name",
       "newCompanyName": "New company name",
       "add": "Add",
+      "addPlaceholder": "Add",
       "addCompany": "Add Company",
       "edit": "Edit Company",
       "delete": "Delete Company",
@@ -368,6 +384,7 @@
       "name": "Name",
       "newSportName": "New sport name",
       "add": "Add",
+      "addPlaceholder": "Add",
       "addSport": "Add Sport",
       "edit": "Edit Sport",
       "delete": "Delete Sport",
@@ -396,8 +413,10 @@
     "marketing": {
       "title": "Marketing & free month logic",
       "freeMonthTitle": "Marketing & free month settings",
+      "freeMonthLogicTitle": "Marketing & free month logic",
       "freeMonthDescription": "Configure how free months are automatically granted after losing streaks.",
       "autoEnable": "Grant free month automatically after loss threshold",
+      "autoEnableDescription": "Grant free month automatically after loss threshold",
       "lossThreshold": "Loss threshold",
       "lossThresholdHelper": "Number of losses in a month before granting a free month",
       "save": "Save settings",
@@ -407,6 +426,7 @@
     },
     "freeMonthOverride": {
       "title": "Manual free month override",
+      "subtitle": "Manual free month override",
       "description": "Use this tool to manually grant or revoke next-month access for a specific user and billing month. Automatic rules will still run as configured in marketing settings.",
       "selectUser": "Select user",
       "subscriptionMonth": "Subscription month",
@@ -890,7 +910,12 @@
       "postDeleted": "Post deleted successfully",
       "saveDraft": "Save Draft",
       "publish": "Publish",
-      "noPosts": "No blog posts yet"
+      "noPosts": "No blog posts yet",
+      "tableTitle": "Title",
+      "tableCategory": "Category",
+      "tableStatus": "Status",
+      "tablePublished": "Published",
+      "tableActions": "Actions"
     }
   },
   "riskWarning": {

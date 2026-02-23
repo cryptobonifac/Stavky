@@ -31,6 +31,9 @@ const BalanceChartsView = () => {
         const response = await fetch('/api/balance-history')
 
         if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error('Please log in to view balance data')
+          }
           throw new Error('Failed to fetch balance data')
         }
 

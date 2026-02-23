@@ -17,6 +17,7 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import CardMembershipIcon from '@mui/icons-material/CardMembership'
 import LocalOfferIcon from '@mui/icons-material/LocalOffer'
 import InfoIcon from '@mui/icons-material/Info'
+import ArticleIcon from '@mui/icons-material/Article'
 import { useAuth } from '@/components/providers/auth-provider'
 import LanguageSwitcher from './LanguageSwitcher'
 import { isAccountActive } from '@/lib/utils/account'
@@ -83,6 +84,7 @@ const TopNav = ({
         {!profile && (
           <>
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
+            <SidebarItem href="/blog" icon={<ArticleIcon />} label={t('blog')} />
             <SidebarItem href="/checkout" icon={<LocalOfferIcon />} label={t('plans')} />
             <SidebarItem href="/introduction" icon={<InfoIcon />} label={t('introduction')} />
           </>
@@ -222,6 +224,15 @@ const TopNav = ({
                 sx={{ minHeight: 44 }}
               >
                 {t('statistics')}
+              </Button>
+              <Button
+                component={Link}
+                href="/blog"
+                variant="text"
+                color="inherit"
+                sx={{ minHeight: 44 }}
+              >
+                {t('blog')}
               </Button>
               <Button
                 component={Link}

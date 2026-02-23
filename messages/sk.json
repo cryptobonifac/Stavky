@@ -333,6 +333,21 @@
   },
   "settings": {
     "title": "Nastavenia",
+    "userManagement": {
+      "title": "Správa používateľov"
+    },
+    "promotionOverrides": {
+      "title": "Propagácia a prepísania"
+    },
+    "systemConfiguration": {
+      "title": "Konfigurácia systému"
+    },
+    "marketingLogic": {
+      "title": "Marketingová logika"
+    },
+    "dangerZone": {
+      "title": "Nebezpečná zóna"
+    },
     "users": {
       "title": "Používatelia a predplatné",
       "email": "Email",
@@ -354,6 +369,7 @@
       "name": "Názov",
       "newCompanyName": "Názov novej spoločnosti",
       "add": "Pridať",
+      "addPlaceholder": "Pridať",
       "addCompany": "Pridať spoločnosť",
       "edit": "Upraviť spoločnosť",
       "delete": "Vymazať spoločnosť",
@@ -369,6 +385,7 @@
       "name": "Názov",
       "newSportName": "Názov nového športu",
       "add": "Pridať",
+      "addPlaceholder": "Pridať",
       "addSport": "Pridať šport",
       "edit": "Upraviť šport",
       "delete": "Vymazať šport",
@@ -397,8 +414,10 @@
     "marketing": {
       "title": "Marketing a logika zdarma mesiaca",
       "freeMonthTitle": "Marketingové nastavenia a nastavenia zdarma mesiaca",
+      "freeMonthLogicTitle": "Marketing a logika zdarma mesiaca",
       "freeMonthDescription": "Nastavte, ako sa automaticky poskytujú zdarma mesiace po prehratých sériách.",
       "autoEnable": "Automaticky poskytnúť zdarma mesiac po dosiahnutí prahu prehier",
+      "autoEnableDescription": "Automaticky poskytnúť zdarma mesiac po dosiahnutí prahu prehier",
       "lossThreshold": "Prah pre prehry",
       "lossThresholdHelper": "Počet prehier v mesiaci pred poskytnutím zdarma mesiaca",
       "save": "Uložiť nastavenia",
@@ -408,6 +427,7 @@
     },
     "freeMonthOverride": {
       "title": "Manuálne prepísanie zdarma mesiaca",
+      "subtitle": "Manuálne prepísanie zdarma mesiaca",
       "description": "Použite tento nástroj na manuálne poskytnutie alebo odstránenie prístupu na ďalší mesiac pre konkrétneho používateľa a fakturačný mesiac. Automatické pravidlá budú stále bežať podľa nastavenia v marketingových nastaveniach.",
       "selectUser": "Vybrať používateľa",
       "subscriptionMonth": "Mesiac predplatného",
@@ -889,7 +909,12 @@
       "postDeleted": "Príspevok bol úspešne vymazaný",
       "saveDraft": "Uložiť koncept",
       "publish": "Publikovať",
-      "noPosts": "Zatiaľ žiadne príspevky"
+      "noPosts": "Zatiaľ žiadne príspevky",
+      "tableTitle": "Názov",
+      "tableCategory": "Kategória",
+      "tableStatus": "Stav",
+      "tablePublished": "Publikované",
+      "tableActions": "Akcie"
     }
   },
   "riskWarning": {

@@ -8,7 +8,7 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY ||
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 async function checkUserStatus(email) {
-  console.log(`\n🔍 Checking user status for: ${email}\n`);
+  console.log(`\nChecking user status for: ${email}\n`);
 
   // Find user by email
   const { data: user, error: userError } = await supabase
@@ -18,19 +18,19 @@ async function checkUserStatus(email) {
     .single();
 
   if (userError || !user) {
-    console.error(`❌ User not found: ${email}`);
+    console.error(`User not found: ${email}`);
     console.error('Error:', userError?.message || userError);
     return;
   }
 
-  console.log('✅ User found:');
+  console.log('User found:');
   console.log(`   ID: ${user.id}`);
   console.log(`   Email: ${user.email}`);
   console.log(`   Role: ${user.role}`);
   console.log(`   Account Active Until: ${user.account_active_until || 'NULL (not active)'}`);
   console.log(`   Subscription Plan: ${user.subscription_plan_type || 'NULL'}`);
-  console.log(`   Polar Customer ID: ${user.polar_customer_id || 'NULL'}`);
-  console.log(`   Polar Subscription ID: ${user.polar_subscription_id || 'NULL'}`);
+  console.log(`   Provider Customer ID: ${user.provider_customer_id || 'NULL'}`);
+  console.log(`   Provider Subscription ID: ${user.provider_subscription_id || 'NULL'}`);
   console.log(`   Created At: ${user.created_at}`);
   console.log(`   Updated At: ${user.updated_at}`);
 
@@ -40,10 +40,10 @@ async function checkUserStatus(email) {
     const now = new Date();
     const isActive = activeUntil >= now;
 
-    console.log(`\n📊 Account Status:`);
+    console.log(`\nAccount Status:`);
     console.log(`   Active Until: ${activeUntil.toISOString()}`);
     console.log(`   Current Time: ${now.toISOString()}`);
-    console.log(`   Is Active: ${isActive ? '✅ YES' : '❌ NO'}`);
+    console.log(`   Is Active: ${isActive ? 'YES' : 'NO'}`);
 
     if (!isActive) {
       const diffMs = now - activeUntil;
@@ -55,17 +55,17 @@ async function checkUserStatus(email) {
       console.log(`   Days Remaining: ${diffDays}`);
     }
   } else {
-    console.log(`\n📊 Account Status: ❌ NOT ACTIVE (account_active_until is NULL)`);
+    console.log(`\nAccount Status: NOT ACTIVE (account_active_until is NULL)`);
   }
 
   // Check auth.users table
-  console.log(`\n🔐 Checking auth.users table...`);
+  console.log(`\nChecking auth.users table...`);
   const { data: authUser, error: authError } = await supabase.auth.admin.getUserById(user.id);
 
   if (authError) {
     console.error('   Error fetching auth user:', authError.message);
   } else if (authUser) {
-    console.log(`   ✅ Auth user exists`);
+    console.log(`   Auth user exists`);
     console.log(`   Email: ${authUser.user.email}`);
     console.log(`   Email Confirmed: ${authUser.user.email_confirmed_at ? 'Yes' : 'No'}`);
   }

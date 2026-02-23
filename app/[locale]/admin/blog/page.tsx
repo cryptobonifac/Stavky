@@ -106,11 +106,11 @@ export default async function AdminBlogPage({
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell>Title</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Status</TableCell>
-                  <TableCell>Published</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell>{t('tableTitle')}</TableCell>
+                  <TableCell>{t('tableCategory')}</TableCell>
+                  <TableCell>{t('tableStatus')}</TableCell>
+                  <TableCell>{t('tablePublished')}</TableCell>
+                  <TableCell align="right">{t('tableActions')}</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

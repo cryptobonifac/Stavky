@@ -1,36 +1,18 @@
 import { getTranslations, getLocale } from 'next-intl/server'
 import { redirect } from '@/i18n/routing'
-import PeopleIcon from '@mui/icons-material/People'
-import BusinessIcon from '@mui/icons-material/Business'
-import SportsIcon from '@mui/icons-material/Sports'
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents'
-import CampaignIcon from '@mui/icons-material/Campaign'
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard'
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
+import WarningAmberIcon from '@mui/icons-material/WarningAmber'
 
 import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
-import UserListSection, {
-  type ManagedUser,
-} from '@/components/settings/UserListSection'
-import BettingCompaniesSection from '@/components/settings/BettingCompaniesSection'
-import SportsSection from '@/components/settings/SportsSection'
-import ResultsSection from '@/components/settings/ResultsSection'
-import MarketingSettingsSection from '@/components/settings/MarketingSettingsSection'
-import FreeMonthOverrideSection from '@/components/settings/FreeMonthOverrideSection'
-import DeleteAllTipsSection from '@/components/settings/DeleteAllTipsSection'
+import UserManagementSection from '@/components/settings/UserManagementSection'
+import SystemConfigurationSection from '@/components/settings/SystemConfigurationSection'
+import MarketingLogicSection from '@/components/settings/MarketingLogicSection'
+import DangerZoneSection from '@/components/settings/DangerZoneSection'
+import type { ManagedUser } from '@/components/settings/UserListSection'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 import Grid from '@mui/material/Grid'
-import {
-  Card,
-  CardContent,
-  Stack,
-  Typography,
-  Box,
-  Divider,
-  useTheme,
-} from '@mui/material'
+import { Box, Paper, Stack, Typography } from '@mui/material'
 
 export async function generateMetadata() {
   const t = await getTranslations('settings')
@@ -65,14 +47,13 @@ export default async function SettingsPage({
     redirect({ href: '/bettings', locale })
   }
 
-  const [usersRes, companiesRes, sportsRes, resultsRes, marketingRes] = await Promise.all([
+  const [usersRes, companiesRes, sportsRes, marketingRes] = await Promise.all([
     supabase
       .from('users')
       .select('id,email,role,account_active_until')
       .order('email'),
     supabase.from('betting_companies').select('id,name').order('name'),
     supabase.from('sports').select('id,name').order('name'),
-    supabase.from('results').select('id,name').order('name'),
     supabase
       .from('marketing_settings')
       .select('id,key,value')
@@ -98,311 +79,115 @@ export default async function SettingsPage({
     <MainLayout>
       <TopNav />
       <PageSection>
-        <Grid container spacing={4}>
-          <Grid size={{ xs: 12, lg: 7 }}>
-            <Stack spacing={4}>
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
+        <Grid container spacing={3}>
+          {/* Left Column - User Management */}
+          <Grid size={{ xs: 12, lg: 6 }}>
+            <Stack spacing={3}>
+              {/* User Management Section */}
+              <Box>
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5 }}>
+                  {t('userManagement.title')}
+                </Typography>
+                <Paper
+                  elevation={0}
                   sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
+                    p: 3,
+                    border: '1px solid',
                     borderColor: 'divider',
+                    borderRadius: 2,
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'primary.main',
-                        color: 'primary.contrastText',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <PeopleIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                    {t('users.title')}
-                  </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                  <UserListSection users={managedUsers} />
-                </CardContent>
-              </Card>
+                  <UserManagementSection users={managedUsers} />
+                </Paper>
+              </Box>
 
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
+              {/* Promotion & Overrides Section */}
+              <Box>
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5 }}>
+                  {t('promotionOverrides.title')}
+                </Typography>
+                <Paper
+                  elevation={0}
                   sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
+                    p: 3,
+                    border: '1px solid',
                     borderColor: 'divider',
+                    borderRadius: 2,
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'secondary.main',
-                        color: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <CardGiftcardIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('freeMonthOverride.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-              <FreeMonthOverrideSection users={managedUsers} />
-                </CardContent>
-              </Card>
+                  <UserManagementSection users={managedUsers} variant="freeMonth" />
+                </Paper>
+              </Box>
             </Stack>
           </Grid>
-          <Grid size={{ xs: 12, lg: 5 }}>
-            <Stack spacing={4}>
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
-                  sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                  }}
-                >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'primary.main',
-                        color: 'primary.contrastText',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <BusinessIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('bettingCompanies.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                    <BettingCompaniesSection companies={companiesRes.data ?? []} />
-                  </CardContent>
-                </Card>
 
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
+          {/* Right Column - System Configuration */}
+          <Grid size={{ xs: 12, lg: 6 }}>
+            <Stack spacing={3}>
+              {/* System Configuration Section */}
+              <Box>
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5 }}>
+                  {t('systemConfiguration.title')}
+                </Typography>
+                <Paper
+                  elevation={0}
                   sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
+                    p: 3,
+                    border: '1px solid',
                     borderColor: 'divider',
+                    borderRadius: 2,
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'primary.main',
-                        color: 'primary.contrastText',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <SportsIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('sports.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                  <SportsSection sports={sportsRes.data ?? []} />
-                </CardContent>
-              </Card>
+                  <SystemConfigurationSection
+                    companies={companiesRes.data ?? []}
+                    sports={sportsRes.data ?? []}
+                  />
+                </Paper>
+              </Box>
 
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
+              {/* Marketing Logic Section */}
+              <Box>
+                <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5 }}>
+                  {t('marketingLogic.title')}
+                </Typography>
+                <Paper
+                  elevation={0}
                   sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
+                    p: 3,
+                    border: '1px solid',
                     borderColor: 'divider',
+                    borderRadius: 2,
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'primary.main',
-                        color: 'primary.contrastText',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <EmojiEventsIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('results.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                  <ResultsSection results={resultsRes.data ?? []} />
-                </CardContent>
-              </Card>
-
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
-                  sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                  }}
-                >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'secondary.main',
-                        color: 'white',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <CampaignIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('marketing.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                    <MarketingSettingsSection settings={marketingRes.data ?? null} />
-                  </CardContent>
-                </Card>
-
-              <Card
-                elevation={0}
-                sx={{
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  borderRadius: 3,
-                  overflow: 'hidden',
-                }}
-              >
-                <Box
-                  sx={{
-                    px: 3,
-                    py: 2.5,
-                    bgcolor: 'background.paper',
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                  }}
-                >
-                  <Stack direction="row" spacing={2} alignItems="center">
-                    <Box
-                      sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        bgcolor: 'error.main',
-                        color: 'error.contrastText',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <DeleteForeverIcon fontSize="small" />
-                    </Box>
-                    <Typography variant="h5" fontWeight={600}>
-                      {t('deleteAllTips.title')}
-                    </Typography>
-                  </Stack>
-                </Box>
-                <CardContent sx={{ pt: 3 }}>
-                  <DeleteAllTipsSection />
-                </CardContent>
-              </Card>
+                  <MarketingLogicSection settings={marketingRes.data ?? null} />
+                </Paper>
+              </Box>
             </Stack>
+          </Grid>
+
+          {/* Full Width - Danger Zone */}
+          <Grid size={12}>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 3,
+                border: '1px solid',
+                borderColor: 'error.main',
+                borderRadius: 2,
+                bgcolor: 'error.50',
+              }}
+            >
+              <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 2 }}>
+                <WarningAmberIcon sx={{ color: 'error.main' }} />
+                <Typography variant="subtitle1" fontWeight={600} color="error.main">
+                  {t('dangerZone.title')}
+                </Typography>
+              </Stack>
+              <DangerZoneSection />
+            </Paper>
           </Grid>
         </Grid>
       </PageSection>
     </MainLayout>
   )
 }
-
-

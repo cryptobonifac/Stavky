@@ -9,8 +9,8 @@ interface UserData {
   email: string;
   role: string;
   account_active_until: string | null;
-  polar_customer_id: string | null;
-  polar_subscription_id: string | null;
+  provider_customer_id: string | null;
+  provider_subscription_id: string | null;
   subscription_plan_type: string | null;
   is_active: boolean | null;
   created_at: string;
@@ -22,8 +22,8 @@ interface AnalysisResult {
   user?: UserData;
   analysis?: {
     account_status: string;
-    has_polar_customer: boolean;
-    has_polar_subscription: boolean;
+    has_provider_customer: boolean;
+    has_provider_subscription: boolean;
     subscription_plan_type: string | null;
     activation_expired: string | null;
   };
@@ -71,6 +71,11 @@ export default function WebhookDebugPage() {
       </div>
       <div className="px-4 py-3">
 
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+        <p className="text-yellow-800 font-semibold">Payment System Update</p>
+        <p className="text-yellow-700 text-sm">Payment provider integration is being updated. Webhook debugging shows database state only.</p>
+      </div>
+
       <div className="bg-white rounded-lg shadow p-4 mb-4">
         <div className="flex gap-4 mb-4">
           <input
@@ -112,7 +117,7 @@ export default function WebhookDebugPage() {
                   <div>
                     <label className="text-sm font-medium text-gray-500">Account Status</label>
                     <p className={`text-lg font-semibold ${result.user.is_active ? 'text-green-600' : 'text-red-600'}`}>
-                      {result.user.is_active ? '✅ ACTIVE' : '❌ INACTIVE'}
+                      {result.user.is_active ? 'ACTIVE' : 'INACTIVE'}
                     </p>
                   </div>
                   <div>
@@ -124,12 +129,12 @@ export default function WebhookDebugPage() {
                     <p className="text-lg capitalize">{result.user.subscription_plan_type || 'None'}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Polar Customer ID</label>
-                    <p className="text-sm font-mono">{result.user.polar_customer_id || 'NULL'}</p>
+                    <label className="text-sm font-medium text-gray-500">Provider Customer ID</label>
+                    <p className="text-sm font-mono">{result.user.provider_customer_id || 'NULL'}</p>
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-500">Polar Subscription ID</label>
-                    <p className="text-sm font-mono">{result.user.polar_subscription_id || 'NULL'}</p>
+                    <label className="text-sm font-medium text-gray-500">Provider Subscription ID</label>
+                    <p className="text-sm font-mono">{result.user.provider_subscription_id || 'NULL'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Last Updated</label>
@@ -149,12 +154,12 @@ export default function WebhookDebugPage() {
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Has Polar Customer:</span>
-                      <span>{result.analysis.has_polar_customer ? '✅ Yes' : '❌ No'}</span>
+                      <span className="font-medium">Has Provider Customer:</span>
+                      <span>{result.analysis.has_provider_customer ? 'Yes' : 'No'}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="font-medium">Has Polar Subscription:</span>
-                      <span>{result.analysis.has_polar_subscription ? '✅ Yes' : '❌ No'}</span>
+                      <span className="font-medium">Has Provider Subscription:</span>
+                      <span>{result.analysis.has_provider_subscription ? 'Yes' : 'No'}</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="font-medium">Subscription Plan:</span>
@@ -169,16 +174,16 @@ export default function WebhookDebugPage() {
                 <div className="bg-white rounded-lg shadow p-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-2">
-                      <span>{result.webhook_checklist['User exists in database'] ? '✅' : '❌'}</span>
+                      <span>{result.webhook_checklist['User exists in database'] ? '✓' : '✗'}</span>
                       <span>User exists in database</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span>ℹ️</span>
+                      <span>ℹ</span>
                       <span>{result.webhook_checklist['Account should be activated by webhook']}</span>
                     </div>
                     {result.webhook_checklist['Possible issues'].length > 0 && (
                       <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
-                        <h3 className="font-semibold text-yellow-800 mb-2">⚠️ Possible Issues:</h3>
+                        <h3 className="font-semibold text-yellow-800 mb-2">Possible Issues:</h3>
                         <ul className="list-disc list-inside space-y-1">
                           {result.webhook_checklist['Possible issues'].map((issue, idx) => (
                             <li key={idx} className="text-yellow-700">{issue}</li>
@@ -189,19 +194,6 @@ export default function WebhookDebugPage() {
                   </div>
                 </div>
               )}
-
-              {/* Next Steps */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <ol className="list-decimal list-inside space-y-2 text-blue-700">
-                  <li>Check your terminal logs where <code className="bg-blue-100 px-1 rounded">npm run dev</code> is running</li>
-                  <li>Look for logs starting with <code className="bg-blue-100 px-1 rounded">🔔 POLAR WEBHOOK REQUEST RECEIVED</code></li>
-                  <li>If no webhook logs appear, verify Polar tunnel is running:
-                    <code className="block bg-blue-100 px-2 py-1 rounded mt-1">npx polar tunnel --port 3000</code>
-                  </li>
-                  <li>Check Polar Dashboard → Developers → Webhooks → Events for recent subscription events</li>
-                  <li>Verify the email in Polar matches the database email exactly (case-insensitive)</li>
-                </ol>
-              </div>
             </>
           ) : (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">

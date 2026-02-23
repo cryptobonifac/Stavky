@@ -18,6 +18,7 @@ import SpeedIcon from '@mui/icons-material/Speed'
 import TopNav from '@/components/navigation/TopNav'
 import Footer from '@/components/layout/Footer'
 import { useAuth } from '@/components/providers/auth-provider'
+import { LatestBlogPosts } from '@/components/blog'
 
 // Mark as dynamic because useAuth requires client-side context
 export const dynamic = 'force-dynamic'
@@ -259,11 +260,14 @@ export default function Home() {
           </Container>
         </Box>
 
+        {/* Latest Blog Posts */}
+        <LatestBlogPosts />
+
         {/* CTA Section */}
-        <Box sx={{ 
-          py: { xs: 6, sm: 8, md: 10 }, 
-          bgcolor: 'primary.main', 
-          color: 'primary.contrastText', 
+        <Box sx={{
+          py: { xs: 6, sm: 8, md: 10 },
+          bgcolor: 'primary.main',
+          color: 'primary.contrastText',
           textAlign: 'center',
           px: { xs: 1, sm: 2 },
         }}>

@@ -23,7 +23,7 @@ export async function GET(req: Request) {
       // Fetch specific user
       const { data: user, error } = await supabase
         .from('users')
-        .select('id, email, role, account_active_until, polar_customer_id, polar_subscription_id, subscription_plan_type, created_at, updated_at')
+        .select('id, email, role, account_active_until, provider_customer_id, provider_subscription_id, subscription_plan_type, created_at, updated_at')
         .ilike('email', email)
         .maybeSingle();
 
@@ -51,8 +51,8 @@ export async function GET(req: Request) {
         },
         analysis: {
           account_status: isActive ? 'ACTIVE' : 'INACTIVE',
-          has_polar_customer: !!user.polar_customer_id,
-          has_polar_subscription: !!user.polar_subscription_id,
+          has_provider_customer: !!user.provider_customer_id,
+          has_provider_subscription: !!user.provider_subscription_id,
           subscription_plan_type: user.subscription_plan_type,
           activation_expired: activeUntil && activeUntil < now ? activeUntil.toISOString() : null,
           days_since_update: Math.floor((now.getTime() - new Date(user.updated_at).getTime()) / (1000 * 60 * 60 * 24)),
@@ -65,9 +65,9 @@ export async function GET(req: Request) {
           'Possible issues': getPossibleIssues(user, isActive),
         },
         webhook_status: {
-          webhook_processed: !!(user.polar_customer_id || user.polar_subscription_id),
-          likely_issue: !isActive && !user.polar_customer_id
-            ? 'No Polar customer ID set - webhook may not have been received or email mismatch'
+          webhook_processed: !!(user.provider_customer_id || user.provider_subscription_id),
+          likely_issue: !isActive && !user.provider_customer_id
+            ? 'No provider customer ID set - webhook may not have been received or email mismatch'
             : null,
         },
       });
@@ -75,7 +75,7 @@ export async function GET(req: Request) {
       // Fetch all users (limited)
       const { data: users, error } = await supabase
         .from('users')
-        .select('email, role, account_active_until, polar_customer_id, polar_subscription_id, subscription_plan_type, updated_at')
+        .select('email, role, account_active_until, provider_customer_id, provider_subscription_id, subscription_plan_type, updated_at')
         .order('updated_at', { ascending: false })
         .limit(limit);
 
@@ -90,8 +90,8 @@ export async function GET(req: Request) {
           email: user.email,
           role: user.role,
           is_active: activeUntil ? activeUntil >= now : false,
-          has_polar_customer: !!user.polar_customer_id,
-          has_polar_subscription: !!user.polar_subscription_id,
+          has_provider_customer: !!user.provider_customer_id,
+          has_provider_subscription: !!user.provider_subscription_id,
           subscription_plan_type: user.subscription_plan_type,
           last_updated: user.updated_at,
         };
@@ -115,16 +115,16 @@ export async function GET(req: Request) {
 function getPossibleIssues(user: any, isActive: boolean): string[] {
   const issues: string[] = [];
 
-  if (!isActive && !user.polar_customer_id) {
-    issues.push('No Polar customer ID - webhook may not have been received');
-    issues.push('Check if customer email in Polar matches database email exactly');
+  if (!isActive && !user.provider_customer_id) {
+    issues.push('No provider customer ID - webhook may not have been received');
+    issues.push('Check if customer email in payment provider matches database email exactly');
   }
 
-  if (user.polar_customer_id && !user.polar_subscription_id && !isActive) {
-    issues.push('Has Polar customer but no subscription - subscription may have been cancelled');
+  if (user.provider_customer_id && !user.provider_subscription_id && !isActive) {
+    issues.push('Has provider customer but no subscription - subscription may have been cancelled');
   }
 
-  if (!user.polar_customer_id && user.polar_subscription_id) {
+  if (!user.provider_customer_id && user.provider_subscription_id) {
     issues.push('Has subscription ID but no customer ID - data inconsistency');
   }
 

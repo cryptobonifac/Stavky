@@ -1,6 +1,5 @@
 'use server';
 
-import { polar } from '@/lib/polar/polar';
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server';
 
 /**
@@ -37,6 +36,7 @@ async function ensureUserProfile(supabase: any, user: any) {
 
 /**
  * Get the current subscription status for the logged-in user
+ * Now checks database only (provider_* columns)
  */
 export async function getSubscriptionStatus() {
   try {
@@ -50,108 +50,64 @@ export async function getSubscriptionStatus() {
     // Ensure user profile exists (failsafe for trigger failures)
     await ensureUserProfile(supabase, user);
 
-    // Get user's Polar subscription ID from database
+    // Get user's subscription info from database
     const { data: profile, error: profileError } = await supabase
       .from('users')
-      .select('polar_subscription_id, polar_customer_id, account_active_until')
+      .select('provider_subscription_id, provider_customer_id, account_active_until, subscription_plan_type')
       .eq('id', user.id)
       .single();
 
     if (profileError || !profile) {
       // Profile not found - return as no subscription (don't show error to user)
-      return { error: null, subscription: null, hasSubscription: false };
+      return { error: null, subscription: null, hasSubscription: false, maintenanceMode: true };
     }
 
-    if (!profile.polar_subscription_id) {
+    // Check if user has active subscription based on account_active_until
+    const now = new Date();
+    const activeUntil = profile.account_active_until ? new Date(profile.account_active_until) : null;
+    const isActive = activeUntil ? activeUntil >= now : false;
+
+    if (!isActive) {
       return {
         error: null,
         subscription: null,
-        hasSubscription: false
+        hasSubscription: false,
+        maintenanceMode: true,
       };
     }
 
-    // Retrieve subscription from Polar
-    try {
-      const subscription = await polar.subscriptions.get({
-        id: profile.polar_subscription_id,
-      });
-
-      return {
-        error: null,
-        subscription: {
-          id: subscription.id,
-          status: subscription.status,
-          currentPeriodEnd: subscription.currentPeriodEnd
-            ? new Date(subscription.currentPeriodEnd).toISOString()
-            : new Date().toISOString(),
-          cancelAtPeriodEnd: subscription.cancelAtPeriodEnd || false,
-          customerId: profile.polar_customer_id,
-        },
-        hasSubscription: true,
-      };
-    } catch (polarError: any) {
-      console.error('Error retrieving subscription from Polar:', polarError);
-      return {
-        error: polarError.message || 'Failed to retrieve subscription',
-        subscription: null,
-        hasSubscription: false
-      };
-    }
+    // User has active subscription from database
+    return {
+      error: null,
+      subscription: {
+        id: profile.provider_subscription_id || 'db-subscription',
+        status: 'active',
+        currentPeriodEnd: profile.account_active_until,
+        cancelAtPeriodEnd: false,
+        customerId: profile.provider_customer_id,
+        planType: profile.subscription_plan_type,
+      },
+      hasSubscription: true,
+      maintenanceMode: true,
+    };
   } catch (error: any) {
     console.error('Error getting subscription status:', error);
     return {
       error: error.message || 'An error occurred',
       subscription: null,
-      hasSubscription: false
+      hasSubscription: false,
+      maintenanceMode: true,
     };
   }
 }
 
 /**
  * Cancel the user's subscription
+ * Stub: Payment system is being updated
  */
 export async function cancelSubscription() {
-  try {
-    const supabase = await createServerClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return { error: 'Not authenticated' };
-    }
-
-    // Get user's Polar subscription ID from database
-    const { data: profile, error: profileError } = await supabase
-      .from('users')
-      .select('polar_subscription_id')
-      .eq('id', user.id)
-      .single();
-
-    if (profileError || !profile || !profile.polar_subscription_id) {
-      return { error: 'No active subscription found' };
-    }
-
-    // Revoke subscription in Polar (this cancels the subscription)
-    try {
-      const subscription = await polar.subscriptions.revoke({
-        id: profile.polar_subscription_id,
-      });
-
-      return {
-        error: null,
-        success: true,
-        message: 'Subscription has been cancelled',
-        cancelAtPeriodEnd: true, // Polar revoke cancels the subscription
-      };
-    } catch (polarError: any) {
-      console.error('Error revoking subscription in Polar:', polarError);
-      return {
-        error: polarError.message || 'Failed to cancel subscription'
-      };
-    }
-  } catch (error: any) {
-    console.error('Error cancelling subscription:', error);
-    return {
-      error: error.message || 'An error occurred'
-    };
-  }
+  return {
+    error: 'Subscription management is currently being updated. Please try again later or contact support.',
+    success: false,
+  };
 }

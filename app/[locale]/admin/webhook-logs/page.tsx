@@ -8,8 +8,8 @@ interface UserLog {
   email: string;
   role: string;
   is_active: boolean;
-  has_polar_customer: boolean;
-  has_polar_subscription: boolean;
+  has_provider_customer: boolean;
+  has_provider_subscription: boolean;
   subscription_plan_type: string | null;
   last_updated: string;
 }
@@ -83,6 +83,12 @@ export default function WebhookLogsPage() {
         <PageBreadcrumbs />
       </div>
       <div className="px-4 py-3">
+
+      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+        <p className="text-yellow-800 font-semibold">Payment System Update</p>
+        <p className="text-yellow-700 text-sm">Payment provider integration is being updated. This page shows database subscription state only.</p>
+      </div>
+
       <div className="flex justify-between items-center mb-4">
         <div className="flex gap-4 items-center">
           <label className="flex items-center gap-2">
@@ -139,7 +145,7 @@ export default function WebhookLogsPage() {
                       <div>
                         <label className="text-sm font-medium text-gray-500">Status</label>
                         <p className={`text-lg font-semibold ${logs.user.is_active ? 'text-green-600' : 'text-red-600'}`}>
-                          {logs.user.is_active ? '✅ ACTIVE' : '❌ INACTIVE'}
+                          {logs.user.is_active ? 'ACTIVE' : 'INACTIVE'}
                         </p>
                       </div>
                       <div>
@@ -147,12 +153,12 @@ export default function WebhookLogsPage() {
                         <p className="text-lg capitalize">{logs.user.subscription_plan_type || 'None'}</p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Polar Customer ID</label>
-                        <p className="text-sm font-mono">{logs.user.polar_customer_id || 'NULL'}</p>
+                        <label className="text-sm font-medium text-gray-500">Provider Customer ID</label>
+                        <p className="text-sm font-mono">{logs.user.provider_customer_id || 'NULL'}</p>
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-gray-500">Polar Subscription ID</label>
-                        <p className="text-sm font-mono">{logs.user.polar_subscription_id || 'NULL'}</p>
+                        <label className="text-sm font-medium text-gray-500">Provider Subscription ID</label>
+                        <p className="text-sm font-mono">{logs.user.provider_subscription_id || 'NULL'}</p>
                       </div>
                       <div>
                         <label className="text-sm font-medium text-gray-500">Last Updated</label>
@@ -171,8 +177,8 @@ export default function WebhookLogsPage() {
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="font-medium">Has Polar Customer:</span>
-                          <span>{logs.analysis.has_polar_customer ? '✅ Yes' : '❌ No'}</span>
+                          <span className="font-medium">Has Provider Customer:</span>
+                          <span>{logs.analysis.has_provider_customer ? 'Yes' : 'No'}</span>
                         </div>
                         <div className="flex justify-between">
                           <span className="font-medium">Days Since Last Update:</span>
@@ -187,11 +193,11 @@ export default function WebhookLogsPage() {
                       <div className="space-y-2">
                         <div className="flex justify-between">
                           <span className="font-medium">Webhook Processed:</span>
-                          <span>{logs.webhook_status.webhook_processed ? '✅ Yes' : '❌ No'}</span>
+                          <span>{logs.webhook_status.webhook_processed ? 'Yes' : 'No'}</span>
                         </div>
                         {logs.webhook_status.likely_issue && (
                           <div className="mt-4 p-4 bg-yellow-100 rounded">
-                            <p className="text-yellow-800 font-semibold">⚠️ Issue Detected:</p>
+                            <p className="text-yellow-800 font-semibold">Issue Detected:</p>
                             <p className="text-yellow-700">{logs.webhook_status.likely_issue}</p>
                           </div>
                         )}
@@ -210,8 +216,8 @@ export default function WebhookLogsPage() {
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Plan</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Polar Customer</th>
-                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Polar Subscription</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Provider Customer</th>
+                          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Provider Subscription</th>
                           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Updated</th>
                         </tr>
                       </thead>
@@ -222,17 +228,17 @@ export default function WebhookLogsPage() {
                             <td className="px-6 py-4 whitespace-nowrap text-sm">{user.role}</td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                               <span className={user.is_active ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
-                                {user.is_active ? '✅ ACTIVE' : '❌ INACTIVE'}
+                                {user.is_active ? 'ACTIVE' : 'INACTIVE'}
                               </span>
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm capitalize">
                               {user.subscription_plan_type || '-'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
-                              {user.has_polar_customer ? '✅ Yes' : '❌ No'}
+                              {user.has_provider_customer ? 'Yes' : 'No'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
-                              {user.has_polar_subscription ? '✅ Yes' : '❌ No'}
+                              {user.has_provider_subscription ? 'Yes' : 'No'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                               {new Date(user.last_updated).toLocaleString()}
@@ -255,10 +261,10 @@ export default function WebhookLogsPage() {
 
       <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
         <div className="space-y-2 text-blue-700">
-          <p><strong>✅ ACTIVE + Has Polar Customer:</strong> Webhook processed successfully</p>
-          <p><strong>❌ INACTIVE + No Polar Customer:</strong> Webhook likely not processed</p>
-          <p><strong>⚠️ Check Last Updated:</strong> If old, webhook may not have fired recently</p>
-          <p><strong>💡 Tip:</strong> Use auto-refresh to monitor real-time changes after payments</p>
+          <p><strong>ACTIVE + Has Provider Customer:</strong> Webhook processed successfully</p>
+          <p><strong>INACTIVE + No Provider Customer:</strong> Webhook likely not processed</p>
+          <p><strong>Check Last Updated:</strong> If old, webhook may not have fired recently</p>
+          <p><strong>Tip:</strong> Use auto-refresh to monitor real-time changes after payments</p>
         </div>
       </div>
     </div>

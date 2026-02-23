@@ -53,6 +53,15 @@ const Footer = () => {
             </MuiLink>
             <MuiLink
               component={Link}
+              href="/blog"
+              color="text.secondary"
+              underline="hover"
+              sx={{ fontSize: { xs: '0.75rem', md: '0.875rem' } }}
+            >
+              {t('blog')}
+            </MuiLink>
+            <MuiLink
+              component={Link}
               href="/terms"
               color="text.secondary"
               underline="hover"

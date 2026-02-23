@@ -12,22 +12,16 @@ import {
   Stack,
   Alert,
   CircularProgress,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
 } from '@mui/material';
 import CardMembershipIcon from '@mui/icons-material/CardMembership';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { createPolarCheckoutSession } from '@/app/checkout/actions';
-import { getSubscriptionStatus, cancelSubscription } from '@/app/subscription/actions';
+import BuildIcon from '@mui/icons-material/Build';
+import { getSubscriptionStatus } from '@/app/subscription/actions';
 import { useLocale } from 'next-intl';
 import MainLayout from '@/components/layout/MainLayout';
 import TopNav from '@/components/navigation/TopNav';
 import PageSection from '@/components/layout/PageSection';
-import { useAuth } from '@/components/providers/auth-provider';
 
 type SubscriptionStatus = {
   id: string;
@@ -35,19 +29,17 @@ type SubscriptionStatus = {
   currentPeriodEnd: string;
   cancelAtPeriodEnd: boolean;
   customerId: string | null;
+  planType?: string | null;
 };
 
 export default function SubscriptionPage() {
   const locale = useLocale();
   const t = useTranslations('subscription');
-  const tCommon = useTranslations('common');
-  const { profile } = useAuth();
 
   const [loading, setLoading] = useState(true);
-  const [cancelling, setCancelling] = useState(false);
   const [subscription, setSubscription] = useState<SubscriptionStatus | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  const [maintenanceMode, setMaintenanceMode] = useState(false);
 
   useEffect(() => {
     loadSubscriptionStatus();
@@ -58,6 +50,10 @@ export default function SubscriptionPage() {
       setLoading(true);
       setError(null);
       const result = await getSubscriptionStatus();
+
+      if (result.maintenanceMode) {
+        setMaintenanceMode(true);
+      }
 
       if (result.error) {
         setError(result.error);
@@ -74,34 +70,8 @@ export default function SubscriptionPage() {
   };
 
   const handleCreateSubscription = async () => {
-    try {
-      setError(null);
-      // Redirect to checkout page instead of direct checkout
-      window.location.href = `/${locale}/checkout`;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to navigate to checkout');
-    }
-  };
-
-  const handleCancelSubscription = async () => {
-    try {
-      setCancelling(true);
-      setError(null);
-
-      const result = await cancelSubscription();
-
-      if (result.error) {
-        setError(result.error);
-      } else {
-        // Reload subscription status to reflect cancellation
-        await loadSubscriptionStatus();
-        setCancelDialogOpen(false);
-      }
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to cancel subscription');
-    } finally {
-      setCancelling(false);
-    }
+    // Redirect to checkout page
+    window.location.href = `/${locale}/checkout`;
   };
 
   if (loading) {
@@ -129,6 +99,14 @@ export default function SubscriptionPage() {
         </Alert>
       )}
 
+      {maintenanceMode && (
+        <Alert severity="info" icon={<BuildIcon />} sx={{ mb: 4 }}>
+          <Typography variant="body2">
+            {t('maintenanceNotice') || 'Subscription management is currently being updated. Your existing subscription remains active.'}
+          </Typography>
+        </Alert>
+      )}
+
       <Card sx={{ mb: 4 }}>
         <CardContent sx={{ p: 4 }}>
           {subscription ? (
@@ -149,15 +127,6 @@ export default function SubscriptionPage() {
                 <Stack spacing={2}>
                   <Box>
                     <Typography variant="caption" color="text.secondary">
-                      {t('subscriptionId')}
-                    </Typography>
-                    <Typography variant="body2" sx={{ fontFamily: 'monospace' }}>
-                      {subscription.id}
-                    </Typography>
-                  </Box>
-
-                  <Box>
-                    <Typography variant="caption" color="text.secondary">
                       {t('status')}
                     </Typography>
                     <Typography variant="body2" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
@@ -165,9 +134,20 @@ export default function SubscriptionPage() {
                     </Typography>
                   </Box>
 
+                  {subscription.planType && (
+                    <Box>
+                      <Typography variant="caption" color="text.secondary">
+                        {t('planType') || 'Plan Type'}
+                      </Typography>
+                      <Typography variant="body2" fontWeight="bold" sx={{ textTransform: 'capitalize' }}>
+                        {subscription.planType}
+                      </Typography>
+                    </Box>
+                  )}
+
                   <Box>
                     <Typography variant="caption" color="text.secondary">
-                      {subscription.cancelAtPeriodEnd ? t('cancelsOn') : t('renewsOn')}
+                      {t('activeUntil') || 'Active Until'}
                     </Typography>
                     <Typography variant="body2" fontWeight="bold">
                       {new Date(subscription.currentPeriodEnd).toLocaleDateString(locale, {
@@ -178,25 +158,13 @@ export default function SubscriptionPage() {
                     </Typography>
                   </Box>
 
-                  {subscription.cancelAtPeriodEnd && (
-                    <Alert severity="info">
-                      {t('cancellationScheduled')}
+                  {maintenanceMode && (
+                    <Alert severity="info" sx={{ mt: 2 }}>
+                      {t('managementDisabled') || 'Subscription management is temporarily disabled during system update.'}
                     </Alert>
                   )}
                 </Stack>
               </Box>
-
-              {!subscription.cancelAtPeriodEnd && (
-                <Button
-                  variant="outlined"
-                  color="error"
-                  startIcon={<CancelIcon />}
-                  onClick={() => setCancelDialogOpen(true)}
-                  sx={{ alignSelf: 'flex-start', ml: 7 }}
-                >
-                  {t('cancelSubscription')}
-                </Button>
-              )}
             </Stack>
           ) : (
             <Stack spacing={3} alignItems="center">
@@ -215,40 +183,22 @@ export default function SubscriptionPage() {
                 size="large"
                 startIcon={<CardMembershipIcon />}
                 onClick={handleCreateSubscription}
+                disabled={maintenanceMode}
                 sx={{ px: 4, py: 1.5 }}
               >
                 {t('createSubscription')}
               </Button>
+
+              {maintenanceMode && (
+                <Typography variant="body2" color="text.secondary">
+                  {t('checkBackSoon') || 'Please check back soon to subscribe.'}
+                </Typography>
+              )}
             </Stack>
           )}
         </CardContent>
       </Card>
 
-      {/* Cancel Confirmation Dialog */}
-      <Dialog
-        open={cancelDialogOpen}
-        onClose={() => setCancelDialogOpen(false)}
-      >
-        <DialogTitle>{t('confirmCancellation')}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {t('confirmCancellationMessage')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setCancelDialogOpen(false)} disabled={cancelling}>
-            {tCommon('cancel')}
-          </Button>
-          <Button
-            onClick={handleCancelSubscription}
-            color="error"
-            variant="contained"
-            disabled={cancelling}
-          >
-            {cancelling ? <CircularProgress size={20} /> : t('confirmCancel')}
-          </Button>
-        </DialogActions>
-      </Dialog>
         </Container>
       </PageSection>
     </MainLayout>
