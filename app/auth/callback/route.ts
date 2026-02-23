@@ -5,7 +5,8 @@ import { routing } from '@/i18n/routing'
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
-  
+  const type = requestUrl.searchParams.get('type')
+
   // Get locale from query param, referer, or default
   let locale = requestUrl.searchParams.get('locale')
   if (!locale) {
@@ -23,13 +24,15 @@ export async function GET(request: NextRequest) {
   if (!locale || !routing.locales.includes(locale as any)) {
     locale = routing.defaultLocale
   }
-  
+
   // Default redirect path (without locale - middleware will add it)
   // Support both 'redirect' (new) and 'next' (legacy) parameters
   const redirectParam = requestUrl.searchParams.get('redirect') || requestUrl.searchParams.get('next')
+
+  // Handle password recovery flow - redirect to update-password page
   let next = redirectParam
     ? (redirectParam.startsWith('/') ? redirectParam : `/${redirectParam}`)
-    : '/bettings'
+    : type === 'recovery' ? '/update-password' : '/bettings'
 
   if (!code) {
     requestUrl.pathname = '/login'
@@ -68,8 +71,9 @@ export async function GET(request: NextRequest) {
   }
 
   // Get user and role to determine redirect destination
+  // Skip role-based redirect for password recovery flow
   const { data: { user } } = await supabase.auth.getUser()
-  if (user) {
+  if (user && type !== 'recovery') {
     const { data: userProfile } = await supabase
       .from('users')
       .select('role')

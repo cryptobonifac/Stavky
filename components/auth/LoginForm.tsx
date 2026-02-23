@@ -86,6 +86,17 @@ const LoginForm = () => {
           fullWidth
           inputProps={{ 'data-testid': 'login-password-input' }}
         />
+        <Typography variant="body2" textAlign="right" sx={{ mt: -1 }}>
+          <Typography
+            component="a"
+            href={`/${locale}/forgot-password`}
+            color="primary"
+            sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' }, cursor: 'pointer' }}
+            data-testid="forgot-password-link"
+          >
+            {t('forgotPassword')}
+          </Typography>
+        </Typography>
       </Stack>
       <Button
         type="submit"

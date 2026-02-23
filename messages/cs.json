@@ -67,6 +67,7 @@
       "submit": "Přihlásit se",
       "signingIn": "Přihlašování...",
       "signIn": "Přihlásit se",
+      "forgotPassword": "Zapomněli jste heslo?",
       "orContinueWith": "nebo pokračovat přes",
       "termsAgreement": "Pokračováním souhlasíte s podmínkami služby Stavky.",
       "errors": {
@@ -98,6 +99,38 @@
     },
     "socialLogin": {
       "google": "Pokračovat přes Google"
+    },
+    "forgotPassword": {
+      "pageTitle": "Obnovte své heslo",
+      "pageSubtitle": "Zadejte svůj email a my vám pošleme odkaz pro obnovení.",
+      "email": "Email",
+      "sendResetLink": "Odeslat odkaz pro obnovení",
+      "sending": "Odesílání...",
+      "successTitle": "Zkontrolujte svůj email",
+      "successMessage": "Pokud existuje účet pro {email}, obdržíte odkaz pro obnovení hesla.",
+      "backToLogin": "Zpět na přihlášení",
+      "errors": {
+        "emailRequired": "Email je povinný.",
+        "invalidEmail": "Zadejte prosím platnou emailovou adresu.",
+        "generic": "Došlo k chybě. Zkuste to prosím znovu."
+      }
+    },
+    "updatePassword": {
+      "pageTitle": "Vytvořte nové heslo",
+      "pageSubtitle": "Zadejte níže své nové heslo.",
+      "password": "Nové heslo",
+      "confirmPassword": "Potvrďte heslo",
+      "passwordHelper": "Použijte alespoň 8 znaků",
+      "updatePassword": "Aktualizovat heslo",
+      "updating": "Aktualizování...",
+      "passwordsDontMatch": "Hesla se neshodují.",
+      "successMessage": "Heslo bylo úspěšně aktualizováno.",
+      "goToLogin": "Přejít na přihlášení",
+      "errors": {
+        "passwordRequired": "Heslo je povinné.",
+        "passwordTooShort": "Heslo musí mít alespoň 8 znaků.",
+        "generic": "Došlo k chybě. Zkuste to prosím znovu."
+      }
     }
   },
   "bettings": {
@@ -498,6 +531,8 @@
   },
   "subscription": {
     "title": "Správa předplatného",
+    "maintenanceNotice": "Správa předplatného se právě aktualizuje. Vaše stávající předplatné zůstává aktivní.",
+    "checkBackSoon": "Zkuste to prosím znovu brzy.",
     "activeSubscription": "Aktivní předplatné",
     "subscriptionActiveDescription": "Máte aktivní předplatné",
     "noSubscription": "Žádné aktivní předplatné",
