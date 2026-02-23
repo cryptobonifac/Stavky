@@ -570,7 +570,9 @@
     "subscribeYearly": "Predplatiť ročne",
     "yearlyPriceIdWarning": "⚠️ Nastavte POLAR_YEARLY_PRODUCT_ID v prostredí",
     "securePayment": "Bezpečná platba cez Polar",
-    "backToHome": "Späť na úvodnú stránku"
+    "backToHome": "Späť na úvodnú stránku",
+    "maintenanceTitle": "Aktualizácia platobného systému",
+    "maintenanceMessage": "Náš platobný systém je práve aktualizovaný. Vráťte sa prosím neskôr alebo kontaktujte podporu."
   },
   "cookies": {
     "banner": {

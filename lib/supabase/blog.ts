@@ -5,6 +5,7 @@ export type {
   Locale,
   LocalizedContent,
   BlogCategory,
+  BlogAuthor,
   BlogPost,
   CreateBlogPostInput,
   UpdateBlogPostInput,
@@ -14,7 +15,7 @@ export type {
 
 export { getLocalizedContent, generateSlug } from './blog-types'
 
-import type { BlogCategory, BlogPost, GetPostsOptions, GetPostsResult, CreateBlogPostInput, UpdateBlogPostInput } from './blog-types'
+import type { BlogCategory, BlogAuthor, BlogPost, GetPostsOptions, GetPostsResult, CreateBlogPostInput, UpdateBlogPostInput } from './blog-types'
 
 // ============== Categories ==============
 
@@ -49,6 +50,25 @@ export async function getCategoryBySlug(slug: string): Promise<BlogCategory | nu
   }
 
   return data
+}
+
+// ============== Authors ==============
+
+export async function getAuthors(): Promise<BlogAuthor[]> {
+  const supabase = await createClient()
+
+  const { data, error } = await supabase
+    .from('users')
+    .select('id, email, full_name')
+    .eq('role', 'betting')
+    .order('full_name', { ascending: true })
+
+  if (error) {
+    console.error('Error fetching authors:', error)
+    return []
+  }
+
+  return data || []
 }
 
 // ============== Posts (Public) ==============
@@ -101,7 +121,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 
   const { data, error } = await supabase
     .from('blog_posts')
-    .select('*, category:blog_categories(*), author:users(id, email)')
+    .select('*, category:blog_categories(*), author:users(id, email, full_name)')
     .eq('slug', slug)
     .single()
 
@@ -141,7 +161,7 @@ export async function getAllPosts(options: GetPostsOptions = {}): Promise<GetPos
 
   let query = supabase
     .from('blog_posts')
-    .select('*, category:blog_categories(*), author:users(id, email)', { count: 'exact' })
+    .select('*, category:blog_categories(*), author:users(id, email, full_name)', { count: 'exact' })
     .order('created_at', { ascending: false })
 
   if (status) {
@@ -183,7 +203,7 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
 
   const { data, error } = await supabase
     .from('blog_posts')
-    .select('*, category:blog_categories(*), author:users(id, email)')
+    .select('*, category:blog_categories(*), author:users(id, email, full_name)')
     .eq('id', id)
     .single()
 
@@ -195,19 +215,18 @@ export async function getPostById(id: string): Promise<BlogPost | null> {
   return data
 }
 
-export async function createPost(input: CreateBlogPostInput, authorId: string): Promise<BlogPost | null> {
+export async function createPost(input: CreateBlogPostInput): Promise<BlogPost | null> {
   const supabase = await createClient()
 
   const postData = {
     ...input,
-    author_id: authorId,
     published_at: input.status === 'published' ? (input.published_at || new Date().toISOString()) : null
   }
 
   const { data, error } = await supabase
     .from('blog_posts')
     .insert(postData)
-    .select('*, category:blog_categories(*)')
+    .select('*, category:blog_categories(*), author:users(id, email, full_name)')
     .single()
 
   if (error) {
@@ -222,8 +241,8 @@ export async function updatePost(input: UpdateBlogPostInput): Promise<BlogPost |
   const { id, ...updateData } = input
   const supabase = await createClient()
 
-  // If publishing for the first time, set published_at
-  if (updateData.status === 'published') {
+  // If publishing for the first time and no published_at provided, set it now
+  if (updateData.status === 'published' && !updateData.published_at) {
     const existing = await getPostById(id)
     if (existing && !existing.published_at) {
       updateData.published_at = new Date().toISOString()
@@ -234,7 +253,7 @@ export async function updatePost(input: UpdateBlogPostInput): Promise<BlogPost |
     .from('blog_posts')
     .update(updateData)
     .eq('id', id)
-    .select('*, category:blog_categories(*)')
+    .select('*, category:blog_categories(*), author:users(id, email, full_name)')
     .single()
 
   if (error) {

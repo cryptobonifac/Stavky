@@ -27,6 +27,7 @@ import { Save, Publish, ArrowBack } from '@mui/icons-material'
 import type {
   BlogPost,
   BlogCategory,
+  BlogAuthor,
   LocalizedContent,
   CreateBlogPostInput,
 } from '@/lib/supabase/blog-types'
@@ -53,6 +54,7 @@ function TabPanel({ children, value, index }: TabPanelProps) {
 type BlogPostFormProps = {
   post?: BlogPost | null
   categories: BlogCategory[]
+  authors: BlogAuthor[]
   onSave: (data: CreateBlogPostInput) => Promise<boolean>
 }
 
@@ -63,7 +65,7 @@ const LOCALE_LABELS: Record<Locale, string> = {
   sk: 'Slovencina',
 }
 
-const BlogPostForm = ({ post, categories, onSave }: BlogPostFormProps) => {
+const BlogPostForm = ({ post, categories, authors, onSave }: BlogPostFormProps) => {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState(0)
   const [saving, setSaving] = useState(false)
@@ -82,10 +84,14 @@ const BlogPostForm = ({ post, categories, onSave }: BlogPostFormProps) => {
     post?.featured_image_url || null
   )
   const [categoryId, setCategoryId] = useState<string>(post?.category_id || '')
+  const [authorId, setAuthorId] = useState<string>(post?.author_id || '')
   const [status, setStatus] = useState<'draft' | 'published'>(
     (post?.status as 'draft' | 'published') || 'draft'
   )
   const [tags, setTags] = useState<string[]>(post?.tags || [])
+  const [publishedAt, setPublishedAt] = useState<string>(
+    post?.published_at ? post.published_at.slice(0, 16) : ''
+  )
 
   // Auto-generate slug from English title
   useEffect(() => {
@@ -147,8 +153,10 @@ const BlogPostForm = ({ post, categories, onSave }: BlogPostFormProps) => {
         Object.keys(metaDescriptions).length > 0 ? metaDescriptions : undefined,
       featured_image_url: featuredImageUrl || undefined,
       category_id: categoryId || undefined,
+      author_id: authorId || undefined,
       status: publishStatus,
       tags: tags.length > 0 ? tags : undefined,
+      published_at: publishedAt ? new Date(publishedAt).toISOString() : undefined,
     }
 
     const success = await onSave(data)
@@ -307,6 +315,36 @@ const BlogPostForm = ({ post, categories, onSave }: BlogPostFormProps) => {
               ))}
             </Select>
           </FormControl>
+
+          <FormControl fullWidth>
+            <InputLabel>Author</InputLabel>
+            <Select
+              value={authorId}
+              onChange={(e) => setAuthorId(e.target.value)}
+              label="Author"
+            >
+              <MenuItem value="">
+                <em>No author</em>
+              </MenuItem>
+              {authors.map((author) => (
+                <MenuItem key={author.id} value={author.id}>
+                  {author.full_name || author.email}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+
+          {post && (
+            <TextField
+              label="Published Date"
+              type="datetime-local"
+              value={publishedAt}
+              onChange={(e) => setPublishedAt(e.target.value)}
+              fullWidth
+              InputLabelProps={{ shrink: true }}
+              helperText="Edit the publication date (only available when editing)"
+            />
+          )}
 
           <Autocomplete
             multiple

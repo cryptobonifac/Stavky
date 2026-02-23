@@ -570,7 +570,9 @@
     "subscribeYearly": "Subscribe Yearly",
     "yearlyPriceIdWarning": "⚠️ Configure POLAR_YEARLY_PRODUCT_ID in your environment variables",
     "securePayment": "Secure payment powered by Polar",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "maintenanceTitle": "Payment System Update",
+    "maintenanceMessage": "Our payment system is currently being updated. Please check back soon or contact support for assistance."
   },
   "cookies": {
     "banner": {

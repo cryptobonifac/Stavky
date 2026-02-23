@@ -17,6 +17,12 @@ export interface BlogCategory {
   created_at: string
 }
 
+export interface BlogAuthor {
+  id: string
+  email: string
+  full_name: string | null
+}
+
 export interface BlogPost {
   id: string
   slug: string
@@ -34,7 +40,7 @@ export interface BlogPost {
   created_at: string
   updated_at: string
   category?: BlogCategory | null
-  author?: { id: string; email: string } | null
+  author?: BlogAuthor | null
 }
 
 export interface CreateBlogPostInput {
@@ -44,6 +50,7 @@ export interface CreateBlogPostInput {
   excerpt?: LocalizedContent
   featured_image_url?: string
   category_id?: string
+  author_id?: string
   status?: 'draft' | 'published' | 'archived'
   meta_title?: LocalizedContent
   meta_description?: LocalizedContent

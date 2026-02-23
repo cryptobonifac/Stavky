@@ -5,7 +5,6 @@ import {
   Typography,
   Grid,
   Container,
-  Stack,
   CircularProgress,
 } from '@mui/material'
 import type { Metadata } from 'next'
@@ -13,8 +12,7 @@ import type { Metadata } from 'next'
 import MainLayout from '@/components/layout/MainLayout'
 import TopNav from '@/components/navigation/TopNav'
 import { BlogPostCard, BlogPagination } from '@/components/blog'
-import BlogCategoryFilter from '@/components/blog/BlogCategoryFilter'
-import { getPublishedPosts, getCategories } from '@/lib/supabase/blog'
+import { getPublishedPosts } from '@/lib/supabase/blog'
 import { createSafeAuthClient } from '@/lib/supabase/server'
 
 export async function generateMetadata({
@@ -52,10 +50,10 @@ export default async function BlogPage({
   searchParams,
 }: {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ page?: string; category?: string }>
+  searchParams: Promise<{ page?: string }>
 }) {
   const { locale } = await params
-  const { page: pageParam, category } = await searchParams
+  const { page: pageParam } = await searchParams
   const page = parseInt(pageParam || '1', 10)
 
   const supabase = await createSafeAuthClient()
@@ -73,10 +71,7 @@ export default async function BlogPage({
     profile = profileData
   }
 
-  const [{ posts, totalPages }, categories] = await Promise.all([
-    getPublishedPosts({ page, limit: 9, categorySlug: category }),
-    getCategories(),
-  ])
+  const { posts, totalPages } = await getPublishedPosts({ page, limit: 9 })
 
   const t = await getTranslations('blog')
 
@@ -89,24 +84,9 @@ export default async function BlogPage({
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }}>
         <Suspense fallback={<BlogLoading />}>
           {/* Header */}
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            justifyContent="space-between"
-            alignItems={{ xs: 'flex-start', sm: 'center' }}
-            spacing={2}
-            sx={{ mb: 4 }}
-          >
-            <Typography variant="h4" component="h1" fontWeight={700}>
-              {t('title')}
-            </Typography>
-
-            {categories.length > 0 && (
-              <BlogCategoryFilter
-                categories={categories}
-                selectedCategory={category}
-              />
-            )}
-          </Stack>
+          <Typography variant="h4" component="h1" fontWeight={700} sx={{ mb: 4 }}>
+            {t('title')}
+          </Typography>
 
           {/* Posts Grid */}
           {posts.length > 0 ? (
