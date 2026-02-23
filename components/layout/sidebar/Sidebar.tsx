@@ -8,6 +8,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import PeopleIcon from '@mui/icons-material/People'
 import CardMembershipIcon from '@mui/icons-material/CardMembership'
+import ArticleIcon from '@mui/icons-material/Article'
 import { useTranslations } from 'next-intl'
 
 import SidebarItem from './SidebarItem'
@@ -51,6 +52,7 @@ const Sidebar = ({ role, isActiveCustomer = false, isLoggedIn = false }: Sidebar
             <SidebarItem href="/newbet" icon={<AdminPanelSettingsIcon />} label={t('newbet')} />
             <SidebarItem href="/bettings/manage" icon={<SportsSoccerIcon />} label={t('manage')} />
             <SidebarItem href="/bettings/customers" icon={<PeopleIcon />} label={t('customers')} />
+            <SidebarItem href="/admin/blog" icon={<ArticleIcon />} label={t('blogManagement')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}
