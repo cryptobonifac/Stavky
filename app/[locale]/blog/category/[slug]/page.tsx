@@ -9,7 +9,6 @@ import {
   Breadcrumbs,
   Link as MuiLink,
 } from '@mui/material'
-import Link from 'next/link'
 import type { Metadata } from 'next'
 
 import MainLayout from '@/components/layout/MainLayout'
@@ -114,20 +113,10 @@ export default async function BlogCategoryPage({
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }}>
         {/* Breadcrumbs */}
         <Breadcrumbs sx={{ mb: 3 }}>
-          <MuiLink
-            component={Link}
-            href={`/${locale}`}
-            underline="hover"
-            color="inherit"
-          >
+          <MuiLink href={`/${locale}`} underline="hover" color="inherit">
             Home
           </MuiLink>
-          <MuiLink
-            component={Link}
-            href={`/${locale}/blog`}
-            underline="hover"
-            color="inherit"
-          >
+          <MuiLink href={`/${locale}/blog`} underline="hover" color="inherit">
             {t('title')}
           </MuiLink>
           <Typography color="text.primary">{categoryName}</Typography>

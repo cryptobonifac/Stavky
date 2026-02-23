@@ -1,8 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
-import { Box, Container, Button, Breadcrumbs, Link as MuiLink, Typography } from '@mui/material'
+import { Container, Button, Breadcrumbs, Link as MuiLink, Typography } from '@mui/material'
 import { ArrowBack } from '@mui/icons-material'
-import Link from 'next/link'
 import type { Metadata } from 'next'
 
 import MainLayout from '@/components/layout/MainLayout'
@@ -121,25 +120,14 @@ export default async function BlogPostPage({
       <Container maxWidth="md" sx={{ py: { xs: 3, md: 4 } }}>
         {/* Breadcrumbs */}
         <Breadcrumbs sx={{ mb: 3 }}>
-          <MuiLink
-            component={Link}
-            href={`/${locale}`}
-            underline="hover"
-            color="inherit"
-          >
+          <MuiLink href={`/${locale}`} underline="hover" color="inherit">
             Home
           </MuiLink>
-          <MuiLink
-            component={Link}
-            href={`/${locale}/blog`}
-            underline="hover"
-            color="inherit"
-          >
+          <MuiLink href={`/${locale}/blog`} underline="hover" color="inherit">
             {t('title')}
           </MuiLink>
           {categoryName && (
             <MuiLink
-              component={Link}
               href={`/${locale}/blog/category/${post.category?.slug}`}
               underline="hover"
               color="inherit"
@@ -153,12 +141,7 @@ export default async function BlogPostPage({
         </Breadcrumbs>
 
         {/* Back Button */}
-        <Button
-          component={Link}
-          href={`/${locale}/blog`}
-          startIcon={<ArrowBack />}
-          sx={{ mb: 3 }}
-        >
+        <Button href={`/${locale}/blog`} startIcon={<ArrowBack />} sx={{ mb: 3 }}>
           {t('backToBlog')}
         </Button>
 
