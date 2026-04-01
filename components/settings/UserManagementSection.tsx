@@ -21,6 +21,7 @@ export type ManagedUser = {
   email: string
   role: 'betting' | 'customer'
   account_active_until: string | null
+  reference_number: string
 }
 
 type UserManagementSectionProps = {
@@ -39,7 +40,7 @@ const UserManagementSection = ({ users }: UserManagementSectionProps) => {
   const [selectedId, setSelectedId] = useState<string | null>(users[0]?.id ?? null)
 
   const userOptions = useMemo(
-    () => users.map((user) => ({ label: user.email, id: user.id })),
+    () => users.map((user) => ({ label: `${user.email} (${user.reference_number})`, id: user.id })),
     [users]
   )
 
@@ -124,6 +125,13 @@ const UserManagementSection = ({ users }: UserManagementSectionProps) => {
               size="small"
               sx={{ flex: 1 }}
               inputProps={{ 'data-testid': 'settings-user-email' }}
+            />
+            <TextField
+              value={selectedDraft.reference_number}
+              label={t('users.referenceNumber')}
+              slotProps={{ input: { readOnly: true } }}
+              size="small"
+              sx={{ width: 180 }}
             />
             <Box sx={{ minWidth: 200 }}>
               <DateTimePickerField

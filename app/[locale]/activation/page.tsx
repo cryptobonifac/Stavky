@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 import { redirect } from '@/i18n/routing'
-import { Box, Card, CardContent, Stack, Typography, Divider } from '@mui/material'
+import { Alert, Box, Card, CardContent, Stack, Typography, Divider } from '@mui/material'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 
 import CopyToClipboardButton from '@/components/common/CopyToClipboardButton'
@@ -35,7 +35,7 @@ export default async function ActivationPage({
   // Check if user is already active - redirect to bettings
   const { data: profile } = await supabase
     .from('users')
-    .select('account_active_until,role')
+    .select('account_active_until,role,reference_number')
     .eq('id', user!.id)
     .single()
 
@@ -57,6 +57,7 @@ export default async function ActivationPage({
     .limit(1)
     .maybeSingle()
 
+  const referenceNumber = profile?.reference_number ?? ''
   const monthlyPrice = settings?.monthly_price ?? 40
   const yearlyPrice = settings?.yearly_price ?? 360
   const iban = settings?.iban ?? ''
@@ -149,10 +150,33 @@ export default async function ActivationPage({
                           <CopyToClipboardButton text={iban} />
                         </Stack>
                       </Stack>
+                      {referenceNumber && (
+                        <Stack spacing={0.5} alignItems="center">
+                          <Typography variant="body2" color="text.secondary">
+                            {t('referenceNumberLabel')}
+                          </Typography>
+                          <Stack direction="row" alignItems="center" spacing={0.5}>
+                            <Typography
+                              variant="h6"
+                              fontWeight={600}
+                              sx={{ fontFamily: 'monospace', letterSpacing: 1 }}
+                            >
+                              {referenceNumber}
+                            </Typography>
+                            <CopyToClipboardButton text={referenceNumber} />
+                          </Stack>
+                        </Stack>
+                      )}
                     </Stack>
                   </CardContent>
                 </Card>
               </>
+            )}
+
+            {referenceNumber && (
+              <Alert severity="info" sx={{ width: '100%' }}>
+                {t('referenceNumberInstruction')}
+              </Alert>
             )}
 
             <Link href="/">

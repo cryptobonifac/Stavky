@@ -4,11 +4,10 @@ import { redirect } from '@/i18n/routing'
 import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
-import UserManagementSection from '@/components/settings/UserManagementSection'
-import ActivationSettingsSection from '@/components/settings/ActivationSettingsSection'
-import type { ManagedUser } from '@/components/settings/UserListSection'
+import AdminActivationPanel from '@/components/admin/AdminActivationPanel'
+import type { ManagedUser } from '@/components/admin/AdminActivationPanel'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
-import { Box, Paper, Stack, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 export async function generateMetadata() {
   const t = await getTranslations('settings.activationSettings')
@@ -45,7 +44,7 @@ export default async function AdminActivationPage({
   const [usersRes, activationRes] = await Promise.all([
     supabase
       .from('users')
-      .select('id,email,role,account_active_until')
+      .select('id,email,role,account_active_until,reference_number')
       .order('email'),
     supabase
       .from('activation_settings')
@@ -61,25 +60,15 @@ export default async function AdminActivationPage({
   return (
     <MainLayout>
       <TopNav />
-      <PageSection>
-        <Box sx={{ maxWidth: 800, mx: 'auto' }}>
+      <PageSection maxWidth="xl">
+        <Box>
           <Typography variant="h5" fontWeight={700} sx={{ mb: 2.5 }}>
             {t('title')}
           </Typography>
-          <Paper
-            elevation={0}
-            sx={{
-              p: 3,
-              border: '1px solid',
-              borderColor: 'divider',
-              borderRadius: 2,
-            }}
-          >
-            <Stack spacing={4}>
-              <UserManagementSection users={managedUsers} />
-              <ActivationSettingsSection settings={activationRes.data ?? null} />
-            </Stack>
-          </Paper>
+          <AdminActivationPanel
+            users={managedUsers}
+            settings={activationRes.data ?? null}
+          />
         </Box>
       </PageSection>
     </MainLayout>

@@ -69,7 +69,8 @@
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(git diff:*)",
       "Bash(git rm:*)",
-      "Bash(npx next:*)"
+      "Bash(npx next:*)",
+      "Bash(PGPASSWORD=postgres psql:*)"
     ]
   }
 }
