@@ -14,13 +14,11 @@ import HistoryIcon from '@mui/icons-material/History'
 import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
-import CardMembershipIcon from '@mui/icons-material/CardMembership'
-import LocalOfferIcon from '@mui/icons-material/LocalOffer'
+import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import InfoIcon from '@mui/icons-material/Info'
 import ArticleIcon from '@mui/icons-material/Article'
 import { useAuth } from '@/components/providers/auth-provider'
 import LanguageSwitcher from './LanguageSwitcher'
-import { isAccountActive } from '@/lib/utils/account'
 import PageBreadcrumbs from './PageBreadcrumbs'
 
 type TopNavProps = {
@@ -44,9 +42,8 @@ const TopNav = ({
   const isAuthLoading = loading || profileLoading
   // Use user (auth state) to determine if logged in, not profile (database state)
   const isLoggedIn = !!user
-  // Check if user is an active customer
-  const isActiveCustomer = profile?.role === 'customer' && profile?.account_active_until 
-    ? isAccountActive(profile.account_active_until)
+  const isActiveCustomer = profile?.role === 'customer' && profile?.account_active_until
+    ? new Date(profile.account_active_until) >= new Date()
     : false
 
   const handleLogout = async () => {
@@ -85,7 +82,6 @@ const TopNav = ({
           <>
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/blog" icon={<ArticleIcon />} label={t('blog')} />
-            <SidebarItem href="/checkout" icon={<LocalOfferIcon />} label={t('plans')} />
             <SidebarItem href="/introduction" icon={<InfoIcon />} label={t('introduction')} />
           </>
         )}
@@ -97,7 +93,6 @@ const TopNav = ({
             )}
             <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
-            <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
           </>
         )}
         {profile?.role === 'betting' && (
@@ -118,6 +113,7 @@ const TopNav = ({
             </Typography>
             <SidebarItem href="/newbet" icon={<AdminPanelSettingsIcon />} label={t('newbet')} />
             <SidebarItem href="/bettings/manage" icon={<SportsSoccerIcon />} label={t('manage')} />
+            <SidebarItem href="/admin/activation" icon={<VpnKeyIcon />} label={t('activation')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}
@@ -233,15 +229,6 @@ const TopNav = ({
                 sx={{ minHeight: 44 }}
               >
                 {t('blog')}
-              </Button>
-              <Button
-                component={Link}
-                href="/checkout"
-                variant="text"
-                color="inherit"
-                sx={{ minHeight: 44 }}
-              >
-                {t('plans')}
               </Button>
               <Button
                 component={Link}

@@ -137,7 +137,7 @@
     "title": "Aktívne stávkové tipy",
     "subtitleActive": "Prehľadajte vaše živé čakajúce tipy. Tento prehľad sa automaticky obnovuje, keď sa publikujú nové stávky.",
     "subtitleInactive": "Tento prehľad je dostupný len pre aktívnych zákazníkov. Tipy sa automaticky aktualizujú, keď sa publikujú nové tipy.",
-    "accountNotActive": "Váš účet ešte nie je aktívny. Po potvrdení predplatného uvidíte tu úplný zoznam čakajúcich tipov.",
+    "accountNotActive": "Vas ucet este nie je aktivny. Kontaktujte admina pre aktivaciu uctu.",
     "currentTips": "Aktuálne stávkové tipy",
     "filterDescription": "Filtrovať tipy podľa nadchádzajúcich dátumov. Zobrazujú sa len čakajúce tipy s budúcimi časy začiatku.",
     "filterToday": "Dnes",
@@ -167,7 +167,7 @@
     "statistics": "Štatistiky",
     "viewStatistics": "Zobraziť štatistiky",
     "viewStatisticsDescription": "Zobraziť vaše stávkové štatistiky a minulé tipy.",
-    "subscribeNow": "Predplatiť teraz"
+    "activateAccount": "Aktivovat ucet"
   },
   "statistics": {
     "title": "Štatistiky",
@@ -244,7 +244,7 @@
     "active": "Aktívny",
     "inactive": "Neaktívny",
     "validUntil": "Platné do",
-    "noActiveSubscription": "Žiadne aktívne predplatné",
+    "noActiveSubscription": "Ucet nie je aktivovany",
     "notSet": "Nenastavené",
     "profileDetails": "Detaily profilu",
     "profileDetailsDescription": "Aktualizujte, ako sa vaše meno zobrazuje v aplikácii.",
@@ -254,13 +254,6 @@
     "saving": "Ukladanie...",
     "profileUpdated": "Profil bol úspešne aktualizovaný.",
     "updateFailed": "Nepodarilo sa aktualizovať profil.",
-    "subscriptionHistory": "História predplatného",
-    "noSubscriptionRecords": "Zatiaľ žiadne záznamy o predplatnom. Po aktivácii účtu sa tu zobrazí história.",
-    "month": "Mesiac",
-    "validTo": "Platné do",
-    "freeMonth": "Zdarma mesiac",
-    "granted": "Poskytnuté",
-    "no": "Nie",
     "updateProfile": "Aktualizovať profil"
   },
   "newbet": {
@@ -336,14 +329,26 @@
     "userManagement": {
       "title": "Správa používateľov"
     },
-    "promotionOverrides": {
-      "title": "Propagácia a prepísania"
-    },
     "systemConfiguration": {
       "title": "Konfigurácia systému"
     },
-    "marketingLogic": {
-      "title": "Marketingová logika"
+    "activationSettings": {
+      "title": "Nastavenia aktivacie",
+      "description": "Nastavte stranku aktivacie s IBAN a cenami pre neaktivnych pouzivatelov.",
+      "monthlyPrice": "Mesačná cena (EUR)",
+      "yearlyPrice": "Ročná cena (EUR)",
+      "iban": "IBAN",
+      "activationMessage": "Aktivačná správa (podľa jazyka)",
+      "messageEnglish": "Správa (anglicky)",
+      "messageCzech": "Správa (česky)",
+      "messageSlovak": "Správa (slovensky)",
+      "preview": "Náhľad (čo vidia používatelia)",
+      "accountActivation": "Aktivácia účtu",
+      "monthly": "mesačne",
+      "yearly": "ročne",
+      "ibanFixed": "IBAN je pevne nastavený a nemožno ho zmeniť",
+      "saveFailed": "Nepodarilo sa uložiť",
+      "settingsSaved": "Nastavenia boli úspešne uložené"
     },
     "dangerZone": {
       "title": "Nebezpečná zóna"
@@ -411,35 +416,6 @@
       "createFailed": "Nepodarilo sa vytvoriť výsledok",
       "deleteFailed": "Nepodarilo sa vymazať výsledok"
     },
-    "marketing": {
-      "title": "Marketing a logika zdarma mesiaca",
-      "freeMonthTitle": "Marketingové nastavenia a nastavenia zdarma mesiaca",
-      "freeMonthLogicTitle": "Marketing a logika zdarma mesiaca",
-      "freeMonthDescription": "Nastavte, ako sa automaticky poskytujú zdarma mesiace po prehratých sériách.",
-      "autoEnable": "Automaticky poskytnúť zdarma mesiac po dosiahnutí prahu prehier",
-      "autoEnableDescription": "Automaticky poskytnúť zdarma mesiac po dosiahnutí prahu prehier",
-      "lossThreshold": "Prah pre prehry",
-      "lossThresholdHelper": "Počet prehier v mesiaci pred poskytnutím zdarma mesiaca",
-      "save": "Uložiť nastavenia",
-      "saveSettings": "Uložiť nastavenia",
-      "settingsSaved": "Marketingové nastavenia boli uložené.",
-      "saveFailed": "Nepodarilo sa aktualizovať marketingové nastavenia"
-    },
-    "freeMonthOverride": {
-      "title": "Manuálne prepísanie zdarma mesiaca",
-      "subtitle": "Manuálne prepísanie zdarma mesiaca",
-      "description": "Použite tento nástroj na manuálne poskytnutie alebo odstránenie prístupu na ďalší mesiac pre konkrétneho používateľa a fakturačný mesiac. Automatické pravidlá budú stále bežať podľa nastavenia v marketingových nastaveniach.",
-      "selectUser": "Vybrať používateľa",
-      "subscriptionMonth": "Mesiac predplatného",
-      "grantNextMonthFree": "Poskytnúť ďalší mesiac zdarma",
-      "removeNextMonthFree": "Odstrániť označenie zdarma mesiaca",
-      "saveOverride": "Uložiť prepísanie",
-      "noUsersAvailable": "Žiadni používatelia k dispozícii pre prepísania.",
-      "selectUserAndMonth": "Vyberte používateľa a mesiac pred použitím prepísania.",
-      "freeMonthGranted": "Zdarma mesiac bol poskytnutý pre vybraného používateľa a mesiac.",
-      "freeMonthRemoved": "Označenie zdarma mesiaca bolo odstránené pre vybraného používateľa a mesiac.",
-      "updateFailed": "Nepodarilo sa aktualizovať označenie zdarma mesiaca."
-    },
     "deleteAllTips": {
       "title": "Vymazať všetky stávkové tipy",
       "description": "Trvalo vymazať všetky stávkové tipy a položky tipov z databázy. Táto akcia sa nedá vrátiť späť.",
@@ -458,7 +434,6 @@
     "statistics": "Štatistiky",
     "blog": "Blog",
     "profile": "Profil",
-    "subscription": "Predplatné",
     "settings": "Nastavenia",
     "newbet": "Nový tip",
     "manage": "Spravovať tipy",
@@ -466,8 +441,8 @@
     "contacts": "Kontakty",
     "blogManagement": "Blog",
     "admin": "ADMIN",
-    "plans": "Plány",
-    "introduction": "Úvod"
+    "introduction": "Úvod",
+    "activation": "Aktivácia"
   },
   "contact": {
     "title": "Kontaktujte nás",
@@ -541,58 +516,24 @@
     "google": "Google",
     "emailMethod": "Email",
     "status": "Status",
-    "validTo": "Platné do",
-    "planType": "Typ plánu",
-    "monthly": "Mesačný",
-    "yearly": "Ročný",
-    "oneTime": "Jednorazový",
+    "activeUntil": "Aktivne do",
     "active": "Aktívny",
     "inactive": "Neaktívny",
     "noCustomers": "Neboli nájdení žiadni zákazníci",
     "showing": "Zobrazuje sa",
     "of": "z"
   },
-  "subscription": {
-    "title": "Správa predplatného",
-    "maintenanceNotice": "Správa predplatného sa práve aktualizuje. Vaše existujúce predplatné zostáva aktívne.",
-    "checkBackSoon": "Skúste to prosím znova čoskoro.",
-    "activeSubscription": "Aktívne predplatné",
-    "subscriptionActiveDescription": "Máte aktívne predplatné",
-    "noSubscription": "Žiadne aktívne predplatné",
-    "noSubscriptionDescription": "Nemáte aktívne predplatné. Vytvorte jedno pre prístup ku všetkým prémiovým funkciám.",
-    "createSubscription": "Vytvoriť predplatné",
-    "cancelSubscription": "Zrušiť predplatné",
-    "subscriptionId": "ID predplatného",
-    "status": "Status",
-    "activeUntil": "Aktívny do",
-    "managementDisabled": "Správa predplatného je dočasne zakázaná počas aktualizácie systému.",
-    "renewsOn": "Obnoví sa",
-    "cancelsOn": "Zruší sa",
-    "cancellationScheduled": "Vaše predplatné bude zrušené na konci aktuálneho fakturačného obdobia. Budete mať prístup až do tohto dátumu.",
-    "confirmCancellation": "Potvrdiť zrušenie",
-    "confirmCancellationMessage": "Naozaj chcete zrušiť svoje predplatné? Budete mať prístup až do konca aktuálneho fakturačného obdobia.",
-    "confirmCancel": "Áno, zrušiť predplatné"
-  },
-  "checkout": {
-    "choosePlan": "Vyberte si plán",
-    "selectPlanSubtitle": "Vyberte si predplatné, ktoré vám najviac vyhovuje",
-    "backButton": "Späť",
-    "monthlySubscription": "Mesačné predplatné",
-    "perMonth": "mesačne",
-    "priceNotAvailable": "Cena nie je dostupná",
-    "processing": "Spracováva sa...",
-    "subscribeMonthly": "Predplatiť mesačne",
-    "monthlyPriceIdWarning": "⚠️ Nastavte POLAR_MONTHLY_PRODUCT_ID v prostredí",
-    "bestValue": "NAJLEPŠIA HODNOTA",
-    "yearlySubscription": "Ročné predplatné",
-    "perYear": "ročne",
-    "savePerYear": "Ušetríte {amount} ročne",
-    "subscribeYearly": "Predplatiť ročne",
-    "yearlyPriceIdWarning": "⚠️ Nastavte POLAR_YEARLY_PRODUCT_ID v prostredí",
-    "securePayment": "Bezpečná platba cez Polar",
-    "backToHome": "Späť na úvodnú stránku",
-    "maintenanceTitle": "Aktualizácia platobného systému",
-    "maintenanceMessage": "Náš platobný systém je práve aktualizovaný. Vráťte sa prosím neskôr alebo kontaktujte podporu."
+  "activation": {
+    "title": "Aktivacia uctu",
+    "heading": "Aktivujte si ucet",
+    "description": "Pre pristup k tipom je potrebne aktivovat ucet bankovym prevodom.",
+    "monthlyPrice": "Mesacne",
+    "yearlyPrice": "Rocne",
+    "perMonth": "mesacne",
+    "perYear": "rocne",
+    "ibanLabel": "IBAN",
+    "paymentInstructions": "Pokyny k platbe",
+    "backToHome": "Spat na hlavnu stranku"
   },
   "cookies": {
     "banner": {
@@ -746,10 +687,6 @@
   },
   "terms": {
     "title": "Obchodné podmienky",
-    "companyIdentification": {
-      "title": "Identifikácia spoločnosti",
-      "content": "Tieto Obchodné podmienky upravujú používanie webových stránok a služieb poskytovaných:\n\nObchodný názov: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, Staré Brno, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: C 138671, Krajský súd v Brne\nDátum založenia: 8. apríla 2024\nPrávna forma: Spoločnosť s ručením obmedzeným\n\nSpoločnosť prevádzkuje online digitálnu poradenskú platformu zameranú na športovú analýzu a informačné stávkové tipy."
-    },
     "natureOfServices": {
       "title": "Povaha služieb",
       "content": "Webová stránka poskytuje:\n• Športovú analýzu\n• Štatistické prehľady\n• Vzdelávací obsah\n• Informačné stávkové tipy\n• Poradenské služby súvisiace so športovými udalosťami\n\nSpoločnosť výslovne prehlasuje, že:\n• NEPREVÁDZKUJE hazardnú platformu\n• NEPRIJÍMA ani neuzatvára stávky\n• NEPÔSOBÍ ako bookmaker\n• NEPOSKYTUJE sprostredkovanie stávok\n• NESPRAVUJE stávkové účty\n\nVšetky služby sú prísne poradenské, informačné a analytické digitálne služby. Vzhľadom na poradenskú povahu služby Spoločnosť NEVYŽADUJE žiadnu licenciu pre hazardné hry alebo stávkovanie podľa platných českých, EÚ alebo medzinárodných právnych predpisov."
@@ -876,10 +813,6 @@
     "changesToDisclaimer": {
       "title": "Zmeny vyhlásenia",
       "content": "Spoločnosť si vyhradzuje právo toto Vyhlásenie kedykoľvek upraviť bez predchádzajúceho upozornenia. Pokračujúce používanie webovej stránky predstavuje prijatie aktualizovaného Vyhlásenia."
-    },
-    "contactInformation": {
-      "title": "Kontaktné údaje",
-      "content": "Prevádzkovateľ: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: Krajský súd v Brne, sp. zn. C 138671"
     }
   },
   "blog": {

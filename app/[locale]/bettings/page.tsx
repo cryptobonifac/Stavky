@@ -6,7 +6,6 @@ import ActiveTipsList, {
   type TipRecord,
 } from '@/components/bettings/ActiveTipsList'
 import TopNav from '@/components/navigation/TopNav'
-import ProfileRefresher from '@/components/bettings/ProfileRefresher'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -48,9 +47,9 @@ export default async function BettingTipsPage({
     isBettingAdmin ||
     (profile ? isAccountActive(profile.account_active_until) : false)
 
-  // Redirect non-active customers to subscription page
+  // Redirect non-active customers to activation info page
   if (!activeAccount) {
-    redirect({ href: '/subscription', locale })
+    redirect({ href: '/activation', locale })
   }
 
   const now = new Date().toISOString()
@@ -107,7 +106,6 @@ export default async function BettingTipsPage({
 
   return (
     <MainLayout>
-      <ProfileRefresher />
       <TopNav
         showSettingsLink={profile?.role === 'betting'}
         canAccessSettings={profile?.role === 'betting'}

@@ -6,7 +6,6 @@ import { useAuth } from '@/components/providers/auth-provider'
 import Sidebar from '@/components/layout/sidebar/Sidebar'
 import Footer from '@/components/layout/Footer'
 import TopNav from '@/components/navigation/TopNav'
-import { isAccountActive } from '@/lib/utils/account'
 
 type MainLayoutProps = {
   children: ReactNode
@@ -14,10 +13,9 @@ type MainLayoutProps = {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const { user, profile, loading } = useAuth()
-  
-  // Check if user is an active customer
-  const isActiveCustomer = profile?.role === 'customer' && profile?.account_active_until 
-    ? isAccountActive(profile.account_active_until)
+
+  const isActiveCustomer = profile?.role === 'customer' && profile?.account_active_until
+    ? new Date(profile.account_active_until) >= new Date()
     : false
   
   // If we are loading or on public pages we might want different layout behavior,

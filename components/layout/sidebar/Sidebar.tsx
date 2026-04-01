@@ -6,8 +6,8 @@ import TimelineIcon from '@mui/icons-material/Timeline'
 import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
+import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import PeopleIcon from '@mui/icons-material/People'
-import CardMembershipIcon from '@mui/icons-material/CardMembership'
 import ArticleIcon from '@mui/icons-material/Article'
 import { useTranslations } from 'next-intl'
 
@@ -40,7 +40,6 @@ const Sidebar = ({ role, isActiveCustomer = false, isLoggedIn = false }: Sidebar
             )}
             <SidebarItem href="/statistics" icon={<TimelineIcon />} label={t('statistics')} />
             <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
-            <SidebarItem href="/subscription" icon={<CardMembershipIcon />} label={t('subscription')} />
           </>
         )}
 
@@ -53,6 +52,7 @@ const Sidebar = ({ role, isActiveCustomer = false, isLoggedIn = false }: Sidebar
             <SidebarItem href="/bettings/manage" icon={<SportsSoccerIcon />} label={t('manage')} />
             <SidebarItem href="/bettings/customers" icon={<PeopleIcon />} label={t('customers')} />
             <SidebarItem href="/admin/blog" icon={<ArticleIcon />} label={t('blogManagement')} />
+            <SidebarItem href="/admin/activation" icon={<VpnKeyIcon />} label={t('activation')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}

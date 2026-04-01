@@ -21,7 +21,6 @@ async function ensureUserProfile(supabase: any, user: any) {
         id: user.id,
         email: user.email,
         role: 'customer',
-        account_active_until: null,
         sign_up_method: user.app_metadata?.provider || 'email',
       })
 

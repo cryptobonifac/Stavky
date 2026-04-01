@@ -67,7 +67,6 @@
       "submit": "Login",
       "signingIn": "Signing in...",
       "signIn": "Sign in",
-      "forgotPassword": "Forgot password?",
       "orContinueWith": "or continue with",
       "termsAgreement": "By continuing you agree to the Stavky terms of service.",
       "errors": {
@@ -137,7 +136,7 @@
     "title": "Active betting tips",
     "subtitleActive": "Browse your live pending picks. This feed refreshes automatically as new bets are published.",
     "subtitleInactive": "Only active customers can access this feed. Tips update automatically as new picks are published.",
-    "accountNotActive": "Your account is not active yet. Once your subscription is confirmed you will see the full list of pending tips here.",
+    "accountNotActive": "Your account is not active yet. Please contact admin to activate your account.",
     "currentTips": "Current betting tips",
     "filterToday": "Today",
     "filterTomorrow": "Tomorrow",
@@ -167,7 +166,7 @@
     "statistics": "Statistics",
     "viewStatistics": "View Statistics",
     "viewStatisticsDescription": "View your betting statistics and past tips.",
-    "subscribeNow": "Subscribe Now"
+    "activateAccount": "Activate Account"
   },
   "statistics": {
     "title": "Statistics",
@@ -243,7 +242,7 @@
     "active": "Active",
     "inactive": "Inactive",
     "validUntil": "Valid until",
-    "noActiveSubscription": "No active subscription",
+    "noActiveSubscription": "Account not activated",
     "notSet": "Not set",
     "profileDetails": "Profile details",
     "profileDetailsDescription": "Update how your name appears across the app.",
@@ -253,13 +252,6 @@
     "saving": "Saving...",
     "profileUpdated": "Profile updated successfully.",
     "updateFailed": "Unable to update profile.",
-    "subscriptionHistory": "Subscription History",
-    "noSubscriptionRecords": "No subscription records yet. Once you activate your account, the history will appear here.",
-    "month": "Month",
-    "validTo": "Valid to",
-    "freeMonth": "Free Month",
-    "granted": "Granted",
-    "no": "No",
     "updateProfile": "Update Profile"
   },
   "newbet": {
@@ -341,8 +333,23 @@
     "systemConfiguration": {
       "title": "System Configuration"
     },
-    "marketingLogic": {
-      "title": "Marketing Logic"
+    "activationSettings": {
+      "title": "Activation",
+      "description": "Configure the activation info page that inactive users see with IBAN and pricing details.",
+      "monthlyPrice": "Monthly price (EUR)",
+      "yearlyPrice": "Yearly price (EUR)",
+      "iban": "IBAN",
+      "activationMessage": "Activation message (per language)",
+      "messageEnglish": "Message (English)",
+      "messageCzech": "Message (Czech)",
+      "messageSlovak": "Message (Slovak)",
+      "preview": "Preview (what users see)",
+      "accountActivation": "Account Activation",
+      "monthly": "monthly",
+      "yearly": "yearly",
+      "ibanFixed": "IBAN is fixed and cannot be changed",
+      "saveFailed": "Failed to save",
+      "settingsSaved": "Settings saved successfully"
     },
     "dangerZone": {
       "title": "Danger Zone"
@@ -410,35 +417,6 @@
       "createFailed": "Failed to create result",
       "deleteFailed": "Failed to delete result"
     },
-    "marketing": {
-      "title": "Marketing & free month logic",
-      "freeMonthTitle": "Marketing & free month settings",
-      "freeMonthLogicTitle": "Marketing & free month logic",
-      "freeMonthDescription": "Configure how free months are automatically granted after losing streaks.",
-      "autoEnable": "Grant free month automatically after loss threshold",
-      "autoEnableDescription": "Grant free month automatically after loss threshold",
-      "lossThreshold": "Loss threshold",
-      "lossThresholdHelper": "Number of losses in a month before granting a free month",
-      "save": "Save settings",
-      "saveSettings": "Save Settings",
-      "settingsSaved": "Marketing settings saved.",
-      "saveFailed": "Failed to update marketing settings"
-    },
-    "freeMonthOverride": {
-      "title": "Manual free month override",
-      "subtitle": "Manual free month override",
-      "description": "Use this tool to manually grant or revoke next-month access for a specific user and billing month. Automatic rules will still run as configured in marketing settings.",
-      "selectUser": "Select user",
-      "subscriptionMonth": "Subscription month",
-      "grantNextMonthFree": "Grant next month free",
-      "removeNextMonthFree": "Remove next month free flag",
-      "saveOverride": "Save override",
-      "noUsersAvailable": "No users available for overrides.",
-      "selectUserAndMonth": "Select a user and month before applying the override.",
-      "freeMonthGranted": "Free month granted for the selected user and month.",
-      "freeMonthRemoved": "Free month flag removed for the selected user and month.",
-      "updateFailed": "Failed to update free month flag."
-    },
     "deleteAllTips": {
       "title": "Delete all betting tips",
       "description": "Permanently delete all betting tips and tip items from the database. This action cannot be undone.",
@@ -457,7 +435,6 @@
     "statistics": "Statistics",
     "blog": "Blog",
     "profile": "Profile",
-    "subscription": "Subscription",
     "settings": "Settings",
     "newbet": "New Bet",
     "manage": "Manage Tips",
@@ -465,8 +442,8 @@
     "contacts": "Contacts",
     "blogManagement": "Blog",
     "admin": "ADMIN",
-    "plans": "Plans",
-    "introduction": "Introduction"
+    "introduction": "Introduction",
+    "activation": "Activation"
   },
   "contact": {
     "title": "Contact Us",
@@ -542,58 +519,24 @@
     "google": "Google",
     "emailMethod": "Email",
     "status": "Status",
-    "validTo": "Valid To",
-    "planType": "Plan Type",
-    "monthly": "Monthly",
-    "yearly": "Yearly",
-    "oneTime": "One-time",
+    "activeUntil": "Active Until",
     "active": "Active",
     "inactive": "Inactive",
     "noCustomers": "No customers found",
     "showing": "Showing",
     "of": "of"
   },
-  "subscription": {
-    "title": "Subscription Management",
-    "maintenanceNotice": "Subscription management is currently being updated. Your existing subscription remains active.",
-    "checkBackSoon": "Please check back soon to subscribe.",
-    "activeSubscription": "Active Subscription",
-    "subscriptionActiveDescription": "You have an active subscription",
-    "noSubscription": "No Active Subscription",
-    "noSubscriptionDescription": "You don't have an active subscription. Create one to get access to all premium features.",
-    "createSubscription": "Create Subscription",
-    "cancelSubscription": "Cancel Subscription",
-    "subscriptionId": "Subscription ID",
-    "status": "Status",
-    "activeUntil": "Active Until",
-    "managementDisabled": "Subscription management is temporarily disabled during system update.",
-    "renewsOn": "Renews on",
-    "cancelsOn": "Cancels on",
-    "cancellationScheduled": "Your subscription is scheduled to cancel at the end of the current billing period. You will continue to have access until then.",
-    "confirmCancellation": "Confirm Cancellation",
-    "confirmCancellationMessage": "Are you sure you want to cancel your subscription? You will continue to have access until the end of the current billing period.",
-    "confirmCancel": "Yes, Cancel Subscription"
-  },
-  "checkout": {
-    "choosePlan": "Choose Your Plan",
-    "selectPlanSubtitle": "Select the subscription plan that works best for you",
-    "backButton": "Back",
-    "monthlySubscription": "Monthly Subscription",
+  "activation": {
+    "title": "Account Activation",
+    "heading": "Activate Your Account",
+    "description": "To access betting tips, you need to activate your account by making a bank transfer.",
+    "monthlyPrice": "Monthly",
+    "yearlyPrice": "Yearly",
     "perMonth": "per month",
-    "priceNotAvailable": "Price not available",
-    "processing": "Processing...",
-    "subscribeMonthly": "Subscribe Monthly",
-    "monthlyPriceIdWarning": "⚠️ Configure POLAR_MONTHLY_PRODUCT_ID in your environment variables",
-    "bestValue": "BEST VALUE",
-    "yearlySubscription": "Yearly Subscription",
     "perYear": "per year",
-    "savePerYear": "Save {amount} per year",
-    "subscribeYearly": "Subscribe Yearly",
-    "yearlyPriceIdWarning": "⚠️ Configure POLAR_YEARLY_PRODUCT_ID in your environment variables",
-    "securePayment": "Secure payment powered by Polar",
-    "backToHome": "Back to Home",
-    "maintenanceTitle": "Payment System Update",
-    "maintenanceMessage": "Our payment system is currently being updated. Please check back soon or contact support for assistance."
+    "ibanLabel": "IBAN",
+    "paymentInstructions": "Payment Instructions",
+    "backToHome": "Back to Home"
   },
   "cookies": {
     "banner": {
@@ -747,10 +690,6 @@
   },
   "terms": {
     "title": "Terms and Conditions",
-    "companyIdentification": {
-      "title": "Company Identification",
-      "content": "These Terms and Conditions govern the use of the website and services provided by:\n\nBusiness Name: Busik&Partners, s.r.o.\nRegistered Office: Nové sady 988/2, Staré Brno, 602 00 Brno, Czech Republic\nCompany ID (IČO): 21445389\nRegistered at: C 138671, Krajský soud v Brně\nDate of Incorporation: 8 April 2024\nLegal Form: Společnost s ručením omezeným\n\nThe Company operates an online digital consultancy platform focused on sports analysis and informational betting tips."
-    },
     "natureOfServices": {
       "title": "Nature of Services",
       "content": "The website provides:\n• Sports analysis\n• Statistical insights\n• Educational content\n• Informational betting tips\n• Consultancy services related to sports events\n\nThe Company expressly declares that:\n• It does NOT operate a gambling platform\n• It does NOT accept or place bets\n• It does NOT act as a bookmaker\n• It does NOT provide gambling intermediation\n• It does NOT manage betting accounts\n\nAll services are strictly consultancy, informational, and analytical digital services. Due to the consultancy nature of the service, the Company does NOT require any gambling or betting license under applicable Czech, EU, or international law."
@@ -877,10 +816,6 @@
     "changesToDisclaimer": {
       "title": "Changes to Disclaimer",
       "content": "The Company reserves the right to modify this Disclaimer at any time without prior notice. Continued use of the website constitutes acceptance of the updated Disclaimer."
-    },
-    "contactInformation": {
-      "title": "Contact Information",
-      "content": "Operator: Busik&Partners, s.r.o.\nRegistered Office: Nové sady 988/2, 602 00 Brno, Czech Republic\nCompany ID (IČO): 21445389\nRegistered at: Krajský soud v Brně, sp. zn. C 138671"
     }
   },
   "blog": {

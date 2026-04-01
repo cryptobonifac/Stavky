@@ -15,9 +15,7 @@ type CustomerData = {
   email: string
   created_at: string
   account_active_until: string | null
-  valid_to: string | null
   status: 'active' | 'inactive'
-  subscription_plan_type: 'monthly' | 'yearly' | 'one-time' | null
   sign_up_method: 'email' | 'google' | string | null
 }
 
@@ -82,7 +80,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
           <Box
             sx={{
               display: { xs: 'none', md: 'grid' },
-              gridTemplateColumns: '120px 1fr 100px 100px 120px 120px',
+              gridTemplateColumns: '120px 1fr 100px 100px 140px',
               gap: 2,
               p: 2,
               borderBottom: '1px solid #f0f0f0',
@@ -146,19 +144,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                 textAlign: 'right',
               }}
             >
-              {t('validTo')}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '0.8rem',
-                color: '#666',
-                fontWeight: 500,
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                textAlign: 'right',
-              }}
-            >
-              {t('planType')}
+              {t('activeUntil')}
             </Typography>
           </Box>
 
@@ -166,9 +152,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
           <Stack spacing={0}>
             {paginatedCustomers.map((customer, index) => {
               const statusColor = customer.status === 'active' ? '#16a34a' : '#dc2626'
-              const validToDate = customer.valid_to 
-                ? dayjs(customer.valid_to) 
-                : customer.account_active_until 
+              const activeUntilDate = customer.account_active_until
                 ? dayjs(customer.account_active_until)
                 : null
 
@@ -179,7 +163,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                     display: 'grid',
                     gridTemplateColumns: {
                       xs: '1fr',
-                      md: '120px 1fr 100px 100px 120px 120px',
+                      md: '120px 1fr 100px 100px 140px',
                     },
                     gap: { xs: 0.5, md: 2 },
                     p: { xs: '0.75rem', md: '0.56rem' },
@@ -280,7 +264,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                     </Typography>
                   </Box>
 
-                  {/* Valid To */}
+                  {/* Active Until */}
                   <Box
                     sx={{
                       display: 'flex',
@@ -296,32 +280,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                         whiteSpace: 'nowrap',
                       }}
                     >
-                      {validToDate ? validToDate.format('DD.MM.YYYY') : '-'}
-                    </Typography>
-                  </Box>
-
-                  {/* Plan Type */}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: { xs: 'flex-start', md: 'flex-end' },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: { xs: '0.75rem', md: '0.85rem' },
-                        color: '#666',
-                        fontWeight: 500,
-                      }}
-                    >
-                      {customer.subscription_plan_type === 'monthly'
-                        ? t('monthly')
-                        : customer.subscription_plan_type === 'yearly'
-                        ? t('yearly')
-                        : customer.subscription_plan_type === 'one-time'
-                        ? t('oneTime')
-                        : '-'}
+                      {activeUntilDate ? activeUntilDate.format('DD.MM.YYYY') : '-'}
                     </Typography>
                   </Box>
                 </Box>
@@ -370,11 +329,3 @@ const CustomersList = ({ customers }: CustomersListProps) => {
 }
 
 export default CustomersList
-
-
-
-
-
-
-
-

@@ -26,13 +26,6 @@ type TipMonthSummary = {
   success_rate: number
 }
 
-const isAccountActive = (accountActiveUntil: string | null) => {
-  if (!accountActiveUntil) {
-    return false
-  }
-  return new Date(accountActiveUntil) >= new Date()
-}
-
 const toMonthKey = (date: Date) =>
   `${date.getUTCFullYear()}-${String(date.getUTCMonth() + 1).padStart(
     2,
@@ -141,16 +134,11 @@ export default async function HistoryPage({
   // TypeScript: user is guaranteed to be non-null after redirect check
   const { data: profile } = await supabase
     .from('users')
-    .select('account_active_until,role')
+    .select('role')
     .eq('id', user!.id)
     .single()
 
-  const activeAccount = profile
-    ? isAccountActive(profile.account_active_until)
-    : false
-  const isBettingAdmin = profile?.role === 'betting'
-
-  // Allow history access for all logged-in users (including inactive accounts)
+  // Allow history access for all logged-in users
   let tips: TipRecord[] = []
   let monthlySummaries: TipMonthSummary[] = []
 

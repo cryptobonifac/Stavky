@@ -53,7 +53,23 @@
       "WebSearch",
       "WebFetch(domain:www.npmjs.com)",
       "Bash(dotnet test:*)",
-      "Bash(dotnet clean:*)"
+      "Bash(dotnet clean:*)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mroho\\\\Code\\\\Projects\\\\Stavky\\\\app\\\\[locale]\" -Directory)",
+      "Bash(Select-Object Name)",
+      "Bash(Get-Content \"C:\\\\Users\\\\mroho\\\\Code\\\\Projects\\\\Stavky\\\\docs\\\\web\\\\terms.md\")",
+      "Bash(Get-Content \"C:\\\\Users\\\\mroho\\\\Code\\\\Projects\\\\Stavky\\\\docs\\\\web\\\\privacy.md\")",
+      "Bash(wc:*)",
+      "Bash(grep:*)",
+      "Bash(docker exec:*)",
+      "Bash(Get-Content C:UsersmrohoCodeProjectsStavkysupabaseseed.sql)",
+      "Bash(Measure-Object -Line)",
+      "Bash(npx tsc:*)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\mroho\\\\Code\\\\Projects\\\\Stavky\\\\app\" -Recurse -Filter \"page.tsx\")",
+      "Bash(Where-Object { $_FullName -match \"admin\" })",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(git diff:*)",
+      "Bash(git rm:*)",
+      "Bash(npx next:*)"
     ]
   }
 }

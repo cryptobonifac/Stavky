@@ -6,9 +6,6 @@ import MainLayout from '@/components/layout/MainLayout'
 import PageSection from '@/components/layout/PageSection'
 import TopNav from '@/components/navigation/TopNav'
 import ProfileInfoCard from '@/components/profile/ProfileInfoCard'
-import ProfileSubscriptionHistory, {
-  type SubscriptionHistoryEntry,
-} from '@/components/profile/ProfileSubscriptionHistory'
 import type { UserProfile } from '@/components/providers/auth-provider'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
@@ -46,13 +43,6 @@ export default async function ProfilePage({
   }
 
   // TypeScript: profile is guaranteed to be non-null after redirect check
-  const { data: subscriptions } = await supabase
-    .from('user_subscriptions')
-    .select('id,month,valid_to,next_month_free')
-    .eq('user_id', profile!.id)
-    .order('month', { ascending: false })
-
-  // TypeScript: profile is guaranteed to be non-null after redirect check
   const profileData: UserProfile = {
     id: profile!.id,
     email: profile!.email,
@@ -60,15 +50,6 @@ export default async function ProfilePage({
     account_active_until: profile!.account_active_until,
     full_name: profile!.full_name,
   }
-
-  const subscriptionHistory: SubscriptionHistoryEntry[] = (subscriptions ?? []).map(
-    (entry) => ({
-      id: entry.id,
-      month: entry.month,
-      valid_to: entry.valid_to,
-      next_month_free: entry.next_month_free,
-    })
-  )
 
   // Load translations explicitly with locale to ensure correct language
   const messages = (await import(`../../../messages/${locale}.json`)).default
@@ -87,7 +68,6 @@ export default async function ProfilePage({
       >
         <Stack spacing={3}>
           <ProfileInfoCard profile={profileData} />
-          <ProfileSubscriptionHistory entries={subscriptionHistory} />
         </Stack>
       </PageSection>
     </MainLayout>

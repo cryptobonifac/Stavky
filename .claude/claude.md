@@ -8,6 +8,35 @@ This project uses Google OAuth for authentication via Supabase Auth. The configu
 
 - if you create supabase db migration always reset database `npx supabase db reset`
 
+### Local Email Testing (Inbucket)
+
+In local Supabase development, emails are **NOT sent to real email addresses**. They are captured by **Inbucket** (local email testing service).
+
+**Access Local Emails:** http://127.0.0.1:54324
+
+All local Supabase emails are captured there:
+- Password reset emails
+- Signup confirmation emails
+- Email change confirmations
+- Magic link emails
+
+**Configuration in `supabase/config.toml`:**
+```toml
+[inbucket]
+enabled = true
+port = 54324
+```
+
+**Testing Password Reset Flow:**
+1. Trigger password reset at `localhost:3000/en/forgot-password`
+2. Open Inbucket at http://127.0.0.1:54324
+3. Find the reset email and click the link
+4. Complete password reset at the update-password page
+
+**Email Templates:**
+- `supabase/templates/reset_password.html` - Password reset email
+- `supabase/templates/magic_link.html` - Magic link email
+
 ### 1. `.env` - Google OAuth Credentials (MAIN CONFIG)
 **Location:** `/.env`
 
@@ -197,49 +226,3 @@ http://127.0.0.1:54321/auth/v1/callback
 - `.env` - **Main configuration file** for Supabase (Google OAuth credentials)
 - `.env.local` - Next.js environment variables (duplicates Google OAuth for client-side)
 - `app/auth/callback/route.ts` - Handles OAuth callback from Supabase
-
----
-
-# Polar Subscription Management
-
-For complete Polar documentation, see: **`docs/POLAR_SUBSCRIPTIONS.md`**
-
-## Quick Reference - Local Development
-
-In local development, Polar webhooks **cannot reach localhost**. Use the manual sync endpoint when a subscription exists in Polar but not in the local database.
-
-### Sync Subscription Manually
-
-```bash
-curl -X POST http://localhost:3000/api/admin/sync-subscription \
-  -H "Content-Type: application/json" \
-  -d '{"email": "user@example.com"}'
-```
-
-### Check User Subscription Status
-
-```bash
-# Via Supabase REST API
-curl "http://127.0.0.1:54321/rest/v1/users?email=eq.user@example.com&select=id,email,account_active_until,polar_customer_id,polar_subscription_id,subscription_plan_type" \
-  -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU"
-```
-
-### Common Issue: "No Active Subscription" in UI
-
-If a user has an active subscription in Polar sandbox but sees "No active subscription" in the app:
-
-1. The webhook didn't reach localhost (expected in local dev)
-2. Run the sync command above with the user's email
-3. User refreshes the subscription page
-
-### Polar Environment Variables
-
-```env
-POLAR_ACCESS_TOKEN=polar_oat_xxxxx
-POLAR_ORGANIZATION_ID=xxxxxxxx-xxxx-xxxx
-POLAR_WEBHOOK_SECRET=polar_whs_xxxxx
-POLAR_MONTHLY_PRODUCT_ID=xxxxxxxx-xxxx-xxxx
-POLAR_YEARLY_PRODUCT_ID=xxxxxxxx-xxxx-xxxx
-POLAR_ENVIRONMENT=sandbox  # or 'production'
-```

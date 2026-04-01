@@ -24,8 +24,7 @@ export default function LegalDisclaimerPage() {
     'userEligibility',
     'responsibleBetting',
     'intellectualProperty',
-    'changesToDisclaimer',
-    'contactInformation'
+    'changesToDisclaimer'
   ]
 
   return (

@@ -10,7 +10,6 @@ export default function TermsPage() {
   const t = useTranslations('terms')
 
   const sections = [
-    'companyIdentification',
     'natureOfServices',
     'acceptanceOfTerms',
     'noGuarantee',

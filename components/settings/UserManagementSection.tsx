@@ -3,14 +3,11 @@
 import { useMemo, useState, useTransition } from 'react'
 import Autocomplete from '@mui/material/Autocomplete'
 import dayjs, { Dayjs } from 'dayjs'
-import { DatePicker } from '@mui/x-date-pickers'
 import {
   Alert,
   Box,
   Button,
-  FormControlLabel,
   Stack,
-  Switch,
   TextField,
   Typography,
 } from '@mui/material'
@@ -28,26 +25,18 @@ export type ManagedUser = {
 
 type UserManagementSectionProps = {
   users: ManagedUser[]
-  variant?: 'user' | 'freeMonth'
 }
 
-const UserManagementSection = ({ users, variant = 'user' }: UserManagementSectionProps) => {
+const UserManagementSection = ({ users }: UserManagementSectionProps) => {
   const t = useTranslations('settings')
   const tCommon = useTranslations('common')
   const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const [isPending, startTransition] = useTransition()
 
-  // User management state
   const [drafts, setDrafts] = useState<Record<string, ManagedUser>>(() =>
     Object.fromEntries(users.map((user) => [user.id, user]))
   )
   const [selectedId, setSelectedId] = useState<string | null>(users[0]?.id ?? null)
-
-  // Free month override state
-  const [selectedMonth, setSelectedMonth] = useState<Dayjs | null>(
-    users.length ? dayjs().startOf('month') : null
-  )
-  const [grantFreeMonth, setGrantFreeMonth] = useState(true)
 
   const userOptions = useMemo(
     () => users.map((user) => ({ label: user.email, id: user.id })),
@@ -86,118 +75,8 @@ const UserManagementSection = ({ users, variant = 'user' }: UserManagementSectio
     })
   }
 
-  const handleSaveFreeMonth = () => {
-    if (!selectedId || !selectedMonth) {
-      setFeedback({
-        type: 'error',
-        text: t('freeMonthOverride.selectUserAndMonth'),
-      })
-      return
-    }
-
-    startTransition(async () => {
-      setFeedback(null)
-      const response = await fetch(
-        '/api/settings/user-subscriptions/free-month',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            userId: selectedId,
-            month: selectedMonth.startOf('month').toISOString(),
-            grantNextMonthFree: grantFreeMonth,
-          }),
-        }
-      )
-
-      if (!response.ok) {
-        const payload = await response.json().catch(() => ({}))
-        setFeedback({
-          type: 'error',
-          text: payload.error ?? t('freeMonthOverride.updateFailed'),
-        })
-        return
-      }
-
-      setFeedback({
-        type: 'success',
-        text: grantFreeMonth
-          ? t('freeMonthOverride.freeMonthGranted')
-          : t('freeMonthOverride.freeMonthRemoved'),
-      })
-    })
-  }
-
   if (users.length === 0) {
     return <Typography color="text.secondary">{t('users.noUsers')}</Typography>
-  }
-
-  if (variant === 'freeMonth') {
-    return (
-      <Stack spacing={3}>
-        <Typography variant="subtitle1" fontWeight={600}>
-          {t('freeMonthOverride.subtitle')}
-        </Typography>
-
-        {feedback && (
-          <Alert severity={feedback.type} onClose={() => setFeedback(null)}>
-            {feedback.text}
-          </Alert>
-        )}
-
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-          <Autocomplete
-            options={userOptions}
-            value={userOptions.find((option) => option.id === selectedId) ?? null}
-            onChange={(_event, value) => setSelectedId(value?.id ?? null)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label={t('freeMonthOverride.selectUser')}
-                size="small"
-                inputProps={{ ...params.inputProps, 'data-testid': 'settings-free-month-user-select' }}
-              />
-            )}
-            sx={{ flex: 1, minWidth: 200 }}
-            data-testid="settings-free-month-user-autocomplete"
-          />
-          <DatePicker
-            label={t('freeMonthOverride.subscriptionMonth')}
-            views={['year', 'month']}
-            value={selectedMonth}
-            onChange={(value) => setSelectedMonth(value)}
-            slotProps={{
-              textField: {
-                size: 'small',
-                sx: { minWidth: 180 },
-                inputProps: { 'data-testid': 'settings-free-month-date-input' },
-              },
-            }}
-          />
-        </Stack>
-
-        <FormControlLabel
-          control={
-            <Switch
-              checked={grantFreeMonth}
-              onChange={(event) => setGrantFreeMonth(event.target.checked)}
-              data-testid="settings-free-month-grant-switch"
-            />
-          }
-          label={t('freeMonthOverride.grantNextMonthFree')}
-        />
-
-        <Button
-          variant="contained"
-          disabled={isPending}
-          onClick={handleSaveFreeMonth}
-          fullWidth
-          data-testid="settings-free-month-save-button"
-        >
-          {t('freeMonthOverride.saveOverride')}
-        </Button>
-      </Stack>
-    )
   }
 
   return (
