@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: 'Not Found | Stavky',
+      title: 'Not Found | SmartBet365',
     }
   }
 
@@ -32,7 +32,7 @@ export async function generateMetadata({
     getLocalizedContent(post.excerpt, locale as Locale)
 
   return {
-    title: `${title} | Stavky`,
+    title: `${title} | SmartBet365`,
     description,
     openGraph: {
       title,
@@ -105,11 +105,11 @@ export default async function BlogPostPage({
     dateModified: post.updated_at,
     author: {
       '@type': 'Organization',
-      name: 'Stavky',
+      name: 'SmartBet365',
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Stavky',
+      name: 'SmartBet365',
     },
   }
 

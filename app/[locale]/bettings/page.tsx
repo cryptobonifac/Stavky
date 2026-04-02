@@ -9,7 +9,7 @@ import TopNav from '@/components/navigation/TopNav'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Betting tips | Stavky',
+  title: 'Betting tips | SmartBet365',
 }
 
 const isAccountActive = (accountActiveUntil: string | null) => {

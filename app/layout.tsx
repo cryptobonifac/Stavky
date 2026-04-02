@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Stavky - Sports Betting Tips',
-  description: 'A minimalist web application for sports betting tipsters',
+  title: 'SmartBet365 - Expert Sports Betting Tips',
+  description: 'Get verified, high-probability sports betting tips from professional analysts. Data-driven match analysis with transparent results.',
   other: {
     'google': 'notranslate',
   },
@@ -19,13 +18,5 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  return (
-    <html translate="no">
-      <body>
-        {children}
-        <Analytics />
-      </body>
-    </html>
-  )
+  return children
 }
-

@@ -1,7 +1,7 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 import { routing } from '@/i18n/routing'
 
-// Root page redirects to default locale
+// Root page permanently redirects to default locale (301)
 export default function RootPage() {
-  redirect(`/${routing.defaultLocale}`)
+  permanentRedirect(`/${routing.defaultLocale}`)
 }

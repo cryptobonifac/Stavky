@@ -13,7 +13,7 @@ import { createSafeAuthClient as createServerClient } from '@/lib/supabase/serve
 export async function generateMetadata() {
   const t = await getTranslations('activation')
   return {
-    title: `${t('title')} | Stavky`,
+    title: `${t('title')} | SmartBet365`,
   }
 }
 

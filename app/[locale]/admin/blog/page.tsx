@@ -25,7 +25,7 @@ import type { Locale } from '@/lib/supabase/blog'
 import { createSafeAuthClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Blog Management | Stavky',
+  title: 'Blog Management | SmartBet365',
 }
 
 export default async function AdminBlogPage({

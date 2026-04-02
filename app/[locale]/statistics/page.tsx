@@ -11,8 +11,31 @@ import { createSafeAuthClient as createServerClient } from '@/lib/supabase/serve
 import { createAdminClient } from '@/lib/supabase/admin'
 import StatisticsLoading from './loading'
 
-export const metadata = {
-  title: 'Statistics | Stavky',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const title = 'Statistics | SmartBet365'
+  return {
+    title,
+    description: 'View transparent betting tip statistics, win rates, and performance history.',
+    alternates: {
+      canonical: `/${locale}/statistics`,
+      languages: {
+        en: '/en/statistics',
+        cs: '/cs/statistics',
+        sk: '/sk/statistics',
+      },
+    },
+    openGraph: {
+      title,
+      description: 'View transparent betting tip statistics, win rates, and performance history.',
+      type: 'website',
+      siteName: 'SmartBet365',
+    },
+  }
 }
 
 type TipMonthSummary = {

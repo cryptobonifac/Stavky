@@ -12,7 +12,7 @@ import { Box, Typography } from '@mui/material'
 export async function generateMetadata() {
   const t = await getTranslations('settings.activationSettings')
   return {
-    title: `${t('title')} | Stavky`,
+    title: `${t('title')} | SmartBet365`,
   }
 }
 

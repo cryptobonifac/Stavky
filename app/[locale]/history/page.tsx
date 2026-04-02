@@ -12,7 +12,7 @@ import { Alert } from '@mui/material'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'History | Stavky',
+  title: 'History | SmartBet365',
 }
 
 const HISTORY_MONTHS_LIMIT = 12

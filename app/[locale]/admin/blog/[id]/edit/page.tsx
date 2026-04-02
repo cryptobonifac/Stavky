@@ -10,7 +10,7 @@ import type { CreateBlogPostInput } from '@/lib/supabase/blog'
 import { createSafeAuthClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Edit Blog Post | Stavky',
+  title: 'Edit Blog Post | SmartBet365',
 }
 
 export default async function AdminBlogEditPage({

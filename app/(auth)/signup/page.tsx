@@ -5,7 +5,7 @@ import SignupForm from '@/components/auth/SignupForm'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Create account | Stavky',
+  title: 'Create account | SmartBet365',
 }
 
 export default function SignupPage() {

@@ -34,7 +34,7 @@ export async function generateMetadata({
 
   if (!category) {
     return {
-      title: 'Category Not Found | Stavky',
+      title: 'Category Not Found | SmartBet365',
     }
   }
 
@@ -42,7 +42,7 @@ export async function generateMetadata({
   const description = getLocalizedContent(category.description, locale as Locale)
 
   return {
-    title: `${categoryName} | Blog | Stavky`,
+    title: `${categoryName} | Blog | SmartBet365`,
     description: description || categoryName,
     alternates: {
       canonical: `/${locale}/blog/category/${slug}`,

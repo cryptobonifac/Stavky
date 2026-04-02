@@ -2,6 +2,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
+import { Analytics } from '@vercel/analytics/next'
 import { routing } from '@/i18n/routing'
 import { AppThemeProvider } from '@/components/providers/app-theme-provider'
 import { AuthProvider } from '@/components/providers/auth-provider'
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   other: {
     'google': 'notranslate',
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://smartbet365.com'),
 }
 
 export default async function LocaleLayout({
@@ -40,18 +41,22 @@ export default async function LocaleLayout({
   const messages = (await import(`../../messages/${locale}.json`)).default
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      <CookieConsentProvider>
-        <LocaleHtml locale={locale}>
-          <AppThemeProvider>
-            <AuthProvider>
-              {children}
-              <CookieBanner />
-            </AuthProvider>
-          </AppThemeProvider>
-        </LocaleHtml>
-      </CookieConsentProvider>
-    </NextIntlClientProvider>
+    <html lang={locale} translate="no" className="notranslate">
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <CookieConsentProvider>
+            <LocaleHtml locale={locale}>
+              <AppThemeProvider>
+                <AuthProvider>
+                  {children}
+                  <CookieBanner />
+                </AuthProvider>
+              </AppThemeProvider>
+            </LocaleHtml>
+          </CookieConsentProvider>
+        </NextIntlClientProvider>
+        <Analytics />
+      </body>
+    </html>
   )
 }
-

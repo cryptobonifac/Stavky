@@ -9,7 +9,7 @@ import CustomersList from '@/components/admin/CustomersList'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Customers | Stavky',
+  title: 'Customers | SmartBet365',
 }
 
 type CustomerData = {

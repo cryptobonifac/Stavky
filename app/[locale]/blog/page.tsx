@@ -24,7 +24,7 @@ export async function generateMetadata({
   const t = await getTranslations('blog')
 
   return {
-    title: `${t('title')} | Stavky`,
+    title: `${t('title')} | SmartBet365`,
     description: t('latestPosts'),
     alternates: {
       canonical: `/${locale}/blog`,

@@ -9,7 +9,7 @@ import type { TipRecord } from '@/components/bettings/ActiveTipsList'
 import { createSafeAuthClient as createServerClient } from '@/lib/supabase/server'
 
 export const metadata = {
-  title: 'Manage betting tips | Stavky',
+  title: 'Manage betting tips | SmartBet365',
 }
 
 export default async function ManageBettingTipsPage() {

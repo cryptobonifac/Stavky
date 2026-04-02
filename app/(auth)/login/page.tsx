@@ -5,7 +5,7 @@ import LoginForm from '@/components/auth/LoginForm'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Login | Stavky',
+  title: 'Login | SmartBet365',
 }
 
 export default function LoginPage() {
