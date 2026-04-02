@@ -64,7 +64,7 @@ You manage your own funds and risk tolerance
 
 You do not rely on the platform as a source of guaranteed income
 
-Busik&Partners, s.r.o. shall not be held liable for any financial losses or damages resulting from the use of the information provided.
+SmartBet365 shall not be held liable for any financial losses or damages resulting from the use of the information provided.
 
 5. CONSULTANCY SERVICE CLARIFICATION
 
@@ -159,7 +159,7 @@ Maintaining discipline and emotional control is essential.
 
 11. LIMITATION OF LIABILITY
 
-To the maximum extent permitted by applicable law, Busik&Partners, s.r.o. shall not be liable for:
+To the maximum extent permitted by applicable law, SmartBet365 shall not be liable for:
 
 Direct or indirect financial losses
 
@@ -195,11 +195,7 @@ You will not hold the Company liable for any financial losses
 
 14. CONTACT INFORMATION
 
-Operator: Busik&Partners, s.r.o.
-Registered Office: Nové sady 988/2, Staré Brno, 602 00 Brno, Czech Republic
-Company ID (IČO): 21445389
-Registered at: Krajský soud v Brně, sp. zn. C 138671
-Email: [Insert Contact Email]
+Operator: SmartBet365
 
 STRATEGIC LEGAL NOTE (RECOMMENDED IMPLEMENTATION)
 

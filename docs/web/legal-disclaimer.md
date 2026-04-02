@@ -27,7 +27,7 @@ The information published on this platform does not constitute financial advice,
 
 2. NO GAMBLING SERVICES DECLARATION (CRITICAL LEGAL NOTICE)
 
-smartbet365.com is operated by Busik&Partners, s.r.o., a consultancy and digital services provider.
+smartbet365.com is operated by SmartBet365, a consultancy and digital services provider.
 
 The Company expressly declares that it:
 
@@ -157,7 +157,7 @@ Users are responsible for complying with the gambling laws applicable in their o
 
 10. LIMITATION OF LIABILITY
 
-To the fullest extent permitted by law, Busik&Partners, s.r.o. shall not be liable for:
+To the fullest extent permitted by law, SmartBet365 shall not be liable for:
 
 Any direct or indirect financial losses
 
@@ -205,7 +205,7 @@ If you believe you may have a gambling problem, you should seek professional hel
 
 14. INTELLECTUAL PROPERTY NOTICE
 
-All analyses, tips, data models, and written content are proprietary intellectual property of Busik&Partners, s.r.o.
+All analyses, tips, data models, and written content are proprietary intellectual property of SmartBet365.
 
 Unauthorized reproduction, redistribution, resale, or sharing of paid content is strictly prohibited and may result in:
 
@@ -222,9 +222,7 @@ Continued use of the website constitutes acceptance of the updated Disclaimer.
 
 16. CONTACT INFORMATION
 
-Operator: Busik&Partners, s.r.o.
-Registered Office: Nové sady 988/2, 602 00 Brno, Czech Republic
-Company ID (IČO): 21445389
+Operator: SmartBet365
 Registered at: Krajský soud v Brně, sp. zn. C 138671
 Email: [Insert Contact Email]
 

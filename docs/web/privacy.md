@@ -5,7 +5,7 @@ Website: smartbet365.com
 
 1. INTRODUCTION
 
-This Privacy Policy explains how Busik&Partners, s.r.o. (“Company”, “we”, “us”, or “our”) collects, uses, and protects personal data when you use the website smartbet365.com and related services.
+This Privacy Policy explains how SmartBet365 (“Company”, “we”, “us”, or “our”) collects, uses, and protects personal data when you use the website smartbet365.com and related services.
 
 We are committed to protecting your personal data in accordance with:
 
@@ -19,11 +19,7 @@ By using our website and services, you agree to the collection and use of inform
 
 2. DATA CONTROLLER IDENTIFICATION
 
-Data Controller: Busik&Partners, s.r.o.
-Registered Office: Nové sady 988/2, Staré Brno, 602 00 Brno, Czech Republic
-Company ID (IČO): 21445389
-Registered at: Krajský soud v Brně, sp. zn. C 138671
-Email: [Insert Contact Email]
+Data Controller: SmartBet365
 
 The Company operates a digital consultancy platform providing sports analytics and informational content.
 
@@ -243,6 +239,4 @@ The updated version will always be published on this page with a revised effecti
 
 18. CONTACT INFORMATION
 
-Data Controller: Busik&Partners, s.r.o.
-Registered Office: Nové sady 988/2, 602 00 Brno, Czech Republic
-Company ID (IČO): 21445389
+Data Controller: SmartBet365

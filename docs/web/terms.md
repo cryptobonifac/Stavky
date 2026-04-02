@@ -7,12 +7,7 @@ Website: smartbet365.com
 
 These Terms and Conditions govern the use of the website and services provided by:
 
-Business Name: Busik&Partners, s.r.o.
-Registered Office: Nové sady 988/2, Staré Brno, 602 00 Brno, Czech Republic
-Company ID (IČO): 21445389
-Registered at: C 138671, Krajský soud v Brně
-Date of Incorporation: 8 April 2024
-Legal Form: Společnost s ručením omezeným
+Business Name: SmartBet365
 Managing Director: Marek Rohoň
 Email: [Insert Email]
 
@@ -130,7 +125,7 @@ Graphics
 
 Reports
 
-is the intellectual property of Busik&Partners, s.r.o.
+is the intellectual property of SmartBet365.
 
 Users are strictly prohibited from:
 
