@@ -39,6 +39,16 @@ export async function PATCH(
   const body = await request.json().catch(() => ({}))
   const { account_active_until } = body
 
+  // Record activation history when setting a non-null activation date
+  if (account_active_until) {
+    await supabase.from('activation_history').insert({
+      user_id: id,
+      active_from: new Date().toISOString(),
+      active_to: account_active_until,
+      activated_by: user.id,
+    })
+  }
+
   const { error } = await supabase
     .from('users')
     .update({

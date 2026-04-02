@@ -8,6 +8,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
 import PeopleIcon from '@mui/icons-material/People'
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import ArticleIcon from '@mui/icons-material/Article'
 import { useTranslations } from 'next-intl'
 
@@ -53,6 +54,7 @@ const Sidebar = ({ role, isActiveCustomer = false, isLoggedIn = false }: Sidebar
             <SidebarItem href="/bettings/customers" icon={<PeopleIcon />} label={t('customers')} />
             <SidebarItem href="/admin/blog" icon={<ArticleIcon />} label={t('blogManagement')} />
             <SidebarItem href="/admin/activation" icon={<VpnKeyIcon />} label={t('activation')} />
+            <SidebarItem href="/admin/active-customers" icon={<PeopleOutlineIcon />} label={t('activeCustomers')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}

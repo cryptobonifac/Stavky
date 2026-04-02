@@ -460,7 +460,8 @@
     "blogManagement": "Blog",
     "admin": "ADMIN",
     "introduction": "Úvod",
-    "activation": "Aktivácia"
+    "activation": "Aktivácia",
+    "activeCustomers": "Aktívni zákazníci"
   },
   "contact": {
     "title": "Kontaktujte nás",
@@ -934,6 +935,25 @@
       "title": "Kontaktné údaje",
       "content": "Prevádzkovateľ: Busik&Partners, s.r.o.\nSídlo: Nové sady 988/2, Staré Brno, 602 00 Brno, Česká republika\nIČO: 21445389\nZapísané na: Krajský súd v Brne, sp. zn. C 138671"
     }
+  },
+  "activeCustomers": {
+    "title": "Aktívni zákazníci",
+    "email": "Email",
+    "referenceNumber": "Variabilný symbol",
+    "activeUntil": "Aktívny do",
+    "status": "Stav",
+    "active": "Aktívny",
+    "inactive": "Neaktívny",
+    "activationHistory": "História aktivácií",
+    "activeFrom": "Od",
+    "activeTo": "Do",
+    "noActiveCustomers": "Žiadni zákazníci s históriou aktivácií nenájdení",
+    "noHistory": "Žiadna história aktivácií",
+    "totalActiveMonths": "Celkom aktívnych mesiacov",
+    "showing": "Zobrazených",
+    "of": "z",
+    "showHistory": "Zobraziť históriu",
+    "hideHistory": "Skryť históriu"
   }
 }
 

@@ -461,7 +461,8 @@
     "blogManagement": "Blog",
     "admin": "ADMIN",
     "introduction": "Introduction",
-    "activation": "Activation"
+    "activation": "Activation",
+    "activeCustomers": "Active Customers"
   },
   "contact": {
     "title": "Contact Us",
@@ -937,6 +938,25 @@
       "title": "Contact Information",
       "content": "Operator: Busik&Partners, s.r.o.\nRegistered Office: Nové sady 988/2, Staré Brno, 602 00 Brno, Czech Republic\nCompany ID (IČO): 21445389\nRegistered at: Krajský soud v Brně, sp. zn. C 138671"
     }
+  },
+  "activeCustomers": {
+    "title": "Active Customers",
+    "email": "Email",
+    "referenceNumber": "Reference Number",
+    "activeUntil": "Active Until",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "activationHistory": "Activation History",
+    "activeFrom": "From",
+    "activeTo": "To",
+    "noActiveCustomers": "No customers with activation history found",
+    "noHistory": "No activation history",
+    "totalActiveMonths": "Total Active Months",
+    "showing": "Showing",
+    "of": "of",
+    "showHistory": "Show History",
+    "hideHistory": "Hide History"
   }
 }
 

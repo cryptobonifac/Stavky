@@ -15,6 +15,7 @@ import PersonIcon from '@mui/icons-material/Person'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import SettingsIcon from '@mui/icons-material/Settings'
 import VpnKeyIcon from '@mui/icons-material/VpnKey'
+import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline'
 import InfoIcon from '@mui/icons-material/Info'
 import ArticleIcon from '@mui/icons-material/Article'
 import { useAuth } from '@/components/providers/auth-provider'
@@ -106,6 +107,7 @@ const TopNav = ({
             <SidebarItem href="/newbet" icon={<AdminPanelSettingsIcon />} label={t('newbet')} />
             <SidebarItem href="/bettings/manage" icon={<SportsSoccerIcon />} label={t('manage')} />
             <SidebarItem href="/admin/activation" icon={<VpnKeyIcon />} label={t('activation')} />
+            <SidebarItem href="/admin/active-customers" icon={<PeopleOutlineIcon />} label={t('activeCustomers')} />
             <SidebarItem href="/settings" icon={<SettingsIcon />} label={t('settings')} />
           </>
         )}
