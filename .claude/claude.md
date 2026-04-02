@@ -7,6 +7,7 @@ This project uses Google OAuth for authentication via Supabase Auth. The configu
 ## Local Supabase
 
 - if you create supabase db migration always reset database `npx supabase db reset`
+- to run ad-hoc SQL scripts against the local database: `npx supabase db execute -f scripts/<script>.sql`
 
 ### Local Email Testing (Inbucket)
 

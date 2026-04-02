@@ -538,6 +538,9 @@
     "active": "Aktívny",
     "inactive": "Neaktívny",
     "noCustomers": "Neboli nájdení žiadni zákazníci",
+    "role": "Rola",
+    "roleAdmin": "Admin",
+    "roleCustomer": "Zákazník",
     "showing": "Zobrazuje sa",
     "of": "z"
   },

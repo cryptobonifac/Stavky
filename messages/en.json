@@ -541,6 +541,9 @@
     "active": "Active",
     "inactive": "Inactive",
     "noCustomers": "No customers found",
+    "role": "Role",
+    "roleAdmin": "Admin",
+    "roleCustomer": "Customer",
     "showing": "Showing",
     "of": "of"
   },

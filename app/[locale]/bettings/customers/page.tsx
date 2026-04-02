@@ -19,6 +19,7 @@ type CustomerData = {
   account_active_until: string | null
   status: 'active' | 'inactive'
   sign_up_method: 'email' | 'google' | string | null
+  role: string
 }
 
 export default async function CustomersPage() {
@@ -54,7 +55,6 @@ export default async function CustomersPage() {
   const { data: customers, error: customersError } = await supabase
     .from('users')
     .select('id, email, created_at, account_active_until, role, sign_up_method')
-    .eq('role', 'customer')
     .order('created_at', { ascending: false })
 
   // Log error for debugging
@@ -90,6 +90,7 @@ export default async function CustomersPage() {
       account_active_until: customer.account_active_until,
       status: isActive ? 'active' : 'inactive',
       sign_up_method: customer.sign_up_method || 'email',
+      role: customer.role,
     }
   })
 

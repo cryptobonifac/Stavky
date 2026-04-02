@@ -78,22 +78,14 @@ const TopNav = ({
       </Box>
       <List sx={{ flex: 1, px: { xs: 0.5, sm: 1 } }}>
         <SidebarItem href="/" icon={<HomeIcon />} label={t('home')} />
-        {!profile && (
-          <>
-            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
-            <SidebarItem href="/blog" icon={<ArticleIcon />} label={t('blog')} />
-            <SidebarItem href="/introduction" icon={<InfoIcon />} label={t('introduction')} />
-          </>
+        {profile && (profile.role === 'betting' || isActiveCustomer) && (
+          <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
         )}
+        <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
+        <SidebarItem href="/blog" icon={<ArticleIcon />} label={t('blog')} />
+        <SidebarItem href="/introduction" icon={<InfoIcon />} label={t('introduction')} />
         {profile && (
-          <>
-            {/* Betting tips only visible for betting role or active customers */}
-            {(profile.role === 'betting' || isActiveCustomer) && (
-              <SidebarItem href="/bettings" icon={<SportsSoccerIcon />} label={t('bettings')} />
-            )}
-            <SidebarItem href="/statistics" icon={<HistoryIcon />} label={t('statistics')} />
-            <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
-          </>
+          <SidebarItem href="/profile" icon={<PersonIcon />} label={t('profile')} />
         )}
         {profile?.role === 'betting' && (
           <>
@@ -209,8 +201,8 @@ const TopNav = ({
             <PageBreadcrumbs />
           </Box>
 
-          {/* Center navigation - Public links for non-logged users */}
-          {!isMobile && !isLoggedIn && (
+          {/* Center navigation - Always visible on desktop */}
+          {!isMobile && (
             <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Button
                 component={Link}

@@ -17,6 +17,7 @@ type CustomerData = {
   account_active_until: string | null
   status: 'active' | 'inactive'
   sign_up_method: 'email' | 'google' | string | null
+  role: string
 }
 
 type CustomersListProps = {
@@ -80,7 +81,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
           <Box
             sx={{
               display: { xs: 'none', md: 'grid' },
-              gridTemplateColumns: '120px 1fr 100px 100px 140px',
+              gridTemplateColumns: '120px 1fr 100px 80px 100px 140px',
               gap: 2,
               p: 2,
               borderBottom: '1px solid #f0f0f0',
@@ -132,6 +133,18 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                 textAlign: 'center',
               }}
             >
+              {t('role')}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: '0.8rem',
+                color: '#666',
+                fontWeight: 500,
+                textTransform: 'uppercase',
+                letterSpacing: '0.5px',
+                textAlign: 'center',
+              }}
+            >
               {t('status')}
             </Typography>
             <Typography
@@ -163,7 +176,7 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                     display: 'grid',
                     gridTemplateColumns: {
                       xs: '1fr',
-                      md: '120px 1fr 100px 100px 140px',
+                      md: '120px 1fr 100px 80px 100px 140px',
                     },
                     gap: { xs: 0.5, md: 2 },
                     p: { xs: '0.75rem', md: '0.56rem' },
@@ -241,6 +254,25 @@ const CustomersList = ({ customers }: CustomersListProps) => {
                         : customer.sign_up_method === 'email'
                         ? t('emailMethod')
                         : customer.sign_up_method || '-'}
+                    </Typography>
+                  </Box>
+
+                  {/* Role */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: { xs: 'flex-start', md: 'center' },
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: { xs: '0.75rem', md: '0.85rem' },
+                        fontWeight: 600,
+                        color: customer.role === 'betting' ? '#1565c0' : '#666',
+                      }}
+                    >
+                      {customer.role === 'betting' ? t('roleAdmin') : t('roleCustomer')}
                     </Typography>
                   </Box>
 
