@@ -22,14 +22,12 @@ type CompanyData = {
 
 type CombinedBalanceChartProps = {
   companies: CompanyData[]
-  combinedData: Array<{ date: string; balance: number }>
   height?: number
 }
 
 // Company colors matching existing design
 const COMPANY_COLORS: Record<string, string> = {
   bet365: '#0369a1',
-  combined: '#16a34a',
   default: '#374151',
 }
 
@@ -41,7 +39,6 @@ const getCompanyColor = (companyName: string): string => {
 
 const CombinedBalanceChart = ({
   companies,
-  combinedData,
   height = 400,
 }: CombinedBalanceChartProps) => {
   const theme = useTheme()
@@ -52,8 +49,6 @@ const CombinedBalanceChart = ({
   companies.forEach((company) => {
     company.data.forEach((point) => allDates.add(point.date))
   })
-  combinedData.forEach((point) => allDates.add(point.date))
-
   const sortedDates = Array.from(allDates).sort(
     (a, b) => new Date(a).getTime() - new Date(b).getTime()
   )
@@ -72,12 +67,6 @@ const CombinedBalanceChart = ({
         dataPoint[company.name] = companyPoint.balance
       }
     })
-
-    // Add combined balance
-    const combinedPoint = combinedData.find((p) => p.date === date)
-    if (combinedPoint) {
-      dataPoint['Combined'] = combinedPoint.balance
-    }
 
     return dataPoint
   })
@@ -168,16 +157,6 @@ const CombinedBalanceChart = ({
             />
           ))}
 
-          {/* Combined line (bold/highlighted) */}
-          <Line
-            type="monotone"
-            dataKey="Combined"
-            stroke={COMPANY_COLORS.combined}
-            strokeWidth={3}
-            dot={false}
-            activeDot={{ r: isMobile ? 5 : 7 }}
-            connectNulls
-          />
         </LineChart>
       </ResponsiveContainer>
     </Box>

@@ -542,7 +542,10 @@
     "roleAdmin": "Admin",
     "roleCustomer": "Zákazník",
     "showing": "Zobrazuje sa",
-    "of": "z"
+    "of": "z",
+    "dateFrom": "Dátum od",
+    "dateTo": "Dátum do",
+    "clearFilter": "Zrušiť filter"
   },
   "activation": {
     "title": "Aktivacia uctu",

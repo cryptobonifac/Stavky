@@ -545,7 +545,10 @@
     "roleAdmin": "Admin",
     "roleCustomer": "Customer",
     "showing": "Showing",
-    "of": "of"
+    "of": "of",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "clearFilter": "Clear filter"
   },
   "activation": {
     "title": "Account Activation",

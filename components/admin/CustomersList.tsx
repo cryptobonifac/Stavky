@@ -1,13 +1,15 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import {
   Pagination,
   Stack,
   Typography,
   Box,
+  Button,
 } from '@mui/material'
+import { DatePicker } from '@mui/x-date-pickers'
 import { useTranslations } from 'next-intl'
 
 type CustomerData = {
@@ -29,18 +31,30 @@ const CUSTOMERS_PER_PAGE = 15
 const CustomersList = ({ customers }: CustomersListProps) => {
   const t = useTranslations('customers')
   const [currentPage, setCurrentPage] = useState(1)
+  const [dateFrom, setDateFrom] = useState<Dayjs | null>(null)
+  const [dateTo, setDateTo] = useState<Dayjs | null>(null)
+
+  // Filter customers by registration date
+  const filteredCustomers = useMemo(() => {
+    return customers.filter((customer) => {
+      const regDate = dayjs(customer.created_at)
+      if (dateFrom && regDate.isBefore(dateFrom, 'day')) return false
+      if (dateTo && regDate.isAfter(dateTo, 'day')) return false
+      return true
+    })
+  }, [customers, dateFrom, dateTo])
 
   // Calculate pagination
-  const totalCustomers = customers.length
+  const totalCustomers = filteredCustomers.length
   const totalPages = Math.ceil(totalCustomers / CUSTOMERS_PER_PAGE)
   const startIndex = (currentPage - 1) * CUSTOMERS_PER_PAGE
   const endIndex = startIndex + CUSTOMERS_PER_PAGE
-  const paginatedCustomers = customers.slice(startIndex, endIndex)
+  const paginatedCustomers = filteredCustomers.slice(startIndex, endIndex)
 
-  // Reset to page 1 when customers change
+  // Reset to page 1 when customers or filters change
   useEffect(() => {
     setCurrentPage(1)
-  }, [customers.length])
+  }, [customers.length, dateFrom, dateTo])
 
   if (customers.length === 0) {
     return (
@@ -68,6 +82,51 @@ const CustomersList = ({ customers }: CustomersListProps) => {
       }}
     >
       <Stack spacing={3}>
+        {/* Date Filter */}
+        <Box
+          sx={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 2,
+            alignItems: 'center',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+            p: 2,
+          }}
+        >
+          <DatePicker
+            label={t('dateFrom')}
+            value={dateFrom}
+            onChange={setDateFrom}
+            format="DD.MM.YYYY"
+            slotProps={{
+              textField: { size: 'small', sx: { minWidth: 160 } },
+            }}
+          />
+          <DatePicker
+            label={t('dateTo')}
+            value={dateTo}
+            onChange={setDateTo}
+            format="DD.MM.YYYY"
+            slotProps={{
+              textField: { size: 'small', sx: { minWidth: 160 } },
+            }}
+          />
+          {(dateFrom || dateTo) && (
+            <Button
+              size="small"
+              onClick={() => {
+                setDateFrom(null)
+                setDateTo(null)
+              }}
+              sx={{ textTransform: 'none' }}
+            >
+              {t('clearFilter')}
+            </Button>
+          )}
+        </Box>
+
         {/* Customers List */}
         <Box
           sx={{

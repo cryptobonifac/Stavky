@@ -76,7 +76,7 @@ const BalanceChartsView = () => {
     )
   }
 
-  if (!data || data.companies.length === 0 || data.combined.length === 0) {
+  if (!data || data.companies.length === 0) {
     return (
       <Box
         sx={{
@@ -129,7 +129,6 @@ const BalanceChartsView = () => {
       {/* Chart */}
       <CombinedBalanceChart
         companies={data.companies}
-        combinedData={data.combined}
         height={500}
       />
 
@@ -175,45 +174,6 @@ const BalanceChartsView = () => {
           )
         })}
 
-        {/* Combined Total */}
-        {data.combined.length > 0 && (
-          <Box
-            sx={{
-              backgroundColor: 'white',
-              borderRadius: '8px',
-              p: 2,
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-              minWidth: { xs: '100%', sm: '200px' },
-              border: '2px solid #16a34a',
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: '0.875rem',
-                color: '#666',
-                mb: 0.5,
-                fontWeight: 500,
-              }}
-            >
-              {t('combined')}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: '1.5rem',
-                fontWeight: 600,
-                color:
-                  data.combined[data.combined.length - 1].balance >= 0
-                    ? '#16a34a'
-                    : '#dc2626',
-              }}
-            >
-              {data.combined[data.combined.length - 1].balance
-                .toFixed(2)
-                .replace('.', ',')}{' '}
-              €
-            </Typography>
-          </Box>
-        )}
       </Box>
     </Box>
   )
